@@ -1,0 +1,120 @@
+.sidenav-container {
+  overflow-y: hidden;
+  height: 100%;
+}
+
+.sidenav {
+  width: 210px;
+}
+
+.sidenav .mat-toolbar.logo-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.header-toolbar{
+  background: #2F323E;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+.user-info{
+  height:115px;
+  width: 100%;
+  text-align: center;
+  font-size: 13px;
+  color: #54667A;
+}
+.user-info p{
+  margin-bottom: -2px;
+}
+
+.user-info button.btn-downMenu{
+  position:absolute; right:10px;top:120px; 
+}
+
+.user-info a , .user-info-navBar a{
+  border: none;
+  font-size: 13px;
+  color: #54667A;
+}
+
+img.logo-img {
+  height: 65px;
+  width:187px;
+  margin-top: -60px;
+}
+
+img.profile-img {
+  width: 90px;
+  height: 90px;
+  border: 2px solid #2F323E;
+  margin-bottom:5px;
+}
+.btn-detail{
+  position:absolute; 
+  right:0;
+}
+
+.user_name{
+  font-weight: bold;
+  margin-top: 5px;
+}
+.mat-nav-list{
+  margin-top: 70px;
+}
+
+.mat-nav-list a{
+  font-size: 13px;
+  color: #54667A;
+}
+
+.mat-nav-list a.active {
+  background: #41B3F9;
+  color: white;
+}
+
+.mat-nav-list a.mat-nav-sous-liste{
+  margin-left:-40px;
+  width:130%;
+}
+
+.mat-nav-list span.fas{
+  margin-right: 5px;
+}
+
+
+.navBar-spacer {
+  flex: 1 1 auto;
+}
+
+.user-info-navBar-p{
+  font-size: 13px;
+  font-weight: bold;
+  margin-top: 12px;
+}
+
+img.profile-img-navBar {
+  width: 30px;
+  height: 30px;
+  border: 2px solid white;
+  margin-right: 10px;
+}
+
+.mat-badge-content {
+  font-size: 10px;
+  background: #F33155;
+}
+
+@media (max-width:767.98px) { 
+  .profile-img-navBar,.user-info-navBar-p, .user-info-navBar{
+    display: none;
+  }
+}
+
+
+
+

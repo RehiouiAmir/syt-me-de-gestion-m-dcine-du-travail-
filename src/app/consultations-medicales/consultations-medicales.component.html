@@ -1,0 +1,137 @@
+<div class="container-fluid"> 
+  <div class="title-component-bar">
+      <h4> Consultations Médicales</h4>
+  </div>
+  <div class="row row-header">
+      <h4 class="row-title">Filtrage des consultations médicales</h4>
+        <div class="col-md-4">
+            <mat-form-field class="width-field">
+                <input matInput placeholder="Matricule">
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="width-field">
+                <input matInput placeholder="Num.Carte Chifa" type="text">
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="width-field">
+                <mat-select placeholder="Poste de travail">
+                    <mat-option *ngFor="let posteTravail of posteTravails" [value]="posteTravail.designation">
+                        {{posteTravail.designation}}
+                    </mat-option>                            
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="width-field">
+                <mat-select placeholder="Site">                           
+                </mat-select>
+            </mat-form-field>
+        </div> 
+        <div class="col-md-4">
+            <mat-form-field class="width-field">
+                <mat-select placeholder="Département">                          
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="width-field">
+                <mat-select placeholder="Société">                         
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="width-field">
+                <input matInput  [matDatepicker]="pickerDebut" placeholder="Date Début">
+                <mat-datepicker-toggle matSuffix [for]="pickerDebut"></mat-datepicker-toggle>
+                <mat-datepicker #pickerDebut></mat-datepicker>              
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="width-field">
+                <input matInput  [matDatepicker]="pickerFin" placeholder="Date Début">
+                <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+                <mat-datepicker #pickerFin></mat-datepicker>              
+            </mat-form-field>
+        </div>
+        <div class="col-md-4 pull-right">
+                <button mat-raised-button class="btn-filter">Filter</button>
+                <button mat-raised-button class="btn-annuler"><mat-icon>close</mat-icon></button>                        
+        </div>
+  </div> 
+  <div class="row row-principal">
+      <h4 class="row-title">Liste des consultations médicales</h4>        
+      <mat-form-field class="search-bar">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Rechercher">
+          <mat-icon matSuffix>search</mat-icon>            
+      </mat-form-field> 
+  
+      <div class="mat-elevation-z8">
+          <div class=" table-overflow">
+          <table mat-table [dataSource]="dataSource" matSort>
+
+              <!-- Code  Column -->
+              <ng-container matColumnDef="code">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
+                  <td mat-cell *matCellDef="let row"> {{row.code}} </td>
+              </ng-container> 
+  
+              <!-- Type Consultation  Column -->
+              <ng-container matColumnDef="typeConsultation">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Type</th>
+                  <td mat-cell *matCellDef="let row">{{row.typeVisite}}</td>
+              </ng-container>    
+
+              <!-- Date Consultation  Column -->
+              <ng-container matColumnDef="dateConsultation">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+                  <td mat-cell *matCellDef="let row"> {{row.dateVisite}} </td>
+              </ng-container>  
+
+              <!-- matricule  Column -->
+              <ng-container matColumnDef="matricule">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Matricule </th>
+                  <td mat-cell *matCellDef="let row">  </td>
+              </ng-container> 
+          
+              <!-- Numéro carte chifa   Column -->
+              <ng-container matColumnDef="numCarteChifa">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Num.carte chifa  </th>
+                  <td mat-cell *matCellDef="let row"></td>
+              </ng-container>
+
+              <!-- Poste Travail  Column -->
+              <ng-container matColumnDef="posteTravail">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Poste de travail  </th>
+                  <td mat-cell *matCellDef="let row"></td>
+              </ng-container>
+
+              <!-- Médecin Column -->
+              <ng-container matColumnDef="medecin">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Médecin </th>
+                  <td mat-cell *matCellDef="let row">  </td>
+              </ng-container>
+          
+              <!-- Action details Column -->
+              <ng-container matColumnDef="Action-details">
+                  <th mat-header-cell *matHeaderCellDef ></th>
+                  <td mat-cell *matCellDef="let row" class="td-btn-details">
+                      <button mat-mini-fab (click)="openDialogDetails(''+row.idConsultation)">
+                          <mat-icon>details</mat-icon>
+                      </button>
+                  </td>
+              </ng-container>
+          
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+              </tr>
+          </table>
+          </div>
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+  </div>
+</div>
+          
+  
+  

@@ -1,0 +1,203 @@
+<h4 mat-dialog-title class="mat-dialog-title">Ajouter Nouveau Employe</h4>
+<form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+    <div mat-dialog-content>
+        <div class="row">
+            <div  class="col-md-6 column-left">
+                <div class="row-1">
+                    <div class="col-md-12 photo-col">
+                        <img class="employe-profile-img img-circle" src="../../assets/img/pic-user.png" alt="pic-user"/>
+                        <span>  
+                            <label class="add-photo" >
+                                <mat-icon>add_a_photo</mat-icon>
+                                <input type="file" size="60" >
+                            </label>
+                        </span>
+                    </div>
+                </div>
+                <div class="row-2">
+                    <div  class="col-md-6">
+                        <mat-form-field>
+                            <input matInput formControlName="nom" placeholder="Nom" required>
+                        </mat-form-field>
+                    </div>
+                    <div  class="col-md-6">
+                        <mat-form-field>
+                            <input matInput formControlName="prenom" placeholder="Prénom" required>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row-2">
+                    <div  class="col-md-6">
+                        <mat-form-field>
+                            <input matInput formControlName="code"  placeholder="Matricule" required>
+                        </mat-form-field>
+                    </div>
+                    <div  class="col-md-6">
+                        <mat-form-field>
+                            <input matInput formControlName="numeroSecuriteSociale"  placeholder="Num.Carte Chifa">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row-3">
+                    <div class="col-md-6">
+                        <mat-form-field>
+                            <mat-select matInput formControlName="sexe"  placeholder="Sexe" required>
+                                <mat-option value="true">Homme</mat-option>
+                                <mat-option value="false">Femme</mat-option>                                                            
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field>
+                            <input matInput formControlName="dateNaissance"  [matDatepicker]="picker" placeholder="Date de naissance" required>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field> 
+                    </div>
+                </div>
+                <div class="row-4">
+                    <div class="col-md-6">
+                        <mat-form-field>
+                            <input matInput formControlName="lieuNaissance"  placeholder="Lieux de naissance" required>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row-5">
+                    <div class="col-md-6">
+                        <mat-form-field>
+                            <mat-select matInput formControlName="situationFamiliale"  placeholder="Situation Familiale" required>
+                                <mat-option value="Célibataire">Célibataire</mat-option>
+                                <mat-option value="Marie">Marié</mat-option> 
+                                <mat-option value="Divorce">Divorcé</mat-option>
+                                <mat-option value="Veuf">Veuf</mat-option>                                                           
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field>
+                            <mat-select matInput formControlName="groupeSanguin" placeholder="Groupe Sanguin">
+                                <mat-option value="A+">A+</mat-option>
+                                <mat-option value="A-">A-</mat-option> 
+                                <mat-option value="B+">B+</mat-option>
+                                <mat-option value="B-">B-</mat-option> 
+                                <mat-option value="AB+">AB+</mat-option>
+                                <mat-option value="AB-">AB-</mat-option> 
+                                <mat-option value="O+">O+</mat-option>
+                                <mat-option value="O-">O-</mat-option>                                                          
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row-6">
+                    <div class="col-md-8">
+                        <mat-form-field>
+                            <textarea matInput formControlName="adresse" formControlName="adresse" placeholder="Adresse" required></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row-7">
+                    <div  class="col-md-6">
+                        <mat-form-field>
+                            <input matInput formControlName="telephone" placeholder="Téléphone">
+                        </mat-form-field>
+                    </div>
+                    <div  class="col-md-6">
+                        <mat-form-field class="example-full-width" >
+                            <input matInput  placeholder="Email" [formControl]="emailFormControl"
+                                    [errorStateMatcher]="matcher" required>
+                            <mat-error *ngIf="emailFormControl.hasError('email')">
+                                S'il vous plaît, mettez une adresse email valide
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div  class="col-md-6 column-right">
+                <div class="row-1">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <mat-select matInput formControlName="posteTravail" placeholder="Poste de travail">
+                                <mat-option *ngFor="let posteTravail of posteTravails" [value]="posteTravail.value">
+                                    {{posteTravail.viewValue}}
+                                </mat-option>                            
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row-2">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <mat-select matInput formControlName="societe" placeholder="Société">
+                                <mat-option *ngFor="let societe of societes" [value]="societe.value">
+                                    {{societe.viewValue}}
+                                </mat-option>                            
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row-3">
+                    <div class="col-md-6">
+                        <mat-form-field>
+                            <mat-select matInput formControlName="site" placeholder="Site">
+                                <mat-option *ngFor="let site of sites" [value]="site.value">
+                                    {{site.viewValue}}
+                                </mat-option>                            
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field>
+                            <mat-select matInput formControlName="departement" placeholder="Département">
+                                <mat-option *ngFor="let departement of departements" [value]="departement.value">
+                                    {{departement.viewValue}}
+                                </mat-option>                           
+                            </mat-select>
+                        </mat-form-field>                        
+                    </div>
+                </div>
+                <div class="row-4">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <input matInput formControlName="formationScolaire"  placeholder="Formation scolaire">
+                        </mat-form-field>  
+                    </div>
+                </div>
+                <div class="row-5">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <input matInput formControlName="formationProfessionnelle" placeholder="Formation professionnelle">
+                        </mat-form-field> 
+                    </div>
+                </div>
+                <div class="row-6">
+                    <div class="col-md-12">
+                            <mat-form-field>
+                                <input matInput formControlName="qualification" placeholder="Qualification">
+                            </mat-form-field> 
+                    </div>
+                </div>
+                <div class="row-7">
+                    <div  class="col-md-6">
+                        <mat-form-field>
+                            <mat-select matInput formControlName="serviceNational"  placeholder="Service national" required>
+                                <mat-option value="false">OUI</mat-option>
+                                <mat-option value="true">NON</mat-option>                                                            
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row-8">
+                    <div class="col-md-12">
+                        <mat-form-field>
+                            <textarea matInput  formControlName="travailAntecedent" placeholder="Activité professionel anterieure"></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions class="pull-right">
+    <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()">Annuler</button>
+    <button mat-button mat-raised-button class="btn-ajouter" cdkFocusInitial>Ajouter <mat-icon>add</mat-icon></button>
+    </div>
+</form>

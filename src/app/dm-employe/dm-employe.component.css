@@ -1,0 +1,45 @@
+.navbar{
+    background: white;
+    margin:0;
+    border-bottom: 1px solid #E0E0E0;    
+}
+.navbar a{
+    color: #54667A;
+}
+.navbar a:hover{
+    background:#EEEEEE;
+    color: #54667A;    
+}
+
+.navbar a.active{
+    background:#F33155;
+    color: white; 
+}
+
+
+@media (min-width:767.98px) { 
+    .navbar{
+        text-align: center;
+        position: fixed;
+        z-index: 2;        
+    }
+    .navbar a{
+        width:166.5px;
+        font-size: 13px;
+        margin-top: -1px;
+        margin-left: -1px;
+    }
+    .space-navbar{
+        height: 100px;
+    }  
+}
+@media (max-width:767.98px) { 
+    .navbar a{
+        font-size: 13px;
+        margin-left: 10px;
+        width: 100%;
+    }    
+    .navbar a.active{
+        width: 95%;        
+    }
+}

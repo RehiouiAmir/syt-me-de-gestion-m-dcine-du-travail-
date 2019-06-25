@@ -1,0 +1,66 @@
+.container-fluid{
+    background: #F6F6F6;
+    padding-bottom:75px; 
+}
+
+.row-principal{
+    width: 90%;
+    height: auto;
+    margin-left: 5%;
+    background-color: white;
+    border: 1px solid #E0E0E0;    
+    padding: 10px 10px 10px 10px;          
+}
+
+.row-principal .photo-col{
+    text-align: center;
+   }
+   
+.row-principal .photo-col img.employe-profile-img{
+    width: 140px;
+    height: 140px;
+    border: 2px solid #E0E0E0;
+}
+
+.column-left,.column-right{
+    padding-top: 25px;
+    padding-left: 10px;
+}
+
+p.title-champ{
+    font-size: 12px;
+    font-weight: bold;
+    color: #54667A;
+}
+
+p span.champ{
+    font-weight: normal;
+    margin-left: 10px;
+}
+
+.col-md-3,.col-md-4,.col-md-6,
+.col-md-8,.col-md-12{
+    margin-bottom: 20px;
+}
+
+
+@media (min-width:767.98px){
+    .container-fluid{
+        padding-top: 100px;
+    }
+    .row-principal{
+        padding-top: 80px;
+    }
+    .column-right{
+        border-left: 1px solid #E0E0E0;    
+    }
+    .row-principal .photo-col{
+        margin-top: -180px;
+    }
+}
+
+@media (max-width:767.98px){
+    .container-fluid{
+        padding-top: 80px;
+    }
+}

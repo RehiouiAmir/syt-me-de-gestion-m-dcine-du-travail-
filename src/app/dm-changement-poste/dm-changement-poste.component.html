@@ -1,0 +1,181 @@
+<div class="contenu-component">  
+        <div class="row-0">
+            <div class="col-md-6 pull-right row-0-btn">
+                <button mat-button mat-raised-button class="pull-right btn-ajouter" (click)="add()">
+                    Ajouter Changement de poste
+                    <mat-icon>add</mat-icon>                                  
+                </button> 
+            </div>
+        </div>
+        <div class="row row-principal">
+            <div class="row-1">
+                <div class="col-md-6 photo-col">
+                    <img class="employe-profile-img img-circle" src="../../assets/img/pic-user-font-white.png" alt="pic-user"/>
+                    <span class="title-posteTravail">
+                    </span>
+                    <span class="title-matricule">
+                        Num.Carte Chifa : 
+                    </span>   
+                </div>
+            </div>
+            <mat-tab-group>
+                <mat-tab label="Historique des postes occupés"> 
+                    
+                    <mat-form-field class="pull-right search-bar">
+                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Rechercher">
+                        <mat-icon matSuffix>search</mat-icon>            
+                    </mat-form-field> 
+                    <div class="mat-elevation-z8">
+                        <div class=" table-overflow">
+                            <table mat-table [dataSource]="dataSource" matSort>
+                
+                                <!-- Code  Column -->
+                                <ng-container matColumnDef="code">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
+                                    <td mat-cell *matCellDef="let row">  </td>
+                                </ng-container> 
+                    
+                                <!-- Poste occupé  Column -->
+                                <ng-container matColumnDef="posteOccupe">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Poste occupé </th>
+                                    <td mat-cell *matCellDef="let row">  </td>
+                                </ng-container>    
+                            
+                                <!-- Date d'occupation  Column -->
+                                <ng-container matColumnDef="dateOccupation">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Date occupation  </th>
+                                    <td mat-cell *matCellDef="let row"></td>
+                                </ng-container>
+                                
+                                <!-- Date délibiration  Column -->
+                                <ng-container matColumnDef="dateliberation">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Date libération </th>
+                                    <td mat-cell *matCellDef="let row">  </td>
+                                </ng-container> 
+                
+                                <!-- Motif  Column -->
+                                <ng-container matColumnDef="motif">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Motif </th>
+                                    <td mat-cell *matCellDef="let row">  </td>
+                                </ng-container> 
+                
+                                <!-- Médecin Column -->
+                                <ng-container matColumnDef="medecin">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Médecin </th>
+                                    <td mat-cell *matCellDef="let row">  </td>
+                                </ng-container>
+                    
+                                <!-- Action edit Column -->
+                                <ng-container matColumnDef="Action-edit">
+                                    <th mat-header-cell *matHeaderCellDef ></th>
+                                    <td mat-cell *matCellDef="let row" class="td-btn-edit">
+                                        <button mat-mini-fab (click)="openDialogEdit(''+row.idConsultation)">
+                                            <mat-icon>edit</mat-icon>
+                                        </button>
+                                    </td>
+                                </ng-container>
+                            
+                                <!-- Action details Column -->
+                                <ng-container matColumnDef="Action-details">
+                                    <th mat-header-cell *matHeaderCellDef ></th>
+                                    <td mat-cell *matCellDef="let row" class="td-btn-details">
+                                        <button mat-mini-fab (click)="openDialogDetails(''+row.idConsultation)">
+                                            <mat-icon>details</mat-icon>
+                                        </button>
+                                    </td>
+                                </ng-container>
+                                
+                                <!-- Action delete Column -->
+                                <ng-container matColumnDef="Action-delete">
+                                    <th mat-header-cell *matHeaderCellDef ></th>
+                                    <td mat-cell *matCellDef="let row" class="td-btn-delete">
+                                        <button mat-mini-fab (click)="openDialogDelete(''+row.idConsultation)">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </td>
+                                </ng-container>
+                            
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                                </tr>
+                            </table>
+                        </div>
+                        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Réorientations professionnelles "> 
+                    <mat-form-field class="pull-right search-bar">
+                        <input matInput (keyup)="applyFilterReorientation($event.target.value)" placeholder="Rechercher">
+                        <mat-icon matSuffix>search</mat-icon>            
+                    </mat-form-field> 
+                    
+                    <div class="mat-elevation-z8">
+                        <div class=" table-overflow">
+                            <table mat-table [dataSource]="dataSourceReorientation" matSort #MatSortReorientation="matSort">
+                
+                                <!-- Code  Column -->
+                                <ng-container matColumnDef="code">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
+                                    <td mat-cell *matCellDef="let row">  </td>
+                                </ng-container> 
+
+                                <!-- Date de réorientation  Column -->
+                                <ng-container matColumnDef="dateReorientation">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+                                    <td mat-cell *matCellDef="let row"></td>
+                                </ng-container>
+                    
+                                <!-- Poste occupé  Column -->
+                                <ng-container matColumnDef="posteOccupe">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Poste occupé </th>
+                                    <td mat-cell *matCellDef="let row">  </td>
+                                </ng-container>    
+                
+                                <!-- Médecin Column -->
+                                <ng-container matColumnDef="medecin">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Médecin </th>
+                                    <td mat-cell *matCellDef="let row">  </td>
+                                </ng-container>
+                    
+                                <!-- Action edit Column -->
+                                <ng-container matColumnDef="Action-edit">
+                                    <th mat-header-cell *matHeaderCellDef ></th>
+                                    <td mat-cell *matCellDef="let row" class="td-btn-edit">
+                                        <button mat-mini-fab (click)="openDialogEdit(''+row.idConsultation)">
+                                            <mat-icon>edit</mat-icon>
+                                        </button>
+                                    </td>
+                                </ng-container>
+                            
+                                <!-- Action details Column -->
+                                <ng-container matColumnDef="Action-details">
+                                    <th mat-header-cell *matHeaderCellDef ></th>
+                                    <td mat-cell *matCellDef="let row" class="td-btn-details">
+                                        <button mat-mini-fab (click)="openDialogDetails(''+row.idConsultation)">
+                                            <mat-icon>details</mat-icon>
+                                        </button>
+                                    </td>
+                                </ng-container>
+                                
+                                <!-- Action delete Column -->
+                                <ng-container matColumnDef="Action-delete">
+                                    <th mat-header-cell *matHeaderCellDef ></th>
+                                    <td mat-cell *matCellDef="let row" class="td-btn-delete">
+                                        <button mat-mini-fab (click)="openDialogDelete(''+row.idConsultation)">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </td>
+                                </ng-container>
+                            
+                                <tr mat-header-row *matHeaderRowDef="displayedColumnsReorientation"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumnsReorientation;">
+                                </tr>
+                            </table>
+                        </div>
+                        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+                

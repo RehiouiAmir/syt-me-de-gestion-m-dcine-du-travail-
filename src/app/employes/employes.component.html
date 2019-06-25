@@ -1,0 +1,134 @@
+<div class="container-fluid">
+    <div class="row row-header">
+        <h4 class="row-title">Filtrage des employés</h4>
+        <div class="col-md-4">
+            <mat-form-field>
+                <input matInput placeholder="Matricule">
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field>
+                <input matInput placeholder="Num.Carte Chifa" type="text">
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field>
+                <mat-select placeholder="Poste de travail">
+                    <mat-option *ngFor="let posteTravail of posteTravails" [value]="posteTravail.designation">
+                        {{posteTravail.designation}}
+                    </mat-option>                            
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field>
+                <mat-select placeholder="Site">                           
+                </mat-select>
+            </mat-form-field>
+        </div> 
+        <div class="col-md-4">
+            <mat-form-field>
+                <mat-select placeholder="Département">                          
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field>
+                <mat-select placeholder="Société">                         
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4 pull-right">
+                <button mat-raised-button class="btn-filter">Filter</button>
+                <button mat-raised-button class="btn-annuler"><mat-icon>close</mat-icon></button>                        
+        </div>
+    </div>
+    <div class="row row-footer">
+        <h4 class="row-title">
+            Liste des employés
+            <span class="pull-right">
+                <button class="btn-nv-employe" mat-raised-button (click)="add()">Ajouter Employer<mat-icon>add</mat-icon></button>
+            </span>
+        </h4> 
+        <br>
+        <mat-form-field class="search-bar">
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Rechercher">
+            <mat-icon matSuffix>search</mat-icon>            
+        </mat-form-field> 
+
+        <div class="mat-elevation-z8">
+            <div class=" table-overflow">
+            <table mat-table [dataSource]="dataSource" matSort>
+                
+                <!-- Matricule Column -->
+                <ng-container matColumnDef="matricule">                
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Matricule </th>
+                    <td mat-cell *matCellDef="let row"> {{row.code}} </td>
+                </ng-container>
+            
+                <!-- Num.Carte Chifa Column -->
+                <ng-container matColumnDef="numCarteChifa">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Num.Carte Chifa </th>
+                    <td mat-cell *matCellDef="let row"> {{row.numeroSecuriteSociale}}</td>
+                </ng-container>
+
+                <!-- Date Column -->
+                <ng-container matColumnDef="dateNaissance">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Date de naissance </th>
+                    <td mat-cell *matCellDef="let row"> {{row.dateNaissance}} </td>
+                </ng-container>
+
+                <!-- Sexe Column -->
+                <ng-container matColumnDef="sexe">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Sexe </th>
+                    <td mat-cell *matCellDef="let row"> {{row.sexe ? "Homme" : "Femme"}} </td>
+                </ng-container>
+
+
+                <!-- Poste de Travail Column -->
+                <ng-container matColumnDef="posteTravail">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Poste de Travail </th>
+                    <td mat-cell *matCellDef="let row">  </td>
+                </ng-container>
+
+                <!-- Site Column -->
+                <ng-container matColumnDef="site">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Site </th>
+                    <td mat-cell *matCellDef="let row"> </td>
+                </ng-container>
+            
+                <!-- Departement Column -->
+                <ng-container matColumnDef="departement">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Département </th>
+                    <td mat-cell *matCellDef="let row"> </td>
+                </ng-container>
+            
+                <!-- Societe Column -->
+                <ng-container matColumnDef="societe">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Société </th>
+                    <td mat-cell *matCellDef="let row"> </td>
+                </ng-container>
+
+                <!-- Action Choose Column -->
+                <ng-container matColumnDef="Action-choose">
+                    <th mat-header-cell *matHeaderCellDef ></th>
+                    <td mat-cell *matCellDef="let row" class="td-btn">
+                        <a mat-mini-fab routerLink="../dm-employe/{{row.id}}/dm-informations-generales/{{row.id}}">
+                            <mat-icon>eject</mat-icon>
+                        </a>
+                    </td>
+                </ng-container>
+            
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                </tr>
+            </table>
+            </div>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+    </div>
+</div>
+
+        
+      
+        

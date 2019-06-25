@@ -1,0 +1,147 @@
+::ng-deep .mat-form-field{
+    font-size: 13px;  
+    width: 80%;
+}
+
+::ng-deep .mat-form-field-label,
+::ng-deep .mat-form-field input,
+::ng-deep .mat-select-value-text,
+::ng-deep .mat-option,
+::ng-deep .mat-select-arrow,
+.caret-input  {
+    color: #54667A !important;
+}
+
+::ng-deep .mat-focused .mat-form-field-label,
+::ng-deep .mat-focused .mat-select-arrow {
+    color: #41B3F9 !important;
+}
+::ng-deep .mat-selected {
+    color: white !important;
+}
+
+::ng-deep .mat-form-field-ripple,
+::ng-deep .mat-selected {
+    background-color: #41B3F9 !important;
+}
+
+::ng-deep .mat-form-field-underline{
+    background-color: #54667A !important;
+}
+
+.mat-form-field input{
+    caret-color: #41B3F9;
+}
+
+.container-fluid{
+    background: #F6F6F6;
+    padding-top:60px;
+    padding-bottom:75px; 
+}
+
+.row-title{
+    color: #2F323E;
+    font-weight: bold;
+}
+.row-header{
+    background: white;
+    width:90%;
+    height:auto;
+    margin-left: 5%;
+    padding: 10px 25px 10px 25px;
+    border: 1px solid #E0E0E0;    
+}
+
+.row-header .col-md-4{
+    text-align: center;
+    height: 50px;
+    padding-top:10px; 
+    margin-bottom: 10px;
+}
+
+.row-header .col-md-4 .btn-filter{
+    width: 100px;
+    margin-right:5px;
+    background-color: #F0AD4E;
+    color: white;
+    font-size: 13px;
+}
+.row-header .col-md-4 .btn-annuler{
+    color: #F33155;
+}
+
+.row-footer{
+    background: white;
+    width:90%;
+    height:auto;
+    margin-top: 20px;    
+    margin-left: 5%;
+    padding: 10px 25px 50px 25px;
+    border: 1px solid #E0E0E0;        
+}
+
+
+.btn-nv-employe{
+    background: #7ACE4C;
+    color: white; 
+}
+  
+.row-footer .mat-form-field {
+    float: right;
+    margin-right: 50px;
+    width: 40%;
+    color: #54667A;
+    caret-color: #41B3F9;    
+  }
+
+.row-footer table {
+    margin-top: 70px;
+    width: 100%; 
+  }
+.row-footer td{
+    font-size: 11px; 
+    color: #54667A !important;
+  }
+
+.row-footer th{
+    font-size: 11px;
+    background-color:#2F323E;
+    color:white;
+}
+
+.row-footer .td-btn{
+    text-align: center;
+}
+.row-footer .td-btn a{
+    width: 35px; 
+    height:35px;
+    background-color: #41B3F9;
+    color: #2F323E; 
+}
+
+.search-bar{
+    width: 40% !important;
+}
+
+@media (max-width:767.98px) { 
+    .row-footer td ,
+    .row-footer th{
+        font-size: 8px;
+        min-width: 100px;
+    }
+    .table-overflow{
+        overflow: auto; 
+        width: 100%;       
+    }
+    .row-footer table {
+        margin-top: 0;
+    }
+    .mat-elevation-z8{
+        margin-top: 70px;
+    }
+
+    .search-bar{
+        width: 80% !important;
+    }
+
+}    
