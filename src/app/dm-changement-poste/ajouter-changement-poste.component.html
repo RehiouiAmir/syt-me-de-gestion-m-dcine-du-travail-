@@ -41,26 +41,39 @@
             </div>
         </div> 
         <div class="col-md-12 row">
-            <h4 class="title-row">Risques professionnels
-                <span class="btn-add" (click)="onAddRow()" *ngIf="addForm.get('risques')">
-                    <button mat-mini-fab>
-                        <mat-icon>add</mat-icon>                        
-                    </button>
-                </span>
-            </h4>
-            <div *ngFor="let row of addForm.get('risques')?.controls;let index = index;" class="col-md-6">
-                <div class="col-md-10">
-                    <mat-form-field>
-                        <mat-select [formControl]="row.get('designation')" required>
-                            <mat-option *ngFor="let risquesProfessionnels of risquesProfessionnels" [value]="risquesProfessionnels.designation">
-                                {{risquesProfessionnels.designation}}
-                            </mat-option>                                                
-                        </mat-select>
-                    </mat-form-field>
+            <h4 class="title-row">Risques professionnels</h4>
+            <div class="col-md-6">
+                <p class="title-champ-1">Liste des risques professionnelles liés aux poste occupés :</p>                    
+                <mat-list role="list">
+                    <mat-list-item role="listitem" *ngFor="let risque of getRisquePosteOccupe(addGlobalForm.value.posteTravail)">
+                        <p class="title-champ">Type :<span class="champ">{{risque.type}}</span></p>
+                        <p class="title-champ">Désignation :<span class="champ">{{risque.designation}}</span></p>                                        
+                    </mat-list-item>
+                </mat-list>
+            </div>
+            <div class="col-md-6">
+                <p class="title-champ-2">Ajouter d'autres risques professionnelles :
+                    <span class="btn-add" (click)="onAddRow()" *ngIf="addForm.get('risques')">
+                        <button mat-mini-fab>
+                            <mat-icon>add</mat-icon>                        
+                        </button>
+                    </span>
+                </p>                    
+                <div *ngFor="let row of addForm.get('risques')?.controls;let index = index;" class="col-md-12">
+                    <div class="col-md-10">
+                        <mat-form-field>
+                            <mat-select [formControl]="row.get('designation')" required>
+                                <mat-option *ngFor="let risquesProfessionnels of risquesProfessionnels" [value]="risquesProfessionnels.designation">
+                                   {{risquesProfessionnels.designation}} |  {{risquesProfessionnels.type}}
+                                </mat-option>                                                
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2"><button mat-icon-button  (click)="onRemoveRow(index)" class="btn-remove"><mat-icon>delete</mat-icon></button>                </div>
                 </div>
-                <div class="col-md-2"><button mat-icon-button  (click)="onRemoveRow(index)" class="btn-remove"><mat-icon>delete</mat-icon></button>                </div>
-            </div>            
-        </div>      
+            </div>
+        </div>  
+        
     </div>
     <div mat-dialog-actions class="pull-right">
         <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()" >Annuler</button>

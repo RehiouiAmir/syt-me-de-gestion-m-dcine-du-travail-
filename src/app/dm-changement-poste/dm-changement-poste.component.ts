@@ -90,20 +90,31 @@ export class DmChangementPosteComponent implements OnInit {
 export class AjouterChangementPosteComponent implements OnInit {
 
   risquesProfessionnels = [
-    {designation:'risque 1'},
-    {designation:'risque 2'},
-    {designation:'risque 3'},
-    {designation:'risque 4'},
-    {designation:'risque 5'},
-    {designation:'risque 6'},
-    {designation:'risque 7'},
-    {designation:'risque 8'},
+    {type:'type 1', designation:'risque 1'},
+    {type:'type 2',designation:'risque 2'},
+    {type:'type 3',designation:'risque 3'},
+    {type:'type 1',designation:'risque 4'},
+    {type:'type 4',designation:'risque 5'},
+    {type:'type 6',designation:'risque 6'},
+    {type:'type 1',designation:'risque 7'},
+    {type:'type 2',designation:'risque 8'},
   ]
 
-  risquesPoste= [
-    {designation:'risque 1'},
-    {designation:'risque 6'},
-    {designation:'risque 3'}
+  risquesPostes= [
+    {poste:'CHEF SCE RELATION INDUS N1', type: 'type1' ,designation:'risque 1'},
+    {poste:'CHEF SCE RELATION INDUS N1',type: 'type1',designation:'risque 6'},
+    {poste:'CHEF SCE RELATION INDUS N1',type: 'type2' ,designation:'risque 3'},
+    {poste:'ANALYSTE N1', type: 'type2' ,designation:'risque 1'},
+    {poste:'ANALYSTE N1',type: 'type1' ,designation:'risque 2'},
+    {poste:'ANALYSTE N1',type: 'type4' ,designation:'risque 4'},
+    {poste:'ANALYSTE N1', type: 'type4' ,designation:'risque 8'},
+    {poste:'CHEF SCE IT',type: 'type1' ,designation:'risque 6'},
+    {poste:'CHEF SCE SUPPORT/TECHNIQUE',type: 'type4' ,designation:'risque 1'},
+    {poste:'CHEF SCE SUPPORT/TECHNIQUE',type: 'type1' , designation:'risque 2'},
+    {poste:'CHEF SCE SUPPORT/TECHNIQUE',type: 'type1' ,designation:'risque 3'},
+    {poste:'CHEF SCE SUPPORT/TECHNIQUE',type: 'type4' ,designation:'risque 5'},
+    {poste:'CHEF SCE SUPPORT/TECHNIQUE',type: 'type4' , designation:'risque 6'},
+    {poste:'CHEF SCE SUPPORT/TECHNIQUE',type: 'type1' ,designation:'risque 7'},
   ]
 
   posteTravails = [
@@ -114,10 +125,10 @@ export class AjouterChangementPosteComponent implements OnInit {
     {designation: 'CHEF SCE IT'},
   ]
 
-addGlobalForm: FormGroup;
-addForm: FormGroup;
-risques: FormArray;
-itemForm: FormGroup; 
+  addGlobalForm: FormGroup;
+  addForm: FormGroup;
+  risques: FormArray;
+  itemForm: FormGroup; 
 
 constructor(public dialogRef: MatDialogRef<AjouterChangementPosteComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any, 
@@ -143,13 +154,22 @@ ngOnInit() {
     this.addForm.get("items_value").setValue("yes");
     this.addForm.addControl('risques', this.risques);
     this.addGlobalForm.addControl('risques', this.risques);
-    for ( var i in this.risquesPoste){
-      this.risques.push(this.fb.group(this.risquesPoste[i]));
-    }
   }
   
 
-  onAddRow() {
+getRisquePosteOccupe(posteTravail : any) : any [] {
+  var risquesPosteOccupe : any[] = [];
+  var v = 0;  
+  for (var i in this.risquesPostes){
+    if (this.risquesPostes[i].poste === posteTravail){
+      risquesPosteOccupe[v] = this.risquesPostes[i];
+      v= v+1;
+    }
+  }
+  return risquesPosteOccupe;
+}
+
+onAddRow() {
   this.risques.push(this.createItemFormGroup());
 }
 
@@ -159,7 +179,7 @@ onRemoveRow(rowIndex:number){
 
 createItemFormGroup(): FormGroup {
   return this.fb.group({
-    designation: ["", Validators.required]
+    designation: ["", Validators.required],
   });
 }
 
@@ -171,7 +191,7 @@ if (!this.addGlobalForm.invalid){
   }
 }
 
-// close dialog  ajouter-nv-employe
+// close dialog  ajouter-changement-poste
 onNoClick(): void {
 this.dialogRef.close();
 }

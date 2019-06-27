@@ -1,4 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+import { Inject } from '@angular/core';
+import { Validators } from '@angular/forms';
+import { DeclarerAccidentTravailComponent } from 'src/app/accidents-travail/accidents-travail.component';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-dm-antecedents',
@@ -7,9 +16,121 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DmAntecedentsComponent implements OnInit {
 
-  constructor() { }
+  private id_employe: number;
+
+   /* Accidents de travail Table Structure */
+  
+   displayedColumns: string[] = ['code','designation','dateDebut','dateFin','medecin','Action-details','Action-edit','Action-delete'];
+   dataSource : MatTableDataSource<any>;
+ 
+   @ViewChild(MatPaginator) paginator: MatPaginator;
+   @ViewChild(MatSort) sort: MatSort;
+
+    /* Maladies Table Structure */
+ 
+    displayedColumnsMaladies: string[] = ['code','type','designation','dateDebut','dateFin','medecin','Action-details','Action-edit','Action-delete'];
+    dataSourceMaladies : MatTableDataSource<any>;
+  
+    @ViewChild('MatPaginatorMaladies') paginatorMaladies: MatPaginator;
+    @ViewChild('MatSortMaladies') sortMaladies: MatSort;
+
+    /* Autres antédédetns Table Structure */
+ 
+    displayedColumnsAutres: string[] = ['code','type','designation','dateDebut','dateFin','medecin','Action-details','Action-edit','Action-delete'];
+    dataSourceAutres : MatTableDataSource<any>;
+  
+    @ViewChild('MatPaginatorAutres') paginatorAutres: MatPaginator;
+    @ViewChild('MatSortAutres') sortAutres: MatSort;
+   
+  
+  constructor(private route: ActivatedRoute, public dialog: MatDialog) {
+    this.id_employe = Number(this.route.snapshot.paramMap.get('id'));
+   }
 
   ngOnInit() {
   }
+
+
+  // Operation Add, Edit, Delet
+ 
+  add() {
+    let dialogRef = this.dialog.open(AjouterAntecedentComponent, {
+      width: '70%',
+      data: {}
+    });
+   }
+}
+
+@Component({
+  selector: 'app-ajouter-antecedent',
+  templateUrl: './ajouter-antecedent.component.html',
+  styleUrls: ['./ajouter-antecedent.component.css']
+})
+export class AjouterAntecedentComponent implements OnInit {
+
+  addForm: FormGroup;
+  dateAujourdhuit = new FormControl(new Date()); 
+  
+  accidentTravails = [
+    {code:'1' ,dateAccident :'02-03-2018' ,lieuAccident : 'intern' ,natureAccident : 'grave'},
+    {code:'2' ,dateAccident :'06-03-2019' ,lieuAccident : 'intern' ,natureAccident : 'moyenne'},
+    {code:'3' ,dateAccident :'02-11-2017' ,lieuAccident : 'intern' ,natureAccident : 'grave'},
+  ]
+
+  maladiesProfessionnelles = [
+    {code:'1' ,typeMaladie :'professionnelle' ,designation : 'Otite moyenne' },
+    {code:'2' ,typeMaladie :'professionnelle' ,designation : 'Onychomycose' },
+    {code:'3' ,typeMaladie :'professionnelle', designation : 'Le mal de gorge' },
+  ]
+
+  maladiesGenerale= [
+    {code:'1' ,typeMaladie :'Générale' ,designation : 'Otite moyenne' },
+    {code:'2' ,typeMaladie :'Générale' ,designation : 'Onychomycose' },
+    {code:'3' ,typeMaladie :'Générale' ,designation : 'Le mal de gorge' },
+  ]
+
+  maladiesCongenitale= [
+    {code:'1' ,typeMaladie :'Congénitale' ,designation : 'Otite moyenne' },
+    {code:'2' ,typeMaladie :'Congénitale' ,designation : 'Onychomycose' },
+    {code:'3' ,typeMaladie :'Congénitale' ,designation : 'Le mal de gorge' },
+  ]
+  
+  
+  constructor(public dialogRef: MatDialogRef<AjouterAntecedentComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, 
+    private formBuilder: FormBuilder,public dialog: MatDialog) {}
+
+  ngOnInit() {
+
+    this.addForm = this.formBuilder.group({
+      typeAntecedent:  ['', Validators.required],
+      designation: ['', Validators.required],
+      dateDebut: [this.dateAujourdhuit.value,Validators.required],
+      dateFin: [''],
+      consequence: [''],
+      observation: [''],
+    });
+  }
+
+  // close dialog  ajouter-arret-travail
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  onSubmit() {
+    if (!this.addForm.invalid){
+      this.data = this.addForm.value;
+      console.log(this.data)
+      this.dialogRef.close();
+      }
+  }
+   // Operation Add, Edit, Delet
+   
+   add() {
+    let dialogRef = this.dialog.open(DeclarerAccidentTravailComponent, {
+      width: '50%',
+      data: {}
+    });
+   }
 
 }

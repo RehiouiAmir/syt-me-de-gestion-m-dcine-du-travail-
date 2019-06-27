@@ -37,18 +37,18 @@ import { AdministrationComponent } from './administration/administration.compone
 import { VisitesMedicalesComponent } from './visites-medicales/visites-medicales.component';
 import { ConsultationsMedicalesComponent } from './consultations-medicales/consultations-medicales.component';
 import { VaccinationsComponent } from './vaccinations/vaccinations.component';
-import { AccidentsTravailComponent } from './accidents-travail/accidents-travail.component';
+import { AccidentsTravailComponent, DeclarerAccidentTravailComponent } from './accidents-travail/accidents-travail.component';
 import { ArretsTravailComponent } from './arrets-travail/arrets-travail.component';
 import { SoinsComponent } from './soins/soins.component';
 import { EmployesComponent, AjouterNvEmployeComponent } from './employes/employes.component';
 import { DmInformationsGeneralesComponent } from './dm-informations-generales/dm-informations-generales.component';
-import { DmAntecedentsComponent } from './dm-antecedents/dm-antecedents.component';
+import { DmAntecedentsComponent, AjouterAntecedentComponent } from './dm-antecedents/dm-antecedents.component';
 import { DmProfilVaccinalComponent } from './dm-profil-vaccinal/dm-profil-vaccinal.component';
-import { DmAccidentTravailComponent } from './dm-accident-travail/dm-accident-travail.component';
+import { DmAccidentTravailComponent} from './dm-accident-travail/dm-accident-travail.component';
 import { DmVisiteMedicaleComponent } from './dm-visite-medicale/dm-visite-medicale.component';
 import { DmConsultationMedicaleComponent } from './dm-consultation-medicale/dm-consultation-medicale.component';
-import { DmArretTravailComponent } from './dm-arret-travail/dm-arret-travail.component';
-import { DmSoinsComponent } from './dm-soins/dm-soins.component';
+import { DmArretTravailComponent, AjouterArretTravailComponent } from './dm-arret-travail/dm-arret-travail.component';
+import { DmSoinsComponent, AjouterSoinsComponent } from './dm-soins/dm-soins.component';
 import { DmExplorationsComponent } from './dm-explorations/dm-explorations.component';
 import { DmChangementPosteComponent, AjouterChangementPosteComponent } from './dm-changement-poste/dm-changement-poste.component';
 import { RisquesProfessionnelsComponent } from './risques-professionnels/risques-professionnels.component';
@@ -71,15 +71,19 @@ import { AjouterConsultationComponent } from './ajouter-consultation/ajouter-con
     ArretsTravailComponent,
     SoinsComponent,
     AccidentsTravailComponent,
+    DeclarerAccidentTravailComponent, 
     EmployesComponent,
     DmInformationsGeneralesComponent,
     DmAntecedentsComponent,
+    AjouterAntecedentComponent,
     DmProfilVaccinalComponent,
     DmAccidentTravailComponent,
     DmVisiteMedicaleComponent,
     DmConsultationMedicaleComponent,
     DmArretTravailComponent,
+    AjouterArretTravailComponent,    
     DmSoinsComponent,
+    AjouterSoinsComponent,
     DmExplorationsComponent,
     DmChangementPosteComponent,
     AjouterChangementPosteComponent,
@@ -101,7 +105,11 @@ import { AjouterConsultationComponent } from './ajouter-consultation/ajouter-con
   ],
  
   entryComponents: [EmployesComponent, AjouterNvEmployeComponent,
-                    DmChangementPosteComponent,AjouterChangementPosteComponent,],
+                    DmChangementPosteComponent,AjouterChangementPosteComponent,
+                    DmArretTravailComponent,AjouterArretTravailComponent,
+                    AccidentsTravailComponent,DeclarerAccidentTravailComponent,
+                    DmAntecedentsComponent,AjouterAntecedentComponent,
+                    DmSoinsComponent, AjouterSoinsComponent,],
   providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlFr},
               {provide: LOCALE_ID, useValue: "fr-CA" } ],
   bootstrap: [AppComponent]

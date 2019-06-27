@@ -36,9 +36,30 @@
     background-color: #54667A !important;
 }
 
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
+::ng-deep .mat-checkbox:not(.mat-checkbox-disabled).mat-accent .mat-checkbox-ripple .mat-ripple-element{
+    background-color: #F33155 !important;
+}
+
+::ng-deep .mat-checkbox-frame{
+    border-color: #54667A !important;
+    border-width: 1.5px !important;;
+}
+
+::ng-deep .mat-checkbox-label{
+    font-size: 13px !important;
+    color: #54667A !important;
+    font-weight: normal !important;
+}
+
 .mat-form-field input,
 .mat-form-field textarea{
     caret-color: #41B3F9;
+}
+
+.textArea{
+    min-height: 80px;
 }
 
 .mat-dialog-title{
@@ -50,42 +71,20 @@
 .row{
     border:1px solid #E0E0E0;   
     width: 94%;
-    padding: 10px 10px 10px 10px;
+    padding: 20px 20px 20px 10px;
     margin-left: 30px;
     margin-bottom: 15px;
 }
 
-.row .title-row{
-    color: #2F323E ;
-    font-weight: bold;
-    margin-bottom: 20px;
+.row-title{
+text-align: center;
+margin-bottom: 10px;
 }
 
-p.title-champ-1{
-    font-size: 13px;
-    font-weight: bold;
-    color: #54667A;
-    margin-top: 11px;
+.row-title h4{
+color: #2F323E;
+font-weight: bold;
 }
-p.title-champ-2{
-    font-size: 13px;
-    font-weight: bold;
-    color: #54667A;
-}
-
-p.title-champ{
-    font-size: 13px;
-    font-weight: bold;
-    color: #54667A;
-    margin-left: 10px;
-}
-
-p span.champ{
-    font-weight: normal;
-    margin-left: 10px;
-}
-
-
 
 .btn-add{
 margin-left: 10px;
@@ -100,13 +99,24 @@ color: white;
     color: #F33155;
 }
 
-.mat-dialog-actions button.btn-ajouter,
+p.title-champ{
+font-size: 13px;
+font-weight: bold;
+color: #54667A;
+}
+
+.champ{
+font-weight: normal;
+margin-left: 10px;
+}
+
+.btn-ajouter,
 .mat-dialog-actions button.btn-annuler{
     color: white; 
     margin-bottom: 5px;
 }
 
-.mat-dialog-actions button.btn-ajouter{
+.btn-ajouter{
     background-color: #7ACE4C;
 }
 

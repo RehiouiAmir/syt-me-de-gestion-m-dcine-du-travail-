@@ -61,8 +61,18 @@
         </div>
   </div> 
   <div class="row row-principal">
-      <h4 class="row-title">Liste des accidents de travail</h4>        
-      <mat-form-field class="search-bar">
+        
+        <h4 class="row-title">Liste des accidents de travail
+            <span>
+                <button mat-button mat-raised-button class="pull-right btn-declarer" (click)="add()">
+                    Déclarer Accident
+                    <mat-icon>add</mat-icon>                                  
+                </button>  
+            </span>    
+        </h4> 
+        <br><br>
+         
+      <mat-form-field class="search-bar pull-right">
           <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Rechercher">
           <mat-icon matSuffix>search</mat-icon>            
       </mat-form-field> 

@@ -35,9 +35,6 @@
                       <mat-datepicker #pickerDateConsultation></mat-datepicker>
                   </mat-form-field>
               </div>
-              <div class="col-md-4">
-                  <p class="title-champ">Etat de la consultation:<span class="champ">En cours</span></p>     
-              </div>
             </div>
             <div class="row">
               <div class="col-md-4">                                        
@@ -75,7 +72,6 @@
                     </span> 
                   </h4>
               </div>
-              <p class="title-champ">Date d'ordonnace:<span class="champ"></span></p> 
               <p class="title-champ">Liste des médicaments:</p>                   
               <table mat-table [dataSource]="dataSourceMedicaments"  class="mat-elevation-z8">
   
@@ -128,7 +124,6 @@
                       </span> 
                     </h4>
                 </div>
-                <p class="title-champ">Date de la fiche:<span class="champ"></span></p> 
                 <p class="title-champ">Liste d'actes de soins:</p>                   
                 <table mat-table [dataSource]="dataSourceSoins"  class="mat-elevation-z8">
     
@@ -137,7 +132,14 @@
                         <th mat-header-cell *matHeaderCellDef> Designation </th>
                         <td mat-cell *matCellDef="let row">  </td>
                     </ng-container> 
-              
+            
+                    <!-- Designation  Column -->
+                    <ng-container matColumnDef="dateActeSoin">
+                        <th mat-header-cell *matHeaderCellDef> Date d'acte </th>
+                        <td mat-cell *matCellDef="let row">  </td>
+                    </ng-container> 
+                
+
                     <!-- Action delete Column -->
                     <ng-container matColumnDef="Action-delete">
                         <th mat-header-cell *matHeaderCellDef ></th>
@@ -152,10 +154,7 @@
                     <tr mat-row *matRowDef="let row; columns: displayedColumnsSoins;">
                     </tr>
                 </table>
-                <p class="title-champ">Observation médicale:<span class="champ"></span></p>
                 <button mat-mini-fab class="pull-right btn-pdf"><mat-icon>picture_as_pdf</mat-icon></button>              
-                <button mat-mini-fab class="pull-right btn-delete"><mat-icon>delete</mat-icon></button>  
-                <button class="pull-right btn-edit" mat-mini-fab><mat-icon>edit</mat-icon></button>
               </div>
           </div>        
         </div>

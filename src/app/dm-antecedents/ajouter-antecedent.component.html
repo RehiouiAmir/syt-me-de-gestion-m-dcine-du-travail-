@@ -1,0 +1,108 @@
+<h4 mat-dialog-title class="mat-dialog-title">Ajouter un antédédent </h4>
+<form [formGroup]="addForm">    
+    <div mat-dialog-content>  
+        <div class="col-md-12 row">  
+            <div class="col-md-12 row-title">
+                <h4>Saisir le détail d'antécédent</h4>
+            </div>                                      
+            <div class="col-md-6">
+                <div class="col-md-8">
+                    <mat-form-field>
+                        <mat-select placeholder="Type d'antécédent" formControlName="typeAntecedent" required>
+                            <mat-option value="Accident de travail">Accident de travail</mat-option>
+                            <mat-option value="Accident non professionnel">Accident non professionnel</mat-option>                                                
+                            <mat-option value="Maladie professionnelle">Maladie professionnelle</mat-option>                                                
+                            <mat-option value="Maladie congénitale">Maladie congénitale</mat-option>                                                
+                            <mat-option value="Maladie générale">Maladie générale</mat-option> 
+                            <mat-option value="Intoxication">Intoxication</mat-option>
+                            <mat-option value="Intervention chirurgicale ">Intervention chirurgicale</mat-option>                                                
+                            <mat-option value="Tabac">Tabac</mat-option>                                                
+                            <mat-option value="Alcool">Alcool</mat-option>                                                
+                            <mat-option value="Collatéraux">Collatéraux</mat-option>  
+                            <mat-option value="Ascendants">Ascendants</mat-option>
+                            <mat-option value="Enfants">Enfants</mat-option>                                                
+                            <mat-option value="Conjoints">Conjuouints</mat-option>                                                
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">                        
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="pickerDebut" placeholder="Date debut" formControlName="dateDebut" required>
+                        <mat-datepicker-toggle matSuffix [for]="pickerDebut"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerDebut></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">                        
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="pickerFin" placeholder="Date fin" formControlName="dateFin">
+                        <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerFin></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-10">
+                    <mat-form-field *ngIf="addForm.value.typeAntecedent != 'Accident de travail' &&
+                                        addForm.value.typeAntecedent != 'Maladie congénitale' && 
+                                        addForm.value.typeAntecedent != 'Maladie générale' && 
+                                        addForm.value.typeAntecedent != 'Maladie professionnelle'">
+                        <input matInput placeholder="Désignation" formControlName="designation" required>
+                    </mat-form-field>  
+                    <mat-form-field *ngIf="addForm.value.typeAntecedent === 'Accident de travail'">
+                        <mat-select placeholder="Sélectionner un accident" formControlName="designation" required>
+                            <mat-option *ngFor="let accidentTravail of accidentTravails" [value]="accidentTravail">
+                                {{accidentTravail.dateAccident}} | {{accidentTravail.lieuAccident}} | {{accidentTravail.natureAccident}}
+                            </mat-option>                                                
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field *ngIf="addForm.value.typeAntecedent === 'Maladie congénitale'">
+                        <mat-select placeholder="Sélectionner une maladie congénitale" formControlName="designation" required>
+                            <mat-option *ngFor="let maladie of maladiesCongenitale" [value]="maladie">
+                                {{maladie.designation}}
+                            </mat-option>                                                
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field *ngIf="addForm.value.typeAntecedent === 'Maladie générale'">
+                        <mat-select placeholder="Sélectionner une maladies générale" formControlName="designation" required>
+                            <mat-option *ngFor="let maladie of maladiesGenerale" [value]="maladie">
+                                {{maladie.designation}}
+                            </mat-option>                                                
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field *ngIf="addForm.value.typeAntecedent === 'Maladie professionnelle'">
+                        <mat-select placeholder="Sélectionner une maladies professionnelles" formControlName="designation" required>
+                            <mat-option *ngFor="let maladie of maladiesProfessionnelles" [value]="maladie">
+                                {{maladie.designation}}
+                            </mat-option>                                                
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <button *ngIf="addForm.value.typeAntecedent === 'Accident de travail'" 
+                        mat-mini-fab class="btn-ajouter" (click)="add()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>      
+                <div class="col-md-12">
+                    <mat-form-field *ngIf="addForm.value.typeAntecedent === 'Accident de travail'">
+                        <textarea  class="textArea" matInput placeholder="Conséquence" formControlName="consequence" ></textarea>
+                    </mat-form-field>
+                </div> 
+               <!-- <div class="col-md-12">
+                    <p class="title-champ">Evacuation  sanitaitre 
+                        <sanp class="champ"></sanp>
+                    </p>
+                </div>-->
+                <div class="col-md-12">
+                    <mat-form-field>
+                        <textarea  matInput placeholder="Observations" formControlName="observation" ></textarea>
+                    </mat-form-field>
+                </div> 
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions class="pull-right">
+        <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()" >Annuler</button>
+        <button mat-button mat-raised-button class="btn-ajouter" (click)="onSubmit()" cdkFocusInitial>Ajouter <mat-icon>add</mat-icon></button>
+    </div>
+</form>

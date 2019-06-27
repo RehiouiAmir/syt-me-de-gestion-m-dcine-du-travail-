@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ViewChild } from '@angular/core';
 import { ActivitesMedicalesService } from 'src/app/services/activites-medicales.service';
+import { Inject } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-dm-soins',
@@ -27,7 +32,7 @@ export class DmSoinsComponent implements OnInit {
   @ViewChild('MatPaginatorDemande') paginatorDemande: MatPaginator;
   @ViewChild('MatSortDemande') sortDemande: MatSort;
   
-  constructor(private activitesService : ActivitesMedicalesService) { }
+  constructor(private activitesService : ActivitesMedicalesService, public dialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -59,4 +64,62 @@ export class DmSoinsComponent implements OnInit {
      this.dataSource.paginator.firstPage();
    }
  }
+
+ // Operation Add, Edit, Delet
+   
+ add() {
+  let dialogRef = this.dialog.open(AjouterSoinsComponent, {
+    width: '70%',
+    data: {}
+  });
+ }
+
+}
+
+// AjouterSoins
+
+@Component({
+  selector: 'app-ajouter-soins',
+  templateUrl: './ajouter-soins.component.html',
+  styleUrls: ['./ajouter-soins.component.css']
+})
+export class AjouterSoinsComponent implements OnInit {
+
+  addForm: FormGroup;
+  dateAujourdhuit = new FormControl(new Date()); 
+  
+
+  acts= [
+    {designation : 'acte 1' },
+    {designation : 'acte 2' },
+    {designation : 'acte 3' },
+  ]
+  
+
+  constructor(public dialogRef: MatDialogRef<AjouterSoinsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, 
+    private formBuilder: FormBuilder) {}
+
+  ngOnInit() {
+    this.addForm = this.formBuilder.group({
+      designationActe: ['',Validators.required],
+      observation: [''], 
+      valide:[false],
+      dateActe: [''],      
+    });
+  }
+
+  // close dialog  ajouter-arret-travail
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  onSubmit() {
+    if (!this.addForm.invalid){
+      this.data = this.addForm.value;
+      console.log(this.data)
+      this.dialogRef.close();
+      }
+  }
+
 }

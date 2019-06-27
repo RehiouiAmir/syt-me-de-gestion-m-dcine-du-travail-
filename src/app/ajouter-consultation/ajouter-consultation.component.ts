@@ -3,7 +3,8 @@ import { Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialog } from '@angular/material';
+import { AjouterSoinsComponent } from 'src/app/dm-soins/dm-soins.component';
 
 @Component({
   selector: 'app-ajouter-consultation',
@@ -20,7 +21,7 @@ export class AjouterConsultationComponent implements OnInit {
    dataSourceMedicament : MatTableDataSource<any>;
 
    /* Table Structure | Soins */
-   displayedColumnsSoins: string[] = ['designation','Action-delete'];
+   displayedColumnsSoins: string[] = ['designation','dateActeSoin','Action-delete'];
    dataSourceSoins : MatTableDataSource<any>;
 
    /* Table Structure | Orientation médicale */
@@ -31,7 +32,7 @@ export class AjouterConsultationComponent implements OnInit {
     displayedColumnsExamens: string[] = ['designation','Action-edit','Action-delete'];
     dataSourceExamens : MatTableDataSource<any>;
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: FormBuilder, public dialog: MatDialog) {}
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -46,6 +47,11 @@ export class AjouterConsultationComponent implements OnInit {
     if (!this.firstFormGroup.invalid){console.log(this.firstFormGroup.value)};
   }
 
-
-  
+// operation add edit delet 
+  addSoins() {
+    let dialogRef = this.dialog.open(AjouterSoinsComponent, {
+      width: '70%',
+      data: {}
+    });
+   }
 }

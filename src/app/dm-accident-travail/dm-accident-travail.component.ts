@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EmployeService } from 'src/app/services/employe.service';
+import { FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
+import { Inject } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-dm-accident-travail',

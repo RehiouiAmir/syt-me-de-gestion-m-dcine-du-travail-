@@ -98,9 +98,11 @@
 }
 
 
-.btn-nv-employe{
+
+.btn-declarer{
     background: #7ACE4C;
     color: white; 
+    margin-left: 30px;
 }
   
 .row-principal .mat-form-field {
