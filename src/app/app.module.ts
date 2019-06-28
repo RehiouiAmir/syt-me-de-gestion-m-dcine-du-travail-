@@ -58,6 +58,9 @@ import { AjouterConsultationComponent } from './ajouter-consultation/ajouter-con
 import { LoginComponent } from './login/login.component';
 
 import { httpInterceptorProviders } from './auth/auth-interceptor';
+import { AjouterExamenComplementaireComponent } from './ajouter-examen-complementaire/ajouter-examen-complementaire.component';
+import { AjouterOrdonnanceComponent } from './ajouter-ordonnance/ajouter-ordonnance.component';
+import { AjouterOrientationMedicaleComponent } from './ajouter-orientation-medicale/ajouter-orientation-medicale.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +98,9 @@ import { httpInterceptorProviders } from './auth/auth-interceptor';
     AjouterNvEmployeComponent,
     AjouterConsultationComponent,
     LoginComponent,
+    AjouterExamenComplementaireComponent,
+    AjouterOrdonnanceComponent,
+    AjouterOrientationMedicaleComponent,
   ],
   
   imports: [
@@ -111,7 +117,8 @@ import { httpInterceptorProviders } from './auth/auth-interceptor';
                     DmArretTravailComponent,AjouterArretTravailComponent,
                     AccidentsTravailComponent,DeclarerAccidentTravailComponent,
                     DmAntecedentsComponent,AjouterAntecedentComponent,
-                    DmSoinsComponent, AjouterSoinsComponent,],
+                    DmSoinsComponent, AjouterSoinsComponent,AjouterConsultationComponent,
+                    AjouterExamenComplementaireComponent,AjouterOrdonnanceComponent,AjouterOrientationMedicaleComponent],
   providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlFr},
               {provide: LOCALE_ID, useValue: "fr-CA" }, httpInterceptorProviders ],
   bootstrap: [AppComponent]
