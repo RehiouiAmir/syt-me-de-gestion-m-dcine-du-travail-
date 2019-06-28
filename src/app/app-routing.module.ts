@@ -66,7 +66,7 @@ const routes: Routes = [
     { path: '', redirectTo: 'dossier-medical' ,pathMatch: 'full'},
   ]}, 
   
-  { path: 'auth/',
+  { path: '',
     component: LoginComponent
   },    
   
