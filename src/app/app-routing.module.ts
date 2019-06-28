@@ -1,3 +1,4 @@
+import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DossierMedicalComponent } from 'src/app/dossier-medical/dossier-medical.component';
@@ -24,7 +25,6 @@ import { DmChangementPosteComponent } from 'src/app/dm-changement-poste/dm-chang
 import { ParametresCompteComponent } from 'src/app/parametres-compte/parametres-compte.component';
 import { RisquesProfessionnelsComponent } from 'src/app/risques-professionnels/risques-professionnels.component';
 import { DmEmployeComponent } from 'src/app/dm-employe/dm-employe.component';
-import { ConnexionComponent } from 'src/app/connexion/connexion.component';
 import { MainNavComponent } from 'src/app/main-nav/main-nav.component';
 import { AjouterConsultationComponent } from 'src/app/ajouter-consultation/ajouter-consultation.component';
 
@@ -66,7 +66,9 @@ const routes: Routes = [
     { path: '', redirectTo: 'dossier-medical' ,pathMatch: 'full'},
   ]}, 
   
-  { path: '', component: ConnexionComponent},    
+  { path: 'auth/',
+    component: LoginComponent
+  },    
   
   
 ];

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 
@@ -17,7 +18,7 @@ export class EmployeService {
   }
 
   getEmployeById(id: number) {
-      return this.http.get<any>(`${environment.baseUrl}/employe/`+id);
+      return this.http.get<any>(`${environment.baseUrl}/employes/`+id);
   }
 
   createEmploye(employe) {
@@ -27,9 +28,24 @@ export class EmployeService {
   // Service Poste de travail
   
   getAllPosteTravails() {
-    return this.http.get<any[]>(`${environment.baseUrl}/postetravails`);
+    return this.http.get<any[]>(`${environment.baseUrl}/posteTravails`);
   }
 
+  getAllDepartements() {
+    return this.http.get<any[]>(`${environment.baseUrl}/departements`);
+  }
+
+  getAllSocietes() {
+    return this.http.get<any[]>(`${environment.baseUrl}/societes`);
+  }
+
+  getAllSites() {
+    return this.http.get<any[]>(`${environment.baseUrl}/siteAffectations`);
+  }
+
+  getAllAntecedentsByEmployeId(id_employe: number) {
+    return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/antecedents`);
+  }
 
   //Service Accident de travail
 

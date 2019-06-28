@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Inject } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { DeclarerAccidentTravailComponent } from 'src/app/accidents-travail/accidents-travail.component';
 import { ViewChild } from '@angular/core';
+
+import { EmployeService } from '../services/employe.service';
 
 @Component({
   selector: 'app-dm-antecedents',
@@ -17,7 +20,7 @@ import { ViewChild } from '@angular/core';
 export class DmAntecedentsComponent implements OnInit {
 
   private id_employe: number;
-
+  antecedents : any[];
    /* Accidents de travail Table Structure */
   
    displayedColumns: string[] = ['code','designation','dateDebut','dateFin','medecin','Action-details','Action-edit','Action-delete'];
@@ -41,13 +44,24 @@ export class DmAntecedentsComponent implements OnInit {
   
     @ViewChild('MatPaginatorAutres') paginatorAutres: MatPaginator;
     @ViewChild('MatSortAutres') sortAutres: MatSort;
-   
   
-  constructor(private route: ActivatedRoute, public dialog: MatDialog) {
+  constructor(private employeService: EmployeService, private route: ActivatedRoute, public dialog: MatDialog) {
     this.id_employe = Number(this.route.snapshot.paramMap.get('id'));
    }
 
   ngOnInit() {
+
+    this.employeService.getAllAntecedentsByEmployeId(this.id_employe).subscribe(
+      data => {
+        console.log(data)
+        this.antecedents = data;
+        this.dataSourceAutres = new MatTableDataSource<any>(this.antecedents);
+        this.dataSourceAutres.paginator = this.paginator;
+        this.dataSourceAutres.sort = this.sort;
+      },
+      error => console.log(error)  
+    );
+    
   }
 
 

@@ -78,4 +78,8 @@ export class MainNavComponent {
   
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+
+  signOut() {
+    window.sessionStorage.clear();
+  }
 }

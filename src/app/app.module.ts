@@ -54,8 +54,10 @@ import { DmChangementPosteComponent, AjouterChangementPosteComponent } from './d
 import { RisquesProfessionnelsComponent } from './risques-professionnels/risques-professionnels.component';
 import { ParametresCompteComponent } from './parametres-compte/parametres-compte.component';
 import { DmEmployeComponent } from './dm-employe/dm-employe.component';
-import { ConnexionComponent } from './connexion/connexion.component';
 import { AjouterConsultationComponent } from './ajouter-consultation/ajouter-consultation.component';
+import { LoginComponent } from './login/login.component';
+
+import { httpInterceptorProviders } from './auth/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -91,8 +93,8 @@ import { AjouterConsultationComponent } from './ajouter-consultation/ajouter-con
     ParametresCompteComponent,
     DmEmployeComponent,
     AjouterNvEmployeComponent,
-    ConnexionComponent,
     AjouterConsultationComponent,
+    LoginComponent,
   ],
   
   imports: [
@@ -111,7 +113,7 @@ import { AjouterConsultationComponent } from './ajouter-consultation/ajouter-con
                     DmAntecedentsComponent,AjouterAntecedentComponent,
                     DmSoinsComponent, AjouterSoinsComponent,],
   providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlFr},
-              {provide: LOCALE_ID, useValue: "fr-CA" } ],
+              {provide: LOCALE_ID, useValue: "fr-CA" }, httpInterceptorProviders ],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

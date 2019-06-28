@@ -25,6 +25,9 @@ export class EmployesComponent implements OnInit {
   private id_employe: number;
   dataTable :  any[];
   posteTravails : any[];
+  departements : any[];
+  societes : any[];
+  sites : any[];
 
   /* Table Structure */
 
@@ -46,7 +49,7 @@ export class EmployesComponent implements OnInit {
         this.dataTable = data;
         this.dataSource = new MatTableDataSource<any>(this.dataTable);
         this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort; 
+        this.dataSource.sort = this.sort;
       },
       error => console.log(error)  
     );
@@ -55,6 +58,30 @@ export class EmployesComponent implements OnInit {
       data => {
         console.log(data) 
         this.posteTravails = data;      
+      },
+      error => console.log(error)  
+    );
+
+    this.employeService.getAllDepartements().subscribe(
+      data => {
+        console.log(data) 
+        this.departements = data;      
+      },
+      error => console.log(error)  
+    );
+
+    this.employeService.getAllSocietes().subscribe(
+      data => {
+        console.log(data) 
+        this.societes = data;      
+      },
+      error => console.log(error)  
+    );
+
+    this.employeService.getAllSites().subscribe(
+      data => {
+        console.log(data) 
+        this.sites = data;      
       },
       error => console.log(error)  
     );
