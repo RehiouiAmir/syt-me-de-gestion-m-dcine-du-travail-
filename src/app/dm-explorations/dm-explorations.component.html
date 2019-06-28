@@ -21,12 +21,6 @@
                         <div class=" table-overflow">
                         <table mat-table [dataSource]="dataSource" matSort>
             
-                            <!-- Code  Column -->
-                            <ng-container matColumnDef="code">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
-                                <td mat-cell *matCellDef="let row">  </td>
-                            </ng-container> 
-    
                             <!-- designation  Column -->
                             <ng-container matColumnDef="designation">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Désignation </th>
@@ -99,12 +93,6 @@
                     <div class=" table-overflow">
                     <table mat-table [dataSource]="dataSourceOrientation" matSort #MatSortOrientation="matSort">
         
-                        <!-- Code  Column -->
-                        <ng-container matColumnDef="code">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
-                            <td mat-cell *matCellDef="let row">  </td>
-                        </ng-container> 
-            
                         <!-- Spécialiste  Column -->
                         <ng-container matColumnDef="specialiste">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Spécialiste </th>

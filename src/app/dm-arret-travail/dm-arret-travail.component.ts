@@ -20,7 +20,7 @@ export class DmArretTravailComponent implements OnInit {
   
     /* Table Structure */
   
-    displayedColumns: string[] = ['code','motif','dateDebut','dateFin','medecin','Action-details','Action-edit','Action-delete'];
+    displayedColumns: string[] = ['motif','dateDebut','dateFin','medecin','Action-details','Action-edit','Action-delete'];
     dataSource : MatTableDataSource<any>;
   
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -116,7 +116,7 @@ export class AjouterArretTravailComponent implements OnInit {
     if (!this.addForm.invalid){
       this.data = this.addForm.value;
       console.log(this.data)
-      this.dialogRef.close();
+      this.dialogRef.close(this.data);
       }
   }
 

@@ -11,7 +11,7 @@ import { ActivitesMedicalesService } from 'src/app/services/activites-medicales.
 export class ArretsTravailComponent implements OnInit {
   /* Table Structure */
   
-  displayedColumns: string[] = ['code','matricule','numCarteChifa','posteTravail','motif','dateDebut','dateFin','medecin','Action-details'];
+  displayedColumns: string[] = ['matricule','numCarteChifa','posteTravail','motif','dateDebut','dateFin','medecin','Action-details'];
   dataSource : MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

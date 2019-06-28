@@ -29,12 +29,6 @@
                     <div class=" table-overflow">
                     <table mat-table [dataSource]="dataSource" matSort #MatSortDemande="matSort">
 
-                        <!-- Code  Column -->
-                        <ng-container matColumnDef="code">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
-                            <td mat-cell *matCellDef="let row"> {{row.code}} </td>
-                        </ng-container> 
-
                         <!-- Type de soins  Column -->
                         <ng-container matColumnDef="typeSoins">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Type de soins </th>
@@ -106,12 +100,6 @@
                     <div class="mat-elevation-z8">
                         <div class=" table-overflow">
                         <table mat-table [dataSource]="dataSourceDemande" matSort #MatSortDemande="matSort">
-        
-                            <!-- Code  Column -->
-                            <ng-container matColumnDef="code">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
-                                <td mat-cell *matCellDef="let row"> {{row.code}} </td>
-                            </ng-container> 
         
                             <!-- Type de soins  Column -->
                             <ng-container matColumnDef="typeSoins">

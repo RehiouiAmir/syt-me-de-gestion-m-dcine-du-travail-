@@ -73,7 +73,7 @@ export class AjouterOrdonnanceComponent implements OnInit {
     if (!this.addGlobalForm.invalid){
       this.data = this.addGlobalForm.value;
       console.log(this.data)
-      this.dialogRef.close();
+      this.dialogRef.close(this.data);
       }
     }
     

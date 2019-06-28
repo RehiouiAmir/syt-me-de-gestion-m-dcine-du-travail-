@@ -42,18 +42,18 @@
         <div class="col-md-6 column-right">
             <div class="row-1">
                 <div class="col-md-8">
-                    <p class="title-champ">Poste de travail :<span class="champ"></span></p>         
+                    <p class="title-champ">Poste de travail :<span class="champ">{{posteActuel.posteTravail.designation}}</span></p>         
                 </div>
                 <div class="col-md-4">
-                    <p class="title-champ">Société :<span class="champ"></span></p>                             
+                    <p class="title-champ">Société :<span class="champ">{{posteActuel.posteTravail.departement.siteAffectation.societe.designation}}</span></p>                             
                 </div>
             </div>
             <div class="row-2">
                 <div class="col-md-6">
-                    <p class="title-champ">Site :<span class="champ"></span></p>         
+                    <p class="title-champ">Site :<span class="champ">{{posteActuel.posteTravail.departement.siteAffectation.designation}}</span></p>         
                 </div>
-                <div class="col-md-4">
-                    <p class="title-champ">Département :<span class="champ"></span></p>                             
+                <div class="col-md-6">
+                    <p class="title-champ">Département :<span class="champ">{{posteActuel.posteTravail.departement.designation}}</span></p>                             
                 </div>
             </div>
             <div class="row-3">

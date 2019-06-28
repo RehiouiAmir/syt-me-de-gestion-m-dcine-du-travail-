@@ -29,12 +29,7 @@
                         <div class=" table-overflow">
                             <table mat-table [dataSource]="dataSource" matSort>
                 
-                                <!-- Code  Column -->
-                                <ng-container matColumnDef="code">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
-                                    <td mat-cell *matCellDef="let row">  </td>
-                                </ng-container> 
-                    
+                
                                 <!-- Poste occupé  Column -->
                                 <ng-container matColumnDef="posteOccupe">
                                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Poste occupé </th>
@@ -113,12 +108,6 @@
                         <div class=" table-overflow">
                             <table mat-table [dataSource]="dataSourceReorientation" matSort #MatSortReorientation="matSort">
                 
-                                <!-- Code  Column -->
-                                <ng-container matColumnDef="code">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
-                                    <td mat-cell *matCellDef="let row">  </td>
-                                </ng-container> 
-
                                 <!-- Date de réorientation  Column -->
                                 <ng-container matColumnDef="dateReorientation">
                                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>

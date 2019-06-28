@@ -15,7 +15,7 @@ export class VisitesMedicalesComponent implements OnInit {
   
     /* Table Structure */
   
-    displayedColumns: string[] = ['code','matricule','numCarteChifa','posteTravail','typeVisite','dateVisite','etatVisite','medecin','Action-details'];
+    displayedColumns: string[] = ['matricule','numCarteChifa','posteTravail','typeVisite','dateVisite','etatVisite','medecin','Action-details'];
     dataSource : MatTableDataSource<any>;
   
     @ViewChild(MatPaginator) paginator: MatPaginator;

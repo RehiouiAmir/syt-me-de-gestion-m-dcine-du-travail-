@@ -13,7 +13,7 @@ export class ConsultationsMedicalesComponent implements OnInit {
   
     /* Table Structure */
   
-    displayedColumns: string[] = ['code','matricule','numCarteChifa','posteTravail','typeConsultation','dateConsultation','medecin','Action-details'];
+    displayedColumns: string[] = ['matricule','numCarteChifa','posteTravail','typeConsultation','dateConsultation','medecin','Action-details'];
     dataSource : MatTableDataSource<any>;
   
     @ViewChild(MatPaginator) paginator: MatPaginator;

@@ -21,9 +21,11 @@ export class DmAntecedentsComponent implements OnInit {
 
   private id_employe: number;
   antecedents : any[];
+  accidentsTravail: any[];
+  maladies: any[];
    /* Accidents de travail Table Structure */
   
-   displayedColumns: string[] = ['code','designation','dateDebut','dateFin','medecin','Action-details','Action-edit','Action-delete'];
+   displayedColumns: string[] = ['designation','dateDebut','dateFin','medecin','Action-details','Action-edit','Action-delete'];
    dataSource : MatTableDataSource<any>;
  
    @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -31,7 +33,7 @@ export class DmAntecedentsComponent implements OnInit {
 
     /* Maladies Table Structure */
  
-    displayedColumnsMaladies: string[] = ['code','type','designation','dateDebut','dateFin','medecin','Action-details','Action-edit','Action-delete'];
+    displayedColumnsMaladies: string[] = ['type','designation','dateDebut','dateFin','medecin','Action-details','Action-edit','Action-delete'];
     dataSourceMaladies : MatTableDataSource<any>;
   
     @ViewChild('MatPaginatorMaladies') paginatorMaladies: MatPaginator;
@@ -39,7 +41,7 @@ export class DmAntecedentsComponent implements OnInit {
 
     /* Autres antédédetns Table Structure */
  
-    displayedColumnsAutres: string[] = ['code','type','designation','dateDebut','dateFin','medecin','Action-details','Action-edit','Action-delete'];
+    displayedColumnsAutres: string[] = ['type','designation','dateDebut','dateFin','medecin','Action-details','Action-edit','Action-delete'];
     dataSourceAutres : MatTableDataSource<any>;
   
     @ViewChild('MatPaginatorAutres') paginatorAutres: MatPaginator;
@@ -56,6 +58,28 @@ export class DmAntecedentsComponent implements OnInit {
         console.log(data)
         this.antecedents = data;
         this.dataSourceAutres = new MatTableDataSource<any>(this.antecedents);
+        this.dataSourceAutres.paginator = this.paginator;
+        this.dataSourceAutres.sort = this.sort;
+      },
+      error => console.log(error)  
+    );
+
+    this.employeService.getAllAntecedentsAccidentsTravailByEmployeId(this.id_employe).subscribe(
+      data => {
+        console.log(data)
+        this.accidentsTravail = data;
+        this.dataSourceAutres = new MatTableDataSource<any>(this.accidentsTravail);
+        this.dataSourceAutres.paginator = this.paginator;
+        this.dataSourceAutres.sort = this.sort;
+      },
+      error => console.log(error)  
+    );
+
+    this.employeService.getAllAntecedentsMaladiesByEmployeId(this.id_employe).subscribe(
+      data => {
+        console.log(data)
+        this.maladies = data;
+        this.dataSourceAutres = new MatTableDataSource<any>(this.maladies);
         this.dataSourceAutres.paginator = this.paginator;
         this.dataSourceAutres.sort = this.sort;
       },
@@ -135,7 +159,7 @@ export class AjouterAntecedentComponent implements OnInit {
     if (!this.addForm.invalid){
       this.data = this.addForm.value;
       console.log(this.data)
-      this.dialogRef.close();
+      this.dialogRef.close(this.data);
       }
   }
    // Operation Add, Edit, Delet

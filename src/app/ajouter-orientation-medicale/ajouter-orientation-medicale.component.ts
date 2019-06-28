@@ -40,7 +40,7 @@ export class AjouterOrientationMedicaleComponent implements OnInit {
       if (!this.addForm.invalid){
         this.data = this.addForm.value;
         console.log(this.data)
-        this.dialogRef.close();
+        this.dialogRef.close(this.data);
         }
     }
 
