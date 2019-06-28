@@ -12,6 +12,7 @@ import { ActivitesMedicalesService } from 'src/app/services/activites-medicales.
 export class VisitesMedicalesComponent implements OnInit {
 
   private id_employe: number;
+  dataTable :  any[];
   
     /* Table Structure */
   
@@ -28,7 +29,8 @@ export class VisitesMedicalesComponent implements OnInit {
       this.activitesService.getAllvisiteMedicales().subscribe(
         data => {
           console.log(data)
-          this.dataSource = new MatTableDataSource<any>(data);
+          this.dataTable = data;
+          this.dataSource = new MatTableDataSource<any>(this.dataTable);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort; 
         },

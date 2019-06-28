@@ -19,7 +19,7 @@ export class ActivitesMedicalesService {
   // Services visiteMedicale
 
   getAllvisiteMedicales() {
-    return this.http.get<any[]>(`${environment.baseUrl}/visitemedicales`);
+    return this.http.get<any[]>(`${environment.baseUrl}/visiteMedicales`);
   }
 
   // Services Vaccination

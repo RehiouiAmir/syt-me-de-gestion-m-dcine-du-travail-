@@ -9,7 +9,8 @@ import { ActivitesMedicalesService } from 'src/app/services/activites-medicales.
   styleUrls: ['./consultations-medicales.component.css']
 })
 export class ConsultationsMedicalesComponent implements OnInit {
-
+  
+    dataTable :  any[];
   
     /* Table Structure */
   
@@ -26,6 +27,7 @@ export class ConsultationsMedicalesComponent implements OnInit {
       this.activitesService.getAllConsultations().subscribe(
         data => {
           console.log(data)
+          this.dataTable = data;
           this.dataSource = new MatTableDataSource<any>(data);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort; 
