@@ -20,7 +20,7 @@ export class DmChangementPosteComponent implements OnInit {
   
     /* Table Structure */
   
-    displayedColumns: string[] = ['code','posteOccupe','dateOccupation','dateliberation','motif','medecin','Action-details','Action-edit','Action-delete'];
+    displayedColumns: string[] = ['posteOccupe','dateOccupation','dateliberation','motif','medecin','Action-details','Action-edit','Action-delete'];
     dataSource : MatTableDataSource<any>;
   
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -28,7 +28,7 @@ export class DmChangementPosteComponent implements OnInit {
 
      /* Réorientation Table Structure */
   
-     displayedColumnsReorientation: string[] = ['code','dateReorientation','posteOccupe','medecin','Action-details','Action-edit','Action-delete'];
+     displayedColumnsReorientation: string[] = ['dateReorientation','posteOccupe','medecin','Action-details','Action-edit','Action-delete'];
      dataSourceReorientation : MatTableDataSource<any>;
    
      @ViewChild('MatPaginatorReorientation') paginatorReorientation: MatPaginator;
@@ -187,7 +187,7 @@ onSubmit() {
 if (!this.addGlobalForm.invalid){
   this.data = this.addGlobalForm.value;
   console.log(this.data)
-  this.dialogRef.close();
+  this.dialogRef.close(this.data);
   }
 }
 

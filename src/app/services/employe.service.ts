@@ -43,8 +43,18 @@ export class EmployeService {
     return this.http.get<any[]>(`${environment.baseUrl}/siteAffectations`);
   }
 
+  // Service Antécédents 
+
   getAllAntecedentsByEmployeId(id_employe: number) {
     return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/antecedents`);
+  }
+
+  getAllAntecedentsAccidentsTravailByEmployeId(id_employe: number) {
+    return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/antecedentAccidents`);
+  }
+
+  getAllAntecedentsMaladiesByEmployeId(id_employe: number) {
+    return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/antecedentMaladies`);
   }
 
   //Service Accident de travail

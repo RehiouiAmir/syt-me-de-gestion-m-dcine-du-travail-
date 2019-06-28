@@ -17,7 +17,7 @@ export class AccidentsTravailComponent implements OnInit {
 
    /* Table Structure */
   
-   displayedColumns: string[] = ['code','matricule','numCarteChifa','posteTravail','natureAccident','dateAccident','lieuAccident','medecin','Action-details'];
+   displayedColumns: string[] = ['matricule','numCarteChifa','posteTravail','natureAccident','dateAccident','lieuAccident','medecin','Action-details'];
    dataSource : MatTableDataSource<any>;
  
    @ViewChild(MatPaginator) paginator: MatPaginator;

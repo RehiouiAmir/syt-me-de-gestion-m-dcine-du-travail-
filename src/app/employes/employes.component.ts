@@ -31,8 +31,8 @@ export class EmployesComponent implements OnInit {
 
   /* Table Structure */
 
-  displayedColumns: string[] = ['matricule', 'numCarteChifa','dateNaissance', 'sexe','posteTravail',
-                               'site','departement','societe','Action-choose'];
+  displayedColumns: string[] = ['matricule', 'numCarteChifa','dateNaissance', 'sexe','posteTravail','departement',
+                               'site','societe','Action-choose'];
   dataSource : MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -143,14 +143,50 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./ajouter-nv-employe.component.css']
 })
 export class AjouterNvEmployeComponent implements OnInit{
- 
+
+  posteTravails : any[];
+  departements : any[];
+  societes : any[];
+  sites : any[];
+  addForm: FormGroup;
+  
   constructor(public dialogRef: MatDialogRef<AjouterNvEmployeComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any, 
-              private formBuilder: FormBuilder) {}
-
-  addForm: FormGroup;
+              private formBuilder: FormBuilder,private employeService: EmployeService) {}
+  
 
   ngOnInit() {
+    this.employeService.getAllPosteTravails().subscribe(
+      data => {
+        console.log(data) 
+        this.posteTravails = data;      
+      },
+      error => console.log(error)  
+    );
+
+    this.employeService.getAllDepartements().subscribe(
+      data => {
+        console.log(data) 
+        this.departements = data;      
+      },
+      error => console.log(error)  
+    );
+
+    this.employeService.getAllSocietes().subscribe(
+      data => {
+        console.log(data) 
+        this.societes = data;      
+      },
+      error => console.log(error)  
+    );
+
+    this.employeService.getAllSites().subscribe(
+      data => {
+        console.log(data) 
+        this.sites = data;      
+      },
+      error => console.log(error)  
+    );
     this.addForm = this.formBuilder.group({
       nom: ['', Validators.required],
       prenom: ['', Validators.required],

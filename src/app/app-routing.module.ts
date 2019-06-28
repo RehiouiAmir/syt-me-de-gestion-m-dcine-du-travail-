@@ -20,7 +20,6 @@ import { DmSoinsComponent } from 'src/app/dm-soins/dm-soins.component';
 import { DmExplorationsComponent } from 'src/app/dm-explorations/dm-explorations.component';
 import { DmProfilVaccinalComponent } from 'src/app/dm-profil-vaccinal/dm-profil-vaccinal.component';
 import { DmArretTravailComponent } from 'src/app/dm-arret-travail/dm-arret-travail.component';
-import { DmAccidentTravailComponent } from 'src/app/dm-accident-travail/dm-accident-travail.component';
 import { DmChangementPosteComponent } from 'src/app/dm-changement-poste/dm-changement-poste.component';
 import { ParametresCompteComponent } from 'src/app/parametres-compte/parametres-compte.component';
 import { RisquesProfessionnelsComponent } from 'src/app/risques-professionnels/risques-professionnels.component';
@@ -59,7 +58,6 @@ const routes: Routes = [
         { path: 'dm-explorations/:id', component: DmExplorationsComponent},
         { path: 'dm-profil-vaccinal/:id', component: DmProfilVaccinalComponent},
         { path: 'dm-arret-travail/:id', component: DmArretTravailComponent},
-        { path: 'dm-accident-travail/:id', component: DmAccidentTravailComponent},    
         { path: 'dm-changement-poste/:id', component: DmChangementPosteComponent},
       ]}
     ]},

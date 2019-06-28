@@ -71,12 +71,6 @@
           <div class=" table-overflow">
           <table mat-table [dataSource]="dataSource" matSort>
 
-              <!-- Code  Column -->
-              <ng-container matColumnDef="code">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
-                  <td mat-cell *matCellDef="let row"> {{row.code}} </td>
-              </ng-container> 
-
               <!-- matricule  Column -->
               <ng-container matColumnDef="matricule">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Matricule </th>

@@ -17,7 +17,7 @@ export class DmSoinsComponent implements OnInit {
 
   /* Table Structure */
   
-  displayedColumns: string[] = ['code','typeSoins','dateSoins','medecin','infirmier','Action-details','Action-edit','Action-delete'];
+  displayedColumns: string[] = ['typeSoins','dateSoins','medecin','infirmier','Action-details','Action-edit','Action-delete'];
   dataSource : MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -26,7 +26,7 @@ export class DmSoinsComponent implements OnInit {
 
  /* Demande Table Structure */
  
-  displayedColumnsDemande: string[] = ['code','typeSoins','dateDemande','medecin','Action-details','Action-add'];
+  displayedColumnsDemande: string[] = ['typeSoins','dateDemande','medecin','Action-details','Action-add'];
   dataSourceDemande : MatTableDataSource<any>;
 
   @ViewChild('MatPaginatorDemande') paginatorDemande: MatPaginator;
@@ -71,6 +71,9 @@ export class DmSoinsComponent implements OnInit {
   let dialogRef = this.dialog.open(AjouterSoinsComponent, {
     width: '70%',
     data: {}
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    console.log(result)
   });
  }
 
@@ -118,7 +121,7 @@ export class AjouterSoinsComponent implements OnInit {
     if (!this.addForm.invalid){
       this.data = this.addForm.value;
       console.log(this.data)
-      this.dialogRef.close();
+      this.dialogRef.close(this.data);
       }
   }
 

@@ -15,7 +15,7 @@ export class DmExplorationsComponent implements OnInit {
   
     /* Table Structure */
   
-    displayedColumns: string[] = ['code','designation','dateDemande','dateResultat','medecin','Action-details','Action-edit','Action-delete'];
+    displayedColumns: string[] = ['designation','dateDemande','dateResultat','medecin','Action-details','Action-edit','Action-delete'];
     dataSource : MatTableDataSource<any>;
   
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -23,7 +23,7 @@ export class DmExplorationsComponent implements OnInit {
 
      /* Réorientation Table Structure */
   
-     displayedColumnsOrientation: string[] = ['code','specialiste','dateDemande','dateReponse','medecin','Action-details','Action-edit','Action-delete'];
+     displayedColumnsOrientation: string[] = ['specialiste','dateDemande','dateReponse','medecin','Action-details','Action-edit','Action-delete'];
      dataSourceOrientation : MatTableDataSource<any>;
    
      @ViewChild('MatPaginatorOrientation') paginatorOrientation: MatPaginator;

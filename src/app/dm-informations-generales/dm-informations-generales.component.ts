@@ -12,7 +12,8 @@ import { EmployeService } from '../services/employe.service';
 export class DmInformationsGeneralesComponent implements OnInit {
 
     id_employe : number;
-    employeInfos : any; 
+    employeInfos : any;
+    posteActuel : any; 
 
     constructor(private route: ActivatedRoute, private employeService: EmployeService) {
       this.id_employe = Number(this.route.snapshot.paramMap.get('id'));
@@ -24,6 +25,12 @@ export class DmInformationsGeneralesComponent implements OnInit {
         data => {
           console.log(data)
           this.employeInfos = data;
+          for(var i in this.employeInfos.employe_posteTravails){
+            if (this.employeInfos.employe_posteTravails[i].actuel === true){
+              this.posteActuel = this.employeInfos.employe_posteTravails[i];
+              console.log(this.posteActuel)
+            }
+          }
         },
         error => console.log(error)  
       );

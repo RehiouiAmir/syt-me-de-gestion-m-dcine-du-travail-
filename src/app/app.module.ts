@@ -44,7 +44,6 @@ import { EmployesComponent, AjouterNvEmployeComponent } from './employes/employe
 import { DmInformationsGeneralesComponent } from './dm-informations-generales/dm-informations-generales.component';
 import { DmAntecedentsComponent, AjouterAntecedentComponent } from './dm-antecedents/dm-antecedents.component';
 import { DmProfilVaccinalComponent } from './dm-profil-vaccinal/dm-profil-vaccinal.component';
-import { DmAccidentTravailComponent} from './dm-accident-travail/dm-accident-travail.component';
 import { DmVisiteMedicaleComponent } from './dm-visite-medicale/dm-visite-medicale.component';
 import { DmConsultationMedicaleComponent } from './dm-consultation-medicale/dm-consultation-medicale.component';
 import { DmArretTravailComponent, AjouterArretTravailComponent } from './dm-arret-travail/dm-arret-travail.component';
@@ -82,7 +81,6 @@ import { AjouterOrientationMedicaleComponent } from './ajouter-orientation-medic
     DmAntecedentsComponent,
     AjouterAntecedentComponent,
     DmProfilVaccinalComponent,
-    DmAccidentTravailComponent,
     DmVisiteMedicaleComponent,
     DmConsultationMedicaleComponent,
     DmArretTravailComponent,

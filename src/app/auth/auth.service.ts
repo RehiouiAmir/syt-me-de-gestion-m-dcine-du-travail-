@@ -15,8 +15,8 @@ const httpOptions = {
 })
 export class AuthService {
 
-  private loginUrl = 'http://localhost:8080/api/auth/signin';
-  private signupUrl = 'http://localhost:8080/api/auth/signup';
+  private loginUrl = 'http://192.168.43.47:8080/api/auth/signin';
+  private signupUrl = 'http://192.168.43.47:8080/api/auth/signup';
 
   constructor(private http: HttpClient) {
   }
