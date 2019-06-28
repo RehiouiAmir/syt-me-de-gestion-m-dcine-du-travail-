@@ -56,6 +56,9 @@ import { ParametresCompteComponent } from './parametres-compte/parametres-compte
 import { DmEmployeComponent } from './dm-employe/dm-employe.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { AjouterConsultationComponent } from './ajouter-consultation/ajouter-consultation.component';
+import { AjouterExamenComplementaireComponent } from './ajouter-examen-complementaire/ajouter-examen-complementaire.component';
+import { AjouterOrdonnanceComponent } from './ajouter-ordonnance/ajouter-ordonnance.component';
+import { AjouterOrientationMedicaleComponent } from './ajouter-orientation-medicale/ajouter-orientation-medicale.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +96,9 @@ import { AjouterConsultationComponent } from './ajouter-consultation/ajouter-con
     AjouterNvEmployeComponent,
     ConnexionComponent,
     AjouterConsultationComponent,
+    AjouterExamenComplementaireComponent,
+    AjouterOrdonnanceComponent,
+    AjouterOrientationMedicaleComponent,
   ],
   
   imports: [
@@ -109,7 +115,8 @@ import { AjouterConsultationComponent } from './ajouter-consultation/ajouter-con
                     DmArretTravailComponent,AjouterArretTravailComponent,
                     AccidentsTravailComponent,DeclarerAccidentTravailComponent,
                     DmAntecedentsComponent,AjouterAntecedentComponent,
-                    DmSoinsComponent, AjouterSoinsComponent,],
+                    DmSoinsComponent, AjouterSoinsComponent,AjouterConsultationComponent,
+                    AjouterExamenComplementaireComponent,AjouterOrdonnanceComponent,AjouterOrientationMedicaleComponent],
   providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlFr},
               {provide: LOCALE_ID, useValue: "fr-CA" } ],
   bootstrap: [AppComponent]

@@ -65,7 +65,7 @@
             <div class="col-md-12 row-section-TM">
               <div class="col-md-12 row-title">
                   <h4>Ordonnance
-                    <span class="btn-add">
+                    <span class="btn-add" *ngIf="btnAddOrdonnance === false">
                         <button mat-mini-fab (click)="addOrdonnance()">
                             <mat-icon>add</mat-icon>                        
                         </button>
@@ -170,7 +170,7 @@
                     </span>
                   </h4>
               </div>
-              <p class="title-champ">Date demande d'orientations:<span class="champ"></span></p>               
+              <p class="title-champ">Liste des orientations demandés::<span class="champ"></span></p>               
               <table mat-table [dataSource]="dataSourceOrientations"  class="mat-elevation-z8">
       
                   <!-- Spécialiste  Column -->
@@ -185,6 +185,12 @@
                       <td mat-cell *matCellDef="let row"> </td>
                   </ng-container>
 
+                    <!-- Date Demande  Column -->
+                    <ng-container matColumnDef="dateDemande">
+                        <th mat-header-cell *matHeaderCellDef> Date demande </th>
+                        <td mat-cell *matCellDef="let row"></td>
+                    </ng-container> 
+                    
                   <!-- Action edit Column -->
                   <ng-container matColumnDef="Action-edit">
                       <th mat-header-cell *matHeaderCellDef ></th>
@@ -232,14 +238,26 @@
                     </span>
                   </h4>
               </div>
-              <p class="title-champ">Date demande d'examens:<span class="champ"></span></p>                             
+              <p class="title-champ">Liste des examens demandés:<span class="champ"></span></p>                             
               <table mat-table [dataSource]="dataSourceExamens"  class="mat-elevation-z8">
       
                   <!-- Désignation  Column -->
                   <ng-container matColumnDef="designation">
                       <th mat-header-cell *matHeaderCellDef> Désignation </th>
                       <td mat-cell *matCellDef="let row"></td>
-                  </ng-container>    
+                  </ng-container>   
+                  
+                  <!-- Date Demande  Column -->
+                  <ng-container matColumnDef="dateDemande">
+                    <th mat-header-cell *matHeaderCellDef> Date demande </th>
+                    <td mat-cell *matCellDef="let row"></td>
+                  </ng-container>  
+
+                  <!-- Descriptio  Column -->
+                  <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef> Description </th>
+                    <td mat-cell *matCellDef="let row"></td>
+                  </ng-container>
 
                   <!-- Action edit Column -->
                   <ng-container matColumnDef="Action-edit">
@@ -265,7 +283,6 @@
                   <tr mat-row *matRowDef="let row; columns: displayedColumnsExamens;">
                   </tr>
               </table>
-              <p class="title-champ">Observation médicale:<span class="champ"></span></p>
               <button mat-mini-fab class="pull-right btn-pdf"><mat-icon>picture_as_pdf</mat-icon></button>
             </div>
           </div>        

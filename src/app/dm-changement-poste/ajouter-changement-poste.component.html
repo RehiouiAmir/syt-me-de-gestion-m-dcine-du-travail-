@@ -62,7 +62,7 @@
                 <div *ngFor="let row of addForm.get('risques')?.controls;let index = index;" class="col-md-12">
                     <div class="col-md-10">
                         <mat-form-field>
-                            <mat-select [formControl]="row.get('designation')" required>
+                            <mat-select [formControl]="row.get('designation')" placeholder="sélectionner un risque" required>
                                 <mat-option *ngFor="let risquesProfessionnels of risquesProfessionnels" [value]="risquesProfessionnels.designation">
                                    {{risquesProfessionnels.designation}} |  {{risquesProfessionnels.type}}
                                 </mat-option>                                                
