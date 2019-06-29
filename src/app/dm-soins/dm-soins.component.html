@@ -29,29 +29,34 @@
                     <div class=" table-overflow">
                     <table mat-table [dataSource]="dataSource" matSort #MatSortDemande="matSort">
 
-                        <!-- Type de soins  Column -->
-                        <ng-container matColumnDef="typeSoins">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Type de soins </th>
-                            <td mat-cell *matCellDef="let row">{{row.typeSoins}}</td>
-                        </ng-container>
-            
-                        <!-- Date soins  Column -->
-                        <ng-container matColumnDef="dateSoins">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date de soins </th>
-                            <td mat-cell *matCellDef="let row">{{row.dateSoins}}</td>
-                        </ng-container>   
-                        
-                        <!-- Médecin Column -->
-                        <ng-container matColumnDef="medecin">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Médecin </th>
-                            <td mat-cell *matCellDef="let row">  </td>
-                        </ng-container>
+                            <!-- Type de soins  Column -->
+                            <ng-container matColumnDef="acte">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Acte </th>
+                                <td mat-cell *matCellDef="let row">{{row.acte.designation}}</td>
+                            </ng-container>
+                
+                            <!-- Date soins  Column -->
+                            <ng-container matColumnDef="dateSoins">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date de soins </th>
+                                <td mat-cell *matCellDef="let row">{{row.date | date}}</td>
+                            </ng-container>    
 
-                        <!-- Infirmier  Column -->
-                        <ng-container matColumnDef="infirmier">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Infirmier </th>
-                            <td mat-cell *matCellDef="let row"> {{row.infirmier}} </td>
-                        </ng-container>
+                            <!-- Observation   Column -->
+                            <ng-container matColumnDef="observation">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Observation  </th>
+                                <td mat-cell *matCellDef="let row">{{row.observation}}</td>
+                            </ng-container>
+                            <!-- Médecin Column -->
+                            <ng-container matColumnDef="medecin">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Médecin </th>
+                                <td mat-cell *matCellDef="let row">  </td>
+                            </ng-container>
+                        
+                            <!-- Infirmier  Column -->
+                            <ng-container matColumnDef="infirmier">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Infirmier </th>
+                                <td mat-cell *matCellDef="let row"></td>
+                            </ng-container>
                     
                         <!-- Action edit Column -->
                         <ng-container matColumnDef="Action-edit">

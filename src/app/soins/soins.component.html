@@ -115,8 +115,13 @@
                     <!-- Poste Travail  Column -->
                     <ng-container matColumnDef="posteTravail">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Poste de travail  </th>
-                        <td mat-cell *matCellDef="let row"></td>
-                    </ng-container>
+                        <td mat-cell *matCellDef="let row">
+                            <ng-container *ngFor="let posteTravails of row.employe.employe_posteTravails">
+                                <ng-container *ngIf="posteTravails.actuel === true">
+                                    {{posteTravails.posteTravail.designation}}
+                                </ng-container>
+                            </ng-container>  
+                        </td>                    </ng-container>
 
                     <!-- Médecin Column -->
                     <ng-container matColumnDef="medecin">

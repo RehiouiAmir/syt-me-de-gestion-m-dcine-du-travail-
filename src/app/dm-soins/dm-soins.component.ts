@@ -8,6 +8,7 @@ import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { EmployeService } from 'src/app/services/employe.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dm-soins',
@@ -16,9 +17,11 @@ import { EmployeService } from 'src/app/services/employe.service';
 })
 export class DmSoinsComponent implements OnInit {
 
+  id_employe : number;
+
   /* Table Structure */
   
-  displayedColumns: string[] = ['typeSoins','dateSoins','medecin','infirmier','Action-details','Action-edit','Action-delete'];
+  displayedColumns: string[] = ['acte','dateSoins','observation','medecin','infirmier','Action-details','Action-edit','Action-delete'];
   dataSource : MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -33,11 +36,13 @@ export class DmSoinsComponent implements OnInit {
   @ViewChild('MatPaginatorDemande') paginatorDemande: MatPaginator;
   @ViewChild('MatSortDemande') sortDemande: MatSort;
   
-  constructor(private activitesService : ActivitesMedicalesService, public dialog: MatDialog) { }
+  constructor(private route: ActivatedRoute,private activitesService : ActivitesMedicalesService,private employeService : EmployeService, public dialog: MatDialog) { 
+    this.id_employe = Number(this.route.snapshot.paramMap.get('id'));
+  }
 
   ngOnInit() {
 
-    this.activitesService.getAllAccidentTravails().subscribe(
+    this.employeService.getAllSoinsByEmployeId(this.id_employe).subscribe(
       data => {
         console.log(data)
         this.dataSource = new MatTableDataSource<any>(data);

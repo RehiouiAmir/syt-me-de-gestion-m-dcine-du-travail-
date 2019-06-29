@@ -93,4 +93,10 @@ export class EmployeService {
     return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/reorientations`);
   }
 
+  // Service Soins 
+
+  getAllSoinsByEmployeId(id_employe: number) {
+    return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/soins`);
+  }
+
 }
