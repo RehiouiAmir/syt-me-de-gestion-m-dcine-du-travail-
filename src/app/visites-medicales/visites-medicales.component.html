@@ -15,29 +15,38 @@
             </mat-form-field>
         </div>
         <div class="col-md-4">
-            <mat-form-field class="width-field">
+            <mat-form-field>
                 <mat-select placeholder="Poste de travail">
                     <mat-option *ngFor="let posteTravail of posteTravails" [value]="posteTravail.designation">
                         {{posteTravail.designation}}
-                    </mat-option>                            
+                    </mat-option>                  
                 </mat-select>
             </mat-form-field>
         </div>
         <div class="col-md-4">
-            <mat-form-field class="width-field">
-                <mat-select placeholder="Site">                           
+            <mat-form-field>
+                <mat-select placeholder="Site">
+                    <mat-option *ngFor="let site of sites" [value]="site.designation">
+                            {{site.designation}}
+                    </mat-option>                            
                 </mat-select>
             </mat-form-field>
         </div> 
         <div class="col-md-4">
-            <mat-form-field class="width-field">
-                <mat-select placeholder="Département">                          
+            <mat-form-field>
+                <mat-select placeholder="Département">   
+                    <mat-option *ngFor="let departement of departements" [value]="departement.designation">
+                            {{departement.designation}}
+                    </mat-option>                          
                 </mat-select>
             </mat-form-field>
         </div>
         <div class="col-md-4">
-            <mat-form-field class="width-field">
-                <mat-select placeholder="Société">                         
+            <mat-form-field>
+                <mat-select placeholder="Société">
+                    <mat-option *ngFor="let societe of societes" [value]="societe.designation">
+                            {{societe.designation}}
+                    </mat-option>                      
                 </mat-select>
             </mat-form-field>
         </div>

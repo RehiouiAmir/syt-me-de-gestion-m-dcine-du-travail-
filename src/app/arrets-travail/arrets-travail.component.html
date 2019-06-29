@@ -15,29 +15,38 @@
             </mat-form-field>
         </div>
         <div class="col-md-4">
-            <mat-form-field class="width-field">
+            <mat-form-field>
                 <mat-select placeholder="Poste de travail">
                     <mat-option *ngFor="let posteTravail of posteTravails" [value]="posteTravail.designation">
                         {{posteTravail.designation}}
-                    </mat-option>                            
+                    </mat-option>                  
                 </mat-select>
             </mat-form-field>
         </div>
         <div class="col-md-4">
-            <mat-form-field class="width-field">
-                <mat-select placeholder="Site">                           
+            <mat-form-field>
+                <mat-select placeholder="Site">
+                    <mat-option *ngFor="let site of sites" [value]="site.designation">
+                            {{site.designation}}
+                    </mat-option>                            
                 </mat-select>
             </mat-form-field>
         </div> 
         <div class="col-md-4">
-            <mat-form-field class="width-field">
-                <mat-select placeholder="Département">                          
+            <mat-form-field>
+                <mat-select placeholder="Département">   
+                    <mat-option *ngFor="let departement of departements" [value]="departement.designation">
+                            {{departement.designation}}
+                    </mat-option>                          
                 </mat-select>
             </mat-form-field>
         </div>
         <div class="col-md-4">
-            <mat-form-field class="width-field">
-                <mat-select placeholder="Société">                         
+            <mat-form-field>
+                <mat-select placeholder="Société">
+                    <mat-option *ngFor="let societe of societes" [value]="societe.designation">
+                            {{societe.designation}}
+                    </mat-option>                      
                 </mat-select>
             </mat-form-field>
         </div>
@@ -71,16 +80,16 @@
           <div class=" table-overflow">
           <table mat-table [dataSource]="dataSource" matSort>
 
-              <!-- matricule  Column -->
-              <ng-container matColumnDef="matricule">
+            <!-- matricule  Column -->
+            <ng-container matColumnDef="matricule">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Matricule </th>
-                <td mat-cell *matCellDef="let row">  </td>
+                <td mat-cell *matCellDef="let row">{{row.employe.code}}</td>
             </ng-container> 
         
             <!-- Numéro carte chifa   Column -->
             <ng-container matColumnDef="numCarteChifa">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Num.carte chifa  </th>
-                <td mat-cell *matCellDef="let row"></td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> N° Carte CHIFA  </th>
+                <td mat-cell *matCellDef="let row">{{row.employe.numeroSecuriteSociale}}</td>
             </ng-container>
 
             <!-- Poste Travail  Column -->
@@ -92,7 +101,7 @@
             <!-- Motif  Column -->
             <ng-container matColumnDef="motif">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Motif  </th>
-                <td mat-cell *matCellDef="let row"></td>
+                <td mat-cell *matCellDef="let row">{{row.motif}}</td>
             </ng-container>
 
               <!-- Date début  Column -->

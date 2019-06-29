@@ -31,7 +31,7 @@ export class ActivitesMedicalesService {
   // Services AccidentTravail
 
   getAllAccidentTravails() {
-    return this.http.get<any[]>(`${environment.baseUrl}/accidentTravails`);
+    return this.http.get<any[]>(`${environment.baseUrl}/accidents`);
   }
 
   // Services ArretTravail
@@ -42,8 +42,12 @@ export class ActivitesMedicalesService {
 
   // Services Soin
 
-  getAllSoins() {
-    return this.http.get<any[]>(`${environment.baseUrl}/soins`);
+  getAllSoinss() {
+    return this.http.get<any[]>(`${environment.baseUrl}/soinss`);
+  }
+
+  getAllSoinsInfirmiers() {
+    return this.http.get<any[]>(`${environment.baseUrl}/soinsInfirmiers`);
   }
 
 

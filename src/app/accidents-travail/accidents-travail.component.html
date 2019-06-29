@@ -15,29 +15,38 @@
             </mat-form-field>
         </div>
         <div class="col-md-4">
-            <mat-form-field class="width-field">
+            <mat-form-field>
                 <mat-select placeholder="Poste de travail">
                     <mat-option *ngFor="let posteTravail of posteTravails" [value]="posteTravail.designation">
                         {{posteTravail.designation}}
-                    </mat-option>                            
+                    </mat-option>                  
                 </mat-select>
             </mat-form-field>
         </div>
         <div class="col-md-4">
-            <mat-form-field class="width-field">
-                <mat-select placeholder="Site">                           
+            <mat-form-field>
+                <mat-select placeholder="Site">
+                    <mat-option *ngFor="let site of sites" [value]="site.designation">
+                            {{site.designation}}
+                    </mat-option>                            
                 </mat-select>
             </mat-form-field>
         </div> 
         <div class="col-md-4">
-            <mat-form-field class="width-field">
-                <mat-select placeholder="Département">                          
+            <mat-form-field>
+                <mat-select placeholder="Département">   
+                    <mat-option *ngFor="let departement of departements" [value]="departement.designation">
+                            {{departement.designation}}
+                    </mat-option>                          
                 </mat-select>
             </mat-form-field>
         </div>
         <div class="col-md-4">
-            <mat-form-field class="width-field">
-                <mat-select placeholder="Société">                         
+            <mat-form-field>
+                <mat-select placeholder="Société">
+                    <mat-option *ngFor="let societe of societes" [value]="societe.designation">
+                            {{societe.designation}}
+                    </mat-option>                      
                 </mat-select>
             </mat-form-field>
         </div>
@@ -84,38 +93,26 @@
               <!-- nature accident  Column -->
               <ng-container matColumnDef="natureAccident">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Nature </th>
-                <td mat-cell *matCellDef="let row">{{row.natureAccident}}</td>
+                <td mat-cell *matCellDef="let row">{{row.natureAccident.designation}}</td>
             </ng-container>
   
               <!-- Date accident  Column -->
               <ng-container matColumnDef="dateAccident">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-                  <td mat-cell *matCellDef="let row">{{row.dateAccident}}</td>
+                  <td mat-cell *matCellDef="let row">{{row.date}}</td>
               </ng-container>    
 
               <!-- Lieu accident  Column -->
               <ng-container matColumnDef="lieuAccident">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Lieu </th>
-                  <td mat-cell *matCellDef="let row"> {{row.lieuAccident}} </td>
-              </ng-container>  
-
-              <!-- matricule  Column -->
-              <ng-container matColumnDef="matricule">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Matricule </th>
-                  <td mat-cell *matCellDef="let row">  </td>
-              </ng-container> 
-          
-              <!-- Numéro carte chifa   Column -->
-              <ng-container matColumnDef="numCarteChifa">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Num.carte chifa  </th>
-                  <td mat-cell *matCellDef="let row"></td>
+                  <td mat-cell *matCellDef="let row"> {{row.lieu}} </td>
               </ng-container>
 
-              <!-- Poste Travail  Column -->
-              <ng-container matColumnDef="posteTravail">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Poste de travail  </th>
-                  <td mat-cell *matCellDef="let row"></td>
-              </ng-container>
+             <!-- circonstance accident  Column -->
+             <ng-container matColumnDef="circonstance">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Circonstance </th>
+                <td mat-cell *matCellDef="let row"> {{row.circonstance}} </td>
+            </ng-container> 
 
               <!-- Médecin Column -->
               <ng-container matColumnDef="medecin">
