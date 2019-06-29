@@ -17,6 +17,7 @@ import { FormControl } from '@angular/forms';
 export class DmArretTravailComponent implements OnInit {
 
   private id_employe: number;
+  private arreTrvails: any[];
   
     /* Table Structure */
   
@@ -31,13 +32,13 @@ export class DmArretTravailComponent implements OnInit {
     }
   
     ngOnInit() {
-  
-      this.employeService.getAllArretTravailsEmploye(this.id_employe).subscribe(
+      this.employeService.getAllArretTravailsByEmployeId(this.id_employe).subscribe(
         data => {
           console.log(data)
-          this.dataSource = new MatTableDataSource<any>(data);
+          this.arreTrvails = data;
+          this.dataSource = new MatTableDataSource<any>(this.arreTrvails);
           this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort; 
+          this.dataSource.sort = this.sort;
         },
         error => console.log(error)  
       );
@@ -57,7 +58,9 @@ export class DmArretTravailComponent implements OnInit {
     add() {
       let dialogRef = this.dialog.open(AjouterArretTravailComponent, {
         width: '70%',
-        data: {}
+        data: {
+          id_employe : this.id_employe,
+        }
       });
      }
 }
@@ -72,30 +75,41 @@ export class AjouterArretTravailComponent implements OnInit {
   addForm: FormGroup;
   dateAujourdhuit = new FormControl(new Date()); 
   
-  accidentTravails = [
-    {code:'1' ,dateAccident :'02-03-2018' ,lieuAccident : 'intern' ,natureAccident : 'grave'},
-    {code:'2' ,dateAccident :'06-03-2019' ,lieuAccident : 'intern' ,natureAccident : 'moyenne'},
-    {code:'3' ,dateAccident :'02-11-2017' ,lieuAccident : 'intern' ,natureAccident : 'grave'},
-  ]
+  accidentTravails : any [] =[];
+  
+  maladiesProfessionnelles : any []= [];
 
-  maladiesProfessionnelles = [
-    {code:'1' ,typeMaladie :'professionnelle' ,designation : 'Otite moyenne' },
-    {code:'2' ,typeMaladie :'professionnelle' ,designation : 'Onychomycose' },
-    {code:'3' ,typeMaladie :'professionnelle', designation : 'Le mal de gorge' },
-  ]
-
-  maladies= [
-    {code:'1' ,typeMaladie :'Générale' ,designation : 'Otite moyenne' },
-    {code:'2' ,typeMaladie :'Congenitale' ,designation : 'Onychomycose' },
-    {code:'3' ,typeMaladie :'Générale' ,designation : 'Le mal de gorge' },
-  ]
+  maladies: any []= [];
+  
+  
   
   
   constructor(public dialogRef: MatDialogRef<AjouterArretTravailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, 
-    private formBuilder: FormBuilder) {}
+    private formBuilder: FormBuilder, private employeService: EmployeService,) {}
 
   ngOnInit() {
+    this.employeService.getAllAntecedentsAccidentsTravailByEmployeId(this.data.id_employe).subscribe(
+      data => {
+        console.log(data)
+        this.accidentTravails = data;
+      },
+      error => console.log(error)  
+    );
+
+    this.employeService.getAllAntecedentsMaladiesByEmployeId(this.data.id_employe).subscribe(
+      data => {
+        console.log(data)
+        for(let i of data){
+          if(i.type ==='Professionnelle') {
+            this.maladiesProfessionnelles.push(i);
+          }else{
+            this.maladies.push(i)
+          }
+        }
+      },
+      error => console.log(error)  
+    );
 
     this.addForm = this.formBuilder.group({
       motifArret: ['', Validators.required],

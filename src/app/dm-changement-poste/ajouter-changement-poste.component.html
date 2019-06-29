@@ -6,7 +6,7 @@
                 <div class="col-md-8">
                     <mat-form-field>
                         <mat-select placeholder="Poste de travail occupé" formControlName="posteTravail" required>
-                            <mat-option *ngFor="let posteTravail of posteTravails" [value]="posteTravail.designation">
+                            <mat-option *ngFor="let posteTravail of posteTravails" [value]="posteTravail.id">
                                 {{posteTravail.designation}}
                             </mat-option>                                                
                         </mat-select>

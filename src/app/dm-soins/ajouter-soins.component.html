@@ -9,7 +9,7 @@
                 <div class="col-md-8">
                     <mat-form-field>
                         <mat-select placeholder="Désignation d'acte de soin" formControlName="designationActe" required>
-                            <mat-option *ngFor="let act of acts" [value]="act.designation">{{act.designation}}</mat-option>                                                                            
+                            <mat-option *ngFor="let acte of actes" [value]="acte">{{acte.designation}}</mat-option>                                                                            
                         </mat-select>
                     </mat-form-field>
                 </div>    

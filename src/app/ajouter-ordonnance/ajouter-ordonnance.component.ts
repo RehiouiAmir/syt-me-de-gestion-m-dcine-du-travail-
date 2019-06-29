@@ -6,6 +6,7 @@ import { Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { FormArray } from '@angular/forms';
+import { EmployeService } from 'src/app/services/employe.service';
 
 @Component({
   selector: 'app-ajouter-ordonnance',
@@ -14,16 +15,7 @@ import { FormArray } from '@angular/forms';
 })
 export class AjouterOrdonnanceComponent implements OnInit {
 
-  medicaments = [
-    {designation:'Médicaent 1'},
-    {designation:'Médicaent 2'},
-    {designation:'Médicaent 3'},
-    {designation:'Médicaent 4'},
-    {designation:'Médicaent 5'},
-    {designation:'Médicaent 6'},
-    {designation:'Médicaent 7'},
-    {designation:'Médicaent 8'},
-  ]
+  private medicaments : any[]
 
   addGlobalForm: FormGroup;
   addForm: FormGroup;
@@ -33,7 +25,7 @@ export class AjouterOrdonnanceComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<AjouterOrdonnanceComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, 
-    private formBuilder: FormBuilder, private fb: FormBuilder)
+    private formBuilder: FormBuilder, private fb: FormBuilder,private employeService: EmployeService)
      {
       this.addForm = this.fb.group({
         items: [null, Validators.required],
@@ -44,6 +36,15 @@ export class AjouterOrdonnanceComponent implements OnInit {
     }
 
     ngOnInit() {
+
+      this.employeService.getAllMedicaments().subscribe(
+        data => {
+          console.log(data) 
+          this.medicaments = data;      
+        },
+        error => console.log(error)  
+      );
+
       this.addGlobalForm = this.formBuilder.group({
         dateOrdonnance: [this.dateAujourdhuit.value,Validators.required],
         observation: [''],      

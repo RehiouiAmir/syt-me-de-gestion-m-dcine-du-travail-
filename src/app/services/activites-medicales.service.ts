@@ -34,6 +34,12 @@ export class ActivitesMedicalesService {
     return this.http.get<any[]>(`${environment.baseUrl}/accidents`);
   }
 
+  // Service Maladies 
+
+  getAllMaladies() {
+    return this.http.get<any[]>(`${environment.baseUrl}/maladies`);
+  }
+
   // Services ArretTravail
 
   getAllArretTravails() {

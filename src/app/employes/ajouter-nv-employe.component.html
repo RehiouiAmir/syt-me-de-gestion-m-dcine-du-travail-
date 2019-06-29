@@ -1,5 +1,5 @@
 <h4 mat-dialog-title class="mat-dialog-title">Ajouter Nouveau Employe</h4>
-<form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="addForm">
     <div mat-dialog-content>
         <div class="row">
             <div  class="col-md-6 column-left">
@@ -26,7 +26,7 @@
                         </mat-form-field>
                     </div>
                 </div>
-                <div class="row-2">
+                <div class="row-3">
                     <div  class="col-md-6">
                         <mat-form-field>
                             <input matInput formControlName="code"  placeholder="Matricule" required>
@@ -38,7 +38,7 @@
                         </mat-form-field>
                     </div>
                 </div>
-                <div class="row-3">
+                <div class="row-4">
                     <div class="col-md-6">
                         <mat-form-field>
                             <mat-select matInput formControlName="sexe"  placeholder="Sexe" required>
@@ -55,14 +55,14 @@
                         </mat-form-field> 
                     </div>
                 </div>
-                <div class="row-4">
+                <div class="row-5">
                     <div class="col-md-6">
                         <mat-form-field>
                             <input matInput formControlName="lieuNaissance"  placeholder="Lieux de naissance" required>
                         </mat-form-field>
                     </div>
                 </div>
-                <div class="row-5">
+                <div class="row-6">
                     <div class="col-md-6">
                         <mat-form-field>
                             <mat-select matInput formControlName="situationFamiliale"  placeholder="Situation Familiale" required>
@@ -88,14 +88,16 @@
                         </mat-form-field>
                     </div>
                 </div>
-                <div class="row-6">
+            </div>
+            <div  class="col-md-6 column-right">
+                <div class="row-1">
                     <div class="col-md-8">
                         <mat-form-field>
                             <textarea matInput formControlName="adresse" formControlName="adresse" placeholder="Adresse" required></textarea>
                         </mat-form-field>
                     </div>
                 </div>
-                <div class="row-7">
+                <div class="row-2">
                     <div  class="col-md-6">
                         <mat-form-field>
                             <input matInput formControlName="telephone" placeholder="Téléphone">
@@ -111,72 +113,21 @@
                         </mat-form-field>
                     </div>
                 </div>
-            </div>
-            <div  class="col-md-6 column-right">
-                <div class="row-1">
-                    <div class="col-md-12">
-                        <mat-form-field>
-                            <mat-select matInput formControlName="posteTravail" placeholder="Poste de travail">
-                                <mat-option *ngFor="let posteTravail of posteTravails" [value]="posteTravail.value">
-                                    {{posteTravail.viewValue}}
-                                </mat-option>                            
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="row-2">
-                    <div class="col-md-12">
-                        <mat-form-field>
-                            <mat-select matInput formControlName="societe" placeholder="Société">
-                                <mat-option *ngFor="let societe of societes" [value]="societe.value">
-                                    {{societe.viewValue}}
-                                </mat-option>                            
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
                 <div class="row-3">
-                    <div class="col-md-6">
-                        <mat-form-field>
-                            <mat-select matInput formControlName="site" placeholder="Site">
-                                <mat-option *ngFor="let site of sites" [value]="site.value">
-                                    {{site.viewValue}}
-                                </mat-option>                            
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-md-6">
-                        <mat-form-field>
-                            <mat-select matInput formControlName="departement" placeholder="Département">
-                                <mat-option *ngFor="let departement of departements" [value]="departement.value">
-                                    {{departement.viewValue}}
-                                </mat-option>                           
-                            </mat-select>
-                        </mat-form-field>                        
-                    </div>
-                </div>
-                <div class="row-4">
-                    <div class="col-md-12">
-                        <mat-form-field>
-                            <input matInput formControlName="formationScolaire"  placeholder="Formation scolaire">
-                        </mat-form-field>  
-                    </div>
-                </div>
-                <div class="row-5">
                     <div class="col-md-12">
                         <mat-form-field>
                             <input matInput formControlName="formationProfessionnelle" placeholder="Formation professionnelle">
                         </mat-form-field> 
                     </div>
                 </div>
-                <div class="row-6">
+                <div class="row-4">
                     <div class="col-md-12">
                             <mat-form-field>
                                 <input matInput formControlName="qualification" placeholder="Qualification">
                             </mat-form-field> 
                     </div>
                 </div>
-                <div class="row-7">
+                <div class="row-5">
                     <div  class="col-md-6">
                         <mat-form-field>
                             <mat-select matInput formControlName="serviceNational"  placeholder="Service national" required>
@@ -186,18 +137,18 @@
                         </mat-form-field>
                     </div>
                 </div>
-                <div class="row-8">
+                <div class="row-6">
                     <div class="col-md-12">
                         <mat-form-field>
                             <textarea matInput  formControlName="travailAntecedent" placeholder="Activité professionel anterieure"></textarea>
                         </mat-form-field>
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
     </div>
     <div mat-dialog-actions class="pull-right">
     <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()">Annuler</button>
-    <button mat-button mat-raised-button class="btn-ajouter" cdkFocusInitial>Ajouter <mat-icon>add</mat-icon></button>
+    <button mat-button mat-raised-button class="btn-ajouter" (click)="onSubmit()" cdkFocusInitial>Ajouter <mat-icon>add</mat-icon></button>
     </div>
 </form>

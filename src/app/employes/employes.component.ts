@@ -106,14 +106,12 @@ export class EmployesComponent implements OnInit {
       });
     
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result)
           if (result !== undefined){
             console.log(result)
             //change in backend
             this.employeService.createEmploye(result).subscribe(data => {
               this.dataSource.data.push(data)
               this.dataSource._updateChangeSubscription() 
-              console.log(data)
             },
             error => console.log(error));
           }
@@ -144,72 +142,42 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class AjouterNvEmployeComponent implements OnInit{
 
-  posteTravails : any[];
-  departements : any[];
-  societes : any[];
-  sites : any[];
   addForm: FormGroup;
   
   constructor(public dialogRef: MatDialogRef<AjouterNvEmployeComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any, 
               private formBuilder: FormBuilder,private employeService: EmployeService) {}
   
+     //  Email control validator
+
+     emailFormControl = new FormControl('', [
+      Validators.email,
+    ]);
+  
+    matcher = new MyErrorStateMatcher();
 
   ngOnInit() {
-    this.employeService.getAllPosteTravails().subscribe(
-      data => {
-        console.log(data) 
-        this.posteTravails = data;      
-      },
-      error => console.log(error)  
-    );
-
-    this.employeService.getAllDepartements().subscribe(
-      data => {
-        console.log(data) 
-        this.departements = data;      
-      },
-      error => console.log(error)  
-    );
-
-    this.employeService.getAllSocietes().subscribe(
-      data => {
-        console.log(data) 
-        this.societes = data;      
-      },
-      error => console.log(error)  
-    );
-
-    this.employeService.getAllSites().subscribe(
-      data => {
-        console.log(data) 
-        this.sites = data;      
-      },
-      error => console.log(error)  
-    );
+    
     this.addForm = this.formBuilder.group({
-      nom: ['', Validators.required],
-      prenom: ['', Validators.required],
-      code: ['', Validators.required],
-      numeroSecuriteSociale: [],
-      sexe: ['', Validators.required],
-      dateNaissance: ['', Validators.required],
-      lieuNaissance: ['', Validators.required],
-      situationFamiliale: ['', Validators.required],
-      groupeSanguin: [],
-      adresse: ['', Validators.required],
-      emailFormControl: ['', Validators.required],
+      nom: ['',Validators.required],
+      prenom: ['',Validators.required],
+      code: ['',Validators.required],
+      numeroSecuriteSociale: [''],
+      sexe: ['',Validators.required],
+      dateNaissance: ['',Validators.required],
+      lieuNaissance: ['',Validators.required],
+      situationFamiliale: ['',Validators.required],
+      groupeSanguin: [''],
+      adresse: ['',Validators.required],
       telephone: [''],
-      posteTravail: [''],
-      societe: [''],
-      site: [''],
-      departement: [''],
       formationScolaire: [''],
       formationProfessionnelle: [''],
       qualification: [''],
-      serviceNational: ['', Validators.required],
+      serviceNational: ['',Validators.required],
       travailAntecedent: ['']
     });
+
+    this.addForm.addControl('emailFormControl', this.emailFormControl);
   }
   
   
@@ -217,7 +185,7 @@ export class AjouterNvEmployeComponent implements OnInit{
     if (!this.addForm.invalid){
         this.data = this.addForm.value;
         console.log(this.data)
-        this.dialogRef.close();
+        this.dialogRef.close(this.data);
       }
   }
     
@@ -225,14 +193,6 @@ export class AjouterNvEmployeComponent implements OnInit{
   onNoClick(): void {
     this.dialogRef.close();
   }
-
-  //  Email control validator
-
-  emailFormControl = new FormControl('', [
-    Validators.email,
-  ]);
-
-  matcher = new MyErrorStateMatcher();
 
   
 }

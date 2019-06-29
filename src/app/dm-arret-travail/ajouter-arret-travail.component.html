@@ -35,21 +35,21 @@
                     <mat-form-field *ngIf="addForm.value.motifArret === 'Accident de travail'">
                         <mat-select placeholder="Sélectionner un accident" formControlName="accident">
                             <mat-option *ngFor="let accidentTravail of accidentTravails" [value]="accidentTravail">
-                                {{accidentTravail.code}} | {{accidentTravail.dateAccident}} | {{accidentTravail.lieuAccident}} | {{accidentTravail.natureAccident}}
+                                {{accidentTravail.accident.natureAccident.designation}} | {{accidentTravail.accident.date | date}} | {{accidentTravail.accident.lieu}}
                             </mat-option>                                                
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field *ngIf="addForm.value.motifArret === 'Maladie non professionnelle'">
                         <mat-select placeholder="Sélectionner une maladie" formControlName="maladie">
                             <mat-option *ngFor="let maladie of maladies" [value]="maladie">
-                                {{maladie.typeMaladie}} | {{maladie.designation}}
+                                {{maladie.maladie.designation}} | {{maladie.maladie.type}}
                             </mat-option>                                                
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field *ngIf="addForm.value.motifArret === 'Maladie professionnelle'">
                         <mat-select placeholder="Sélectionner une maladie professionnelles" formControlName="maladie">
                             <mat-option *ngFor="let maladie of maladiesProfessionnelles" [value]="maladie">
-                                {{maladie.designation}}
+                                {{maladie.maladie.designation}}
                             </mat-option>                                                
                         </mat-select>
                     </mat-form-field>

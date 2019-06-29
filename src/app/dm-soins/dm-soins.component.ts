@@ -7,6 +7,7 @@ import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { EmployeService } from 'src/app/services/employe.service';
 
 @Component({
   selector: 'app-dm-soins',
@@ -92,18 +93,21 @@ export class AjouterSoinsComponent implements OnInit {
   dateAujourdhuit = new FormControl(new Date()); 
   
 
-  acts= [
-    {designation : 'acte 1' },
-    {designation : 'acte 2' },
-    {designation : 'acte 3' },
-  ]
-  
+  actes :any [];
 
   constructor(public dialogRef: MatDialogRef<AjouterSoinsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, 
-    private formBuilder: FormBuilder) {}
+    private formBuilder: FormBuilder,private employeService: EmployeService) {}
 
   ngOnInit() {
+
+    this.employeService.getAllActes().subscribe(
+      data => {
+        console.log(data) 
+        this.actes = data;      
+      },
+      error => console.log(error)  
+    );
     this.addForm = this.formBuilder.group({
       designationActe: ['',Validators.required],
       observation: [''], 
