@@ -122,6 +122,17 @@ export class DmAntecedentsComponent implements OnInit {
       width: '70%',
       data: {}
     });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined){
+        console.log(result)
+        //change in backend
+        this.employeService.creatAntecedentAutre(this.id_employe,result).subscribe(data => {
+          this.dataSourceAutres.data.push(data)
+          this.dataSourceAutres._updateChangeSubscription() 
+        },
+        error => console.log(error));
+      }
+    });
    }
 }
 
@@ -146,7 +157,8 @@ export class AjouterAntecedentComponent implements OnInit {
   
   constructor(public dialogRef: MatDialogRef<AjouterAntecedentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, 
-    private formBuilder: FormBuilder,public dialog: MatDialog,private activitesMedicales : ActivitesMedicalesService) {}
+    private formBuilder: FormBuilder,public dialog: MatDialog,
+    private activitesMedicales : ActivitesMedicalesService) {}
 
   ngOnInit() {
 
@@ -175,7 +187,7 @@ export class AjouterAntecedentComponent implements OnInit {
     );
 
     this.addForm = this.formBuilder.group({
-      typeAntecedent:  ['', Validators.required],
+      type:  ['', Validators.required],
       designation: ['', Validators.required],
       dateDebut: [this.dateAujourdhuit.value,Validators.required],
       dateFin: [''],

@@ -8,7 +8,7 @@
             <div class="col-md-6">
                 <div class="col-md-8">
                     <mat-form-field>
-                        <mat-select placeholder="Type d'antécédent" formControlName="typeAntecedent" required>
+                        <mat-select placeholder="Type d'antécédent" formControlName="type" required>
                             <mat-option value="Accident de travail">Accident de travail</mat-option>
                             <mat-option value="Accident non professionnel">Accident non professionnel</mat-option>                                                
                             <mat-option value="Maladie professionnelle">Maladie professionnelle</mat-option>                                                
@@ -43,34 +43,34 @@
             </div>
             <div class="col-md-6">
                 <div class="col-md-10">
-                    <mat-form-field *ngIf="addForm.value.typeAntecedent != 'Accident de travail' &&
-                                        addForm.value.typeAntecedent != 'Maladie congénitale' && 
-                                        addForm.value.typeAntecedent != 'Maladie générale' && 
-                                        addForm.value.typeAntecedent != 'Maladie professionnelle'">
+                    <mat-form-field *ngIf="addForm.value.type != 'Accident de travail' &&
+                                        addForm.value.type != 'Maladie congénitale' && 
+                                        addForm.value.type != 'Maladie générale' && 
+                                        addForm.value.type != 'Maladie professionnelle'">
                         <input matInput placeholder="Désignation" formControlName="designation" required>
                     </mat-form-field>  
-                    <mat-form-field *ngIf="addForm.value.typeAntecedent === 'Accident de travail'">
+                    <mat-form-field *ngIf="addForm.value.type === 'Accident de travail'">
                         <mat-select placeholder="Sélectionner un accident" formControlName="designation" required>
                             <mat-option *ngFor="let accidentTravail of accidentTravails" [value]="accidentTravail">
                                 {{accidentTravail.natureAccident.designation}} | {{accidentTravail.date}} | {{accidentTravail.lieu}}
                             </mat-option>                                                
                         </mat-select>
                     </mat-form-field>
-                    <mat-form-field *ngIf="addForm.value.typeAntecedent === 'Maladie congénitale'">
+                    <mat-form-field *ngIf="addForm.value.type === 'Maladie congénitale'">
                         <mat-select placeholder="Sélectionner une maladie congénitale" formControlName="designation" required>
                             <mat-option *ngFor="let maladie of maladiesCongenitale" [value]="maladie">
                                 {{maladie.designation}}
                             </mat-option>                                                
                         </mat-select>
                     </mat-form-field>
-                    <mat-form-field *ngIf="addForm.value.typeAntecedent === 'Maladie générale'">
+                    <mat-form-field *ngIf="addForm.value.type === 'Maladie générale'">
                         <mat-select placeholder="Sélectionner une maladies générale" formControlName="designation" required>
                             <mat-option *ngFor="let maladie of maladiesGenerale" [value]="maladie">
                                 {{maladie.designation}}
                             </mat-option>                                                
                         </mat-select>
                     </mat-form-field>
-                    <mat-form-field *ngIf="addForm.value.typeAntecedent === 'Maladie professionnelle'">
+                    <mat-form-field *ngIf="addForm.value.type === 'Maladie professionnelle'">
                         <mat-select placeholder="Sélectionner une maladies professionnelles" formControlName="designation" required>
                             <mat-option *ngFor="let maladie of maladiesProfessionnelles" [value]="maladie">
                                 {{maladie.designation}}
