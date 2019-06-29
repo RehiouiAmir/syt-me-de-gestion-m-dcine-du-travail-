@@ -52,7 +52,7 @@
                     <mat-form-field *ngIf="addForm.value.typeAntecedent === 'Accident de travail'">
                         <mat-select placeholder="Sélectionner un accident" formControlName="designation" required>
                             <mat-option *ngFor="let accidentTravail of accidentTravails" [value]="accidentTravail">
-                                {{accidentTravail.dateAccident}} | {{accidentTravail.lieuAccident}} | {{accidentTravail.natureAccident}}
+                                {{accidentTravail.natureAccident.designation}} | {{accidentTravail.date}} | {{accidentTravail.lieu}}
                             </mat-option>                                                
                         </mat-select>
                     </mat-form-field>

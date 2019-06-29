@@ -15,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 export class DmConsultationMedicaleComponent implements OnInit {
 
   private id_employe: number;
+  private consultations: any[];
 
   /* Table Structure */
 
@@ -30,12 +31,13 @@ export class DmConsultationMedicaleComponent implements OnInit {
 
   ngOnInit() {
 
-    this.employeService.getEmployeById(this.id_employe).subscribe(
+    this.employeService.getAllConsultationsByEmployeId(this.id_employe).subscribe(
       data => {
         console.log(data)
-        this.dataSource = new MatTableDataSource<any>(data.consultations);
+        this.consultations = data;
+        this.dataSource = new MatTableDataSource<any>(this.consultations);
         this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort; 
+        this.dataSource.sort = this.sort;
       },
       error => console.log(error)  
     );

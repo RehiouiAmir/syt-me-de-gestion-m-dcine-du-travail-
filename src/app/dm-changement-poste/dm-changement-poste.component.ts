@@ -17,10 +17,12 @@ import { FormArray } from '@angular/forms';
 export class DmChangementPosteComponent implements OnInit {
 
   private id_employe: number;
+  private posteHistorique : any [];
+  private reorientations : any [];
   
     /* Table Structure */
   
-    displayedColumns: string[] = ['posteOccupe','dateOccupation','dateliberation','motif','medecin','Action-details','Action-edit','Action-delete'];
+    displayedColumns: string[] = ['posteOccupe','etatPoste','dateOccupation','dateliberation','motif','medecin','Action-details','Action-edit','Action-delete'];
     dataSource : MatTableDataSource<any>;
   
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -39,13 +41,24 @@ export class DmChangementPosteComponent implements OnInit {
     }
   
     ngOnInit() {
-  
-      this.employeService.getAllchangementPostesEmploye(this.id_employe).subscribe(
+      this.employeService.getEmployeById(this.id_employe).subscribe(
         data => {
-          console.log(data)
-          this.dataSource = new MatTableDataSource<any>(data);
+          this.posteHistorique = data.employe_posteTravails;
+          console.log(this.posteHistorique);
+          this.dataSource = new MatTableDataSource<any>(this.posteHistorique);
           this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort; 
+          this.dataSource.sort = this.sort;
+        },
+        error => console.log(error)  
+      );
+
+      this.employeService.getAllReorientationByEmployeId(this.id_employe).subscribe(
+        data => {
+          this.reorientations = data.employe_posteTravails;
+          console.log(this.reorientations);
+          this.dataSourceReorientation = new MatTableDataSource<any>(this.reorientations);
+          this.dataSourceReorientation.paginator = this.paginatorReorientation;
+          this.dataSourceReorientation.sort = this.sortReorientation;
         },
         error => console.log(error)  
       );
@@ -89,41 +102,11 @@ export class DmChangementPosteComponent implements OnInit {
 
 export class AjouterChangementPosteComponent implements OnInit {
 
-  risquesProfessionnels = [
-    {type:'type 1', designation:'risque 1'},
-    {type:'type 2',designation:'risque 2'},
-    {type:'type 3',designation:'risque 3'},
-    {type:'type 1',designation:'risque 4'},
-    {type:'type 4',designation:'risque 5'},
-    {type:'type 6',designation:'risque 6'},
-    {type:'type 1',designation:'risque 7'},
-    {type:'type 2',designation:'risque 8'},
-  ]
+  risquesProfessionnels : any [] =[];
 
-  risquesPostes= [
-    {poste:'CHEF SCE RELATION INDUS N1', type: 'type1' ,designation:'risque 1'},
-    {poste:'CHEF SCE RELATION INDUS N1',type: 'type1',designation:'risque 6'},
-    {poste:'CHEF SCE RELATION INDUS N1',type: 'type2' ,designation:'risque 3'},
-    {poste:'ANALYSTE N1', type: 'type2' ,designation:'risque 1'},
-    {poste:'ANALYSTE N1',type: 'type1' ,designation:'risque 2'},
-    {poste:'ANALYSTE N1',type: 'type4' ,designation:'risque 4'},
-    {poste:'ANALYSTE N1', type: 'type4' ,designation:'risque 8'},
-    {poste:'CHEF SCE IT',type: 'type1' ,designation:'risque 6'},
-    {poste:'CHEF SCE SUPPORT/TECHNIQUE',type: 'type4' ,designation:'risque 1'},
-    {poste:'CHEF SCE SUPPORT/TECHNIQUE',type: 'type1' , designation:'risque 2'},
-    {poste:'CHEF SCE SUPPORT/TECHNIQUE',type: 'type1' ,designation:'risque 3'},
-    {poste:'CHEF SCE SUPPORT/TECHNIQUE',type: 'type4' ,designation:'risque 5'},
-    {poste:'CHEF SCE SUPPORT/TECHNIQUE',type: 'type4' , designation:'risque 6'},
-    {poste:'CHEF SCE SUPPORT/TECHNIQUE',type: 'type1' ,designation:'risque 7'},
-  ]
+  risquesPostes : any [] = [];
 
-  posteTravails = [
-    {designation: 'CHEF SCE RELATION INDUS N1'},
-    {designation: 'CHEF SCT RELATIONS TRAVAIL'},
-    {designation: 'ANALYSTE N1'}, 
-    {designation: 'CHEF SCE SUPPORT/TECHNIQUE'},
-    {designation: 'CHEF SCE IT'},
-  ]
+  posteTravails : any [] = [];
 
   addGlobalForm: FormGroup;
   addForm: FormGroup;
@@ -132,7 +115,7 @@ export class AjouterChangementPosteComponent implements OnInit {
 
 constructor(public dialogRef: MatDialogRef<AjouterChangementPosteComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any, 
-              private formBuilder: FormBuilder, private fb: FormBuilder) 
+              private formBuilder: FormBuilder, private fb: FormBuilder, private employeService: EmployeService) 
   {
     this.addForm = this.fb.group({
       items: [null, Validators.required],
@@ -143,6 +126,15 @@ constructor(public dialogRef: MatDialogRef<AjouterChangementPosteComponent>,
   }
 
 ngOnInit() {
+
+    this.employeService.getAllPosteTravails().subscribe(
+      data => {
+        console.log(data) 
+        this.posteTravails = data;      
+      },
+      error => console.log(error)  
+    );
+    
     this.addGlobalForm = this.formBuilder.group({
       posteTravail: ['', Validators.required],
       dateOccupation: ['',Validators.required],

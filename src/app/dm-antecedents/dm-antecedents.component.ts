@@ -11,6 +11,7 @@ import { DeclarerAccidentTravailComponent } from 'src/app/accidents-travail/acci
 import { ViewChild } from '@angular/core';
 
 import { EmployeService } from '../services/employe.service';
+import { ActivitesMedicalesService } from 'src/app/services/activites-medicales.service';
 
 @Component({
   selector: 'app-dm-antecedents',
@@ -25,7 +26,7 @@ export class DmAntecedentsComponent implements OnInit {
   maladies: any[];
    /* Accidents de travail Table Structure */
   
-   displayedColumns: string[] = ['designation','dateDebut','dateFin','medecin','Action-details','Action-edit','Action-delete'];
+   displayedColumns: string[] = ['natureAccident','lieu','dateDebut','dateFin','consequence','medecin','Action-details','Action-edit','Action-delete'];
    dataSource : MatTableDataSource<any>;
  
    @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -58,8 +59,8 @@ export class DmAntecedentsComponent implements OnInit {
         console.log(data)
         this.antecedents = data;
         this.dataSourceAutres = new MatTableDataSource<any>(this.antecedents);
-        this.dataSourceAutres.paginator = this.paginator;
-        this.dataSourceAutres.sort = this.sort;
+        this.dataSourceAutres.paginator = this.paginatorAutres;
+        this.dataSourceAutres.sort = this.sortAutres;
       },
       error => console.log(error)  
     );
@@ -68,9 +69,9 @@ export class DmAntecedentsComponent implements OnInit {
       data => {
         console.log(data)
         this.accidentsTravail = data;
-        this.dataSourceAutres = new MatTableDataSource<any>(this.accidentsTravail);
-        this.dataSourceAutres.paginator = this.paginator;
-        this.dataSourceAutres.sort = this.sort;
+        this.dataSource = new MatTableDataSource<any>(this.accidentsTravail);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       },
       error => console.log(error)  
     );
@@ -79,15 +80,40 @@ export class DmAntecedentsComponent implements OnInit {
       data => {
         console.log(data)
         this.maladies = data;
-        this.dataSourceAutres = new MatTableDataSource<any>(this.maladies);
-        this.dataSourceAutres.paginator = this.paginator;
-        this.dataSourceAutres.sort = this.sort;
+        this.dataSourceMaladies = new MatTableDataSource<any>(this.maladies);
+        this.dataSourceMaladies.paginator = this.paginatorMaladies;
+        this.dataSourceMaladies.sort = this.sortMaladies;
       },
       error => console.log(error)  
     );
     
   }
 
+  
+  // search table
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  applyFilterMaladies(filterValue: string) {
+    this.dataSourceMaladies.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSourceMaladies.paginator) {
+      this.dataSourceMaladies.paginator.firstPage();
+    }
+  }
+
+  applyFilterAutres(filterValue: string) {
+    this.dataSourceAutres.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSourceAutres.paginator) {
+      this.dataSourceAutres.paginator.firstPage();
+    }
+  }
 
   // Operation Add, Edit, Delet
  
@@ -109,36 +135,44 @@ export class AjouterAntecedentComponent implements OnInit {
   addForm: FormGroup;
   dateAujourdhuit = new FormControl(new Date()); 
   
-  accidentTravails = [
-    {code:'1' ,dateAccident :'02-03-2018' ,lieuAccident : 'intern' ,natureAccident : 'grave'},
-    {code:'2' ,dateAccident :'06-03-2019' ,lieuAccident : 'intern' ,natureAccident : 'moyenne'},
-    {code:'3' ,dateAccident :'02-11-2017' ,lieuAccident : 'intern' ,natureAccident : 'grave'},
-  ]
+  accidentTravails : any [] =[];
 
-  maladiesProfessionnelles = [
-    {code:'1' ,typeMaladie :'professionnelle' ,designation : 'Otite moyenne' },
-    {code:'2' ,typeMaladie :'professionnelle' ,designation : 'Onychomycose' },
-    {code:'3' ,typeMaladie :'professionnelle', designation : 'Le mal de gorge' },
-  ]
+  maladiesProfessionnelles : any []= [];
 
-  maladiesGenerale= [
-    {code:'1' ,typeMaladie :'Générale' ,designation : 'Otite moyenne' },
-    {code:'2' ,typeMaladie :'Générale' ,designation : 'Onychomycose' },
-    {code:'3' ,typeMaladie :'Générale' ,designation : 'Le mal de gorge' },
-  ]
+  maladiesGenerale: any [] = [];
 
-  maladiesCongenitale= [
-    {code:'1' ,typeMaladie :'Congénitale' ,designation : 'Otite moyenne' },
-    {code:'2' ,typeMaladie :'Congénitale' ,designation : 'Onychomycose' },
-    {code:'3' ,typeMaladie :'Congénitale' ,designation : 'Le mal de gorge' },
-  ]
+  maladiesCongenitale: any [] =[];
   
   
   constructor(public dialogRef: MatDialogRef<AjouterAntecedentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, 
-    private formBuilder: FormBuilder,public dialog: MatDialog) {}
+    private formBuilder: FormBuilder,public dialog: MatDialog,private activitesMedicales : ActivitesMedicalesService) {}
 
   ngOnInit() {
+
+    this.activitesMedicales.getAllAccidentTravails().subscribe(
+      data => {
+        console.log(data) 
+        this.accidentTravails = data;      
+      },
+      error => console.log(error)  
+    );
+
+    this.activitesMedicales.getAllMaladies().subscribe(
+      data => {
+        console.log(data) 
+        for(let i of data){
+          if(i.type ==='Professionnelle') {
+            this.maladiesProfessionnelles.push(i);
+          }else if(i.type ==='Congénétale'){
+            this.maladiesCongenitale.push(i)
+          }else{
+            this.maladiesGenerale.push(i)
+          }
+        }
+      },
+      error => console.log(error)  
+    );
 
     this.addForm = this.formBuilder.group({
       typeAntecedent:  ['', Validators.required],

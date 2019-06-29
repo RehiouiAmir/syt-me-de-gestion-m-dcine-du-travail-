@@ -22,7 +22,7 @@ export class EmployeService {
   }
 
   createEmploye(employe) {
-    return this.http.post(`${environment.baseUrl}/employe/create`, employe);
+    return this.http.post(`${environment.baseUrl}/employe`, employe);
   }
 
   // Service Poste de travail
@@ -57,33 +57,30 @@ export class EmployeService {
     return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/antecedentMaladies`);
   }
 
-  //Service Accident de travail
+  // Service Consultation medicales
 
-  getAllAccidentTravailsEmploye(id_employe: number) {
-    return this.http.get<any>(`${environment.baseUrl}//`+id_employe);
-  }
+    getAllConsultationsByEmployeId(id_employe: number) {
+      return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/consultations`);
+    }
 
-  getAccidentTravailEmploye(id: number) {
-    return this.http.get<any>(`${environment.baseUrl}`);
-  }
+    getAllNatureConsultations() {
+      return this.http.get<any[]>(`${environment.baseUrl}/natureConsultations`);
+    }
 
-  creatAccidentTravail(accidentTravail) {
-    return this.http.post(`${environment.baseUrl}/accidenttravail/creat`, accidentTravail);
-  }
+    getAllMedicaments() {
+      return this.http.get<any[]>(`${environment.baseUrl}/medicaments`);
+    }
+
+    getAllActes() {
+      return this.http.get<any[]>(`${environment.baseUrl}/actes`);
+    }
 
   //Service Arret de travail
 
-  getAllArretTravailsEmploye(id_employe: number) {
-    return this.http.get<any>(`${environment.baseUrl}//`+id_employe);
+  getAllArretTravailsByEmployeId(id_employe: number) {
+    return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/arretTravails`);
   }
 
-  getArretTravailEmploye(id: number) {
-    return this.http.get<any>(`${environment.baseUrl}`);
-  }
-
-  creatArretTravail(arretAccident) {
-    return this.http.post(`${environment.baseUrl}/arrettravail/creat`, arretAccident);
-  }
 
   //Service changelent de poste
 
@@ -91,11 +88,9 @@ export class EmployeService {
     return this.http.get<any>(`${environment.baseUrl}//`+id_employe);
   }
 
-  getChangementPosteEmploye(id: number) {
-    return this.http.get<any>(`${environment.baseUrl}`);
+  // Réorientation médicale
+  getAllReorientationByEmployeId(id_employe: number) {
+    return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/reorientations`);
   }
 
-  creatChangmentPoste(changementPoste) {
-    return this.http.post(`${environment.baseUrl}//creat`, changementPoste);
-  }
 }

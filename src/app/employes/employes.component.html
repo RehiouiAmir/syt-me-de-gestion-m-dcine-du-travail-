@@ -84,7 +84,7 @@
                 <!-- Date Column -->
                 <ng-container matColumnDef="dateNaissance">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Date de naissance </th>
-                    <td mat-cell *matCellDef="let row"> {{row.dateNaissance}} </td>
+                    <td mat-cell *matCellDef="let row"> {{row.dateNaissance | date}} </td>
                 </ng-container>
 
                 <!-- Sexe Column -->

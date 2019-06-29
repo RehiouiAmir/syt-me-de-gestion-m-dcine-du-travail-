@@ -16,7 +16,7 @@
             </div>
             <div class="row-3">
                 <div class="col-md-6">
-                    <p class="title-champ">Date de naissance :<span class="champ">{{employeInfos.dateNaissance}}</span></p>         
+                    <p class="title-champ">Date de naissance :<span class="champ">{{employeInfos.dateNaissance | date}}</span></p>         
                 </div>
                 <div class="col-md-6">
                     <p class="title-champ">Lieux de naisssance :<span class="champ">{{employeInfos.lieuNaissance}}</span></p>         
@@ -40,7 +40,7 @@
             </div>
         </div>
         <div class="col-md-6 column-right">
-            <div class="row-1">
+            <div class="row-1" *ngIf="posteActuel">
                 <div class="col-md-8">
                     <p class="title-champ">Poste de travail :<span class="champ">{{posteActuel.posteTravail.designation}}</span></p>         
                 </div>
@@ -48,7 +48,7 @@
                     <p class="title-champ">Société :<span class="champ">{{posteActuel.posteTravail.departement.siteAffectation.societe.designation}}</span></p>                             
                 </div>
             </div>
-            <div class="row-2">
+            <div class="row-2" *ngIf="posteActuel">
                 <div class="col-md-6">
                     <p class="title-champ">Site :<span class="champ">{{posteActuel.posteTravail.departement.siteAffectation.designation}}</span></p>         
                 </div>

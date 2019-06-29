@@ -8,6 +8,7 @@ import { AjouterSoinsComponent } from 'src/app/dm-soins/dm-soins.component';
 import { AjouterExamenComplementaireComponent } from 'src/app/ajouter-examen-complementaire/ajouter-examen-complementaire.component';
 import { AjouterOrientationMedicaleComponent } from 'src/app/ajouter-orientation-medicale/ajouter-orientation-medicale.component';
 import { AjouterOrdonnanceComponent } from 'src/app/ajouter-ordonnance/ajouter-ordonnance.component';
+import { EmployeService } from 'src/app/services/employe.service';
 
 @Component({
   selector: 'app-ajouter-consultation',
@@ -16,9 +17,9 @@ import { AjouterOrdonnanceComponent } from 'src/app/ajouter-ordonnance/ajouter-o
 })
 export class AjouterConsultationComponent implements OnInit {
 
+  natureConsultations : any[];
   dateAujourdhuit = new FormControl(new Date());  
   firstFormGroup: FormGroup;
-  btnAddOrdonnance: boolean= false;
   
    /* Table Structure | Médicaments */
    displayedColumnsMedicaments: string[] = ['designation','quantite','posologie','Action-delete'];
@@ -36,12 +37,21 @@ export class AjouterConsultationComponent implements OnInit {
     displayedColumnsExamens: string[] = ['designation','dateDemande','description','Action-edit','Action-delete'];
     dataSourceExamens : MatTableDataSource<any>;
 
-  constructor(private _formBuilder: FormBuilder, public dialog: MatDialog) {}
+  constructor(private _formBuilder: FormBuilder, public dialog: MatDialog,private employeService: EmployeService) {}
 
   ngOnInit() {
+
+    this.employeService.getAllNatureConsultations().subscribe(
+      data => {
+        console.log(data) 
+        this.natureConsultations = data;      
+      },
+      error => console.log(error)  
+    );
+
     this.firstFormGroup = this._formBuilder.group({
       typeConsultation: ['', Validators.required],
-      dateConsultation: [this.dateAujourdhuit.value, Validators.required],
+      heureArrivee: [this.dateAujourdhuit.value, Validators.required],
       natureConsultation: ['', Validators.required],
       observation: [''], 
     });
@@ -78,8 +88,7 @@ addExamen() {
     data: {}
   });
   dialogRef.afterClosed().subscribe(() => {
-    // Do stuff after the dialog has closed
-    this.btnAddOrdonnance = true;
+    
   });
   }
 
