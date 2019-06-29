@@ -45,6 +45,7 @@ export class EmployeService {
 
   // Service Antécédents 
 
+  
   getAllAntecedentsByEmployeId(id_employe: number) {
     return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/antecedents`);
   }
@@ -56,6 +57,19 @@ export class EmployeService {
   getAllAntecedentsMaladiesByEmployeId(id_employe: number) {
     return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/antecedentMaladies`);
   }
+
+  creatAntecedentAutre(id_employe,antecedents) {
+    return this.http.post(`${environment.baseUrl}/employes/`+id_employe+`/antecedent`, antecedents);
+  }
+
+  creatAntecedentMaladie(id_employe,antecedentMaladie) {
+    return this.http.post(`${environment.baseUrl}/employes/`+id_employe+`/antecedentMaladie`, antecedentMaladie);
+  }
+
+  creatAntecedentAccidentTravail(id_employe,antecedentAccident) {
+    return this.http.post(`${environment.baseUrl}/employes/`+id_employe+`/antecedentAccident`, antecedentAccident);
+  }
+
 
   // Service Consultation medicales
 
