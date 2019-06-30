@@ -8,7 +8,8 @@
 ::ng-deep .mat-select-value-text,
 ::ng-deep .mat-option,
 ::ng-deep .mat-select-arrow,
-.caret-input  {
+.caret-input,
+::ng-deep .mat-tab-label-content  {
     color: #54667A !important;
 }
 
@@ -20,7 +21,8 @@
 }
 
 ::ng-deep .mat-form-field-ripple,
-::ng-deep .mat-selected{
+::ng-deep .mat-selected,
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar{
     background-color: #41B3F9 !important;
 }
 
@@ -76,10 +78,13 @@ font-weight: bold;
 top:20px;
 }
 
+.mat-elevation-z8{
+    margin: 70px 20px 20px 20px;
+}
 
 .row-principal table {
     width: 100%; 
-    margin-top: 5px;
+    margin-top: 20px;
   }
 .row-principal td{
     font-size: 11px; 
@@ -98,23 +103,21 @@ top:20px;
     text-align: center;
     width: 50px;
 }
-.row-principal .td-btn-edit button,
-.row-principal .td-btn-delete button,
-.row-principal .td-btn-details button{
-    width: 35px; 
-    height:35px;
-    color: #2F323E; 
-}
 
 .row-principal .td-btn-edit button{
-    background-color:#F0AD4E;
+    color:#41B3F9; 
 }
 
 .row-principal .td-btn-delete button{
-    background-color:#F33155;
+    color:#F33155;
 }
 .row-principal .td-btn-details button{
-    background-color:#41B3F9; 
+    color:#F0AD4E;
+    
+}
+
+.row-principal .td-btn-add button{
+    color:#7ACE4C; 
 }
 
 
@@ -124,62 +127,60 @@ top:20px;
 }
 
 @media (min-width:767.98px){
-.row-principal{
-    padding-top: 80px;
-}
+    .row-principal{
+        padding-top: 80px;
+    }
 
-.row-principal .photo-col{
-    margin-top: -130px;
-}
-.row-principal .row-4{
-    margin-bottom: 200px;
-}
-.row-0-btn{
-    padding-right: 6%; 
-    margin-top:45px;
-}
-.search-bar{
-    margin-top: -50px;
-    width: 40% !important;
-}
+    .row-principal .photo-col{
+        margin-top: -130px;
+    }
+
+    .row-0-btn{
+        padding-right: 6%; 
+        margin-top:45px;
+    }
+    .search-bar{
+        margin-top: 10px;
+        margin-right: 20px;
+        width: 40% !important;
+    }
 }
     
 @media (max-width:767.98px){
 
-.row-principal{
-    margin-top: 60px; 
-}
+    .row-principal{
+        margin-top: 60px; 
+    }
 
-.row-principal .photo-col{
-    margin-top: 20px;
-}
+    .row-principal .photo-col{
+        margin-top: 20px;
+    }
 
-.row-principal .photo-col .title-matricule{
-    top:40px;
-}
-.row-0-btn{
-    padding-right: 6%; 
-    margin-top:15px;
-}
+    .row-principal .photo-col .title-matricule{
+        top:40px;
+    }
+    .row-0-btn{
+        padding-right: 6%; 
+        margin-top:15px;
+    }
 
-td ,
-th{
-    font-size: 8px;
-    min-width: 100px;
-}
-.table-overflow{
-    overflow: auto; 
-    width: 100%;       
-}
-table {
-    margin-top: 0;
-}
-.mat-elevation-z8{
-    margin-top: 70px;
-}
-
-.search-bar{
-    width: 80% !important;
-}
+    td ,
+    th{
+        font-size: 8px;
+        min-width: 100px;
+    }
+    .table-overflow{
+        overflow: auto; 
+        width: 100%;       
+    }
+    table {
+        margin-top: 0;
+    }
+   
+    .search-bar{
+        width: 80% !important;
+        margin-bottom: 20px;
+        margin-right: 20px;
+    }
 
 }

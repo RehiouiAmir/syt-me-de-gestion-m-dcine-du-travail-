@@ -151,5 +151,15 @@ export class EmployeService {
   getAllSoinsInfirmierByEmployeId(id_employe: number) {
     return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/soinsInfirmiers`);
   }
+
+  // Service vaccination
+
+  getAllVaccinByEmployeId(id_employe: number) {
+    return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/calendrierVaccinals`);
+  }
+
+  ajouterCalendrierVaccinal(id_employe,id_vaccin,calendrier) {
+    return this.http.put(`${environment.baseUrl}/employes/`+id_employe+`/vaccins/`+id_vaccin, calendrier);
+  }
   
 }
