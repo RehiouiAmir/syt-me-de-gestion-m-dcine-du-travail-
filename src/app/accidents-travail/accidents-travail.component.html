@@ -124,8 +124,8 @@
               <ng-container matColumnDef="Action-details">
                   <th mat-header-cell *matHeaderCellDef ></th>
                   <td mat-cell *matCellDef="let row" class="td-btn-details">
-                      <button mat-mini-fab (click)="openDialogDetails(''+row.idConsultation)">
-                          <mat-icon>details</mat-icon>
+                      <button mat-icon-button (click)="openDialogDetails(''+row.idConsultation)">
+                          <mat-icon>description</mat-icon>
                       </button>
                   </td>
               </ng-container>

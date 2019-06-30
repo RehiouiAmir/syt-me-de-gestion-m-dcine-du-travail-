@@ -22,11 +22,9 @@ export class AjouterExamenComplementaireComponent implements OnInit {
 
     ngOnInit() {
       this.addForm = this.formBuilder.group({
-        designationExamen: ['',Validators.required],
+        designation: ['',Validators.required],
         description: [''], 
-        dateDemande: [this.dateAujourdhuit.value,Validators.required],
-        observations: [''], 
-        dateResultat: [''],        
+        date: [''],        
         resultat: [''],      
       });
     }

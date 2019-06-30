@@ -9,6 +9,7 @@ import { AjouterExamenComplementaireComponent } from 'src/app/ajouter-examen-com
 import { AjouterOrientationMedicaleComponent } from 'src/app/ajouter-orientation-medicale/ajouter-orientation-medicale.component';
 import { AjouterOrdonnanceComponent } from 'src/app/ajouter-ordonnance/ajouter-ordonnance.component';
 import { EmployeService } from 'src/app/services/employe.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-ajouter-consultation',
@@ -17,16 +18,18 @@ import { EmployeService } from 'src/app/services/employe.service';
 })
 export class AjouterConsultationComponent implements OnInit {
 
+  private id_employe: number;
   natureConsultations : any[];
   dateAujourdhuit = new FormControl(new Date());  
   firstFormGroup: FormGroup;
+  private consultation: any;
   
    /* Table Structure | Médicaments */
    displayedColumnsMedicaments: string[] = ['designation','quantite','posologie','Action-delete'];
    dataSourceMedicament : MatTableDataSource<any>;
 
    /* Table Structure | Soins */
-   displayedColumnsSoins: string[] = ['designation','dateActeSoin','Action-delete'];
+   displayedColumnsSoins: string[] = ['designation','etatActe','dateActeSoin','observation','Action-delete'];
    dataSourceSoins : MatTableDataSource<any>;
 
    /* Table Structure | Orientation médicale */
@@ -34,10 +37,13 @@ export class AjouterConsultationComponent implements OnInit {
    dataSourceOrientations : MatTableDataSource<any>;
 
     /* Table Structure | Orientation médicale */
-    displayedColumnsExamens: string[] = ['designation','dateDemande','description','Action-edit','Action-delete'];
+    displayedColumnsExamens: string[] = ['designation','description','resultat','Action-delete'];
     dataSourceExamens : MatTableDataSource<any>;
 
-  constructor(private _formBuilder: FormBuilder, public dialog: MatDialog,private employeService: EmployeService) {}
+  constructor(private route: ActivatedRoute,private _formBuilder: FormBuilder,
+              public dialog: MatDialog,private employeService: EmployeService) {
+                this.id_employe = Number(this.route.snapshot.paramMap.get('id'));                
+              }
 
   ngOnInit() {
 
@@ -50,15 +56,31 @@ export class AjouterConsultationComponent implements OnInit {
     );
 
     this.firstFormGroup = this._formBuilder.group({
-      typeConsultation: ['', Validators.required],
+      type: ['', Validators.required],
       heureArrivee: [this.dateAujourdhuit.value, Validators.required],
       natureConsultation: ['', Validators.required],
+      conclusionMedicale: [''],
+      conclusionProfessionnelle: [''],
       observation: [''], 
     });
   }
 
   onSubmitFirst(){
-    if (!this.firstFormGroup.invalid){console.log(this.firstFormGroup.value)};
+    if (!this.firstFormGroup.invalid){ 
+      this.employeService.creatConsultation(this.id_employe,this.firstFormGroup.value).subscribe(result =>{
+        console.log(result)      
+       this.consultation =result;
+       this.employeService.getConsultationByConsultationId(this.consultation.id).subscribe(
+        data => {
+          this.dataSourceSoins = new MatTableDataSource<any>(data['soins']);
+          this.dataSourceExamens = new MatTableDataSource<any>(data['examenComplementaires']);
+          
+        },
+       error => console.log(error));
+      },
+      error => console.log(error));
+    }
+    
   }
 
 // operation add edit delet 
@@ -67,12 +89,38 @@ export class AjouterConsultationComponent implements OnInit {
       width: '70%',
       data: {}
     });
+    dialogRef.afterClosed().subscribe(result => {
+        if (result !== undefined){
+          console.log(result)
+          //change in backend
+            this.employeService.creatActeSoins(this.consultation.id,result.idActe,result).subscribe(data => {
+              console.log(data);
+            this.consultation.soins= data
+            this.dataSourceSoins.data.push(data)
+            this.dataSourceSoins._updateChangeSubscription() 
+          },
+          error => console.log(error));
+        }
+    });
    }
 
 addExamen() {
   let dialogRef = this.dialog.open(AjouterExamenComplementaireComponent, {
     width: '70%',
     data: {}
+  });
+  dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined){
+        console.log(result)
+        //change in backend
+          this.employeService.creatExamenComplementaire(this.consultation.id,result).subscribe(data => {
+            console.log(data);
+          this.consultation.examenComplementaires= data
+          this.dataSourceExamens.data.push(data)
+          this.dataSourceExamens._updateChangeSubscription() 
+        },
+        error => console.log(error));
+      }
   });
  }
 

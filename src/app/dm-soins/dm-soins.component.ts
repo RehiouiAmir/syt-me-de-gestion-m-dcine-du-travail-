@@ -124,10 +124,10 @@ export class AjouterSoinsComponent implements OnInit {
       error => console.log(error)  
     );
     this.addForm = this.formBuilder.group({
-      designationActe: ['',Validators.required],
+      idActe: ['',Validators.required],
       observation: [''], 
-      valide:[false],
-      dateActe: [''],      
+      etat:[false],
+      date: [''],      
     });
   }
 

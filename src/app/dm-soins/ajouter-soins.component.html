@@ -8,8 +8,8 @@
             <div class="col-md-6">
                 <div class="col-md-8">
                     <mat-form-field>
-                        <mat-select placeholder="Désignation d'acte de soin" formControlName="designationActe" required>
-                            <mat-option *ngFor="let acte of actes" [value]="acte">{{acte.designation}}</mat-option>                                                                            
+                        <mat-select placeholder="Désignation d'acte de soin" formControlName="idActe" required>
+                            <mat-option *ngFor="let acte of actes" [value]="acte.id">{{acte.designation}}</mat-option>                                                                            
                         </mat-select>
                     </mat-form-field>
                 </div>    
@@ -20,10 +20,10 @@
                 </div>      
             </div>
             <div class="col-md-6">
-                <div class="col-md-6 mat-checkbox"><mat-checkbox formControlName="valide">L'acte de soin est effectué</mat-checkbox></div>               
+                <div class="col-md-6 mat-checkbox"><mat-checkbox formControlName="etat">L'acte de soin est effectué</mat-checkbox></div>               
                 <div class="col-md-8">
-                    <mat-form-field *ngIf="addForm.value.valide === true">
-                        <input matInput [matDatepicker]="picker" [value]= 'dateAujourdhuit.value' placeholder="Date de soin" formControlName="dateActe">
+                    <mat-form-field *ngIf="addForm.value.etat === true">
+                        <input matInput [matDatepicker]="picker" placeholder="Date de soin" formControlName="date">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>

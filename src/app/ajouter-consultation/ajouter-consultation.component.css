@@ -145,10 +145,11 @@ font-weight: bold;
   background-color: #F33155;  
 }
 .btn-edit{
-  background-color: #F0AD4E;
+  background-color: #41B3F9;  
 } 
 .btn-pdf{
-  background-color: #41B3F9;  
+  background-color: #F0AD4E;
+  
 }
 
 .btn-terminer{
@@ -199,20 +200,20 @@ p span.champ{
 .row-principal .td-btn-edit button,
 .row-principal .td-btn-details button,
 .row-principal .td-btn-delete button{
-width: 20px; 
-height:20px;
-color: #2F323E; 
+  width: 20px; 
+  height:20px;
+  margin-top: -15px;
 }
 
 .row-principal .td-btn-edit button{
-background-color:#F0AD4E;
+  color:#F0AD4E;
 }
 
 .row-principal .td-btn-delete button{
-background-color:#F33155;
+  color:#F33155;
 }
 .row-principal .td-btn-details button{
-background-color:#41B3F9; 
+  color:#41B3F9; 
 }
 
 @media (min-width:767.98px){

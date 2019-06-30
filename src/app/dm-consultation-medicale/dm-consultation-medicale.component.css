@@ -98,23 +98,18 @@ top:20px;
     text-align: center;
     width: 50px;
 }
-.row-principal .td-btn-edit button,
-.row-principal .td-btn-delete button,
-.row-principal .td-btn-details button{
-    width: 35px; 
-    height:35px;
-    color: #2F323E; 
-}
+
 
 .row-principal .td-btn-edit button{
-    background-color:#F0AD4E;
+    color:#41B3F9;    
 }
 
 .row-principal .td-btn-delete button{
-    background-color:#F33155;
+    color:#F33155;
 }
 .row-principal .td-btn-details button{
-    background-color:#41B3F9; 
+    color:#F0AD4E;
+    
 }
 
 
