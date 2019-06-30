@@ -1,0 +1,41 @@
+<h4 mat-dialog-title class="mat-dialog-title">Ajouter un poste de travail </h4>
+<form [formGroup]="addForm">    
+    <div mat-dialog-content>  
+            <div class="col-md-12">
+                <mat-form-field>
+                    <mat-select placeholder="Société" formControlName="societee" required (selectionChange)="InitialiserSites($event.value)">
+                        <mat-option *ngFor="let societee of societes" [value]="societee.id">
+                            {{societee.designation}}
+                        </mat-option>                  
+                    </mat-select>
+                </mat-form-field> 
+            </div> 
+            <div class="col-md-12">
+                <mat-form-field>
+                    <mat-select placeholder="Site" formControlName="sitee" required (selectionChange)="InitialiserDepartements($event.value)">
+                        <mat-option *ngFor="let sitee of sites" [value]="sitee.id">
+                            {{sitee.designation}}
+                        </mat-option>                  
+                    </mat-select>
+                </mat-form-field> 
+            </div> 
+            <div class="col-md-12">
+                <mat-form-field>
+                    <mat-select placeholder="Département" formControlName="departementt" formControlName="departementt" required>
+                        <mat-option *ngFor="let departementt of departements" [value]="departementt.id">
+                            {{departementt.designation}}
+                        </mat-option>                  
+                    </mat-select>
+                </mat-form-field> 
+            </div> 
+            <div class="col-md-12">
+                <mat-form-field>
+                    <textarea matInput placeholder="Désignation" formControlName="designation" ></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    <div mat-dialog-actions class="pull-right">
+        <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()" >Annuler</button>
+        <button mat-button mat-raised-button class="btn-ajouter" (click)="onSubmit()" cdkFocusInitial>Ajouter <mat-icon>add</mat-icon></button>
+    </div>
+</form>

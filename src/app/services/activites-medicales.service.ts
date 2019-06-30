@@ -10,10 +10,18 @@ export class ActivitesMedicalesService {
 
   constructor(private http: HttpClient) { }
 
+  getAllAppareils() {
+    return this.http.get<any[]>(`${environment.baseUrl}/appareils`);
+  }
+
   // Services Consultation
 
   getAllConsultations() {
     return this.http.get<any[]>(`${environment.baseUrl}/consultations`);
+  }
+
+  getAllNatureConsultations(){
+    return this.http.get<any[]>(`${environment.baseUrl}/natureConsultations`);    
   }
 
   // Services visiteMedicale
@@ -24,8 +32,8 @@ export class ActivitesMedicalesService {
 
   // Services Vaccination
 
-  getAllVaccinations() {
-    return this.http.get<any[]>(`${environment.baseUrl}/vaccinations`);
+  getAllVaccis() {
+    return this.http.get<any[]>(`${environment.baseUrl}/vaccins`);
   }
 
   // Services AccidentTravail
@@ -47,6 +55,11 @@ export class ActivitesMedicalesService {
   getAllMaladies() {
     return this.http.get<any[]>(`${environment.baseUrl}/maladies`);
   }
+
+  getAllMedicaments() {
+    return this.http.get<any[]>(`${environment.baseUrl}/medicaments`);
+  }
+
 
   // Services ArretTravail
 

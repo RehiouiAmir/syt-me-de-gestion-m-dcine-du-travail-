@@ -1,3 +1,4 @@
+import { AdministrationService } from './../../services/administration.service';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ViewChild } from '@angular/core';
@@ -10,11 +11,12 @@ import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-accidents-travail',
-  templateUrl: './accidents-travail.component.html',
-  styleUrls: ['./accidents-travail.component.css']
+  selector: 'app-admin-appareil',
+  templateUrl: './admin-appareil.component.html',
+  styleUrls: ['./admin-appareil.component.css']
 })
-export class AccidentsTravailComponent implements OnInit {
+export class AdminAppareilComponent implements OnInit {
+
 
   posteTravails : any[];
   departements : any[];
@@ -23,17 +25,17 @@ export class AccidentsTravailComponent implements OnInit {
 
    /* Table Structure */
   
-   displayedColumns: string[] = ['natureAccident','dateAccident','lieuAccident','circonstance','medecin','Action-details','Action-edit','Action-delete'];
+   displayedColumns: string[] = ['designation','medecin','Action-edit','Action-delete'];
    dataSource : MatTableDataSource<any>;
  
    @ViewChild(MatPaginator) paginator: MatPaginator;
    @ViewChild(MatSort) sort: MatSort;
    
-   constructor(private activitesService : ActivitesMedicalesService,public dialog: MatDialog, private employeService : EmployeService) { }
+   constructor(private activitesService : ActivitesMedicalesService,private administrationService : AdministrationService,public dialog: MatDialog, private employeService : EmployeService) { }
  
    ngOnInit() {
  
-     this.activitesService.getAllAccidentTravails().subscribe(
+     this.activitesService.getAllAppareils().subscribe(
        data => {
          console.log(data)
          this.dataSource = new MatTableDataSource<any>(data);
@@ -42,38 +44,6 @@ export class AccidentsTravailComponent implements OnInit {
        },
        error => console.log(error)  
      );
-
-     this.employeService.getAllPosteTravails().subscribe(
-      data => {
-        console.log(data) 
-        this.posteTravails = data;      
-      },
-      error => console.log(error)  
-    );
-
-    this.employeService.getAllDepartements().subscribe(
-      data => {
-        console.log(data) 
-        this.departements = data;      
-      },
-      error => console.log(error)  
-    );
-
-    this.employeService.getAllSocietes().subscribe(
-      data => {
-        console.log(data) 
-        this.societes = data;      
-      },
-      error => console.log(error)  
-    );
-
-    this.employeService.getAllSites().subscribe(
-      data => {
-        console.log(data) 
-        this.sites = data;      
-      },
-      error => console.log(error)  
-    );
    }
  
    // search table
@@ -88,17 +58,14 @@ export class AccidentsTravailComponent implements OnInit {
    // Operation Add, Edit, Delet
    
  add() {
-  let dialogRef = this.dialog.open(DeclarerAccidentTravailComponent, {
-    width: '70%',
+  let dialogRef = this.dialog.open(AjouterAppareilComponent, {
+    width: '30%',
     data: {}
   });
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined){
         //change in backend
-        var id_nature= result.nature;
-        result.nature= null;
-        console.log(result)        
-        this.activitesService.creatAccidentTravail(id_nature,result).subscribe(data => {
+        this.administrationService.ajouterAppareil(result).subscribe(data => {
           this.dataSource.data.push(data)
           this.dataSource._updateChangeSubscription() 
         },
@@ -109,11 +76,11 @@ export class AccidentsTravailComponent implements OnInit {
 }
 
 @Component({
-  selector: 'app-declarer-accident-travail',
-  templateUrl: './declarer-accident-travail.component.html',
-  styleUrls: ['./declarer-accident-travail.component.css']
+  selector: 'app-ajouter-appareil',
+  templateUrl: './ajouter-appareil.component.html',
+  styleUrls: ['./ajouter-appareil.component.css']
   })
-  export class DeclarerAccidentTravailComponent implements OnInit {
+  export class AjouterAppareilComponent implements OnInit {
   
   addForm: FormGroup;
   dateAujourdhuit = new FormControl(new Date()); 
@@ -121,7 +88,7 @@ export class AccidentsTravailComponent implements OnInit {
   
   
   
-  constructor(public dialogRef: MatDialogRef<DeclarerAccidentTravailComponent>,
+  constructor(public dialogRef: MatDialogRef<AjouterAppareilComponent>,
   @Inject(MAT_DIALOG_DATA) public data: any, 
   private formBuilder: FormBuilder ,private activitesMedicales : ActivitesMedicalesService) {}
   
@@ -136,11 +103,7 @@ export class AccidentsTravailComponent implements OnInit {
     );
   
     this.addForm = this.formBuilder.group({
-      nature: ['', Validators.required],
-      date: [this.dateAujourdhuit.value,Validators.required],
-      lieu: ['',Validators.required],
-      compteRendu: [''],
-      circonstance: ['',Validators.required],
+      designation: ['',Validators.required],
     });
   }
   
@@ -152,10 +115,8 @@ export class AccidentsTravailComponent implements OnInit {
   onSubmit() {
   if (!this.addForm.invalid){
     this.data = this.addForm.value;
-    console.log(this.data)
     this.dialogRef.close(this.data);
     }
   }
-  
-  }
-  
+
+}

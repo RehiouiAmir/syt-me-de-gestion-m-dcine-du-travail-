@@ -1,3 +1,13 @@
+import { AdminNatureAccidentComponent } from './admin/admin-nature-accident/admin-nature-accident.component';
+import { AdminVaccinComponent } from './admin/admin-vaccin/admin-vaccin.component';
+import { AdminMedicamentComponent } from './admin/admin-medicament/admin-medicament.component';
+import { AdminMaladieComponent } from './admin/admin-maladie/admin-maladie.component';
+import { AdminAppareilComponent } from './admin/admin-appareil/admin-appareil.component';
+import { AdminNatureConsultationComponent } from './admin/admin-nature-consultation/admin-nature-consultation.component';
+import { AdminPosteTravailComponent } from './admin/admin-poste-travail/admin-poste-travail.component';
+import { AdminDepartementComponent } from './admin/admin-departement/admin-departement.component';
+import { AdminSiteComponent } from './admin/admin-site/admin-site.component';
+import { AdminSocieteComponent } from './admin/admin-societe/admin-societe.component';
 import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -41,7 +51,6 @@ const routes: Routes = [
     { path: 'soins', component: SoinsComponent},
     { path: 'rendez-vous', component: RendezVousComponent},
     { path: 'statistiques', component: StatistiquesComponent},
-    { path: 'administration', component: AdministrationComponent},
     { path: 'parametre-compte', component: ParametresCompteComponent},
     { path: 'risques-professionnels', component: RisquesProfessionnelsComponent},
 
@@ -60,6 +69,19 @@ const routes: Routes = [
         { path: 'dm-arret-travail/:id', component: DmArretTravailComponent},
         { path: 'dm-changement-poste/:id', component: DmChangementPosteComponent},
       ]}
+    ]},
+
+    { path: 'administration', component: AdministrationComponent,children:[
+      { path: 'admin-societe', component: AdminSocieteComponent },
+      { path: 'admin-site', component: AdminSiteComponent },
+      { path: 'admin-departement', component: AdminDepartementComponent },
+      { path: 'admin-posteTravail', component: AdminPosteTravailComponent },
+      { path: 'admin-natureConsultation', component: AdminNatureConsultationComponent },
+      { path: 'admin-appareil', component: AdminAppareilComponent },
+      { path: 'admin-maladie', component: AdminMaladieComponent },
+      { path: 'admin-medicament', component: AdminMedicamentComponent },
+      { path: 'admin-vaccin', component: AdminVaccinComponent },
+      { path: 'admin-natureAccident', component: AdminNatureAccidentComponent }
     ]},
     { path: '', redirectTo: 'dossier-medical' ,pathMatch: 'full'},
   ]}, 

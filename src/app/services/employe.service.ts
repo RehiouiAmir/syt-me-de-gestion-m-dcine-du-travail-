@@ -43,7 +43,15 @@ export class EmployeService {
     return this.http.get<any[]>(`${environment.baseUrl}/siteAffectations`);
   }
 
-  // Service Antécédents 
+  getSitesBySocieteId(id : number) {
+    return this.http.get<any[]>(`${environment.baseUrl}/societes/`+id+`/siteAffectations`);
+  }
+
+  getSitesByDepartementId(id : number) {
+    return this.http.get<any[]>(`${environment.baseUrl}/siteAffectations/`+id+`/departements`);
+  }
+
+  // Service Antécédents
 
   
   getAllAntecedentsByEmployeId(id_employe: number) {

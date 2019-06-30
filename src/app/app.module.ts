@@ -60,6 +60,16 @@ import { httpInterceptorProviders } from './auth/auth-interceptor';
 import { AjouterExamenComplementaireComponent } from './ajouter-examen-complementaire/ajouter-examen-complementaire.component';
 import { AjouterOrdonnanceComponent } from './ajouter-ordonnance/ajouter-ordonnance.component';
 import { AjouterOrientationMedicaleComponent } from './ajouter-orientation-medicale/ajouter-orientation-medicale.component';
+import { AdminSocieteComponent, AjouterSocieteComponent } from './admin/admin-societe/admin-societe.component';
+import { AdminSiteComponent, AjouterSiteComponent } from './admin/admin-site/admin-site.component';
+import { AdminDepartementComponent, AjouterDepartementComponent } from './admin/admin-departement/admin-departement.component';
+import { AdminPosteTravailComponent, AjouterPosteTravailComponent } from './admin/admin-poste-travail/admin-poste-travail.component';
+import { AdminNatureConsultationComponent, AjouterNatureConsultationComponent } from './admin/admin-nature-consultation/admin-nature-consultation.component';
+import { AdminAppareilComponent, AjouterAppareilComponent } from './admin/admin-appareil/admin-appareil.component';
+import { AdminMaladieComponent, AjouterMaladieComponent } from './admin/admin-maladie/admin-maladie.component';
+import { AdminMedicamentComponent, AjouterMedicamentComponent } from './admin/admin-medicament/admin-medicament.component';
+import { AdminVaccinComponent, AjouterVaccinComponent } from './admin/admin-vaccin/admin-vaccin.component';
+import { AdminNatureAccidentComponent, AjouterNatureAccidentComponent } from './admin/admin-nature-accident/admin-nature-accident.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +109,26 @@ import { AjouterOrientationMedicaleComponent } from './ajouter-orientation-medic
     AjouterExamenComplementaireComponent,
     AjouterOrdonnanceComponent,
     AjouterOrientationMedicaleComponent,
+    AdminSocieteComponent,
+    AjouterSocieteComponent,
+    AdminSiteComponent,
+    AjouterSiteComponent,
+    AdminDepartementComponent,
+    AjouterDepartementComponent,
+    AdminPosteTravailComponent,
+    AjouterPosteTravailComponent,
+    AdminNatureConsultationComponent,
+    AjouterNatureConsultationComponent,
+    AdminAppareilComponent,
+    AjouterAppareilComponent,
+    AdminMaladieComponent,
+    AjouterMaladieComponent,
+    AdminMedicamentComponent,
+    AjouterMedicamentComponent,
+    AdminVaccinComponent,
+    AjouterVaccinComponent,
+    AdminNatureAccidentComponent,
+    AjouterNatureAccidentComponent,
   ],
   
   imports: [
@@ -116,7 +146,13 @@ import { AjouterOrientationMedicaleComponent } from './ajouter-orientation-medic
                     AccidentsTravailComponent,DeclarerAccidentTravailComponent,
                     DmAntecedentsComponent,AjouterAntecedentComponent,
                     DmSoinsComponent, AjouterSoinsComponent,AjouterConsultationComponent,
-                    AjouterExamenComplementaireComponent,AjouterOrdonnanceComponent,AjouterOrientationMedicaleComponent],
+                    AjouterExamenComplementaireComponent,AjouterOrdonnanceComponent,AjouterOrientationMedicaleComponent,
+                    AdminSocieteComponent,AjouterSocieteComponent,AdminSiteComponent, AjouterSiteComponent,
+                    AdminDepartementComponent,AjouterDepartementComponent,AdminPosteTravailComponent,AjouterPosteTravailComponent,
+                    AdminNatureConsultationComponent,AjouterNatureConsultationComponent,AdminAppareilComponent,
+                    AjouterAppareilComponent,AdminMaladieComponent,AjouterMaladieComponent,AdminMedicamentComponent,
+                    AjouterMedicamentComponent,AdminVaccinComponent,AjouterVaccinComponent,AdminNatureAccidentComponent,
+                    AjouterNatureAccidentComponent],
   providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlFr},
               {provide: LOCALE_ID, useValue: "fr-CA" }, httpInterceptorProviders ],
   bootstrap: [AppComponent]

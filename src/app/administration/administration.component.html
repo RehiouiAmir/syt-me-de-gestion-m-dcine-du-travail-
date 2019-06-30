@@ -1,24 +1,20 @@
-<div class="grid-container">
-  <div class="test">
-      <router-outlet></router-outlet>
-  </div>
-  <div>
+
     <nav  class="navbar">
       <div class="container-fullwidth">
         <ul class="nav navbar-nav">
-          <li><a routerLinkActive="active" routerLink="dm-informations-generales/{{id}}">Sociétés</a></li>    
-          <li><a routerLinkActive="active" routerLink="dm-antecedents/{{id}}">Sites</a></li>       
-          <li><a routerLinkActive="active" routerLink="dm-visite-medicale/{{id}}" >Départements</a></li>
-          <li><a routerLinkActive="active" routerLink="dm-consultation-medicale/{{id}}" >Postes de Travail</a></li>  
-          <li><a routerLinkActive="active" routerLink="dm-soins/{{id}}" >Natures de Consultation</a></li>        
-          <li><a routerLinkActive="active" routerLink="dm-explorations/{{id}}">Appareils</a></li>             
-          <li><a routerLinkActive="active" routerLink="dm-profil-vaccinall/{{id}}" >Maladies</a></li>   
-          <li><a routerLinkActive="active" routerLink="dm-profil-vaccinal/{{id}}" >Médicaments</a></li>          
-          <li><a routerLinkActive="active" routerLink="dm-arret-travail/{{id}}">Vaccins</a></li>       
-          <li><a routerLinkActive="active" routerLink="dm-changement-poste/{{id}}" >Nature Accident</a></li>  
+          <li><a routerLinkActive="active" routerLink="admin-societe">Sociétés</a></li>    
+          <li><a routerLinkActive="active" routerLink="admin-site">Sites</a></li>       
+          <li><a routerLinkActive="active" routerLink="admin-departement" >Départements</a></li>
+          <li><a routerLinkActive="active" routerLink="admin-posteTravail" >Postes de Travail</a></li>  
+          <li><a routerLinkActive="active" routerLink="admin-natureConsultation" >Natures de Consultation</a></li>        
+          <li><a routerLinkActive="active" routerLink="admin-appareil">Appareils</a></li>             
+          <li><a routerLinkActive="active" routerLink="admin-maladie" >Maladies</a></li>   
+          <li><a routerLinkActive="active" routerLink="admin-medicament" >Médicaments</a></li>          
+          <li><a routerLinkActive="active" routerLink="admin-vaccin">Vaccins</a></li>       
+          <li><a routerLinkActive="active" routerLink="admin-natureAccident" >Nature Accident</a></li>  
         </ul>
       </div>   
     </nav>
-</div>
-
-</div>
+    <div class="space-navbar"></div>
+    <router-outlet></router-outlet>
+    

@@ -1,3 +1,4 @@
+import { AdministrationService } from './../../services/administration.service';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ViewChild } from '@angular/core';
@@ -10,12 +11,13 @@ import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-accidents-travail',
-  templateUrl: './accidents-travail.component.html',
-  styleUrls: ['./accidents-travail.component.css']
+  selector: 'app-admin-poste-travail',
+  templateUrl: './admin-poste-travail.component.html',
+  styleUrls: ['./admin-poste-travail.component.css']
 })
-export class AccidentsTravailComponent implements OnInit {
+export class AdminPosteTravailComponent implements OnInit {
 
+ 
   posteTravails : any[];
   departements : any[];
   societes : any[];
@@ -23,17 +25,19 @@ export class AccidentsTravailComponent implements OnInit {
 
    /* Table Structure */
   
-   displayedColumns: string[] = ['natureAccident','dateAccident','lieuAccident','circonstance','medecin','Action-details','Action-edit','Action-delete'];
+   displayedColumns: string[] = ['designation','societe','site','departement','medecin','Action-edit','Action-delete'];
    dataSource : MatTableDataSource<any>;
  
    @ViewChild(MatPaginator) paginator: MatPaginator;
    @ViewChild(MatSort) sort: MatSort;
    
-   constructor(private activitesService : ActivitesMedicalesService,public dialog: MatDialog, private employeService : EmployeService) { }
+   constructor(private activitesService : ActivitesMedicalesService,
+              public dialog: MatDialog, private employeService : EmployeService,
+              private administrationService : AdministrationService) { }
  
    ngOnInit() {
  
-     this.activitesService.getAllAccidentTravails().subscribe(
+     this.employeService.getAllPosteTravails().subscribe(
        data => {
          console.log(data)
          this.dataSource = new MatTableDataSource<any>(data);
@@ -42,38 +46,6 @@ export class AccidentsTravailComponent implements OnInit {
        },
        error => console.log(error)  
      );
-
-     this.employeService.getAllPosteTravails().subscribe(
-      data => {
-        console.log(data) 
-        this.posteTravails = data;      
-      },
-      error => console.log(error)  
-    );
-
-    this.employeService.getAllDepartements().subscribe(
-      data => {
-        console.log(data) 
-        this.departements = data;      
-      },
-      error => console.log(error)  
-    );
-
-    this.employeService.getAllSocietes().subscribe(
-      data => {
-        console.log(data) 
-        this.societes = data;      
-      },
-      error => console.log(error)  
-    );
-
-    this.employeService.getAllSites().subscribe(
-      data => {
-        console.log(data) 
-        this.sites = data;      
-      },
-      error => console.log(error)  
-    );
    }
  
    // search table
@@ -88,17 +60,17 @@ export class AccidentsTravailComponent implements OnInit {
    // Operation Add, Edit, Delet
    
  add() {
-  let dialogRef = this.dialog.open(DeclarerAccidentTravailComponent, {
-    width: '70%',
+  let dialogRef = this.dialog.open(AjouterPosteTravailComponent, {
+    width: '30%',
     data: {}
   });
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined){
         //change in backend
-        var id_nature= result.nature;
-        result.nature= null;
+        var id= result.departementt;
+        result.departementt= null;
         console.log(result)        
-        this.activitesService.creatAccidentTravail(id_nature,result).subscribe(data => {
+        this.administrationService.ajouterPosteTravail(id,result).subscribe(data => {
           this.dataSource.data.push(data)
           this.dataSource._updateChangeSubscription() 
         },
@@ -109,38 +81,39 @@ export class AccidentsTravailComponent implements OnInit {
 }
 
 @Component({
-  selector: 'app-declarer-accident-travail',
-  templateUrl: './declarer-accident-travail.component.html',
-  styleUrls: ['./declarer-accident-travail.component.css']
+  selector: 'app-ajouter-posteTravail',
+  templateUrl: './ajouter-posteTravail.component.html',
+  styleUrls: ['./ajouter-posteTravail.component.css']
   })
-  export class DeclarerAccidentTravailComponent implements OnInit {
+  export class AjouterPosteTravailComponent implements OnInit {
   
   addForm: FormGroup;
   dateAujourdhuit = new FormControl(new Date()); 
-  natureAccidents : any[] = [];
+  societes : any[] = [];
+  sites : any[] = [];
+  departements : any[] = [];
   
   
   
-  constructor(public dialogRef: MatDialogRef<DeclarerAccidentTravailComponent>,
+  constructor(public dialogRef: MatDialogRef<AjouterPosteTravailComponent>,
   @Inject(MAT_DIALOG_DATA) public data: any, 
-  private formBuilder: FormBuilder ,private activitesMedicales : ActivitesMedicalesService) {}
+  private formBuilder: FormBuilder ,private activitesMedicales : ActivitesMedicalesService,private employeService : EmployeService) {}
   
   ngOnInit() {
 
-    this.activitesMedicales.getAllNatureAccidents().subscribe(
+    this.employeService.getAllSocietes().subscribe(
       data => {
         console.log(data) 
-        this.natureAccidents = data;      
+        this.societes = data;      
       },
       error => console.log(error)  
     );
   
     this.addForm = this.formBuilder.group({
-      nature: ['', Validators.required],
-      date: [this.dateAujourdhuit.value,Validators.required],
-      lieu: ['',Validators.required],
-      compteRendu: [''],
-      circonstance: ['',Validators.required],
+      designation: ['', Validators.required],
+      societee: ['', Validators.required],
+      sitee: ['', Validators.required],
+      departementt: ['', Validators.required]
     });
   }
   
@@ -156,6 +129,25 @@ export class AccidentsTravailComponent implements OnInit {
     this.dialogRef.close(this.data);
     }
   }
-  
+
+  InitialiserSites(value) {
+    this.employeService.getSitesBySocieteId(value).subscribe(
+      data => {
+        console.log(data) 
+        this.departements = null;
+        this.sites = data;      
+      },
+      error => console.log(error)  
+    );
   }
-  
+
+  InitialiserDepartements(value) {
+    this.employeService.getSitesByDepartementId(value).subscribe(
+      data => {
+        console.log(data) 
+        this.departements = data;      
+      },
+      error => console.log(error)  
+    );
+  }
+}
