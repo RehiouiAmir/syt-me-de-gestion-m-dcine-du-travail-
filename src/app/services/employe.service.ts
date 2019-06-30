@@ -62,12 +62,12 @@ export class EmployeService {
     return this.http.post(`${environment.baseUrl}/employes/`+id_employe+`/antecedent`, antecedents);
   }
 
-  creatAntecedentMaladie(id_employe,antecedentMaladie) {
-    return this.http.post(`${environment.baseUrl}/employes/`+id_employe+`/antecedentMaladie`, antecedentMaladie);
+  creatAntecedentMaladie(id_employe,id_maladie,antecedentMaladie) {
+    return this.http.post(`${environment.baseUrl}/employes/`+id_employe+`/maladies/`+id_maladie+`/antecedentMaladie`, antecedentMaladie);
   }
 
-  creatAntecedentAccidentTravail(id_employe,antecedentAccident) {
-    return this.http.post(`${environment.baseUrl}/employes/`+id_employe+`/antecedentAccident`, antecedentAccident);
+  creatAntecedentAccidentTravail(id_employe,id_accident,antecedentAccident) {
+    return this.http.post(`${environment.baseUrl}/employes/`+id_employe+`/accidents/`+id_accident+`/antecedentAccident`, antecedentAccident);
   }
 
 

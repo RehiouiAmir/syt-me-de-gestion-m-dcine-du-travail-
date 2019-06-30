@@ -92,6 +92,19 @@ export class AccidentsTravailComponent implements OnInit {
     width: '70%',
     data: {}
   });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined){
+        //change in backend
+        var id_nature= result.nature;
+        result.nature= null;
+        console.log(result)        
+        this.activitesService.creatAccidentTravail(id_nature,result).subscribe(data => {
+          this.dataSource.data.push(data)
+          this.dataSource._updateChangeSubscription() 
+        },
+        error => console.log(error));
+      }
+    });
  }
 }
 
@@ -104,23 +117,31 @@ export class AccidentsTravailComponent implements OnInit {
   
   addForm: FormGroup;
   dateAujourdhuit = new FormControl(new Date()); 
+  natureAccidents : any[] = [];
   
   
   
   constructor(public dialogRef: MatDialogRef<DeclarerAccidentTravailComponent>,
   @Inject(MAT_DIALOG_DATA) public data: any, 
-  private formBuilder: FormBuilder) {}
+  private formBuilder: FormBuilder ,private activitesMedicales : ActivitesMedicalesService) {}
   
   ngOnInit() {
+
+    this.activitesMedicales.getAllNatureAccidents().subscribe(
+      data => {
+        console.log(data) 
+        this.natureAccidents = data;      
+      },
+      error => console.log(error)  
+    );
   
-  this.addForm = this.formBuilder.group({
-    natureAccident: ['', Validators.required],
-    dateAccident: [this.dateAujourdhuit.value,Validators.required],
-    lieuAccident: ['',Validators.required],
-    compteRendu: [''],
-    circonstances: ['',Validators.required],
-    observation: [''],
-  });
+    this.addForm = this.formBuilder.group({
+      nature: ['', Validators.required],
+      date: [this.dateAujourdhuit.value,Validators.required],
+      lieu: ['',Validators.required],
+      compteRendu: [''],
+      circonstance: ['',Validators.required],
+    });
   }
   
   // close dialog  ajouter-arret-travail
@@ -132,7 +153,7 @@ export class AccidentsTravailComponent implements OnInit {
   if (!this.addForm.invalid){
     this.data = this.addForm.value;
     console.log(this.data)
-    this.dialogRef.close();
+    this.dialogRef.close(this.data);
     }
   }
   
