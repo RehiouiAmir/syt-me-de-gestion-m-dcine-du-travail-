@@ -42,7 +42,7 @@
                      <ng-container matColumnDef="Action-edit">
                           <th mat-header-cell *matHeaderCellDef ></th>
                           <td mat-cell *matCellDef="let row" class="td-btn-edit">
-                              <button mat-mini-fab (click)="openDialogEdit(''+row.idConsultation)">
+                              <button mat-icon-button (click)="openDialogEdit(''+row.idConsultation)">
                                   <mat-icon>edit</mat-icon>
                               </button>
                           </td>
@@ -52,7 +52,7 @@
                       <ng-container matColumnDef="Action-delete">
                           <th mat-header-cell *matHeaderCellDef ></th>
                           <td mat-cell *matCellDef="let row" class="td-btn-delete">
-                              <button mat-mini-fab (click)="openDialogDelete(''+row.idConsultation)">
+                              <button mat-icon-button (click)="openDialogDelete(''+row.idConsultation)">
                                   <mat-icon>delete</mat-icon>
                               </button>
                           </td>

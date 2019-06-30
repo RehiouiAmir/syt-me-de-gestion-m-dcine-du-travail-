@@ -73,6 +73,7 @@ const routes: Routes = [
 
     { path: 'administration', component: AdministrationComponent,children:[
       { path: 'admin-societe', component: AdminSocieteComponent },
+      { path: '', redirectTo: 'admin-societe' ,pathMatch: 'full'},      
       { path: 'admin-site', component: AdminSiteComponent },
       { path: 'admin-departement', component: AdminDepartementComponent },
       { path: 'admin-posteTravail', component: AdminPosteTravailComponent },
