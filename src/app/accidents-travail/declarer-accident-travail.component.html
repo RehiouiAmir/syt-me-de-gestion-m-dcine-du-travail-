@@ -7,32 +7,31 @@
             </div>                                      
             <div class="col-md-6">
                 <div class="col-md-8">
-                    <mat-form-field >
-                        <input matInput placeholder="Nature d'accident" formControlName="natureAccident" required>
+                    <mat-form-field>
+                        <mat-select placeholder="Nature d'accident" formControlName="nature" required>
+                            <mat-option *ngFor="let natureAccident of natureAccidents" [value]="natureAccident.id">
+                                {{natureAccident.designation}}
+                            </mat-option>                  
+                        </mat-select>
                     </mat-form-field> 
                 </div> 
                 <div class="col-md-6">                        
                     <mat-form-field>
-                        <input matInput [matDatepicker]="picker" placeholder="Date accident" formControlName="dateAccident" required>
+                        <input matInput [matDatepicker]="picker" placeholder="Date accident" formControlName="date" required>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
                 </div>
                 <div class="col-md-8">
                     <mat-form-field >
-                        <input matInput placeholder="Lieu d'accident" formControlName="lieuAccident" required>
+                        <input matInput placeholder="Lieu d'accident" formControlName="lieu" required>
                     </mat-form-field> 
-                </div>  
-                <div class="col-md-12">
-                    <mat-form-field>
-                        <textarea  matInput placeholder="Observations" formControlName="observation" ></textarea>
-                    </mat-form-field>
-                </div> 
+                </div>   
             </div>
             <div class="col-md-6">
                 <div class="col-md-12">
                     <mat-form-field>
-                        <textarea class="textArea" matInput placeholder="Circonstances d'accident" formControlName="circonstances" required></textarea>
+                        <textarea class="textArea" matInput placeholder="Circonstance d'accident" formControlName="circonstance" required></textarea>
                     </mat-form-field>
                 </div>
                 <div class="col-md-12">

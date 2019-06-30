@@ -176,7 +176,7 @@
                         </tr>
                     </table>
                     </div>
-                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                    <mat-paginator #MatPaginatorMaladies="matPaginator" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
                 </div>
             </mat-tab>
             <mat-tab label="Autres antécédents"> 
@@ -254,7 +254,7 @@
                         </tr>
                     </table>
                     </div>
-                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                    <mat-paginator #MatPaginatorAutres="matPaginator" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
                 </div>
             </mat-tab>
         </mat-tab-group>

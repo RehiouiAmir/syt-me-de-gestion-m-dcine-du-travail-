@@ -126,11 +126,28 @@ export class DmAntecedentsComponent implements OnInit {
       if (result !== undefined){
         console.log(result)
         //change in backend
-        this.employeService.creatAntecedentAutre(this.id_employe,result).subscribe(data => {
-          this.dataSourceAutres.data.push(data)
-          this.dataSourceAutres._updateChangeSubscription() 
-        },
-        error => console.log(error));
+        if(result.type != 'Accident de travail' &&
+          result.type != 'Maladie congénitale' && 
+          result.type != 'Maladie générale' && 
+          result.type != 'Maladie professionnelle'){
+            this.employeService.creatAntecedentAutre(this.id_employe,result).subscribe(data => {
+              this.dataSourceAutres.data.push(data)
+              this.dataSourceAutres._updateChangeSubscription() 
+            },
+            error => console.log(error)); 
+          }else if (result.type === 'Accident de travail' ){
+            this.employeService.creatAntecedentAccidentTravail(this.id_employe,result.accident.id,result).subscribe(data => {
+              this.dataSource.data.push(data)
+              this.dataSource._updateChangeSubscription() 
+            },
+            error => console.log(error));             
+          }else {
+            this.employeService.creatAntecedentMaladie(this.id_employe,result.maladie.id,result).subscribe(data => {
+              this.dataSourceMaladies.data.push(data)
+              this.dataSourceMaladies._updateChangeSubscription() 
+            },
+            error => console.log(error));  
+          }
       }
     });
    }
@@ -188,11 +205,13 @@ export class AjouterAntecedentComponent implements OnInit {
 
     this.addForm = this.formBuilder.group({
       type:  ['', Validators.required],
-      designation: ['', Validators.required],
+      designation: [''],
       dateDebut: [this.dateAujourdhuit.value,Validators.required],
       dateFin: [''],
       consequence: [''],
       observation: [''],
+      accident:[''],
+      maladie: ['']
     });
   }
 
@@ -214,6 +233,18 @@ export class AjouterAntecedentComponent implements OnInit {
     let dialogRef = this.dialog.open(DeclarerAccidentTravailComponent, {
       width: '50%',
       data: {}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined){
+        //change in backend
+        var id_nature= result.nature;
+        result.nature= null;
+        console.log(result)        
+        this.activitesMedicales.creatAccidentTravail(id_nature,result).subscribe(data => {
+          this.accidentTravails.push(data)
+        },
+        error => console.log(error));
+      }
     });
    }
 
