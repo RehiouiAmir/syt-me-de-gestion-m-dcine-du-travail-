@@ -85,6 +85,10 @@ export class EmployeService {
       return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/consultations`);
     }
 
+    getConsultationByConsultationId(id_consultation: number) {
+      return this.http.get<any>(`${environment.baseUrl}/consultations/`+id_consultation);
+    }
+
     getAllNatureConsultations() {
       return this.http.get<any[]>(`${environment.baseUrl}/natureConsultations`);
     }
@@ -97,12 +101,35 @@ export class EmployeService {
       return this.http.get<any[]>(`${environment.baseUrl}/actes`);
     }
 
+    creatConsultation(id_employe,consultation) {
+      return this.http.post(`${environment.baseUrl}/employes/`+id_employe+`/consultation`, consultation);
+    }
+
+    creatActeSoins(id_consultation,id_acte,soin) {
+      return this.http.put(`${environment.baseUrl}/consultations/`+id_consultation+`/actes/`+id_acte, soin);
+    }
+
+    creatExamenComplementaire(id_consultation,examenComplementaire) {
+      return this.http.post(`${environment.baseUrl}/consultations/`+id_consultation+`/examenComplementaire`, examenComplementaire);
+    }
+
   //Service Arret de travail
 
   getAllArretTravailsByEmployeId(id_employe: number) {
     return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/arretTravails`);
   }
 
+  creatArretTrvail(id_employe,arretTravail) {
+    return this.http.post(`${environment.baseUrl}/employes/`+id_employe+`/arretTravail`, arretTravail);
+  }
+
+  creatArretTravailMaladie(id_employe,id_maladie,arretTravail) {
+    return this.http.post(`${environment.baseUrl}/employes/`+id_employe+`/arretTravail/maladies/`+id_maladie, arretTravail);
+  }
+
+  creatArretTravailAccidentTravail(id_employe,id_accident,arretTravail) {
+    return this.http.post(`${environment.baseUrl}/employes/`+id_employe+`/arretTravail/accidents/`+id_accident, arretTravail);
+  }
 
   //Service changelent de poste
 
@@ -112,7 +139,7 @@ export class EmployeService {
 
   // Réorientation médicale
   getAllReorientationByEmployeId(id_employe: number) {
-    return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/reorientations`);
+    return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/reorientationProfessionnelles`);
   }
 
   // Service Soins 

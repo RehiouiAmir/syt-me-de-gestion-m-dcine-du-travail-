@@ -142,12 +142,13 @@
 }
 
 .row-principal .td-btn-details button{
-    background-color:#41B3F9; 
-    width: 35px; 
-    height:35px;
-    color: #2F323E;
+    color:#F0AD4E; 
     text-align: center;
-    width: 50px;
+}
+
+.row-principal .td-btn-add button{
+    color:#7ACE4C; 
+    text-align: center;
 }
 
 .search-bar{

@@ -8,7 +8,7 @@
             <div class="col-md-6">
                 <div class="col-md-8">
                     <mat-form-field>
-                        <mat-select placeholder="Désignation d'examen" formControlName="designationExamen" required>
+                        <mat-select placeholder="Désignation d'examen" formControlName="designation" required>
                             <mat-option value="FNS">FNS</mat-option>
                             <mat-option value="Bilan hépatique ">Bilan hépatique</mat-option>                                                
                             <mat-option value="Spirométrie">Spirométrie</mat-option>                                                
@@ -29,24 +29,12 @@
                     <mat-form-field>
                         <textarea matInput placeholder="Description" formControlName="description" ></textarea>
                     </mat-form-field>
-                </div>
-                <div class="col-md-6">
-                    <mat-form-field>
-                        <input matInput [matDatepicker]="pickerDemande" placeholder="Date demande" formControlName="dateDemande" required>
-                        <mat-datepicker-toggle matSuffix [for]="pickerDemande"></mat-datepicker-toggle>
-                        <mat-datepicker #pickerDemande></mat-datepicker>
-                    </mat-form-field>
-                </div>   
-                <div class="col-md-12">
-                    <mat-form-field>
-                        <textarea matInput placeholder="Observations" formControlName="observations" ></textarea>
-                    </mat-form-field>
-                </div>   
+                </div>  
             </div>
             <div class="col-md-6">
                 <div class="col-md-6">
                     <mat-form-field>
-                        <input matInput [matDatepicker]="pickerResultat" placeholder="Date résultat" formControlName="dateResultat">
+                        <input matInput [matDatepicker]="pickerResultat" placeholder="Date résultat" formControlName="date">
                         <mat-datepicker-toggle matSuffix [for]="pickerResultat"></mat-datepicker-toggle>
                         <mat-datepicker #pickerResultat></mat-datepicker>
                     </mat-form-field>

@@ -62,6 +62,34 @@ export class DmArretTravailComponent implements OnInit {
           id_employe : this.id_employe,
         }
       });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result !== undefined){
+          console.log(result)
+          //change in backend
+          if(result.motif != 'Accident de travail' &&
+            result.motif != 'Maladie congénitale' && 
+            result.motif != 'Maladie générale' && 
+            result.motif != 'Maladie professionnelle'){
+              this.employeService.creatArretTrvail(this.id_employe,result).subscribe(data => {
+                this.dataSource.data.push(data)
+                this.dataSource._updateChangeSubscription() 
+              },
+              error => console.log(error)); 
+            }else if (result.motif === 'Accident de travail' ){
+              this.employeService.creatArretTravailAccidentTravail(this.id_employe,result.accidentTravail.id,result).subscribe(data => {
+                this.dataSource.data.push(data)
+                this.dataSource._updateChangeSubscription() 
+              },
+              error => console.log(error));             
+            }else {
+              this.employeService.creatArretTravailMaladie(this.id_employe,result.maladies.id,result).subscribe(data => {
+                this.dataSource.data.push(data)
+                this.dataSource._updateChangeSubscription() 
+              },
+              error => console.log(error));  
+            }
+        }
+      });
      }
 }
 
@@ -101,7 +129,7 @@ export class AjouterArretTravailComponent implements OnInit {
       data => {
         console.log(data)
         for(let i of data){
-          if(i.type ==='Professionnelle') {
+          if(i.maladie.type ==='Professionnelle') {
             this.maladiesProfessionnelles.push(i);
           }else{
             this.maladies.push(i)
@@ -112,12 +140,12 @@ export class AjouterArretTravailComponent implements OnInit {
     );
 
     this.addForm = this.formBuilder.group({
-      motifArret: ['', Validators.required],
+      motif: ['', Validators.required],
       dateDebut: [this.dateAujourdhuit.value,Validators.required],
       dateFin: ['',Validators.required],
       observation: [''], 
-      accident: [''],
-      maladie: ['']
+      accidentTravail: [''],
+      maladies: ['']
     });
   }
 

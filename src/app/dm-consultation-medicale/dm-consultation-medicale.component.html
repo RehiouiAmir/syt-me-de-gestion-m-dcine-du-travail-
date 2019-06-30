@@ -55,8 +55,8 @@
                 <ng-container matColumnDef="Action-details">
                     <th mat-header-cell *matHeaderCellDef ></th>
                     <td mat-cell *matCellDef="let row" class="td-btn-details">
-                        <button mat-mini-fab (click)="openDialogDetailsConsultation(''+row.idConsultation)">
-                            <mat-icon>details</mat-icon>
+                        <button mat-icon-button (click)="openDialogDetailsConsultation(''+row.idConsultation)">
+                            <mat-icon>description</mat-icon>
                         </button>
                     </td>
                 </ng-container>
@@ -65,7 +65,7 @@
                 <ng-container matColumnDef="Action-edit">
                     <th mat-header-cell *matHeaderCellDef ></th>
                     <td mat-cell *matCellDef="let row" class="td-btn-edit">
-                        <button mat-mini-fab (click)="openDialogDetailsConsultation(''+row.idConsultation)">
+                        <button mat-icon-button (click)="openDialogDetailsConsultation(''+row.idConsultation)">
                             <mat-icon>edit</mat-icon>
                         </button>
                     </td>
@@ -75,7 +75,7 @@
                 <ng-container matColumnDef="Action-delete">
                     <th mat-header-cell *matHeaderCellDef ></th>
                     <td mat-cell *matCellDef="let row" class="td-btn-delete">
-                        <button mat-mini-fab (click)="openDialogDetailsConsultation(''+row.idConsultation)">
+                        <button mat-icon-button (click)="openDialogDetailsConsultation(''+row.idConsultation)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>

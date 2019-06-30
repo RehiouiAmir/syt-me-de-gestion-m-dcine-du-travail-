@@ -22,7 +22,7 @@
                 </div>  
                 <div class="col-md-8">
                     <mat-form-field>
-                        <mat-select placeholder="Motif d'arrêt de travail" formControlName="motifArret" required>
+                        <mat-select placeholder="Motif d'arrêt de travail" formControlName="motif" required>
                             <mat-option value="Accident de travail">Accident de travail</mat-option>
                             <mat-option value="Accident non professionnel">Accident non professionnel</mat-option>                                                
                             <mat-option value="Maladie professionnelle">Maladie professionnelle</mat-option>                                                
@@ -32,22 +32,22 @@
                     </mat-form-field>
                 </div>
                 <div class="col-md-8">
-                    <mat-form-field *ngIf="addForm.value.motifArret === 'Accident de travail'">
-                        <mat-select placeholder="Sélectionner un accident" formControlName="accident">
+                    <mat-form-field *ngIf="addForm.value.motif === 'Accident de travail'">
+                        <mat-select placeholder="Sélectionner un accident" formControlName="accidentTravail">
                             <mat-option *ngFor="let accidentTravail of accidentTravails" [value]="accidentTravail">
                                 {{accidentTravail.accident.natureAccident.designation}} | {{accidentTravail.accident.date | date}} | {{accidentTravail.accident.lieu}}
                             </mat-option>                                                
                         </mat-select>
                     </mat-form-field>
-                    <mat-form-field *ngIf="addForm.value.motifArret === 'Maladie non professionnelle'">
-                        <mat-select placeholder="Sélectionner une maladie" formControlName="maladie">
+                    <mat-form-field *ngIf="addForm.value.motif === 'Maladie non professionnelle'">
+                        <mat-select placeholder="Sélectionner une maladie" formControlName="maladies">
                             <mat-option *ngFor="let maladie of maladies" [value]="maladie">
                                 {{maladie.maladie.designation}} | {{maladie.maladie.type}}
                             </mat-option>                                                
                         </mat-select>
                     </mat-form-field>
-                    <mat-form-field *ngIf="addForm.value.motifArret === 'Maladie professionnelle'">
-                        <mat-select placeholder="Sélectionner une maladie professionnelles" formControlName="maladie">
+                    <mat-form-field *ngIf="addForm.value.motif === 'Maladie professionnelle'">
+                        <mat-select placeholder="Sélectionner une maladie professionnelles" formControlName="maladies">
                             <mat-option *ngFor="let maladie of maladiesProfessionnelles" [value]="maladie">
                                 {{maladie.maladie.designation}}
                             </mat-option>                                                

@@ -30,7 +30,7 @@ export class DmChangementPosteComponent implements OnInit {
 
      /* Réorientation Table Structure */
   
-     displayedColumnsReorientation: string[] = ['dateReorientation','posteOccupe','medecin','Action-details','Action-edit','Action-delete'];
+     displayedColumnsReorientation: string[] = ['dateReorientation','posteOccupe','posteConseilles','posteDeconseilles','medecin','Action-details','Action-edit','Action-delete'];
      dataSourceReorientation : MatTableDataSource<any>;
    
      @ViewChild('MatPaginatorReorientation') paginatorReorientation: MatPaginator;
@@ -54,7 +54,7 @@ export class DmChangementPosteComponent implements OnInit {
 
       this.employeService.getAllReorientationByEmployeId(this.id_employe).subscribe(
         data => {
-          this.reorientations = data.employe_posteTravails;
+          this.reorientations = data;
           console.log(this.reorientations);
           this.dataSourceReorientation = new MatTableDataSource<any>(this.reorientations);
           this.dataSourceReorientation.paginator = this.paginatorReorientation;
