@@ -21,7 +21,7 @@ export class DmSoinsComponent implements OnInit {
 
   /* Table Structure */
   
-  displayedColumns: string[] = ['acte','dateSoins','observation','medecin','infirmier','Action-details','Action-edit','Action-delete'];
+  displayedColumns: string[] = ['acte','dateSoins','etat','observation','medecin','infirmier','Action-details','Action-edit','Action-delete'];
   dataSource : MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -30,7 +30,7 @@ export class DmSoinsComponent implements OnInit {
 
  /* Demande Table Structure */
  
-  displayedColumnsDemande: string[] = ['typeSoins','dateDemande','medecin','Action-details','Action-add'];
+  displayedColumnsDemande: string[] = ['acte','dateSoins','observation','infirmier','Action-details','Action-add'];
   dataSourceDemande : MatTableDataSource<any>;
 
   @ViewChild('MatPaginatorDemande') paginatorDemande: MatPaginator;
@@ -48,6 +48,16 @@ export class DmSoinsComponent implements OnInit {
         this.dataSource = new MatTableDataSource<any>(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort; 
+      },
+      error => console.log(error)  
+    );
+
+    this.employeService.getAllSoinsInfirmierByEmployeId(this.id_employe).subscribe(
+      data => {
+        console.log(data)
+        this.dataSourceDemande = new MatTableDataSource<any>(data);
+        this.dataSourceDemande.paginator = this.paginator;
+        this.dataSourceDemande.sort = this.sort; 
       },
       error => console.log(error)  
     );
