@@ -152,6 +152,10 @@ font-weight: bold;
   
 }
 
+.td-btn-pdf button{
+  color: #F0AD4E;
+}
+
 .btn-terminer{
   margin-left: 10px;
   background: #7ACE4C;
@@ -206,14 +210,11 @@ p span.champ{
 }
 
 .row-principal .td-btn-edit button{
-  color:#F0AD4E;
+  color:#41B3F9;
 }
 
 .row-principal .td-btn-delete button{
   color:#F33155;
-}
-.row-principal .td-btn-details button{
-  color:#41B3F9; 
 }
 
 @media (min-width:767.98px){
@@ -262,7 +263,7 @@ th{
 table {
     margin-top: 0;
 }
-.mat-elevation-z8{
+.mat-elevation-z2{
     margin-top: 70px;
 }
 

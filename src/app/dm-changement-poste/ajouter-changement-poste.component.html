@@ -5,7 +5,7 @@
             <div class="col-md-6">
                 <div class="col-md-8">
                     <mat-form-field>
-                        <mat-select placeholder="Poste de travail occupé" formControlName="posteTravail" required>
+                        <mat-select placeholder="Poste de travail occupé" formControlName="id_posteTravail" (selectionChange)="InitialiserRisque($event.value)" required>
                             <mat-option *ngFor="let posteTravail of posteTravails" [value]="posteTravail.id">
                                 {{posteTravail.designation}}
                             </mat-option>                                                
@@ -14,14 +14,14 @@
                 </div>
                 <div class="col-md-6">
                     <mat-form-field>
-                        <input matInput [matDatepicker]="pickerDu" placeholder="DU" formControlName="dateOccupation" required>
+                        <input matInput [matDatepicker]="pickerDu" placeholder="DU" formControlName="dateDebut" required>
                         <mat-datepicker-toggle matSuffix [for]="pickerDu"></mat-datepicker-toggle>
                         <mat-datepicker #pickerDu></mat-datepicker>
                     </mat-form-field>
                 </div>
                 <div class="col-md-6">
                     <mat-form-field>
-                        <input matInput [matDatepicker]="pickerAu" placeholder="AU" formControlName="dateLiberation" >
+                        <input matInput [matDatepicker]="pickerAu" placeholder="AU" formControlName="dateFin" >
                         <mat-datepicker-toggle matSuffix [for]="pickerAu"></mat-datepicker-toggle>
                         <mat-datepicker #pickerAu></mat-datepicker>
                     </mat-form-field>
@@ -45,26 +45,26 @@
             <div class="col-md-6">
                 <p class="title-champ-1">Liste des risques professionnelles liés aux poste occupés :</p>                    
                 <mat-list role="list">
-                    <mat-list-item role="listitem" *ngFor="let risque of getRisquePosteOccupe(addGlobalForm.value.posteTravail)">
-                        <p class="title-champ">Type :<span class="champ">{{risque.type}}</span></p>
+                    <mat-list-item role="listitem" *ngFor="let risque of risquesPostes">
+                        <p class="title-champ">Type :<span class="champ">{{risque.typeRisque.designation}}</span></p>
                         <p class="title-champ">Désignation :<span class="champ">{{risque.designation}}</span></p>                                        
                     </mat-list-item>
                 </mat-list>
             </div>
             <div class="col-md-6">
                 <p class="title-champ-2">Ajouter d'autres risques professionnelles :
-                    <span class="btn-add" (click)="onAddRow()" *ngIf="addForm.get('risques')">
+                    <span class="btn-add" (click)="onAddRow()" *ngIf="addForm.get('nvRisques')">
                         <button mat-mini-fab>
                             <mat-icon>add</mat-icon>                        
                         </button>
                     </span>
                 </p>                    
-                <div *ngFor="let row of addForm.get('risques')?.controls;let index = index;" class="col-md-12">
+                <div *ngFor="let row of addForm.get('nvRisques')?.controls;let index = index;" class="col-md-12">
                     <div class="col-md-10">
                         <mat-form-field>
                             <mat-select [formControl]="row.get('designation')" placeholder="sélectionner un risque" required>
                                 <mat-option *ngFor="let risquesProfessionnels of risquesProfessionnels" [value]="risquesProfessionnels.designation">
-                                   {{risquesProfessionnels.designation}} |  {{risquesProfessionnels.type}}
+                                   {{risquesProfessionnels.designation}} |  {{risquesProfessionnels.typeRisque.designation}}
                                 </mat-option>                                                
                             </mat-select>
                         </mat-form-field>

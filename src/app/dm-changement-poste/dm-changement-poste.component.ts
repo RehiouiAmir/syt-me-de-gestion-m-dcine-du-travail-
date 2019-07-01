@@ -88,6 +88,25 @@ export class DmChangementPosteComponent implements OnInit {
         width: '70%',
         data: {}
       });
+      dialogRef.afterClosed().subscribe(result => {
+          if (result !== undefined){
+            console.log(result)
+            //change in backend
+            this.employeService.creatChangementPoste(this.id_employe,result.id_posteTravail,result).subscribe(data => {
+              this.employeService.getEmployeById(this.id_employe).subscribe(
+                data => {
+                  this.posteHistorique = data.employe_posteTravails;
+                  console.log(this.posteHistorique);
+                  this.dataSource = new MatTableDataSource<any>(this.posteHistorique);
+                  this.dataSource.paginator = this.paginator;
+                  this.dataSource.sort = this.sort;
+                },
+                error => console.log(error)  
+              );        
+            },
+            error => console.log(error));
+          }
+      });
      }
 }
 
@@ -110,7 +129,7 @@ export class AjouterChangementPosteComponent implements OnInit {
 
   addGlobalForm: FormGroup;
   addForm: FormGroup;
-  risques: FormArray;
+  nvRisques: FormArray;
   itemForm: FormGroup; 
 
 constructor(public dialogRef: MatDialogRef<AjouterChangementPosteComponent>,
@@ -122,7 +141,7 @@ constructor(public dialogRef: MatDialogRef<AjouterChangementPosteComponent>,
       items_value: ['no', Validators.required]
     });
 
-    this.risques = this.fb.array([]);
+    this.nvRisques = this.fb.array([]);
   }
 
 ngOnInit() {
@@ -134,39 +153,45 @@ ngOnInit() {
       },
       error => console.log(error)  
     );
+    this.employeService.getAllRisques().subscribe(
+      data => {
+          console.log(data) 
+          this.risquesProfessionnels = data;      
+        },
+        error => console.log(error)  
+    );
     
     this.addGlobalForm = this.formBuilder.group({
-      posteTravail: ['', Validators.required],
-      dateOccupation: ['',Validators.required],
-      dateLiberation: [''],
+      id_posteTravail: ['', Validators.required],
+      dateDebut: ['',Validators.required],
+      dateFin: [''],
       motif: [''],
       observation: [''], 
     });
 
     this.addForm.get("items_value").setValue("yes");
-    this.addForm.addControl('risques', this.risques);
-    this.addGlobalForm.addControl('risques', this.risques);
-  }
+    this.addForm.addControl('nvRisques', this.nvRisques);
+    this.addGlobalForm.addControl('nvRisques', this.nvRisques);
+}
   
 
-getRisquePosteOccupe(posteTravail : any) : any [] {
-  var risquesPosteOccupe : any[] = [];
-  var v = 0;  
-  for (var i in this.risquesPostes){
-    if (this.risquesPostes[i].poste === posteTravail){
-      risquesPosteOccupe[v] = this.risquesPostes[i];
-      v= v+1;
-    }
+  InitialiserRisque(value){
+    this.employeService.getAllRisquesbyPosteId(value).subscribe(
+      data => {
+          console.log(data) 
+          this.risquesPostes = data;      
+        },
+        error => console.log(error)  
+    );
   }
-  return risquesPosteOccupe;
-}
+
 
 onAddRow() {
-  this.risques.push(this.createItemFormGroup());
+  this.nvRisques.push(this.createItemFormGroup());
 }
 
 onRemoveRow(rowIndex:number){
-  this.risques.removeAt(rowIndex);
+  this.nvRisques.removeAt(rowIndex);
 }
 
 createItemFormGroup(): FormGroup {

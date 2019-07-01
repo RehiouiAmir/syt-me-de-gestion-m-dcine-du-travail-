@@ -21,7 +21,6 @@ export class AjouterOrdonnanceComponent implements OnInit {
   addForm: FormGroup;
   prescription: FormArray;
   itemForm: FormGroup;
-  dateAujourdhuit = new FormControl(new Date()); 
 
   constructor(public dialogRef: MatDialogRef<AjouterOrdonnanceComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, 
@@ -46,7 +45,6 @@ export class AjouterOrdonnanceComponent implements OnInit {
       );
 
       this.addGlobalForm = this.formBuilder.group({
-        dateOrdonnance: [this.dateAujourdhuit.value,Validators.required],
         observation: [''],      
       });
       this.addForm.get("items_value").setValue("yes");
@@ -64,9 +62,9 @@ export class AjouterOrdonnanceComponent implements OnInit {
     
     createItemFormGroup(): FormGroup {
       return this.fb.group({
-        medicament: ["", Validators.required],
+        medicamentsPer: ["", Validators.required],
         quantite: [""],
-        posologie: [""],        
+        posage: [""],        
       });
     }
     

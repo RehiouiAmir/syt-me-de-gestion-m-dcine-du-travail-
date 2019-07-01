@@ -113,6 +113,20 @@ export class EmployeService {
       return this.http.post(`${environment.baseUrl}/consultations/`+id_consultation+`/examenComplementaire`, examenComplementaire);
     }
 
+    creatOrientationMedicale(id_consultation,orientationMedicale) {
+      return this.http.post(`${environment.baseUrl}/consultations/`+id_consultation+`/orientationMedicale`, orientationMedicale);
+    }
+
+    creatOrdonnance(id_consultation,ordonnance) {
+      return this.http.post(`${environment.baseUrl}/consultations/`+id_consultation+`/ordonnance`, ordonnance);
+    }
+
+    creatPrescription(id_ordonnance,id_medicament,prescription) {
+      return this.http.put(`${environment.baseUrl}/ordonnances/`+id_ordonnance+`/medicaments/`+id_medicament,prescription);
+    }
+
+
+
   //Service Arret de travail
 
   getAllArretTravailsByEmployeId(id_employe: number) {
@@ -137,6 +151,17 @@ export class EmployeService {
     return this.http.get<any>(`${environment.baseUrl}//`+id_employe);
   }
 
+  getAllRisques() {
+    return this.http.get<any[]>(`${environment.baseUrl}/risques`);
+  }
+   
+  getAllRisquesbyPosteId(id_poste: number) {
+    return this.http.get<any>(`${environment.baseUrl}/posteTravails/`+id_poste+`/risques`);
+  }
+
+  creatChangementPoste(id_employe,id_poste,changementPoste) {
+    return this.http.put(`${environment.baseUrl}/employes/`+id_employe+`/posteTravails/`+id_poste, changementPoste);
+  } 
   // Réorientation médicale
   getAllReorientationByEmployeId(id_employe: number) {
     return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/reorientationProfessionnelles`);

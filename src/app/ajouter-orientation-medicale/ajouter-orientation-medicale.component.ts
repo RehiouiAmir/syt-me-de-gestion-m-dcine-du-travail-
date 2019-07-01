@@ -22,9 +22,8 @@ export class AjouterOrientationMedicaleComponent implements OnInit {
 
     ngOnInit() {
       this.addForm = this.formBuilder.group({
-        motifOrientation: ['',Validators.required],
-        specialiste: ['',Validators.required], 
-        observation: [''], 
+        motif: ['',Validators.required],
+        specialite: ['',Validators.required], 
         date: [''],        
         resultat: [''],      
       });
