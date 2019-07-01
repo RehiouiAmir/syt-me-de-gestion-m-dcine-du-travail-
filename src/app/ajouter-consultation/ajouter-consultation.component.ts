@@ -26,14 +26,14 @@ export class AjouterConsultationComponent implements OnInit {
   
    /* Table Structure | Médicaments */
    displayedColumnsMedicaments: string[] = ['designation','quantite','posologie','Action-delete'];
-   dataSourceMedicament : MatTableDataSource<any>;
+   dataSourceMedicaments : MatTableDataSource<any>;
 
    /* Table Structure | Soins */
    displayedColumnsSoins: string[] = ['designation','etatActe','dateActeSoin','observation','Action-delete'];
    dataSourceSoins : MatTableDataSource<any>;
 
    /* Table Structure | Orientation médicale */
-   displayedColumnsOrientations: string[] = ['specialiste','motifOrientation','dateDemande','Action-edit','Action-delete','Action-pdf'];
+   displayedColumnsOrientations: string[] = ['specialiste','motifOrientation','Action-edit','Action-delete','Action-pdf'];
    dataSourceOrientations : MatTableDataSource<any>;
 
     /* Table Structure | Orientation médicale */
@@ -74,7 +74,8 @@ export class AjouterConsultationComponent implements OnInit {
         data => {
           this.dataSourceSoins = new MatTableDataSource<any>(data['soins']);
           this.dataSourceExamens = new MatTableDataSource<any>(data['examenComplementaires']);
-          
+          this.dataSourceOrientations = new MatTableDataSource<any>(data['orientationMedicales']); 
+          this.dataSourceMedicaments = new MatTableDataSource<any>([]);                    
         },
        error => console.log(error));
       },
@@ -129,14 +130,42 @@ addExamen() {
     width: '70%',
     data: {}
   });
+  dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined){
+        console.log(result)
+        //change in backend
+          this.employeService.creatOrientationMedicale(this.consultation.id,result).subscribe(data => {
+            console.log(data);
+          this.consultation.orientationMedicales= data
+          this.dataSourceOrientations.data.push(data)
+          this.dataSourceOrientations._updateChangeSubscription() 
+        },
+        error => console.log(error));
+      }
+  });
  }
  addOrdonnance() {
   let dialogRef = this.dialog.open(AjouterOrdonnanceComponent, {
     width: '80%',
     data: {}
   });
-  dialogRef.afterClosed().subscribe(() => {
-    
+  dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined){
+        //change in backend
+          this.employeService.creatOrdonnance(this.consultation.id,result).subscribe(data => {
+            this.consultation.ordonnance= data
+            for (var i in result.prescription){
+              var medicamentsPer= result.prescription[i].medicamentsPer
+              this.employeService.creatPrescription(this.consultation.ordonnance.id,medicamentsPer,result.prescription[i]).subscribe(data => {
+                this.consultation.ordonnance.prescriptions= data    
+                this.dataSourceMedicaments.data.push(data)
+                this.dataSourceMedicaments._updateChangeSubscription() 
+                },
+                error => console.log(error));
+            }
+        },
+        error => console.log(error));
+      }
   });
   }
 

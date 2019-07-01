@@ -9,7 +9,6 @@
 
 .sidenav .mat-toolbar.logo-toolbar {
   background: inherit;
-  border-bottom: 0.5px solid #2F323E;
 }
 
 .mat-toolbar.header-toolbar{
@@ -44,7 +43,7 @@
 }
 
 img.logo-img {
-  height: 55px;
+  height: 64px;
   width:187px;
   margin-top: -80px;
 }

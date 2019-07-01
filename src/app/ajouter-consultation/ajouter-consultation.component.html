@@ -76,52 +76,60 @@
             <div class="col-md-12 row-section-TM">
               <div class="col-md-12 row-title">
                   <h4>Ordonnance
-                    <span class="btn-add">
-                        <button mat-mini-fab (click)="addOrdonnance()">
-                            <mat-icon>add</mat-icon>                        
-                        </button>
-                    </span> 
+                    <ng-container *ngIf="consultation">
+                        <ng-container *ngIf="consultation.ordonnance === null">
+                            <span class="btn-add">
+                                <button mat-mini-fab (click)="addOrdonnance()">
+                                    <mat-icon>add</mat-icon>                        
+                                </button>
+                            </span> 
+                        </ng-container>
+                    </ng-container>
                   </h4>
               </div>
-              <p class="title-champ">Liste des médicaments:</p>                   
-              <table mat-table [dataSource]="dataSourceMedicaments"  class="mat-elevation-z8">
-  
-                  <!-- Designation  Column -->
-                  <ng-container matColumnDef="designation">
-                      <th mat-header-cell *matHeaderCellDef> Designation </th>
-                      <td mat-cell *matCellDef="let row">  </td>
-                  </ng-container> 
-      
-                  <!-- Quantité  Column -->
-                  <ng-container matColumnDef="quantite">
-                      <th mat-header-cell *matHeaderCellDef> Quantité </th>
-                      <td mat-cell *matCellDef="let row"></td>
-                  </ng-container>    
-                  
-                  <!-- posologie  Column -->
-                  <ng-container matColumnDef="posologie">
-                      <th mat-header-cell *matHeaderCellDef> Posologie  </th>
-                      <td mat-cell *matCellDef="let row"> </td>
-                  </ng-container>
+              <ng-container *ngIf="consultation">
+                <ng-container *ngIf="consultation.ordonnance != null">
+                    <p class="title-champ">Liste des médicaments:</p>                   
+                    <table mat-table [dataSource]="dataSourceMedicaments"  class="mat-elevation-z2">
+        
+                        <!-- Designation  Column -->
+                        <ng-container matColumnDef="designation">
+                            <th mat-header-cell *matHeaderCellDef> Designation </th>
+                            <td mat-cell *matCellDef="let row"> {{row.medicament.designation}} </td>
+                        </ng-container> 
             
-                  <!-- Action delete Column -->
-                  <ng-container matColumnDef="Action-delete">
-                      <th mat-header-cell *matHeaderCellDef ></th>
-                      <td mat-cell *matCellDef="let row" class="td-btn-delete">
-                          <button mat-icon-button (click)="openDialogDetailsConsultation(''+row.idConsultation)">
-                              <mat-icon>delete</mat-icon>
-                          </button>
-                      </td>
-                  </ng-container>
-              
-                  <tr mat-header-row *matHeaderRowDef="displayedColumnsMedicaments"></tr>
-                  <tr mat-row *matRowDef="let row; columns: displayedColumnsMedicaments;">
-                  </tr>
-              </table>
-              <p class="title-champ">Observation médicale:<span class="champ"></span></p>
-              <button mat-mini-fab class="pull-right btn-pdf"><mat-icon>picture_as_pdf</mat-icon></button>              
-              <button mat-mini-fab class="pull-right btn-delete"><mat-icon>delete</mat-icon></button>  
-              <button class="pull-right btn-edit" mat-mini-fab><mat-icon>edit</mat-icon></button>
+                        <!-- Quantité  Column -->
+                        <ng-container matColumnDef="quantite">
+                            <th mat-header-cell *matHeaderCellDef> Quantité </th>
+                            <td mat-cell *matCellDef="let row">{{row.quantite}}</td>
+                        </ng-container>    
+                        
+                        <!-- posologie  Column -->
+                        <ng-container matColumnDef="posologie">
+                            <th mat-header-cell *matHeaderCellDef> Posologie  </th>
+                            <td mat-cell *matCellDef="let row"> {{row.posage}}</td>
+                        </ng-container>
+                    
+                        <!-- Action delete Column -->
+                        <ng-container matColumnDef="Action-delete">
+                            <th mat-header-cell *matHeaderCellDef ></th>
+                            <td mat-cell *matCellDef="let row" class="td-btn-delete">
+                                <button mat-icon-button (click)="openDialogDetailsConsultation(''+row.idConsultation)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </td>
+                        </ng-container>
+                    
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsMedicaments"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsMedicaments;">
+                        </tr>
+                    </table>
+                    <p class="title-champ">Observation médicale:<span class="champ"> {{consultation.ordonnance.observation}}</span></p>
+                    <button mat-mini-fab class="pull-right btn-pdf"><mat-icon>picture_as_pdf</mat-icon></button>              
+                    <button mat-mini-fab class="pull-right btn-delete"><mat-icon>delete</mat-icon></button>  
+                    <button class="pull-right btn-edit" mat-mini-fab><mat-icon>edit</mat-icon></button>
+                </ng-container>
+              </ng-container>
             </div>
           </div>
           <div class="col-md-6">
@@ -138,7 +146,7 @@
                 <ng-container *ngIf="consultation">
                     <ng-container *ngIf="consultation.soins != null">
                         <p class="title-champ">Liste d'actes de soins:</p>                   
-                        <table mat-table [dataSource]="dataSourceSoins"  class="mat-elevation-z8">
+                        <table mat-table [dataSource]="dataSourceSoins"  class="mat-elevation-z2">
             
                             <!-- Designation  Column -->
                             <ng-container matColumnDef="designation">
@@ -196,61 +204,60 @@
                     </span>
                   </h4>
               </div>
-              <p class="title-champ">Liste des orientations demandés::<span class="champ"></span></p>               
-              <table mat-table [dataSource]="dataSourceOrientations"  class="mat-elevation-z8">
-      
-                  <!-- Spécialiste  Column -->
-                  <ng-container matColumnDef="specialiste">
-                      <th mat-header-cell *matHeaderCellDef> Spécialiste </th>
-                      <td mat-cell *matCellDef="let row"></td>
-                  </ng-container>    
-                  
-                  <!-- motif  Column -->
-                  <ng-container matColumnDef="motifOrientation">
-                      <th mat-header-cell *matHeaderCellDef> Motif  </th>
-                      <td mat-cell *matCellDef="let row"> </td>
-                  </ng-container>
+              <ng-container *ngIf="consultation">
+                    <ng-container *ngIf="consultation.orientationMedicales != null">
+                        <p class="title-champ">Liste des orientations demandés:<span class="champ"></span></p>               
+                        <table mat-table [dataSource]="dataSourceOrientations"  class="mat-elevation-z2">
+                
+                            <!-- Spécialiste  Column -->
+                            <ng-container matColumnDef="specialiste">
+                                <th mat-header-cell *matHeaderCellDef> Spécialiste </th>
+                                <td mat-cell *matCellDef="let row">{{row.specialite}}</td>
+                            </ng-container>    
+                            
+                            <!-- motif  Column -->
+                            <ng-container matColumnDef="motifOrientation">
+                                <th mat-header-cell *matHeaderCellDef> Motif  </th>
+                                <td mat-cell *matCellDef="let row">{{row.motif}} </td>
+                            </ng-container>
 
-                    <!-- Date Demande  Column -->
-                    <ng-container matColumnDef="dateDemande">
-                        <th mat-header-cell *matHeaderCellDef> Date demande </th>
-                        <td mat-cell *matCellDef="let row"></td>
-                    </ng-container> 
-                    
-                  <!-- Action edit Column -->
-                  <ng-container matColumnDef="Action-edit">
-                      <th mat-header-cell *matHeaderCellDef ></th>
-                      <td mat-cell *matCellDef="let row" class="td-btn-edit">
-                          <button mat-icon-button (click)="openDialogDetailsConsultation(''+row.idConsultation)">
-                              <mat-icon>edit</mat-icon>
-                          </button>
-                      </td>
-                  </ng-container>
-            
-                  <!-- Action delete Column -->
-                  <ng-container matColumnDef="Action-delete">
-                      <th mat-header-cell *matHeaderCellDef ></th>
-                      <td mat-cell *matCellDef="let row" class="td-btn-delete">
-                          <button mat-icon-button (click)="openDialogDetailsConsultation(''+row.idConsultation)">
-                              <mat-icon>delete</mat-icon>
-                          </button>
-                      </td>
-                  </ng-container>
+                                
+                            <!-- Action edit Column -->
+                            <ng-container matColumnDef="Action-edit">
+                                <th mat-header-cell *matHeaderCellDef ></th>
+                                <td mat-cell *matCellDef="let row" class="td-btn-edit">
+                                    <button mat-icon-button (click)="openDialogDetailsConsultation(''+row.idConsultation)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+                        
+                            <!-- Action delete Column -->
+                            <ng-container matColumnDef="Action-delete">
+                                <th mat-header-cell *matHeaderCellDef ></th>
+                                <td mat-cell *matCellDef="let row" class="td-btn-delete">
+                                    <button mat-icon-button (click)="openDialogDetailsConsultation(''+row.idConsultation)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
 
-                  <!-- Action pdf Column -->
-                  <ng-container matColumnDef="Action-pdf">
-                      <th mat-header-cell *matHeaderCellDef ></th>
-                      <td mat-cell *matCellDef="let row" class="td-btn-pdf">
-                          <button mat-icon-button (click)="openDialogDetailsConsultation(''+row.idConsultation)">
-                              <mat-icon>picture_as_pdf</mat-icon>
-                          </button>
-                      </td>
-                  </ng-container>
-              
-                  <tr mat-header-row *matHeaderRowDef="displayedColumnsOrientations"></tr>
-                  <tr mat-row *matRowDef="let row; columns: displayedColumnsOrientations;">
-                  </tr>
-              </table>
+                            <!-- Action pdf Column -->
+                            <ng-container matColumnDef="Action-pdf">
+                                <th mat-header-cell *matHeaderCellDef ></th>
+                                <td mat-cell *matCellDef="let row" class="td-btn-pdf">
+                                    <button mat-icon-button (click)="openDialogDetailsConsultation(''+row.idConsultation)">
+                                        <mat-icon>picture_as_pdf</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+                        
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsOrientations"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsOrientations;">
+                            </tr>
+                        </table>
+                    </ng-container>
+              </ng-container>
             </div>
           </div>
           <div class="col-md-6">
@@ -267,7 +274,7 @@
               <ng-container *ngIf="consultation">
                 <ng-container *ngIf="consultation.examenComplementaires != null">
                     <p class="title-champ">Liste des examens demandés:<span class="champ"></span></p>                             
-                    <table mat-table [dataSource]="dataSourceExamens"  class="mat-elevation-z8">
+                    <table mat-table [dataSource]="dataSourceExamens"  class="mat-elevation-z2">
             
                         <!-- Désignation  Column -->
                         <ng-container matColumnDef="designation">

@@ -113,10 +113,9 @@
     text-align: center;
 }
 .row-footer .td-btn a{
-    width: 35px; 
-    height:35px;
-    background-color: #41B3F9;
-    color: #2F323E; 
+    font-size: 13px;
+    color: #2F323E;
+    background-color:  #41B3F9;
 }
 
 .search-bar{
