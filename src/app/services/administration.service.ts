@@ -52,9 +52,9 @@ export class AdministrationService {
     ajouterPosteTravail(id: number,posteTravail) {
       return this.http.post<any[]>(`${environment.baseUrl}/departements/`+id+`/posteTravail`, posteTravail);
     }
-    // getEmployeById(id: number) {
-    //     return this.http.get<any>(`${environment.baseUrl}/employes/`+id);
-    // }
+    getTypeRisques() {
+         return this.http.get<any>(`${environment.baseUrl}/typeRisques/`);
+    }
   
     // createEmploye(employe) {
     //   return this.http.post(`${environment.baseUrl}/employe`, employe);

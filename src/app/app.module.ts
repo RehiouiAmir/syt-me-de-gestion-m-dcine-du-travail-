@@ -43,7 +43,7 @@ import { SoinsComponent } from './soins/soins.component';
 import { EmployesComponent, AjouterNvEmployeComponent } from './employes/employes.component';
 import { DmInformationsGeneralesComponent } from './dm-informations-generales/dm-informations-generales.component';
 import { DmAntecedentsComponent, AjouterAntecedentComponent } from './dm-antecedents/dm-antecedents.component';
-import { DmProfilVaccinalComponent, AjouterProfileVaccinalComponent } from './dm-profil-vaccinal/dm-profil-vaccinal.component';
+import { DmProfilVaccinalComponent, AjouterProfileVaccinalComponent, AjouterInjectionVaccinalComponent, AjouterInjectionComponent } from './dm-profil-vaccinal/dm-profil-vaccinal.component';
 import { DmVisiteMedicaleComponent } from './dm-visite-medicale/dm-visite-medicale.component';
 import { DmConsultationMedicaleComponent } from './dm-consultation-medicale/dm-consultation-medicale.component';
 import { DmArretTravailComponent, AjouterArretTravailComponent } from './dm-arret-travail/dm-arret-travail.component';
@@ -92,6 +92,8 @@ import { AdminNatureAccidentComponent, AjouterNatureAccidentComponent } from './
     AjouterAntecedentComponent,
     DmProfilVaccinalComponent,
     AjouterProfileVaccinalComponent,
+    AjouterInjectionVaccinalComponent,
+    AjouterInjectionComponent,
     DmVisiteMedicaleComponent,
     DmConsultationMedicaleComponent,
     DmArretTravailComponent,
@@ -147,7 +149,7 @@ import { AdminNatureAccidentComponent, AjouterNatureAccidentComponent } from './
                     AccidentsTravailComponent,DeclarerAccidentTravailComponent,
                     DmAntecedentsComponent,AjouterAntecedentComponent,
                     DmSoinsComponent, AjouterSoinsComponent, DmProfilVaccinalComponent,
-                    AjouterProfileVaccinalComponent,AjouterConsultationComponent,
+                    AjouterProfileVaccinalComponent,AjouterInjectionVaccinalComponent,AjouterInjectionComponent,AjouterConsultationComponent,
                     AjouterExamenComplementaireComponent,AjouterOrdonnanceComponent,AjouterOrientationMedicaleComponent,
                     AdminSocieteComponent,AjouterSocieteComponent,AdminSiteComponent, AjouterSiteComponent,
                     AdminDepartementComponent,AjouterDepartementComponent,AdminPosteTravailComponent,AjouterPosteTravailComponent,
