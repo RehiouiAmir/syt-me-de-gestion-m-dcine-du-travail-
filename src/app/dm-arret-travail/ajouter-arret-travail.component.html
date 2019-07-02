@@ -1,9 +1,16 @@
-<h4 mat-dialog-title class="mat-dialog-title">Ajouter un arrêt de travail </h4>
+<h4 mat-dialog-title class="mat-dialog-title">
+    <ng-container *ngIf="data.edit === 'false'">
+            Ajouter un arrêt de travail 
+    </ng-container>
+    <ng-container *ngIf="data.edit === 'true'">
+            Modifier un arrêt de travail
+    </ng-container>
+</h4>
 <form [formGroup]="addForm">    
     <div mat-dialog-content>  
         <div class="col-md-12 row">  
             <div class="col-md-12 row-title">
-                <h4>Saisir le détail d'arrêt de travail</h4>
+                <h4 *ngIf="data.edit === 'false'">Saisir le détail d'arrêt de travail</h4>
             </div>                                      
             <div class="col-md-6">
                 <div class="col-md-6">
@@ -20,8 +27,11 @@
                         <mat-datepicker #pickerAu></mat-datepicker>
                     </mat-form-field>
                 </div>  
-                <div class="col-md-8">
-                    <mat-form-field>
+                <div class="col-md-8" >
+                    <mat-form-field *ngIf=" data.edit === 'true'">
+                        <input  matInput  placeholder="Motif d'arrêt de travail" [value]= 'data.object.motif' disabled>
+                    </mat-form-field>
+                    <mat-form-field *ngIf="data.edit === 'false'">
                         <mat-select placeholder="Motif d'arrêt de travail" formControlName="motif" required>
                             <mat-option value="Accident de travail">Accident de travail</mat-option>
                             <mat-option value="Accident non professionnel">Accident non professionnel</mat-option>                                                
@@ -31,7 +41,23 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8" *ngIf="data.edit === 'true'">
+                    <mat-form-field *ngIf="addForm.value.motif === 'Accident de travail' && data.object.accident != null">
+                            <textarea class="textArea"  matInput placeholder="Accident de travail" disabled >
+                                Nature : {{data.object.accident.natureAccident.designation}}
+                                Date :{{data.object.accident.date | date}}
+                                Lieu : {{data.object.accident.lieu}}
+                                Circonstance : {{data.object.accident.circonstance}}
+                            </textarea>
+                    </mat-form-field>
+                    <ng-container *ngIf=" data.object.maladie != null">
+                        <mat-form-field *ngIf="addForm.value.motif ==='Maladie non professionnelle' || 
+                                                addForm.value.motif === 'Maladie professionnelle'">
+                                <input  matInput  placeholder="Maladie" [value]= 'data.object.maladie.designation' disabled>   
+                        </mat-form-field>
+                    </ng-container>
+                </div>
+                <div class="col-md-8" *ngIf="data.edit === 'false'">
                     <mat-form-field *ngIf="addForm.value.motif === 'Accident de travail'">
                         <mat-select placeholder="Sélectionner un accident" formControlName="accidentTravail">
                             <mat-option *ngFor="let accidentTravail of accidentTravails" [value]="accidentTravail">
@@ -67,6 +93,6 @@
     </div>
     <div mat-dialog-actions class="pull-right">
         <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()" >Annuler</button>
-        <button mat-button mat-raised-button class="btn-ajouter" (click)="onSubmit()" cdkFocusInitial>Ajouter <mat-icon>add</mat-icon></button>
-    </div>
+        <button  *ngIf="data.edit === 'false'"  mat-button mat-raised-button class="btn-ajouter" (click)="onSubmit()" cdkFocusInitial>Ajouter <mat-icon>add</mat-icon></button>
+        <button   *ngIf="data.edit === 'true'" mat-button mat-raised-button class="btn-edit" (click)="onSubmit()" cdkFocusInitial>Modifier <mat-icon>edit</mat-icon></button>    </div>
 </form>

@@ -100,6 +100,11 @@ color: white;
     color: #F33155;
 }
 
+.btn-edit{
+    background-color: #41B3F9;   
+    color: white; 
+}
+
 .mat-dialog-actions button.btn-ajouter,
 .mat-dialog-actions button.btn-annuler{
     color: white; 

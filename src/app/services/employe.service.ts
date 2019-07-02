@@ -78,6 +78,25 @@ export class EmployeService {
     return this.http.post(`${environment.baseUrl}/employes/`+id_employe+`/accidents/`+id_accident+`/antecedentAccident`, antecedentAccident);
   }
 
+  updateAntecedentAntecedentAutre(id_employe,id_antecedent,antecedents) {
+    return this.http.put(`${environment.baseUrl}/employes/`+id_employe+`/antecedents/`+id_antecedent, antecedents);
+  }
+  updateAntecedentMaladiee(id_maladie,antecedentMaladie) {
+    return this.http.put(`${environment.baseUrl}/antecedentMaladies/`+id_maladie, antecedentMaladie);
+  }
+  updateAntecedentAccidentTravail(id_accident,antecedentAccident) {
+    return this.http.put(`${environment.baseUrl}/antecedentAccidents/`+id_accident, antecedentAccident);
+  }
+
+  deleteAntecedentAntecedentAutre(id_employe,id_antecedent) {
+    return this.http.delete(`${environment.baseUrl}/employes/`+id_employe+`/antecedents/`+id_antecedent);
+  }
+  deleteAntecedentMaladiee(id_maladie) {
+    return this.http.delete(`${environment.baseUrl}/antecedentMaladies/`+id_maladie);
+  }
+  deleteAntecedentAccidentTravail(id_accident:number) {
+    return this.http.delete(`${environment.baseUrl}/antecedentAccidents/`+id_accident);
+  }
 
   // Service Consultation medicales
 
@@ -145,11 +164,16 @@ export class EmployeService {
     return this.http.post(`${environment.baseUrl}/employes/`+id_employe+`/arretTravail/accidents/`+id_accident, arretTravail);
   }
 
+  updateArretTrvail(id_arretTravail,arretTravail) {
+    return this.http.put(`${environment.baseUrl}/arretTravails/`+id_arretTravail,arretTravail);
+  }
+
+  deleteArretTrvail(id_arretTravail) {
+    return this.http.delete(`${environment.baseUrl}/arretTravail/`+id_arretTravail);
+  }
+
   //Service changelent de poste
 
-  getAllchangementPostesEmploye(id_employe: number) {
-    return this.http.get<any>(`${environment.baseUrl}//`+id_employe);
-  }
 
   getAllRisques() {
     return this.http.get<any[]>(`${environment.baseUrl}/risques`);
@@ -162,6 +186,14 @@ export class EmployeService {
   creatChangementPoste(id_employe,id_poste,changementPoste) {
     return this.http.put(`${environment.baseUrl}/employes/`+id_employe+`/posteTravails/`+id_poste, changementPoste);
   } 
+
+  updateChangementPoste(id_poste,changementPoste) {
+    return this.http.put(`${environment.baseUrl}/posteTravails/`+id_poste,changementPoste);
+  }
+
+  deleteChangementPoste(id_poste) {
+    return this.http.delete(`${environment.baseUrl}/posteTravails/`+id_poste);
+  }
   // Réorientation médicale
   getAllReorientationByEmployeId(id_employe: number) {
     return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/reorientationProfessionnelles`);
@@ -175,6 +207,10 @@ export class EmployeService {
 
   getAllSoinsInfirmierByEmployeId(id_employe: number) {
     return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/soinsInfirmiers`);
+  }
+
+  creatSoinsInfirmier(id_employe,id_acte,soinsInfirmier){
+    return this.http.put(`${environment.baseUrl}/employes/`+id_employe+`/actes/`+id_acte, soinsInfirmier);
   }
 
   // Service vaccination
@@ -193,6 +229,15 @@ export class EmployeService {
 
   ajouterInjection(id,calendrier) {
     return this.http.post(`${environment.baseUrl}/calendrierVaccinals/`+id+`/injection`, calendrier);
+  }
+
+  //explorations 
+  getAllExamenComplementaires(id_employe: number) {
+    return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/examenComplementaires`);
+  }
+
+  getAllOrientationMedicales(id_employe: number) {
+    return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/orientationMedicales`);
   }
   
 }

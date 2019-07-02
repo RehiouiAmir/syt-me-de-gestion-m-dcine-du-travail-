@@ -47,7 +47,7 @@ import { DmProfilVaccinalComponent, AjouterProfileVaccinalComponent, AjouterInje
 import { DmVisiteMedicaleComponent } from './dm-visite-medicale/dm-visite-medicale.component';
 import { DmConsultationMedicaleComponent } from './dm-consultation-medicale/dm-consultation-medicale.component';
 import { DmArretTravailComponent, AjouterArretTravailComponent } from './dm-arret-travail/dm-arret-travail.component';
-import { DmSoinsComponent, AjouterSoinsComponent } from './dm-soins/dm-soins.component';
+import { DmSoinsComponent, AjouterSoinsComponent, AjouterSoinsInfirmierComponent } from './dm-soins/dm-soins.component';
 import { DmExplorationsComponent } from './dm-explorations/dm-explorations.component';
 import { DmChangementPosteComponent, AjouterChangementPosteComponent } from './dm-changement-poste/dm-changement-poste.component';
 import { RisquesProfessionnelsComponent } from './risques-professionnels/risques-professionnels.component';
@@ -100,6 +100,7 @@ import { AdminNatureAccidentComponent, AjouterNatureAccidentComponent } from './
     AjouterArretTravailComponent,    
     DmSoinsComponent,
     AjouterSoinsComponent,
+    AjouterSoinsInfirmierComponent,
     DmExplorationsComponent,
     DmChangementPosteComponent,
     AjouterChangementPosteComponent,
@@ -147,7 +148,7 @@ import { AdminNatureAccidentComponent, AjouterNatureAccidentComponent } from './
                     DmChangementPosteComponent,AjouterChangementPosteComponent,
                     DmArretTravailComponent,AjouterArretTravailComponent,
                     AccidentsTravailComponent,DeclarerAccidentTravailComponent,
-                    DmAntecedentsComponent,AjouterAntecedentComponent,
+                    DmAntecedentsComponent,AjouterAntecedentComponent,AjouterSoinsInfirmierComponent,
                     DmSoinsComponent, AjouterSoinsComponent, DmProfilVaccinalComponent,
                     AjouterProfileVaccinalComponent,AjouterInjectionVaccinalComponent,AjouterInjectionComponent,AjouterConsultationComponent,
                     AjouterExamenComplementaireComponent,AjouterOrdonnanceComponent,AjouterOrientationMedicaleComponent,

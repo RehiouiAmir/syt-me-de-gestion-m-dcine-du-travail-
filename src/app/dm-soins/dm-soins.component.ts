@@ -18,6 +18,8 @@ import { ActivatedRoute } from '@angular/router';
 export class DmSoinsComponent implements OnInit {
 
   id_employe : number;
+  employeInfos : any = null;
+  posteActuel : any = null;  
 
   /* Table Structure */
   
@@ -30,7 +32,7 @@ export class DmSoinsComponent implements OnInit {
 
  /* Demande Table Structure */
  
-  displayedColumnsDemande: string[] = ['acte','dateSoins','observation','infirmier','Action-details','Action-add'];
+  displayedColumnsDemande: string[] = ['acte','dateSoins','observation','infirmier','Action-delete'];
   dataSourceDemande : MatTableDataSource<any>;
 
   @ViewChild('MatPaginatorDemande') paginatorDemande: MatPaginator;
@@ -41,6 +43,20 @@ export class DmSoinsComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.employeService.getEmployeById(this.id_employe).subscribe(
+      data => {
+        console.log(data)
+        this.employeInfos = data;
+        for(var i in this.employeInfos.employe_posteTravails){
+          if (this.employeInfos.employe_posteTravails[i].actuel === true){
+            this.posteActuel = this.employeInfos.employe_posteTravails[i];
+            console.log(this.posteActuel)
+          }
+        }
+      },
+      error => console.log(error)  
+    );
 
     this.employeService.getAllSoinsByEmployeId(this.id_employe).subscribe(
       data => {
@@ -84,13 +100,21 @@ export class DmSoinsComponent implements OnInit {
  // Operation Add, Edit, Delet
    
  add() {
-  let dialogRef = this.dialog.open(AjouterSoinsComponent, {
+  let dialogRef = this.dialog.open(AjouterSoinsInfirmierComponent, {
     width: '70%',
     data: {}
   });
   dialogRef.afterClosed().subscribe(result => {
-    console.log(result)
-  });
+    if (result !== undefined){
+      console.log(result)
+      //change in backend
+      this.employeService.creatSoinsInfirmier(this.id_employe,result.idActe,result).subscribe(data => {
+        this.dataSourceDemande.data.push(data)
+        this.dataSourceDemande._updateChangeSubscription() 
+      },
+      error => console.log(error));
+    }
+});
  }
 
 }
@@ -128,6 +152,56 @@ export class AjouterSoinsComponent implements OnInit {
       observation: [''], 
       etat:[false],
       date: [''],      
+    });
+  }
+
+  // close dialog  ajouter-arret-travail
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  onSubmit() {
+    if (!this.addForm.invalid){
+      this.data = this.addForm.value;
+      console.log(this.data)
+      this.dialogRef.close(this.data);
+      }
+  }
+
+}
+
+// AjouterSoins
+
+@Component({
+  selector: 'app-ajouter-soins-infirmier',
+  templateUrl: './ajouter-soins-infirmier.component.html',
+  styleUrls: ['./ajouter-soins-infirmier.component.css']
+})
+export class AjouterSoinsInfirmierComponent implements OnInit {
+
+  addForm: FormGroup;
+  dateAujourdhuit = new FormControl(new Date()); 
+  
+
+  actes :any [];
+
+  constructor(public dialogRef: MatDialogRef<AjouterSoinsInfirmierComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, 
+    private formBuilder: FormBuilder,private employeService: EmployeService) {}
+
+  ngOnInit() {
+
+    this.employeService.getAllActes().subscribe(
+      data => {
+        console.log(data) 
+        this.actes = data;      
+      },
+      error => console.log(error)  
+    );
+    this.addForm = this.formBuilder.group({
+      idActe: ['',Validators.required],
+      observation: [''], 
+      date: [this.dateAujourdhuit.value,Validators.required ],      
     });
   }
 

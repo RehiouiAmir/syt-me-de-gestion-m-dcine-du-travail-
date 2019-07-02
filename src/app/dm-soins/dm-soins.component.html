@@ -8,15 +8,16 @@
         </div>
     </div>
     <div class="row row-principal">
-        <div class="row-1">
+        <div class="row-1" >
             <div class="col-md-6 photo-col">
-            <img class="employe-profile-img img-circle" src="../../assets/img/pic-user-font-white.png" alt="pic-user"/>
-            <span class="title-posteTravail">
-            </span>
-            <span class="title-matricule">
-                Num.Carte Chifa : 
-            </span>   
-        </div>
+                <img class="employe-profile-img img-circle" src="../../assets/img/pic-user-font-white.png" alt="pic-user"/>
+                <span class="title-posteTravail" *ngIf="posteActuel">
+                    {{posteActuel.posteTravail.designation}} 
+                </span>
+                <span class="title-matricule" *ngIf="employeInfos">
+                    N° Carte CHIFA  : {{employeInfos.numeroSecuriteSociale}}
+                </span>   
+            </div>
         </div>
         <mat-tab-group>
             <mat-tab label="Soins"> 
@@ -137,22 +138,12 @@
                                 <td mat-cell *matCellDef="let row"></td>
                             </ng-container>
                         
-                            <!-- Action details Column -->
-                            <ng-container matColumnDef="Action-details">
+                            <!-- Action delete Column -->
+                            <ng-container matColumnDef="Action-delete">
                                 <th mat-header-cell *matHeaderCellDef ></th>
-                                <td mat-cell *matCellDef="let row" class="td-btn-details">
-                                    <button mat-icon-button (click)="openDialogDetails(''+row.idConsultation)">
-                                        <mat-icon>description</mat-icon>
-                                    </button>
-                                </td>
-                            </ng-container>
-
-                            <!-- Action add Column -->
-                            <ng-container matColumnDef="Action-add">
-                                <th mat-header-cell *matHeaderCellDef ></th>
-                                <td mat-cell *matCellDef="let row" class="td-btn-add">
-                                    <button mat-icon-button (click)="openDialogAdd(''+row.idConsultation)">
-                                        <mat-icon>add</mat-icon>
+                                <td mat-cell *matCellDef="let row" class="td-btn-delete">
+                                    <button mat-icon-button (click)="openDialogDelete(''+row.idConsultation)">
+                                        <mat-icon>delete</mat-icon>
                                     </button>
                                 </td>
                             </ng-container>
@@ -162,7 +153,7 @@
                             </tr>
                         </table>
                         </div>
-                        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                        <mat-paginator #MatPaginatorDemande="matPaginator" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
                     </div>
             </mat-tab>                
         </mat-tab-group>

@@ -17,6 +17,8 @@ import { FormControl } from '@angular/forms';
 export class DmArretTravailComponent implements OnInit {
 
   private id_employe: number;
+  employeInfos : any = null;
+  posteActuel : any = null;  
   private arreTrvails: any[];
   
     /* Table Structure */
@@ -32,6 +34,21 @@ export class DmArretTravailComponent implements OnInit {
     }
   
     ngOnInit() {
+
+      this.employeService.getEmployeById(this.id_employe).subscribe(
+        data => {
+          console.log(data)
+          this.employeInfos = data;
+          for(var i in this.employeInfos.employe_posteTravails){
+            if (this.employeInfos.employe_posteTravails[i].actuel === true){
+              this.posteActuel = this.employeInfos.employe_posteTravails[i];
+              console.log(this.posteActuel)
+            }
+          }
+        },
+        error => console.log(error)  
+      );
+      
       this.employeService.getAllArretTravailsByEmployeId(this.id_employe).subscribe(
         data => {
           console.log(data)
@@ -55,11 +72,12 @@ export class DmArretTravailComponent implements OnInit {
 
     // Operation Add, Edit, Delet
    
-    add() {
+    add(edit: any) {
       let dialogRef = this.dialog.open(AjouterArretTravailComponent, {
         width: '70%',
         data: {
           id_employe : this.id_employe,
+          edit :edit,
         }
       });
       dialogRef.afterClosed().subscribe(result => {
@@ -91,7 +109,39 @@ export class DmArretTravailComponent implements OnInit {
         }
       });
      }
+
+     update(edit: any,object) {  
+      let dialogRef = this.dialog.open(AjouterArretTravailComponent, {
+        width: '70%',
+        data: {
+          id_employe : this.id_employe,
+          edit : edit, object : object,
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result !== undefined){
+          console.log(result)
+          //change in backend
+          this.employeService.updateArretTrvail(result.id,result).subscribe(data => {
+            this.dataSource.data[this.dataSource.data.indexOf(object)] = result
+            this.dataSource._updateChangeSubscription()   
+          },
+          error => console.log(error)); 
+        }
+      });
+    }
+    delete(object) {  
+    //delete from backend
+      this.employeService.deleteArretTrvail(object.id).subscribe(data => {
+        console.log(data)
+        this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
+        this.dataSource._updateChangeSubscription()  
+  
+      },
+      error => console.log(error));
+    }
 }
+
 
 @Component({
   selector: 'app-ajouter-arret-travail',
@@ -139,14 +189,29 @@ export class AjouterArretTravailComponent implements OnInit {
       error => console.log(error)  
     );
 
-    this.addForm = this.formBuilder.group({
-      motif: ['', Validators.required],
-      dateDebut: [this.dateAujourdhuit.value,Validators.required],
-      dateFin: ['',Validators.required],
-      observation: [''], 
-      accidentTravail: [''],
-      maladies: ['']
-    });
+    if (this.data.edit === 'true'){
+      var dateDebut = new FormControl(new Date(this.data.object.dateDebut));  
+      var dateFin : any =  new FormControl();
+      if(this.data.object.dateFin != null){dateFin = new FormControl(new Date(this.data.object.dateFin));}             
+      this.addForm = this.formBuilder.group({
+        id: [this.data.object.id],
+        motif:  [this.data.object.motif, Validators.required],
+        dateDebut: [dateDebut.value,Validators.required],
+        dateFin: [dateFin.value],
+        observation: [this.data.object.observation],
+        accidentTravail:[this.data.object.accident],
+        maladies: [this.data.object.maladie.designation]
+      });
+    }else{
+        this.addForm = this.formBuilder.group({
+        motif: ['', Validators.required],
+        dateDebut: [this.dateAujourdhuit.value,Validators.required],
+        dateFin: ['',Validators.required],
+        observation: [''], 
+        accidentTravail: [''],
+        maladies: ['']
+      });
+    }
   }
 
   // close dialog  ajouter-arret-travail

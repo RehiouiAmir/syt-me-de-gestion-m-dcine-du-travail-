@@ -1,15 +1,25 @@
-<h4 mat-dialog-title class="mat-dialog-title">Ajouter un nouveau changement de poste </h4>
+<h4 mat-dialog-title class="mat-dialog-title">
+    <ng-container *ngIf="data.edit === 'false'">
+            Ajouter un nouveau changement de poste 
+    </ng-container>
+    <ng-container *ngIf="data.edit === 'true'">
+            Modifier le changement de poste
+    </ng-container>
+</h4>
 <form [formGroup]="addGlobalForm">
     <div mat-dialog-content>
         <div class="col-md-12 row">                    
             <div class="col-md-6">
                 <div class="col-md-8">
-                    <mat-form-field>
+                    <mat-form-field *ngIf="data.edit === 'false'">
                         <mat-select placeholder="Poste de travail occupé" formControlName="id_posteTravail" (selectionChange)="InitialiserRisque($event.value)" required>
                             <mat-option *ngFor="let posteTravail of posteTravails" [value]="posteTravail.id">
                                 {{posteTravail.designation}}
                             </mat-option>                                                
                         </mat-select>
+                    </mat-form-field>
+                    <mat-form-field  *ngIf="data.edit === 'true'">
+                        <input  matInput  placeholder="Poste de travail occupé" [value]= 'data.object.posteTravail.designation' disabled>   
                     </mat-form-field>
                 </div>
                 <div class="col-md-6">
@@ -30,7 +40,7 @@
             <div class="col-md-6">
                 <div class="col-md-8">
                     <mat-form-field>
-                        <input matInput formControlName="nom" placeholder="Motifs de changement de poste" formControlName="motif">
+                        <input matInput placeholder="Motifs de changement de poste" formControlName="motif">
                     </mat-form-field>
                 </div>
                 <div class="col-md-12">
@@ -42,41 +52,52 @@
         </div> 
         <div class="col-md-12 row">
             <h4 class="title-row">Risques professionnels</h4>
-            <div class="col-md-6">
-                <p class="title-champ-1">Liste des risques professionnelles liés aux poste occupés :</p>                    
-                <mat-list role="list">
-                    <mat-list-item role="listitem" *ngFor="let risque of risquesPostes">
-                        <p class="title-champ">Type :<span class="champ">{{risque.typeRisque.designation}}</span></p>
-                        <p class="title-champ">Désignation :<span class="champ">{{risque.designation}}</span></p>                                        
-                    </mat-list-item>
-                </mat-list>
-            </div>
-            <div class="col-md-6">
-                <p class="title-champ-2">Ajouter d'autres risques professionnelles :
-                    <span class="btn-add" (click)="onAddRow()" *ngIf="addForm.get('nvRisques')">
-                        <button mat-mini-fab>
-                            <mat-icon>add</mat-icon>                        
-                        </button>
-                    </span>
-                </p>                    
-                <div *ngFor="let row of addForm.get('nvRisques')?.controls;let index = index;" class="col-md-12">
-                    <div class="col-md-10">
-                        <mat-form-field>
-                            <mat-select [formControl]="row.get('designation')" placeholder="sélectionner un risque" required>
-                                <mat-option *ngFor="let risquesProfessionnels of risquesProfessionnels" [value]="risquesProfessionnels.designation">
-                                   {{risquesProfessionnels.designation}} |  {{risquesProfessionnels.typeRisque.designation}}
-                                </mat-option>                                                
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-md-2"><button mat-icon-button  (click)="onRemoveRow(index)" class="btn-remove"><mat-icon>delete</mat-icon></button>                </div>
+            <ng-container *ngIf="data.edit === 'false'">                                        
+                <div class="col-md-6">
+                    <p class="title-champ-1">Liste des risques professionnelles liés aux poste occupés :</p>                    
+                    <mat-list role="list">
+                        <mat-list-item role="listitem" *ngFor="let risque of risquesPostes">
+                            <p class="title-champ">Type :<span class="champ">{{risque.typeRisque.designation}}</span></p>
+                            <p class="title-champ">Désignation :<span class="champ">{{risque.designation}}</span></p>                                        
+                        </mat-list-item>
+                    </mat-list>
                 </div>
+            </ng-container>
+            <div class="col-md-6">
+                <ng-container *ngIf="data.edit === 'false'">                                                                    
+                    <p  class="title-champ-2">Ajouter d'autres risques professionnelles :
+                        <span class="btn-add" (click)="onAddRow()" *ngIf="addForm.get('nvRisques')">
+                            <button mat-mini-fab>
+                                <mat-icon>add</mat-icon>                        
+                            </button>
+                        </span>
+                    </p>                    
+                    <div ngFor="let row of addForm.get('nvRisques')?.controls;let index = index;" class="col-md-12">
+                        <div class="col-md-10">
+                            <mat-form-field>
+                                <mat-select [formControl]="row.get('designation')" placeholder="sélectionner un risque" required>
+                                    <mat-option *ngFor="let risquesProfessionnels of risquesProfessionnels" [value]="risquesProfessionnels.designation">
+                                    {{risquesProfessionnels.designation}} |  {{risquesProfessionnels.typeRisque.designation}}
+                                    </mat-option>                                                
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2"><button mat-icon-button  (click)="onRemoveRow(index)" class="btn-remove"><mat-icon>delete</mat-icon></button>                </div>
+                    </div>
+                </ng-container>
+                <mat-form-field *ngIf=" data.edit === 'true' && data.object.risque != null">
+                    <input  matInput  placeholder="Autres risques : " [value]= 'data.object.risques' formControlName="risques">
+                </mat-form-field>
+                <mat-form-field *ngIf=" data.edit === 'true' && data.object.risque === null">
+                    <input  matInput  placeholder="Autres risques : "  formControlName="risques">
+                </mat-form-field>
             </div>
         </div>  
         
     </div>
     <div mat-dialog-actions class="pull-right">
-        <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()" >Annuler</button>
-        <button mat-button mat-raised-button class="btn-ajouter" (click)="onSubmit()" cdkFocusInitial>Ajouter <mat-icon>add</mat-icon></button>
+        <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()" >Annuler</button>            
+        <button  *ngIf="data.edit === 'false'"  mat-button mat-raised-button class="btn-ajouter" (click)="onSubmit()" cdkFocusInitial>Ajouter <mat-icon>add</mat-icon></button>
+        <button   *ngIf="data.edit === 'true'" mat-button mat-raised-button class="btn-edit" (click)="onSubmit()" cdkFocusInitial>Modifier <mat-icon>edit</mat-icon></button>    
     </div>
 </form>

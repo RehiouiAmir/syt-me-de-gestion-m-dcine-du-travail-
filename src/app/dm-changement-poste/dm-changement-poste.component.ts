@@ -8,6 +8,7 @@ import { FormBuilder } from '@angular/forms';
 import { Inject } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { FormArray } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-dm-changement-poste',
@@ -17,6 +18,8 @@ import { FormArray } from '@angular/forms';
 export class DmChangementPosteComponent implements OnInit {
 
   private id_employe: number;
+  employeInfos : any = null;
+  posteActuel : any = null;  
   private posteHistorique : any [];
   private reorientations : any [];
   
@@ -43,6 +46,13 @@ export class DmChangementPosteComponent implements OnInit {
     ngOnInit() {
       this.employeService.getEmployeById(this.id_employe).subscribe(
         data => {
+          this.employeInfos = data;
+          for(var i in this.employeInfos.employe_posteTravails){
+            if (this.employeInfos.employe_posteTravails[i].actuel === true){
+              this.posteActuel = this.employeInfos.employe_posteTravails[i];
+              console.log(this.posteActuel)
+            }
+          }
           this.posteHistorique = data.employe_posteTravails;
           console.log(this.posteHistorique);
           this.dataSource = new MatTableDataSource<any>(this.posteHistorique);
@@ -83,13 +93,14 @@ export class DmChangementPosteComponent implements OnInit {
 
      // Operation Add, Edit, Delet
    
-     add() {
+     add(edit: any) {
       let dialogRef = this.dialog.open(AjouterChangementPosteComponent, {
         width: '70%',
-        data: {}
+        data: {edit:edit,}
       });
       dialogRef.afterClosed().subscribe(result => {
           if (result !== undefined){
+
             console.log(result)
             //change in backend
             this.employeService.creatChangementPoste(this.id_employe,result.id_posteTravail,result).subscribe(data => {
@@ -108,6 +119,37 @@ export class DmChangementPosteComponent implements OnInit {
           }
       });
      }
+     update(edit: any,object) {  
+      let dialogRef = this.dialog.open(AjouterChangementPosteComponent, {
+        width: '70%',
+        data: {
+          id_employe : this.id_employe,
+          edit : edit, object : object,
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result !== undefined){
+          console.log(result)
+          //change in backend
+          this.employeService.updateChangementPoste(result.id,result).subscribe(data => {
+            this.dataSource.data[this.dataSource.data.indexOf(object)] = result
+            this.dataSource._updateChangeSubscription()   
+          },
+          error => console.log(error)); 
+        }
+      });
+    }
+    delete(object) {  
+    //delete from backend
+      this.employeService.deleteChangementPoste(object.id).subscribe(data => {
+        console.log(data)
+        this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
+        this.dataSource._updateChangeSubscription()  
+  
+      },
+      error => console.log(error));
+    }
+
 }
 
 // Dialog [Modal Ajouter Un Changement de Poste]
@@ -161,19 +203,32 @@ ngOnInit() {
         error => console.log(error)  
     );
     
-    this.addGlobalForm = this.formBuilder.group({
+    if (this.data.edit === 'true'){
+      var dateDebut = new FormControl(new Date(this.data.object.dateDebut));  
+      var dateFin : any =  new FormControl();
+      if(this.data.object.dateFin != null){dateFin = new FormControl(new Date(this.data.object.dateFin));}             
+      this.addGlobalForm = this.formBuilder.group({
+        id: [this.data.object.id],
+        motif:  [this.data.object.motif],
+        dateDebut: [dateDebut.value,Validators.required],
+        dateFin: [dateFin.value],
+        observation: [this.data.object.observation],
+        id_posteTravail:[this.data.object.posteTravail],
+        nvRisques: [this.data.object.risques]
+      });
+    }else{
+      this.addGlobalForm = this.formBuilder.group({
       id_posteTravail: ['', Validators.required],
       dateDebut: ['',Validators.required],
       dateFin: [''],
       motif: [''],
       observation: [''], 
-    });
-
+      });
+    }
     this.addForm.get("items_value").setValue("yes");
     this.addForm.addControl('nvRisques', this.nvRisques);
     this.addGlobalForm.addControl('nvRisques', this.nvRisques);
 }
-  
 
   InitialiserRisque(value){
     this.employeService.getAllRisquesbyPosteId(value).subscribe(
@@ -202,6 +257,9 @@ createItemFormGroup(): FormGroup {
 
 onSubmit() {
 if (!this.addGlobalForm.invalid){
+  for(var i in this.addGlobalForm.value.nvRisques){
+    this.addGlobalForm.value.risques = this.addGlobalForm.value.risques+' , '+this.addGlobalForm.value.nvRisques[i].designation;
+  }
   this.data = this.addGlobalForm.value;
   console.log(this.data)
   this.dialogRef.close(this.data);
@@ -214,3 +272,4 @@ this.dialogRef.close();
 }
 
 }
+

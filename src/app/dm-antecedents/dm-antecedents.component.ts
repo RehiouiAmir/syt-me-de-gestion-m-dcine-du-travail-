@@ -21,6 +21,8 @@ import { ActivitesMedicalesService } from 'src/app/services/activites-medicales.
 export class DmAntecedentsComponent implements OnInit {
 
   private id_employe: number;
+  employeInfos : any = null;
+  posteActuel : any = null;  
   antecedents : any[];
   accidentsTravail: any[];
   maladies: any[];
@@ -54,6 +56,21 @@ export class DmAntecedentsComponent implements OnInit {
 
   ngOnInit() {
 
+    
+    this.employeService.getEmployeById(this.id_employe).subscribe(
+      data => {
+        console.log(data)
+        this.employeInfos = data;
+        for(var i in this.employeInfos.employe_posteTravails){
+          if (this.employeInfos.employe_posteTravails[i].actuel === true){
+            this.posteActuel = this.employeInfos.employe_posteTravails[i];
+            console.log(this.posteActuel)
+          }
+        }
+      },
+      error => console.log(error)  
+    );
+    
     this.employeService.getAllAntecedentsByEmployeId(this.id_employe).subscribe(
       data => {
         console.log(data)
@@ -117,10 +134,10 @@ export class DmAntecedentsComponent implements OnInit {
 
   // Operation Add, Edit, Delet
  
-  add() {
+  add(edit: any) {
     let dialogRef = this.dialog.open(AjouterAntecedentComponent, {
       width: '70%',
-      data: {}
+      data: {edit : edit}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined){
@@ -150,8 +167,70 @@ export class DmAntecedentsComponent implements OnInit {
           }
       }
     });
-   }
-}
+  }
+  update(edit: any,object) {  
+    let dialogRef = this.dialog.open(AjouterAntecedentComponent, {
+      width: '70%',
+      data: {edit : edit , object: object}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined){
+        console.log(result)
+        //change in backend
+        if(result.type != 'Accident de travail' &&
+          result.type != 'Maladie congénitale' && 
+          result.type != 'Maladie générale' && 
+          result.type != 'Maladie professionnelle'){
+            this.employeService.updateAntecedentAntecedentAutre(this.id_employe,result.id,result).subscribe(data => {
+              this.dataSourceAutres.data[this.dataSourceAutres.data.indexOf(object)] = result
+              this.dataSourceAutres._updateChangeSubscription() 
+            },
+            error => console.log(error)); 
+          }else if (result.type === 'Accident de travail' ){
+            this.employeService.updateAntecedentAccidentTravail(result.id,result).subscribe(data => {
+              this.dataSource.data[this.dataSource.data.indexOf(object)] = result
+              this.dataSource._updateChangeSubscription() 
+            },
+            error => console.log(error));             
+          }else {
+            this.employeService.updateAntecedentMaladiee(result.id,result).subscribe(data => {
+              this.dataSourceMaladies.data[this.dataSourceMaladies.data.indexOf(object)] = result
+              this.dataSourceMaladies._updateChangeSubscription() 
+            },
+            error => console.log(error));  
+          }
+      }
+    }); 
+  }
+
+  delete(object) {  
+        if(object.type != 'Accident de travail' &&
+          object.type != 'Maladie congénitale' && 
+          object.type != 'Maladie générale' && 
+          object.type != 'Maladie professionnelle'){
+            console.log(object)
+            this.employeService.deleteAntecedentAntecedentAutre(this.id_employe,object.id).subscribe(data => {
+              this.dataSourceAutres.data.splice(this.dataSourceAutres.data.indexOf(object),1)
+              this.dataSourceAutres._updateChangeSubscription() 
+            },
+            error => console.log(error)); 
+          }else if (object.type === 'Accident de travail' ){
+            this.employeService.deleteAntecedentAccidentTravail(object.id).subscribe(data => {
+              this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
+              this.dataSource._updateChangeSubscription()  
+            },
+            error => console.log(error));             
+          }else {
+            this.employeService.deleteAntecedentMaladiee(object.id).subscribe(data => {
+              this.dataSourceMaladies.data.splice(this.dataSourceMaladies.data.indexOf(object),1)
+              this.dataSourceMaladies._updateChangeSubscription() 
+            },
+            error => console.log(error));  
+          }
+      }
+  }
+
+
 
 @Component({
   selector: 'app-ajouter-antecedent',
@@ -203,17 +282,36 @@ export class AjouterAntecedentComponent implements OnInit {
       error => console.log(error)  
     );
 
-    this.addForm = this.formBuilder.group({
-      type:  ['', Validators.required],
-      designation: [''],
-      dateDebut: [this.dateAujourdhuit.value,Validators.required],
-      dateFin: [''],
-      consequence: [''],
-      observation: [''],
-      accident:[''],
-      maladie: ['']
-    });
+    if (this.data.edit === 'true'){
+      var dateDebut = new FormControl(new Date(this.data.object.dateDebut));  
+      var dateFin : any =  new FormControl();
+      if(this.data.object.dateFin != null){dateFin = new FormControl(new Date(this.data.object.dateFin));}             
+      this.addForm = this.formBuilder.group({
+        id: [this.data.object.id],
+        type:  [this.data.object.type, Validators.required],
+        designation: [this.data.object.designation],
+        dateDebut: [dateDebut.value,Validators.required],
+        dateFin: [dateFin.value],
+        consequence: [this.data.object.consequence],
+        observation: [this.data.object.observation],
+        accident:[this.data.object.accident],
+        maladie: [this.data.object.maladie]
+      });
+    }else{  
+      this.addForm = this.formBuilder.group({
+        type:  ['', Validators.required],
+        designation: [''],
+        dateDebut: [this.dateAujourdhuit.value,Validators.required],
+        dateFin: [''],
+        consequence: [''],
+        observation: [''],
+        accident:[''],
+        maladie: ['']
+      });
+    } 
+    console.log(this.addForm.value)
   }
+
 
   // close dialog  ajouter-arret-travail
   onNoClick(): void {
