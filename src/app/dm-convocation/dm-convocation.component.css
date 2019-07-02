@@ -30,28 +30,6 @@
     background-color: #54667A !important;
 }
 
-.container-fluid{
-    background: #F6F6F6;
-    padding-top:60px;
-    padding-bottom:75px; 
-}
-
-.title-component-bar{
-    z-index: 2;    
-    position: fixed;
-    width: 100%;
-    background: white;
-    padding: 15px 0px 10px 20px;
-    margin-top: -60px;
-    margin-left: -15px;
-    border-bottom: 1px solid #E0E0E0;      
-}
-
-.title-component-bar h4{
-    color: #2F323E;
-    font-weight: bold;
-}
-
 .mat-form-field input,
 .mat-form-field textarea{
     caret-color: #41B3F9;
@@ -59,8 +37,8 @@
 
 .contenu-component{
 height: auto;
-padding-top: 0.01px;
-margin-top : -50px;
+padding-top: 0.01px;    
+padding-bottom:75px;
 background: #F6F6F6;
 }
 
@@ -127,14 +105,19 @@ top:20px;
 }
 
 .row-principal .td-btn-edit button{
-    color:#41B3F9;     
+    color:#41B3F9; 
 }
 
 .row-principal .td-btn-delete button{
-   color:#F33155;
+    color:#F33155;
 }
 .row-principal .td-btn-details button{
-   color:#F0AD4E;
+    color:#F0AD4E;
+    
+}
+
+.row-principal .td-btn-add button{
+    color:#7ACE4C; 
 }
 
 

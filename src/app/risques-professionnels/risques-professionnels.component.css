@@ -1,27 +1,28 @@
-::ng-deep .mat-form-field{
-    font-size: 13px;  
-    width: 80%;
+::ng-deep .mat-form-field,
+::ng-deep .mat-option-text{
+    font-size: 13px; 
 }
 
-::ng-deep .mat-form-field-label,
+::ng-deep .mat-form-field-label, 
 ::ng-deep .mat-form-field input,
 ::ng-deep .mat-select-value-text,
 ::ng-deep .mat-option,
 ::ng-deep .mat-select-arrow,
-.caret-input  {
+.caret-input,
+::ng-deep .mat-tab-label-content  {
     color: #54667A !important;
 }
 
-::ng-deep .mat-focused .mat-form-field-label,
-::ng-deep .mat-focused .mat-select-arrow {
-    color: #41B3F9 !important;
+::ng-deep .mat-focused .mat-form-field-label{
+    color: #41B3F9 !important;    
 }
 ::ng-deep .mat-selected {
     color: white !important;
 }
 
 ::ng-deep .mat-form-field-ripple,
-::ng-deep .mat-selected {
+::ng-deep .mat-selected,
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar{
     background-color: #41B3F9 !important;
 }
 
@@ -29,9 +30,11 @@
     background-color: #54667A !important;
 }
 
-.mat-form-field input{
+.mat-form-field input,
+.mat-form-field textarea{
     caret-color: #41B3F9;
 }
+
 
 .container-fluid{
     background: #F6F6F6;
@@ -114,7 +117,7 @@
   }
 
 .row-principal table {
-    margin-top: 70px;
+    margin-top: 100px;
     width: 100%; 
   }
 .row-principal td{
@@ -173,7 +176,9 @@
     background-color: #7ACE4C;
     color: white; 
 }
-
+.mat-elevation-z8{
+    margin: 70px 20px 20px 20px;
+}
 @media (max-width:767.98px) { 
     .row-principal td ,
     .row-principal th{

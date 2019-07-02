@@ -187,6 +187,10 @@ export class EmployeService {
     return this.http.get<any>(`${environment.baseUrl}/calendrierVaccinals/`+id+`/injections`);
   }
 
+  getAllInjections() {
+    return this.http.get<any>(`${environment.baseUrl}/injections`);
+  }
+
   ajouterCalendrierVaccinal(id_employe,id_vaccin,calendrier) {
     return this.http.put(`${environment.baseUrl}/employes/`+id_employe+`/vaccins/`+id_vaccin, calendrier);
   }
@@ -194,5 +198,17 @@ export class EmployeService {
   ajouterInjection(id,calendrier) {
     return this.http.post(`${environment.baseUrl}/calendrierVaccinals/`+id+`/injection`, calendrier);
   }
+
+  // Visite programmee
+
+  getAllVisiteProgrammees() {
+    return this.http.get<any>(`${environment.baseUrl}/visiteProgrammees`);
+  }
   
+  // Convocation
+
+  getAllConvocationsByEmployeId(id_employe: number) {
+    return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/convocations`);
+  }
+
 }

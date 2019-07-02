@@ -104,7 +104,6 @@ export class DmProfilVaccinalComponent implements OnInit {
   
     addForm: FormGroup;
     dateAujourdhuit = new FormControl(new Date()); 
-    
   
     vaccins :any [];
   
@@ -144,7 +143,7 @@ export class DmProfilVaccinalComponent implements OnInit {
 
 }
 
-// AjouterProfil Vacinaal
+// Ajouter injectionVaccinal
   
 @Component({
   selector: 'app-ajouter-injectionVaccinal',
