@@ -31,7 +31,7 @@ registerLocaleData(localeFr);
 
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { DossierMedicalComponent } from './dossier-medical/dossier-medical.component';
-import { RendezVousComponent } from './rendez-vous/rendez-vous.component';
+import { RendezVousComponent, ConvoquerEmployeComponent } from './rendez-vous/rendez-vous.component';
 import { StatistiquesComponent } from './statistiques/statistiques.component';
 import { AdministrationComponent } from './administration/administration.component';
 import { VisitesMedicalesComponent } from './visites-medicales/visites-medicales.component';
@@ -50,7 +50,7 @@ import { DmArretTravailComponent, AjouterArretTravailComponent } from './dm-arre
 import { DmSoinsComponent, AjouterSoinsComponent, AjouterSoinsInfirmierComponent } from './dm-soins/dm-soins.component';
 import { DmExplorationsComponent } from './dm-explorations/dm-explorations.component';
 import { DmChangementPosteComponent, AjouterChangementPosteComponent } from './dm-changement-poste/dm-changement-poste.component';
-import { RisquesProfessionnelsComponent } from './risques-professionnels/risques-professionnels.component';
+import { RisquesProfessionnelsComponent, AjouterTypeRisqueComponent, RisquesTypeRisqueComponent, AjouterRisqueComponent } from './risques-professionnels/risques-professionnels.component';
 import { ParametresCompteComponent } from './parametres-compte/parametres-compte.component';
 import { DmEmployeComponent } from './dm-employe/dm-employe.component';
 import { AjouterConsultationComponent } from './ajouter-consultation/ajouter-consultation.component';
@@ -65,11 +65,12 @@ import { AdminSiteComponent, AjouterSiteComponent } from './admin/admin-site/adm
 import { AdminDepartementComponent, AjouterDepartementComponent } from './admin/admin-departement/admin-departement.component';
 import { AdminPosteTravailComponent, AjouterPosteTravailComponent } from './admin/admin-poste-travail/admin-poste-travail.component';
 import { AdminNatureConsultationComponent, AjouterNatureConsultationComponent } from './admin/admin-nature-consultation/admin-nature-consultation.component';
-import { AdminAppareilComponent, AjouterAppareilComponent } from './admin/admin-appareil/admin-appareil.component';
+import { AdminAppareilComponent, AjouterAppareilComponent, InterrogatoiresComponent, AjouterInterrogatoireComponent } from './admin/admin-appareil/admin-appareil.component';
 import { AdminMaladieComponent, AjouterMaladieComponent } from './admin/admin-maladie/admin-maladie.component';
 import { AdminMedicamentComponent, AjouterMedicamentComponent } from './admin/admin-medicament/admin-medicament.component';
 import { AdminVaccinComponent, AjouterVaccinComponent } from './admin/admin-vaccin/admin-vaccin.component';
 import { AdminNatureAccidentComponent, AjouterNatureAccidentComponent } from './admin/admin-nature-accident/admin-nature-accident.component';
+import { DmConvocationComponent } from './dm-convocation/dm-convocation.component';
 
 @NgModule({
   declarations: [
@@ -133,6 +134,13 @@ import { AdminNatureAccidentComponent, AjouterNatureAccidentComponent } from './
     AjouterVaccinComponent,
     AdminNatureAccidentComponent,
     AjouterNatureAccidentComponent,
+    AjouterTypeRisqueComponent,
+    RisquesTypeRisqueComponent,
+    ConvoquerEmployeComponent,
+    AjouterRisqueComponent,
+    DmConvocationComponent,
+    InterrogatoiresComponent,
+    AjouterInterrogatoireComponent,
   ],
   
   imports: [
@@ -157,7 +165,8 @@ import { AdminNatureAccidentComponent, AjouterNatureAccidentComponent } from './
                     AdminNatureConsultationComponent,AjouterNatureConsultationComponent,AdminAppareilComponent,
                     AjouterAppareilComponent,AdminMaladieComponent,AjouterMaladieComponent,AdminMedicamentComponent,
                     AjouterMedicamentComponent,AdminVaccinComponent,AjouterVaccinComponent,AdminNatureAccidentComponent,
-                    AjouterNatureAccidentComponent],
+                    AjouterNatureAccidentComponent,AjouterTypeRisqueComponent,RisquesTypeRisqueComponent,AjouterRisqueComponent,
+                    ConvoquerEmployeComponent,InterrogatoiresComponent,AjouterInterrogatoireComponent],
   providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlFr},
               {provide: LOCALE_ID, useValue: "fr-CA" }, httpInterceptorProviders ],
   bootstrap: [AppComponent]

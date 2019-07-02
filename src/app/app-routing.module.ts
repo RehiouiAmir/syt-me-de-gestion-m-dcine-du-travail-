@@ -1,3 +1,4 @@
+import { DmConvocationComponent } from './dm-convocation/dm-convocation.component';
 import { AdminNatureAccidentComponent } from './admin/admin-nature-accident/admin-nature-accident.component';
 import { AdminVaccinComponent } from './admin/admin-vaccin/admin-vaccin.component';
 import { AdminMedicamentComponent } from './admin/admin-medicament/admin-medicament.component';
@@ -68,6 +69,7 @@ const routes: Routes = [
         { path: 'dm-profil-vaccinal/:id', component: DmProfilVaccinalComponent},
         { path: 'dm-arret-travail/:id', component: DmArretTravailComponent},
         { path: 'dm-changement-poste/:id', component: DmChangementPosteComponent},
+        { path: 'dm-convocation/:id', component: DmConvocationComponent},
       ]}
     ]},
 

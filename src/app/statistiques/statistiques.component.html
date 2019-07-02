@@ -1,3 +1,47 @@
-<p>
-  statistiques works!
-</p>
+<div class="container-fluid">
+  <div class="title-component-bar">
+      <h4> Risques Professionnels </h4>
+  </div>
+  <div class="row row-principal">                
+      <h4 class="row-title">
+              <span>
+                  <button mat-button mat-raised-button class="pull-right btn-declarer" (click)="genererRapport()">
+                      Générer le rapport
+                      <mat-icon>add</mat-icon>                                  
+              
+                  </button>  
+              </span>
+      </h4>
+      <br><br>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-checkbox>Visites médicales</mat-checkbox>   
+        </div>
+        <div class="col-md-12">
+          <mat-checkbox>consultations médicales</mat-checkbox>
+        </div>
+        <div class="col-md-12">
+          <mat-checkbox>Vaccinations</mat-checkbox>
+        </div>
+        <div class="col-md-12">
+          <mat-checkbox>Soins médicaux</mat-checkbox>   
+        </div>
+        <br>
+        <div class="col-md-12">
+            <mat-checkbox>Nombre de Visites médicales</mat-checkbox>   
+        </div>
+        <div class="col-md-12">
+          <mat-checkbox>Nombre de consultations médicales</mat-checkbox>  
+        </div>
+        <div class="col-md-12"> 
+          <mat-checkbox>Nombre de Vaccinations médicales</mat-checkbox>   
+        </div>
+        <div class="col-md-12">
+          <mat-checkbox>Nombre de Soins médicaux</mat-checkbox>
+        </div>
+      </div>
+  </div>
+</div>
+                
+        
+        

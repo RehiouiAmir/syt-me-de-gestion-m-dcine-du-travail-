@@ -17,8 +17,24 @@ export class AdministrationService {
       return this.http.post<any[]>(`${environment.baseUrl}/societe`, societe);
     }
 
-    ajouterAppareil(societe) {
-      return this.http.post<any[]>(`${environment.baseUrl}/appareil`, societe);
+    ajouterAppareil(appareil) {
+      return this.http.post<any[]>(`${environment.baseUrl}/appareil`, appareil);
+    }
+
+    ajouterInterrogatoire(id: number,interrogatoire) {
+      return this.http.post<any[]>(`${environment.baseUrl}/appareils/`+id+`/interrogatoire`, interrogatoire);
+    }
+
+    getInterrogatoiresByAppareilId(id: number) {
+      return this.http.get<any>(`${environment.baseUrl}/appareils/`+id+`/interrogatoires`);
+    }
+
+    ajouterTypeRisque(typeRisque) {
+      return this.http.post<any[]>(`${environment.baseUrl}/typeRisque`, typeRisque);
+    }
+
+    ajouterRisque(id: number,typeRisque) {
+      return this.http.post<any[]>(`${environment.baseUrl}/typeRisques/`+id+`/risque`, typeRisque);
     }
 
     ajouterNatureAccident(natureAccident) {
@@ -52,12 +68,41 @@ export class AdministrationService {
     ajouterPosteTravail(id: number,posteTravail) {
       return this.http.post<any[]>(`${environment.baseUrl}/departements/`+id+`/posteTravail`, posteTravail);
     }
+
     getTypeRisques() {
          return this.http.get<any>(`${environment.baseUrl}/typeRisques/`);
     }
+
+    getRisques() {
+      return this.http.get<any>(`${environment.baseUrl}/risques/`);
+    }
+
+    getTypeRisqueById(id :number) {
+      return this.http.get<any>(`${environment.baseUrl}/typeRisques/`+id);
+    }
+
+    getRisquesByTypeRisque(id: number) {
+      return this.http.get<any>(`${environment.baseUrl}/typeRisques/`+id+`/risques`);
+    }
+
+    getCalendrierVaccinalById(id: number) {
+      return this.http.get<any>(`${environment.baseUrl}/calendrierVaccinals/`+id);
+    }
   
-    // createEmploye(employe) {
-    //   return this.http.post(`${environment.baseUrl}/employe`, employe);
-    // }
+    convoquerEmploye(id: number,convocation) {
+      return this.http.post(`${environment.baseUrl}/employes/`+id+`/convocation`, convocation);
+    }
+
+    convoquerEmployeInjection(id: number,convocation) {
+      return this.http.post(`${environment.baseUrl}/injections/`+id+`/convocation`, convocation);
+    }
+
+    convoquerEmployeVisiteProgrammee(id: number,convocation) {
+      return this.http.post(`${environment.baseUrl}/visiteProgrammees/`+id+`/convocation`, convocation);
+    }
+
+    genererRapport() {
+      return this.http.get<any>(`${environment.baseUrl}/generatePDF`);
+    }
 
 }
