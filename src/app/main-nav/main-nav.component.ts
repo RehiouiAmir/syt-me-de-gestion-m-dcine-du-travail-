@@ -28,6 +28,18 @@ const TREE_DATA:menuNode[] = [
   }
 ];
 
+const TREE_DATA_Admin:menuNode[] = [
+  {
+    name: 'Administration',
+    icon: 'fa-cogs',
+    link: '',
+    children: [
+      {name: 'Utilisateurs',icon: 'fa-users-cog',link: 'utilisateurs'},      
+      {name: 'Données prédéfinies',icon: 'fa-table',link: 'administration'},
+    ]
+  }
+];
+
 /** Flat node with expandable and level information */
 interface ExampleFlatNode {
   expandable: boolean;
@@ -65,14 +77,20 @@ export class MainNavComponent {
   treeControl = new FlatTreeControl<ExampleFlatNode>(
       node => node.level, node => node.expandable);
 
+  treeControlAdmin = new FlatTreeControl<ExampleFlatNode>(
+    node => node.level, node => node.expandable);
+
   treeFlattener = new MatTreeFlattener(
       this.transformer, node => node.level, node => node.expandable, node => node.children);
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  dataSourceAdmin = new MatTreeFlatDataSource(this.treeControlAdmin, this.treeFlattener);
+  
 
   
   constructor(private breakpointObserver: BreakpointObserver) {
     this.dataSource.data = TREE_DATA;
+    this.dataSourceAdmin.data = TREE_DATA_Admin;
   }
   
 
