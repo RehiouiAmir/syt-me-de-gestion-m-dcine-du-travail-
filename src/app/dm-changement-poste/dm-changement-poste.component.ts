@@ -18,6 +18,8 @@ import { FormControl } from '@angular/forms';
 export class DmChangementPosteComponent implements OnInit {
 
   private id_employe: number;
+  employeInfos : any = null;
+  posteActuel : any = null; 
   private posteHistorique : any [];
   private reorientations : any [];
   
@@ -42,6 +44,20 @@ export class DmChangementPosteComponent implements OnInit {
     }
   
     ngOnInit() {
+      this.employeService.getEmployeById(this.id_employe).subscribe(
+        data => {
+          console.log(data)
+          this.employeInfos = data;
+          for(var i in this.employeInfos.employe_posteTravails){
+            if (this.employeInfos.employe_posteTravails[i].actuel === true){
+              this.posteActuel = this.employeInfos.employe_posteTravails[i];
+              console.log(this.posteActuel)
+            }
+          }
+        },
+        error => console.log(error)  
+      );
+
       this.employeService.getEmployeById(this.id_employe).subscribe(
         data => {
           this.posteHistorique = data.employe_posteTravails;
@@ -101,6 +117,13 @@ export class DmChangementPosteComponent implements OnInit {
                   this.dataSource = new MatTableDataSource<any>(this.posteHistorique);
                   this.dataSource.paginator = this.paginator;
                   this.dataSource.sort = this.sort;
+                  this.employeInfos = data;
+                  for(var i in this.employeInfos.employe_posteTravails){
+                    if (this.employeInfos.employe_posteTravails[i].actuel === true){
+                      this.posteActuel = this.employeInfos.employe_posteTravails[i];
+                      console.log(this.posteActuel)
+                    }
+                  }
                 },
                 error => console.log(error)  
               );        
@@ -134,7 +157,10 @@ export class DmChangementPosteComponent implements OnInit {
           console.log(data)
           this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
           this.dataSource._updateChangeSubscription()  
-    
+          console.log(object)
+          if (object.actuel === true){
+            this.posteActuel='';
+          }
         },
         error => console.log(error));
       }

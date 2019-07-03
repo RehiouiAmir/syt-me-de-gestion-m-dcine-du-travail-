@@ -144,6 +144,35 @@ export class EmployeService {
       return this.http.put(`${environment.baseUrl}/ordonnances/`+id_ordonnance+`/medicaments/`+id_medicament,prescription);
     }
 
+    deleteConsultation(id_consultation) {
+      return this.http.delete(`${environment.baseUrl}/consultations/`+id_consultation);
+    }
+
+    deleteActeSoin(id_consultation,id_acte) {
+      return this.http.delete(`${environment.baseUrl}/consultations/`+id_consultation+`/actes/`+id_acte);
+    }
+    deleteExamenComplementaire(id_examen) {
+      return this.http.delete(`${environment.baseUrl}/examenComplementaires/`+id_examen);
+    }
+    deleteOrientationMedicales(id_orientation) {
+      return this.http.delete(`${environment.baseUrl}/orientationMedicales/`+id_orientation);
+    }
+
+    deletePrescriptionOrdonnance(id_ordonnance,id_medicament) {
+      return this.http.delete(`${environment.baseUrl}/ordonnances/`+id_ordonnance+`/medicaments/`+id_medicament);
+    }
+
+    deleteOrdonnance(id_ordonnance){
+      return this.http.delete(`${environment.baseUrl}/ordonnances/`+id_ordonnance);      
+    }
+
+    updateExamen(id_examen,examenComplementaire){
+      return this.http.put(`${environment.baseUrl}/examenComplementaires/`+id_examen, examenComplementaire);      
+    }
+
+    updateOrientation(id_orientation,orientation){
+      return this.http.put(`${environment.baseUrl}/orientationMedicales/`+id_orientation, orientation);      
+    }
 
 
   //Service Arret de travail

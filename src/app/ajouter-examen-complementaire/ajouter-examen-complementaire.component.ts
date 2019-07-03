@@ -21,12 +21,28 @@ export class AjouterExamenComplementaireComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
     ngOnInit() {
-      this.addForm = this.formBuilder.group({
-        designation: ['',Validators.required],
-        description: [''], 
-        date: [''],        
-        resultat: [''],      
-      });
+      if(this.data.edit === 'true'){
+        var date = new FormControl()
+        if(this.data.object.date != null){
+          date = new FormControl(new Date(this.data.object.date));                   
+        }else{
+          date= this.dateAujourdhuit;
+        }
+        this.addForm = this.formBuilder.group({
+          id: [this.data.object.id],
+          designation: [this.data.object.designation,Validators.required],
+          description: [this.data.object.description], 
+          date: [date.value],        
+          resultat: [this.data.object.resultat],      
+        });
+      }else{
+        this.addForm = this.formBuilder.group({
+          designation: ['',Validators.required],
+          description: [''], 
+          date: [''],        
+          resultat: [''],      
+        });
+      }
     }
   
     // close dialog  ajouter-arret-travail

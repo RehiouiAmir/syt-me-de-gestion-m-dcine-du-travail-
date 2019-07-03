@@ -59,6 +59,16 @@ export class DmConsultationMedicaleComponent implements OnInit {
     );
   }
 
+  delete(object){
+    //delete from backend
+    this.employeService.deleteConsultation(object.id).subscribe(data => {
+      console.log(data)
+      this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
+      this.dataSource._updateChangeSubscription()  
+
+    },
+    error => console.log(error));
+  }
   // search table
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();

@@ -8,16 +8,17 @@
         </div>
     </div>
     <div class="row row-principal">
-        <div class="row-1">
-            <div class="col-md-6 photo-col">
-            <img class="employe-profile-img img-circle" src="../../assets/img/pic-user-font-white.png" alt="pic-user"/>
-            <span class="title-posteTravail">
-            </span>
-            <span class="title-matricule">
-                Num.Carte Chifa : 
-            </span>   
-        </div>
-        </div>
+            <div class="row-1" >
+                <div class="col-md-6 photo-col">
+                    <img class="employe-profile-img img-circle" src="../../assets/img/pic-user-font-white.png" alt="pic-user"/>
+                    <span class="title-posteTravail" *ngIf="posteActuel">
+                        {{posteActuel.posteTravail.designation}} 
+                    </span>
+                    <span class="title-matricule" *ngIf="employeInfos">
+                        N° Carte CHIFA  : {{employeInfos.numeroSecuriteSociale}}
+                    </span>   
+                </div>
+            </div>
         <mat-form-field class="pull-right search-bar">
             <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Rechercher">
             <mat-icon matSuffix>search</mat-icon>            
