@@ -137,7 +137,7 @@ export class RendezVousComponent implements OnInit {
       this.addForm = this.formBuilder.group({
         objet: ['',Validators.required],
         contenu: ['',Validators.required],
-        date: ['',Validators.required],
+        date: [this.dateAujourdhuit.value,Validators.required],
       });
     }
   

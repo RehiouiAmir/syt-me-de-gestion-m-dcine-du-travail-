@@ -164,12 +164,12 @@ export class EmployeService {
     return this.http.post(`${environment.baseUrl}/employes/`+id_employe+`/arretTravail/accidents/`+id_accident, arretTravail);
   }
 
-  updateArretTrvail(id_arretTravail,arretTravail) {
-    return this.http.put(`${environment.baseUrl}/arretTravails/`+id_arretTravail,arretTravail);
+  updateArretTrvail(id_employe,id_arretTravail,arretTravail) {
+    return this.http.put(`${environment.baseUrl}/employes/`+id_employe+`/arretTravails/`+id_arretTravail,arretTravail);
   }
 
-  deleteArretTrvail(id_arretTravail) {
-    return this.http.delete(`${environment.baseUrl}/arretTravail/`+id_arretTravail);
+  deleteArretTrvail(id_employe,id_arretTravail) {
+    return this.http.delete(`${environment.baseUrl}/employes/`+id_employe+`/arretTravails/`+id_arretTravail);
   }
 
   //Service changelent de poste
@@ -184,15 +184,15 @@ export class EmployeService {
   }
 
   creatChangementPoste(id_employe,id_poste,changementPoste) {
-    return this.http.put(`${environment.baseUrl}/employes/`+id_employe+`/posteTravails/`+id_poste, changementPoste);
+    return this.http.post(`${environment.baseUrl}/employes/`+id_employe+`/posteTravails/`+id_poste, changementPoste);
   } 
 
-  updateChangementPoste(id_poste,changementPoste) {
-    return this.http.put(`${environment.baseUrl}/posteTravails/`+id_poste,changementPoste);
+  updateChangementPoste(id_employe,id_poste,changementPoste) {
+    return this.http.put(`${environment.baseUrl}/employes/`+id_employe+`/posteTravails/`+id_poste,changementPoste);
   }
 
-  deleteChangementPoste(id_poste) {
-    return this.http.delete(`${environment.baseUrl}/posteTravails/`+id_poste);
+  deleteChangementPoste(id_employe,id_poste) {
+    return this.http.delete(`${environment.baseUrl}/employes/`+id_employe+`/posteTravails/`+id_poste);
   }
   // Réorientation médicale
   getAllReorientationByEmployeId(id_employe: number) {
@@ -255,4 +255,7 @@ export class EmployeService {
     return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/convocations`);
   }
 
+  deleteConvocation(id_convocation) {
+    return this.http.delete(`${environment.baseUrl}/convocations/`+id_convocation);
+  }
 }

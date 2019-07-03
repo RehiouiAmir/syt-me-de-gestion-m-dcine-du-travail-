@@ -122,7 +122,7 @@ export class DmArretTravailComponent implements OnInit {
         if (result !== undefined){
           console.log(result)
           //change in backend
-          this.employeService.updateArretTrvail(result.id,result).subscribe(data => {
+          this.employeService.updateArretTrvail(this.id_employe,result.id,result).subscribe(data => {
             this.dataSource.data[this.dataSource.data.indexOf(object)] = result
             this.dataSource._updateChangeSubscription()   
           },
@@ -130,9 +130,9 @@ export class DmArretTravailComponent implements OnInit {
         }
       });
     }
-    delete(object) {  
+    delete(object) { 
     //delete from backend
-      this.employeService.deleteArretTrvail(object.id).subscribe(data => {
+      this.employeService.deleteArretTrvail(this.id_employe,object.id).subscribe(data => {
         console.log(data)
         this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
         this.dataSource._updateChangeSubscription()  
@@ -164,12 +164,11 @@ export class AjouterArretTravailComponent implements OnInit {
   
   constructor(public dialogRef: MatDialogRef<AjouterArretTravailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, 
-    private formBuilder: FormBuilder, private employeService: EmployeService,) {}
+    private formBuilder: FormBuilder, private employeService: EmployeService,) { console.log(this.data.object)}
 
   ngOnInit() {
     this.employeService.getAllAntecedentsAccidentsTravailByEmployeId(this.data.id_employe).subscribe(
       data => {
-        console.log(data)
         this.accidentTravails = data;
       },
       error => console.log(error)  
@@ -177,7 +176,6 @@ export class AjouterArretTravailComponent implements OnInit {
 
     this.employeService.getAllAntecedentsMaladiesByEmployeId(this.data.id_employe).subscribe(
       data => {
-        console.log(data)
         for(let i of data){
           if(i.maladie.type ==='Professionnelle') {
             this.maladiesProfessionnelles.push(i);
@@ -197,10 +195,10 @@ export class AjouterArretTravailComponent implements OnInit {
         id: [this.data.object.id],
         motif:  [this.data.object.motif, Validators.required],
         dateDebut: [dateDebut.value,Validators.required],
-        dateFin: [dateFin.value],
+        dateFin: [dateFin.value,Validators.required],
         observation: [this.data.object.observation],
         accidentTravail:[this.data.object.accident],
-        maladies: [this.data.object.maladie.designation]
+        maladies: [this.data.object.maladie]
       });
     }else{
         this.addForm = this.formBuilder.group({

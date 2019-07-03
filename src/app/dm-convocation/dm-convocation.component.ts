@@ -47,7 +47,7 @@ export class DmConvocationComponent implements OnInit {
 
   convoquerEmploye() {
     let dialogRef = this.dialog.open(ConvoquerEmployeComponent, {
-      width: '30%',
+      width: '50%',
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -60,5 +60,16 @@ export class DmConvocationComponent implements OnInit {
        }
     });
    }
+
+   delete(object) { 
+    //delete from backend
+      this.employeService.deleteConvocation(object.id).subscribe(data => {
+        console.log(data)
+        this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
+        this.dataSource._updateChangeSubscription()  
+  
+      },
+      error => console.log(error));
+    }
 
 }

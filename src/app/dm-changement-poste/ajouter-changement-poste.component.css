@@ -105,6 +105,7 @@ color: white;
     color: white; 
 }
 
+
 .mat-dialog-actions button.btn-ajouter,
 .mat-dialog-actions button.btn-annuler{
     color: white; 
@@ -118,3 +119,4 @@ color: white;
 .mat-dialog-actions button.btn-annuler{
     background-color: #F33155;
 }
+

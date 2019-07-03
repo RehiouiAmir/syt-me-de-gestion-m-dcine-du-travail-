@@ -18,8 +18,6 @@ import { FormControl } from '@angular/forms';
 export class DmChangementPosteComponent implements OnInit {
 
   private id_employe: number;
-  employeInfos : any = null;
-  posteActuel : any = null;  
   private posteHistorique : any [];
   private reorientations : any [];
   
@@ -33,7 +31,7 @@ export class DmChangementPosteComponent implements OnInit {
 
      /* Réorientation Table Structure */
   
-     displayedColumnsReorientation: string[] = ['dateReorientation','posteOccupe','posteConseilles','posteDeconseilles','medecin','Action-details','Action-edit','Action-delete'];
+     displayedColumnsReorientation: string[] = ['dateReorientation','posteOccupe','posteConseilles','posteDeconseilles','medecin','Action-delete'];
      dataSourceReorientation : MatTableDataSource<any>;
    
      @ViewChild('MatPaginatorReorientation') paginatorReorientation: MatPaginator;
@@ -46,13 +44,6 @@ export class DmChangementPosteComponent implements OnInit {
     ngOnInit() {
       this.employeService.getEmployeById(this.id_employe).subscribe(
         data => {
-          this.employeInfos = data;
-          for(var i in this.employeInfos.employe_posteTravails){
-            if (this.employeInfos.employe_posteTravails[i].actuel === true){
-              this.posteActuel = this.employeInfos.employe_posteTravails[i];
-              console.log(this.posteActuel)
-            }
-          }
           this.posteHistorique = data.employe_posteTravails;
           console.log(this.posteHistorique);
           this.dataSource = new MatTableDataSource<any>(this.posteHistorique);
@@ -96,11 +87,10 @@ export class DmChangementPosteComponent implements OnInit {
      add(edit: any) {
       let dialogRef = this.dialog.open(AjouterChangementPosteComponent, {
         width: '70%',
-        data: {edit:edit,}
+        data: {edit:edit}
       });
       dialogRef.afterClosed().subscribe(result => {
           if (result !== undefined){
-
             console.log(result)
             //change in backend
             this.employeService.creatChangementPoste(this.id_employe,result.id_posteTravail,result).subscribe(data => {
@@ -129,9 +119,8 @@ export class DmChangementPosteComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result !== undefined){
-          console.log(result)
           //change in backend
-          this.employeService.updateChangementPoste(result.id,result).subscribe(data => {
+          this.employeService.updateChangementPoste(this.id_employe,result.id_posteTravail.id,result).subscribe(data => {
             this.dataSource.data[this.dataSource.data.indexOf(object)] = result
             this.dataSource._updateChangeSubscription()   
           },
@@ -139,17 +128,16 @@ export class DmChangementPosteComponent implements OnInit {
         }
       });
     }
-    delete(object) {  
-    //delete from backend
-      this.employeService.deleteChangementPoste(object.id).subscribe(data => {
-        console.log(data)
-        this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
-        this.dataSource._updateChangeSubscription()  
-  
-      },
-      error => console.log(error));
-    }
-
+    delete(object) { 
+      //delete from backend
+        this.employeService.deleteChangementPoste(this.id_employe,object.posteTravail.id).subscribe(data => {
+          console.log(data)
+          this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
+          this.dataSource._updateChangeSubscription()  
+    
+        },
+        error => console.log(error));
+      }
 }
 
 // Dialog [Modal Ajouter Un Changement de Poste]
@@ -170,6 +158,7 @@ export class AjouterChangementPosteComponent implements OnInit {
   posteTravails : any [] = [];
 
   addGlobalForm: FormGroup;
+  dateAujourdhuit = new FormControl(new Date());   
   addForm: FormGroup;
   nvRisques: FormArray;
   itemForm: FormGroup; 
@@ -202,33 +191,35 @@ ngOnInit() {
         },
         error => console.log(error)  
     );
-    
-    if (this.data.edit === 'true'){
-      var dateDebut = new FormControl(new Date(this.data.object.dateDebut));  
-      var dateFin : any =  new FormControl();
-      if(this.data.object.dateFin != null){dateFin = new FormControl(new Date(this.data.object.dateFin));}             
-      this.addGlobalForm = this.formBuilder.group({
-        id: [this.data.object.id],
-        motif:  [this.data.object.motif],
-        dateDebut: [dateDebut.value,Validators.required],
-        dateFin: [dateFin.value],
-        observation: [this.data.object.observation],
-        id_posteTravail:[this.data.object.posteTravail],
-        nvRisques: [this.data.object.risques]
-      });
-    }else{
-      this.addGlobalForm = this.formBuilder.group({
+  if(this.data.edit === "true"){
+    var dateDebut = new FormControl(new Date(this.data.object.dateDebut));  
+    var dateFin : any =  new FormControl();
+    if(this.data.object.dateFin != null){dateFin = new FormControl(new Date(this.data.object.dateFin));} 
+    this.addGlobalForm = this.formBuilder.group({
+      id : [this.data.object.id],
+      id_posteTravail: [this.data.object.posteTravail, Validators.required],
+      dateDebut: [dateDebut.value,Validators.required],
+      dateFin: [dateFin.value],
+      motif: [this.data.object.motif],
+      observation: [this.data.object.observation], 
+      risques: [this.data.object.risques],      
+    });
+  } else{
+    this.addGlobalForm = this.formBuilder.group({
       id_posteTravail: ['', Validators.required],
-      dateDebut: ['',Validators.required],
+      dateDebut: [this.dateAujourdhuit.value,Validators.required],
       dateFin: [''],
       motif: [''],
       observation: [''], 
-      });
-    }
+      risques: [''],      
+    });
+
     this.addForm.get("items_value").setValue("yes");
     this.addForm.addControl('nvRisques', this.nvRisques);
     this.addGlobalForm.addControl('nvRisques', this.nvRisques);
+  } 
 }
+  
 
   InitialiserRisque(value){
     this.employeService.getAllRisquesbyPosteId(value).subscribe(
@@ -272,4 +263,3 @@ this.dialogRef.close();
 }
 
 }
-
