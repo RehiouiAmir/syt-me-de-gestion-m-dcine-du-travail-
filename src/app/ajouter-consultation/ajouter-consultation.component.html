@@ -114,7 +114,7 @@
                         <ng-container matColumnDef="Action-delete">
                             <th mat-header-cell *matHeaderCellDef ></th>
                             <td mat-cell *matCellDef="let row" class="td-btn-delete">
-                                <button mat-icon-button (click)="openDialogDetailsConsultation(''+row.idConsultation)">
+                                <button mat-icon-button (click)="deletePrecription(row)">
                                     <mat-icon>delete</mat-icon>
                                 </button>
                             </td>
@@ -126,8 +126,7 @@
                     </table>
                     <p class="title-champ">Observation médicale:<span class="champ"> {{consultation.ordonnance.observation}}</span></p>
                     <button mat-mini-fab class="pull-right btn-pdf"><mat-icon>picture_as_pdf</mat-icon></button>              
-                    <button mat-mini-fab class="pull-right btn-delete"><mat-icon>delete</mat-icon></button>  
-                    <button class="pull-right btn-edit" mat-mini-fab><mat-icon>edit</mat-icon></button>
+                    <button mat-mini-fab class="pull-right btn-delete" (click)="deleteOrdonnance(consultation.ordonnance)"><mat-icon>delete</mat-icon></button>  
                 </ng-container>
               </ng-container>
             </div>
@@ -137,7 +136,7 @@
                 <div class="col-md-12 row-title">
                     <h4>Fiche de soins
                       <span class="btn-add">
-                          <button mat-mini-fab (click)="addSoins()">
+                          <button mat-mini-fab (click)="addSoins(''+false)">
                               <mat-icon>add</mat-icon>                        
                           </button>
                       </span> 
@@ -176,7 +175,7 @@
                             <ng-container matColumnDef="Action-delete">
                                 <th mat-header-cell *matHeaderCellDef ></th>
                                 <td mat-cell *matCellDef="let row" class="td-btn-delete">
-                                    <button mat-icon-button (click)="openDialogDetailsConsultation(''+row.idConsultation)">
+                                    <button mat-icon-button (click)="deleteSoins(row)">
                                         <mat-icon>delete</mat-icon>
                                     </button>
                                 </td>
@@ -198,7 +197,7 @@
               <div class="col-md-12 row-title">
                   <h4>Orientations Médicales
                     <span class="btn-add">
-                        <button mat-mini-fab (click)="addOrientation()">
+                        <button mat-mini-fab (click)="addOrientation(''+false)">
                             <mat-icon>add</mat-icon>                        
                         </button>
                     </span>
@@ -236,7 +235,7 @@
                             <ng-container matColumnDef="Action-delete">
                                 <th mat-header-cell *matHeaderCellDef ></th>
                                 <td mat-cell *matCellDef="let row" class="td-btn-delete">
-                                    <button mat-icon-button (click)="openDialogDetailsConsultation(''+row.idConsultation)">
+                                    <button mat-icon-button (click)="deleteOrientation(row)">
                                         <mat-icon>delete</mat-icon>
                                     </button>
                                 </td>
@@ -265,7 +264,7 @@
               <div class="col-md-12 row-title">
                   <h4>Examens complémentaires
                     <span class="btn-add">
-                        <button mat-mini-fab (click)="addExamen()">
+                        <button mat-mini-fab (click)="addExamen(''+false)">
                             <mat-icon>add</mat-icon>                        
                         </button>
                     </span>
@@ -298,7 +297,7 @@
                         <ng-container matColumnDef="Action-delete">
                             <th mat-header-cell *matHeaderCellDef ></th>
                             <td mat-cell *matCellDef="let row" class="td-btn-delete">
-                                <button mat-icon-button (click)="openDialogDetailsConsultation(''+row.idConsultation)">
+                                <button mat-icon-button (click)="deleteExamen(row)">
                                     <mat-icon>delete</mat-icon>
                                 </button>
                             </td>

@@ -94,7 +94,7 @@ export class DmArretTravailComponent implements OnInit {
               },
               error => console.log(error)); 
             }else if (result.motif === 'Accident de travail' ){
-              this.employeService.creatArretTravailAccidentTravail(this.id_employe,result.accidentTravail.id,result).subscribe(data => {
+              this.employeService.creatArretTravailAccidentTravail(this.id_employe,result.accidentTravail.accident.id,result).subscribe(data => {
                 this.dataSource.data.push(data)
                 this.dataSource._updateChangeSubscription() 
               },
@@ -164,7 +164,7 @@ export class AjouterArretTravailComponent implements OnInit {
   
   constructor(public dialogRef: MatDialogRef<AjouterArretTravailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, 
-    private formBuilder: FormBuilder, private employeService: EmployeService,) { console.log(this.data.object)}
+    private formBuilder: FormBuilder, private employeService: EmployeService,) {}
 
   ngOnInit() {
     this.employeService.getAllAntecedentsAccidentsTravailByEmployeId(this.data.id_employe).subscribe(

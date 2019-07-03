@@ -85,10 +85,10 @@ export class AjouterConsultationComponent implements OnInit {
   }
 
 // operation add edit delet 
-  addSoins() {
+addSoins(edit) {
     let dialogRef = this.dialog.open(AjouterSoinsComponent, {
       width: '70%',
-      data: {}
+      data: {edit:edit}
     });
     dialogRef.afterClosed().subscribe(result => {
         if (result !== undefined){
@@ -103,12 +103,23 @@ export class AjouterConsultationComponent implements OnInit {
           error => console.log(error));
         }
     });
-   }
+}
 
-addExamen() {
+deleteSoins(object) { 
+  //delete from backend
+    this.employeService.deleteActeSoin(this.consultation.id,object.acte.id).subscribe(data => {
+      console.log(data)
+      this.dataSourceSoins.data.splice(this.dataSourceSoins.data.indexOf(object),1)
+      this.dataSourceSoins._updateChangeSubscription()  
+
+    },
+    error => console.log(error));
+}
+
+addExamen(edit) {
   let dialogRef = this.dialog.open(AjouterExamenComplementaireComponent, {
     width: '70%',
-    data: {}
+    data: {edit :edit}
   });
   dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined){
@@ -123,12 +134,23 @@ addExamen() {
         error => console.log(error));
       }
   });
- }
+}
 
- addOrientation() {
+deleteExamen(object) { 
+  //delete from backend
+    this.employeService.deleteExamenComplementaire(object.id).subscribe(data => {
+      console.log(data)
+      this.dataSourceExamens.data.splice(this.dataSourceExamens.data.indexOf(object),1)
+      this.dataSourceExamens._updateChangeSubscription()  
+
+    },
+    error => console.log(error));
+}
+
+ addOrientation(edit) {
   let dialogRef = this.dialog.open(AjouterOrientationMedicaleComponent, {
     width: '70%',
-    data: {}
+    data: {edit :edit}
   });
   dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined){
@@ -144,6 +166,17 @@ addExamen() {
       }
   });
  }
+
+ deleteOrientation(object){
+  //delete from backend
+  this.employeService.deleteOrientationMedicales(object.id).subscribe(data => {
+    console.log(data)
+    this.dataSourceOrientations.data.splice(this.dataSourceOrientations.data.indexOf(object),1)
+    this.dataSourceOrientations._updateChangeSubscription()  
+
+  },
+  error => console.log(error));
+ }
  addOrdonnance() {
   let dialogRef = this.dialog.open(AjouterOrdonnanceComponent, {
     width: '80%',
@@ -154,6 +187,7 @@ addExamen() {
         //change in backend
           this.employeService.creatOrdonnance(this.consultation.id,result).subscribe(data => {
             this.consultation.ordonnance= data
+            console.log(this.consultation)
             for (var i in result.prescription){
               var medicamentsPer= result.prescription[i].medicamentsPer
               this.employeService.creatPrescription(this.consultation.ordonnance.id,medicamentsPer,result.prescription[i]).subscribe(data => {
@@ -167,6 +201,26 @@ addExamen() {
         error => console.log(error));
       }
   });
-  }
+}
+
+deleteOrdonnance(object){
+  //delete from backend
+  this.employeService.deleteOrdonnance(object.id).subscribe(data => {
+    console.log(data)
+    this.dataSourceOrientations.data.splice(this.dataSourceOrientations.data.indexOf(object),1)
+    this.dataSourceOrientations._updateChangeSubscription()  
+    this.consultation.ordonnance = null;
+  },
+  error => console.log(error)); 
+}
+deletePrecription(object){
+  //delete from backend
+  this.employeService.deletePrescriptionOrdonnance(this.consultation.ordonnance.id,object.medicament.id).subscribe(data => {
+    console.log(data)
+    this.dataSourceMedicaments.data.splice(this.dataSourceMedicaments.data.indexOf(object),1)
+    this.dataSourceMedicaments._updateChangeSubscription()  
+  },
+  error => console.log(error)); 
+}
 
 }
