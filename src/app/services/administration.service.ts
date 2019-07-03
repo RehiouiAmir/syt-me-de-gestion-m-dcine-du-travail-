@@ -102,7 +102,7 @@ export class AdministrationService {
     }
 
     genererRapport() {
-      return this.http.get<any>(`${environment.baseUrl}/generatePDF`);
+      return this.http.get<any>(`${environment.baseUrl}/generatePDF.htm`);
     }
 
 }
