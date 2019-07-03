@@ -58,6 +58,10 @@
     font-weight: bold;
 }
 
+.row {
+    margin: 0;
+}
+
 .row-title{
     color: #2F323E;
     font-weight: bold;
@@ -109,9 +113,9 @@
 }
   
 .row-principal .mat-form-field {
-    float: right;
-    margin-right: 50px;
-    width: 40%;
+    float: left;
+    margin-right: 0px;
+    width: 80%;
     color: #54667A;
     caret-color: #41B3F9;    
   }
@@ -200,4 +204,8 @@
         width: 80% !important;
     }
 
-}    
+}
+
+.row-list-upload {
+    padding: 0 15px 0 15px;
+}

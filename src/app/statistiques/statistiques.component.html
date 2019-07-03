@@ -1,47 +1,53 @@
 <div class="container-fluid">
   <div class="title-component-bar">
-      <h4> Risques Professionnels </h4>
+      <h4> Statistiques </h4>
   </div>
-  <div class="row row-principal">                
-      <h4 class="row-title">
-              <span>
-                  <button mat-button mat-raised-button class="pull-right btn-declarer" (click)="genererRapport()">
-                      Générer le rapport
-                      <mat-icon>add</mat-icon>                                  
-              
-                  </button>  
-              </span>
-      </h4>
-      <br><br>
-      <div class="row">
-        <div class="col-md-12">
-          <mat-checkbox>Visites médicales</mat-checkbox>   
-        </div>
-        <div class="col-md-12">
-          <mat-checkbox>consultations médicales</mat-checkbox>
-        </div>
-        <div class="col-md-12">
-          <mat-checkbox>Vaccinations</mat-checkbox>
-        </div>
-        <div class="col-md-12">
-          <mat-checkbox>Soins médicaux</mat-checkbox>   
-        </div>
-        <br>
-        <div class="col-md-12">
-            <mat-checkbox>Nombre de Visites médicales</mat-checkbox>   
-        </div>
-        <div class="col-md-12">
-          <mat-checkbox>Nombre de consultations médicales</mat-checkbox>  
-        </div>
-        <div class="col-md-12"> 
-          <mat-checkbox>Nombre de Vaccinations médicales</mat-checkbox>   
-        </div>
-        <div class="col-md-12">
-          <mat-checkbox>Nombre de Soins médicaux</mat-checkbox>
-        </div>
-      </div>
-  </div>
+    <div class="row row-principal">  
+      <mat-tab-group>
+        <mat-tab label="Rapport Global">
+          <br>      
+          <div class="row">
+              <!-- <form [formGroup]="addForm">   -->
+                  <div mat-dialog-actions class="pull-right">
+                      <button mat-button mat-raised-button class="btn-ajouter" (click)="onSubmit()" cdkFocusInitial>Générer le rapport<mat-icon>add</mat-icon></button>
+                  </div>
+                  <!-- <div mat-dialog-content class="col-md-6">  
+                    <mat-form-field>
+                        <textarea matInput placeholder="Nom du rapport" formControlName="s" ></textarea>
+                    </mat-form-field>
+                  </div>
+                </form> -->
+          </div>
+          <br>
+          <div class="row row-list-upload">
+            <!-- <div class="col-md-6">
+                <form-upload></form-upload>            
+            </div> -->
+                <list-upload></list-upload>            
+          </div>
+        </mat-tab>
+        <mat-tab label="Risques Professionnels">
+            <br>      
+            <!-- <form [formGroup]="addForm">   -->
+              <div mat-dialog-actions class="pull-right">
+                  <button mat-button mat-raised-button class="btn-ajouter" (click)="onSubmit()" cdkFocusInitial>Générer le rapport<mat-icon>add</mat-icon></button>
+              </div>
+              <!-- <div mat-dialog-content class="col-md-6">  
+                <mat-form-field>
+                    <textarea matInput placeholder="Nom du rapport" formControlName="s" ></textarea>
+                </mat-form-field>
+              </div>
+            </form> -->
+            <br>
+            <div class="row row-list-upload">
+              <!-- <div class="col-md-6">
+                  <form-upload></form-upload>            
+              </div> -->
+                  <list-upload></list-upload>            
+            </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
 </div>
-                
-        
+
         

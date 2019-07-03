@@ -3,7 +3,9 @@ import '../polyfills';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule} from '@angular/core';
 
-
+import { DetailsUploadComponent } from './upload/details-upload/details-upload.component';
+import { FormUploadComponent } from './upload/form-upload/form-upload.component';
+import { ListUploadComponent } from './upload/list-upload/list-upload.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -32,7 +34,7 @@ registerLocaleData(localeFr);
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { DossierMedicalComponent } from './dossier-medical/dossier-medical.component';
 import { RendezVousComponent, ConvoquerEmployeComponent } from './rendez-vous/rendez-vous.component';
-import { StatistiquesComponent } from './statistiques/statistiques.component';
+import { StatistiquesComponent, GenererRapportComponent } from './statistiques/statistiques.component';
 import { AdministrationComponent } from './administration/administration.component';
 import { VisitesMedicalesComponent } from './visites-medicales/visites-medicales.component';
 import { ConsultationsMedicalesComponent } from './consultations-medicales/consultations-medicales.component';
@@ -141,6 +143,10 @@ import { DmConvocationComponent } from './dm-convocation/dm-convocation.componen
     DmConvocationComponent,
     InterrogatoiresComponent,
     AjouterInterrogatoireComponent,
+    DetailsUploadComponent,
+    FormUploadComponent,
+    GenererRapportComponent,
+    ListUploadComponent
   ],
   
   imports: [
@@ -166,7 +172,7 @@ import { DmConvocationComponent } from './dm-convocation/dm-convocation.componen
                     AjouterAppareilComponent,AdminMaladieComponent,AjouterMaladieComponent,AdminMedicamentComponent,
                     AjouterMedicamentComponent,AdminVaccinComponent,AjouterVaccinComponent,AdminNatureAccidentComponent,
                     AjouterNatureAccidentComponent,AjouterTypeRisqueComponent,RisquesTypeRisqueComponent,AjouterRisqueComponent,
-                    ConvoquerEmployeComponent,InterrogatoiresComponent,AjouterInterrogatoireComponent],
+                    ConvoquerEmployeComponent,InterrogatoiresComponent,AjouterInterrogatoireComponent,GenererRapportComponent],
   providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlFr},
               {provide: LOCALE_ID, useValue: "fr-CA" }, httpInterceptorProviders ],
   bootstrap: [AppComponent]

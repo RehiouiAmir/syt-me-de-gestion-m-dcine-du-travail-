@@ -1,0 +1,28 @@
+<h4 mat-dialog-title class="mat-dialog-title">Générer un rapport</h4>
+<form [formGroup]="addForm">    
+    <div mat-dialog-content>  
+            <div class="col-md-12">
+                    <mat-form-field>
+                            <textarea matInput placeholder="Nom du rapport" formControlName="s" required></textarea>
+                        </mat-form-field>
+                </div> 
+        <div class="col-md-12">
+            <mat-form-field>
+                <input matInput formControlName="dateDebut"  [matDatepicker]="picker1" placeholder="Date de début" required>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-md-12">
+            <mat-form-field>
+                <input matInput formControlName="dateFin"  [matDatepicker]="picker2" placeholder="Date de fin" required>
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field> 
+        </div>
+    </div>
+    <div mat-dialog-actions class="pull-right">
+        <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()" >Annuler</button>
+        <button mat-button mat-raised-button class="btn-ajouter" (click)="onSubmit()" cdkFocusInitial>Ajouter <mat-icon>add</mat-icon></button>
+    </div>
+</form>

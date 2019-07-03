@@ -101,8 +101,8 @@ export class AdministrationService {
       return this.http.post(`${environment.baseUrl}/visiteProgrammees/`+id+`/convocation`, convocation);
     }
 
-    genererRapport() {
-      return this.http.get<any>(`${environment.baseUrl}/generatePDF.htm`);
+    genererRapport(value) {
+      return this.http.post(`${environment.baseUrl}/generatePDF.htm`,value);
     }
 
 }
