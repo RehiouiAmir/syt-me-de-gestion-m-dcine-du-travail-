@@ -4,12 +4,12 @@
           <h4> Rendez-Vous </h4>
   </div>
   <div class="contenu-component">
-      <div class="col-md-6 pull-right row-0-btn">
+      <!-- <div class="col-md-6 pull-right row-0-btn">
           <button mat-button mat-raised-button class="pull-right btn-ajouter" (click)="add(''+amir)">
               Convoquer un employé
               <mat-icon>add</mat-icon>                                  
           </button> 
-      </div>
+      </div> -->
       <div class="row row-principal">
           <mat-tab-group>
               <mat-tab label="Injections"> 
@@ -105,7 +105,7 @@
                       <mat-paginator #MatPaginatorMaladies="matPaginator" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
                   </div>
               </mat-tab>
-              <mat-tab label="Convocations"> 
+              <!-- <mat-tab label="Convocations"> 
                   <mat-form-field class="pull-right search-bar">
                       <input matInput (keyup)="applyFilterAutres($event.target.value)" placeholder="Rechercher">
                       <mat-icon matSuffix>search</mat-icon>            
@@ -115,37 +115,31 @@
                       <div class=" table-overflow">
                       <table mat-table [dataSource]="dataSourceAutres" matSort #MatSortAutres="matSort">
           
-                          <!-- designation  Column -->
                           <ng-container matColumnDef="type">
                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
                               <td mat-cell *matCellDef="let row">{{row.type}}</td>
                           </ng-container>
 
-                          <!-- designation  Column -->
                           <ng-container matColumnDef="designation">
                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Désignation </th>
                               <td mat-cell *matCellDef="let row">{{row.designation}}</td>
                           </ng-container>
               
-                          <!-- Date Debut  Column -->
                           <ng-container matColumnDef="dateDebut">
                               <th mat-header-cell *matHeaderCellDef mat-sort-header>Date début</th>
                               <td mat-cell *matCellDef="let row">{{row.dateDebut | date}}</td>
                           </ng-container>
                           
-                          <!-- Date Fin  Column -->
                           <ng-container matColumnDef="dateFin">
                               <th mat-header-cell *matHeaderCellDef mat-sort-header>Date fin</th>
                               <td mat-cell *matCellDef="let row">{{row.dateFin | date}}</td>
                           </ng-container>
 
-                          <!-- Médecin Column -->
                           <ng-container matColumnDef="medecin">
                               <th mat-header-cell *matHeaderCellDef mat-sort-header> Médecin </th>
                               <td mat-cell *matCellDef="let row"> </td>
                           </ng-container>
               
-                          <!-- Action edit Column -->
                           <ng-container matColumnDef="Action-edit">
                               <th mat-header-cell *matHeaderCellDef ></th>
                               <td mat-cell *matCellDef="let row" class="td-btn-edit">
@@ -155,7 +149,6 @@
                               </td>
                           </ng-container>
                       
-                          <!-- Action details Column -->
                           <ng-container matColumnDef="Action-details">
                               <th mat-header-cell *matHeaderCellDef ></th>
                               <td mat-cell *matCellDef="let row" class="td-btn-details">
@@ -165,7 +158,6 @@
                               </td>
                           </ng-container>
                           
-                          <!-- Action delete Column -->
                           <ng-container matColumnDef="Action-delete">
                               <th mat-header-cell *matHeaderCellDef ></th>
                               <td mat-cell *matCellDef="let row" class="td-btn-delete">
@@ -182,7 +174,7 @@
                       </div>
                       <mat-paginator #MatPaginatorAutres="matPaginator" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
                   </div>
-              </mat-tab>
+              </mat-tab> -->
           </mat-tab-group>
       </div>
   </div>

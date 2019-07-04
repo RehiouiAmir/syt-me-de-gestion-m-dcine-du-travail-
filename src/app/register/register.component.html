@@ -11,9 +11,9 @@
         <div mat-dialog-content>
             <div class="form-group">
                 <mat-form-field>
-                    <mat-select placeholder="Rôle" name="role" [(ngModel)]="form.role" #name="ngModel" required>
-                        <mat-option *ngFor="let role of roles" [value]="role.id">
-                            {{role.name}}
+                    <mat-select placeholder="Rôle" name="rolee" [(ngModel)]="form.rolee" #name="ngModel" required>
+                        <mat-option *ngFor="let rolee of roles" [value]="rolee">
+                            {{rolee.name}}
                         </mat-option>                  
                     </mat-select>
                 </mat-form-field> 
