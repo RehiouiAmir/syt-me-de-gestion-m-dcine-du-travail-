@@ -216,8 +216,8 @@ export class EmployeService {
     return this.http.post(`${environment.baseUrl}/employes/`+id_employe+`/posteTravails/`+id_poste, changementPoste);
   } 
 
-  updateChangementPoste(id_employe,id_poste,changementPoste) {
-    return this.http.put(`${environment.baseUrl}/employes/`+id_employe+`/posteTravails/`+id_poste,changementPoste);
+  updateChangementPoste(id_employe_poste,changementPoste) {
+    return this.http.put(`${environment.baseUrl}/employePosteTravails/`+id_employe_poste,changementPoste);
   }
 
   deleteChangementPoste(id_employe,id_poste) {
@@ -262,6 +262,10 @@ export class EmployeService {
     return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/calendrierVaccinals`);
   }
 
+  getVaccinById(id_vaccin){
+    return this.http.get<any>(`${environment.baseUrl}/vaccins/`+id_vaccin);    
+  }
+
   getAllInjectionByCalendrierVaccinalId(id: number) {
     return this.http.get<any>(`${environment.baseUrl}/calendrierVaccinals/`+id+`/injections`);
   }
@@ -271,13 +275,14 @@ export class EmployeService {
   }
 
   ajouterCalendrierVaccinal(id_employe,id_vaccin,calendrier) {
-    return this.http.put(`${environment.baseUrl}/employes/`+id_employe+`/vaccins/`+id_vaccin, calendrier);
+    return this.http.post(`${environment.baseUrl}/employes/`+id_employe+`/vaccins/`+id_vaccin, calendrier);
   }
 
   ajouterInjection(id,calendrier) {
     return this.http.post(`${environment.baseUrl}/calendrierVaccinals/`+id+`/injection`, calendrier);
   }
 
+  
   //explorations 
   getAllExamenComplementaires(id_employe: number) {
     return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/examenComplementaires`);
@@ -292,6 +297,12 @@ export class EmployeService {
     return this.http.get<any>(`${environment.baseUrl}/visiteProgrammees`);
   }
   
+  deleteCalendrierVaccinal(id_calendrierVaccinals) {
+    return this.http.delete(`${environment.baseUrl}/calendrierVaccinals/`+id_calendrierVaccinals);
+  }
+  deleteInjection(id_injection) {
+    return this.http.delete(`${environment.baseUrl}/injections/`+id_injection);
+  }
   // Convocation
 
   getAllConvocationsByEmployeId(id_employe: number) {
