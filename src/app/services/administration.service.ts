@@ -25,6 +25,10 @@ export class AdministrationService {
       return this.http.post<any[]>(`${environment.baseUrl}/appareils/`+id+`/interrogatoire`, interrogatoire);
     }
 
+    affecterRisque(id: number,idR: number,risque) {
+      return this.http.put<any[]>(`${environment.baseUrl}/posteTravails/`+id+`/risques/`+idR, risque);
+    }
+
     getInterrogatoiresByAppareilId(id: number) {
       return this.http.get<any>(`${environment.baseUrl}/appareils/`+id+`/interrogatoires`);
     }
@@ -75,6 +79,10 @@ export class AdministrationService {
 
     getRisques() {
       return this.http.get<any>(`${environment.baseUrl}/risques/`);
+    }
+
+    getRisquesByPosteId(id :number) {
+      return this.http.get<any>(`${environment.baseUrl}/posteTravails/`+id+`/risques`);
     }
 
     getTypeRisqueById(id :number) {

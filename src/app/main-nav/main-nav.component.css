@@ -118,3 +118,11 @@ img.profile-img-navBar {
 
 
 
+.example-viewport {
+  height: 450px;
+  width: 200px;
+}
+
+.example-item {
+  height: 50px;
+}

@@ -52,7 +52,7 @@ import { DmArretTravailComponent, AjouterArretTravailComponent } from './dm-arre
 import { DmSoinsComponent, AjouterSoinsComponent, AjouterSoinsInfirmierComponent } from './dm-soins/dm-soins.component';
 import { DmExplorationsComponent } from './dm-explorations/dm-explorations.component';
 import { DmChangementPosteComponent, AjouterChangementPosteComponent } from './dm-changement-poste/dm-changement-poste.component';
-import { RisquesProfessionnelsComponent, AjouterTypeRisqueComponent, RisquesTypeRisqueComponent, AjouterRisqueComponent } from './risques-professionnels/risques-professionnels.component';
+import { RisquesProfessionnelsComponent, AjouterTypeRisqueComponent, RisquesTypeRisqueComponent, AjouterRisqueComponent, RisquesPosteComponent, AffecterRisqueComponent } from './risques-professionnels/risques-professionnels.component';
 import { ParametresCompteComponent } from './parametres-compte/parametres-compte.component';
 import { DmEmployeComponent } from './dm-employe/dm-employe.component';
 import { AjouterConsultationComponent } from './ajouter-consultation/ajouter-consultation.component';
@@ -138,6 +138,8 @@ import { DmConvocationComponent } from './dm-convocation/dm-convocation.componen
     AjouterNatureAccidentComponent,
     AjouterTypeRisqueComponent,
     RisquesTypeRisqueComponent,
+    AffecterRisqueComponent,
+    RisquesPosteComponent,
     ConvoquerEmployeComponent,
     AjouterRisqueComponent,
     DmConvocationComponent,
@@ -171,7 +173,8 @@ import { DmConvocationComponent } from './dm-convocation/dm-convocation.componen
                     AdminNatureConsultationComponent,AjouterNatureConsultationComponent,AdminAppareilComponent,
                     AjouterAppareilComponent,AdminMaladieComponent,AjouterMaladieComponent,AdminMedicamentComponent,
                     AjouterMedicamentComponent,AdminVaccinComponent,AjouterVaccinComponent,AdminNatureAccidentComponent,
-                    AjouterNatureAccidentComponent,AjouterTypeRisqueComponent,RisquesTypeRisqueComponent,AjouterRisqueComponent,
+                    AjouterNatureAccidentComponent,AjouterTypeRisqueComponent,RisquesTypeRisqueComponent,AffecterRisqueComponent,RisquesPosteComponent,
+                    AjouterRisqueComponent,
                     ConvoquerEmployeComponent,InterrogatoiresComponent,AjouterInterrogatoireComponent,GenererRapportComponent],
   providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlFr},
               {provide: LOCALE_ID, useValue: "fr-CA" }, httpInterceptorProviders ],

@@ -21,25 +21,36 @@ export class RisquesProfessionnelsComponent implements OnInit {
   /* Table Structure */
   
   displayedColumns: string[] = ['designation','medecin','Action-edit','Action-delete'];
+  displayedColumnsRisque: string[] = ['designation','medecin','Action-edit','Action-delete'];  
+  displayedColumnsPoste: string[] = ['designation','societe','site','departement','medecin','Action-Affecter-Risque'];
   dataSource : MatTableDataSource<any>;
   dataSourceRisque : MatTableDataSource<any>;
+  dataSourcePosteTravail : MatTableDataSource<any>;
   typeRisques : any[] = [];
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  // @ViewChild(MatPaginator) paginator: MatPaginator;
+  // @ViewChild(MatSort) sort: MatSort;
 
-  @ViewChild('MatPaginatorDemande') PaginatorDemande: MatPaginator;
-  @ViewChild('MatSortDemande') SortDemande: MatSort;
+  @ViewChild('MatPaginatorRisque') PaginatorRisque: MatPaginator;
+  @ViewChild('MatSortRisque') SortRisque: MatSort;
 
-  constructor(private administrationService : AdministrationService,public dialog: MatDialog) { }
+  @ViewChild('MatPaginatorType') PaginatorType: MatPaginator;
+  @ViewChild('MatSortType') SortType: MatSort;
+  
+  @ViewChild('MatPaginatorPoste') PaginatorPoste: MatPaginator;
+  @ViewChild('MatSortPoste') SortPoste: MatSort;
+
+  constructor(private administrationService : AdministrationService,
+    private activitesMedicalesService : ActivitesMedicalesService,
+    private employeService: EmployeService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.administrationService.getTypeRisques().subscribe(
       data => {
         console.log(data)
         this.dataSource = new MatTableDataSource<any>(data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort; 
+        this.dataSource.paginator = this.PaginatorType;
+        this.dataSource.sort = this.SortType; 
       },
       error => console.log(error)  
     );
@@ -48,11 +59,21 @@ export class RisquesProfessionnelsComponent implements OnInit {
       data => {
         console.log(data)
         this.dataSourceRisque = new MatTableDataSource<any>(data);
-        this.dataSourceRisque.paginator = this.paginator;
-        this.dataSourceRisque.sort = this.sort; 
+        this.dataSourceRisque.paginator = this.PaginatorRisque;
+        this.dataSourceRisque.sort = this.SortRisque; 
       },
       error => console.log(error)  
     );
+
+     this.employeService.getAllPosteTravails().subscribe(
+       data => {
+         console.log(data)
+         this.dataSourcePosteTravail = new MatTableDataSource<any>(data);
+         this.dataSourcePosteTravail.paginator = this.PaginatorPoste;
+         this.dataSourcePosteTravail.sort = this.SortPoste; 
+       },
+       error => console.log(error)  
+     );
   }
 
   add() {
@@ -97,6 +118,13 @@ export class RisquesProfessionnelsComponent implements OnInit {
     });
    }
 
+   getRisques(postee: any) : void {
+    let dialogRef = this.dialog.open(RisquesPosteComponent, {
+      width: '50%',
+      data: {postee: postee}
+    });
+    dialogRef.afterClosed().subscribe();
+   }
 }
 
 
@@ -279,4 +307,136 @@ export class RisquesTypeRisqueComponent implements OnInit {
         this.dialogRef.close(this.data);
         }
     }
+}
+
+
+
+// Les Risques du Poste
+  
+@Component({
+  selector: 'app-risques-poste',
+  templateUrl: './risques-poste.component.html',
+  styleUrls: ['./risques-poste.component.css']
+})
+export class RisquesPosteComponent implements OnInit {
+
+  addForm: FormGroup;
+  dateAujourdhuit = new FormControl(new Date()); 
+  
+  vaccins :any [];
+  postee: any;  
+
+    /* Table Structure */
+    
+    displayedColumns: string[] = ['designation','Action-delete'];
+    dataSource : MatTableDataSource<any>;
+  
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
+
+  constructor(public dialogRef: MatDialogRef<RisquesPosteComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, 
+    private formBuilder: FormBuilder,private employeService: EmployeService,public dialog: MatDialog,
+    private activitesMedicalesService: ActivitesMedicalesService,
+    private administrationService : AdministrationService) {this.postee = data.postee    }
+
+  ngOnInit() {
+    console.log(this.postee);
+    this.administrationService.getRisquesByPosteId(this.postee.id).subscribe(
+      data => {
+        console.log(data)
+        this.dataSource = new MatTableDataSource<any>(data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort; 
+      },
+      error => console.log(error)  
+    );
+   }
+   // search table
+    applyFilter(filterValue: string) {
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+  
+      if (this.dataSource.paginator) {
+        this.dataSource.paginator.firstPage();
+      }
+    }
+  
+    // search table
+    applyFilterDemande(filterValue: string) {
+     this.dataSource.filter = filterValue.trim().toLowerCase();
+  
+     if (this.dataSource.paginator) {
+       this.dataSource.paginator.firstPage();
+     }
+   }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  add() {
+    let dialogRef = this.dialog.open(AffecterRisqueComponent, {
+      width: '30%',
+      data: {}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined){
+        //change in backend
+         this.administrationService.affecterRisque(this.postee.id,result.risquee.id,result).subscribe(data => {
+           this.dataSource.data.push(result.risquee)
+           this.dataSource._updateChangeSubscription() 
+         },
+         error => console.log(error));
+      }
+    });
+   }
+
+}
+
+  // Affecter Risque
+  
+  @Component({
+    selector: 'app-affecter-risque',
+    templateUrl: './affecter-risque.component.html',
+    styleUrls: ['./affecter-risque.component.css']
+  })
+  export class AffecterRisqueComponent implements OnInit {
+  
+    addForm: FormGroup;
+    dateAujourdhuit = new FormControl(new Date()); 
+    
+    risques : any[];    
+  
+    constructor(public dialogRef: MatDialogRef<AffecterRisqueComponent>,
+      @Inject(MAT_DIALOG_DATA) public data: any, 
+      private formBuilder: FormBuilder,private employeService: EmployeService,
+      private administrationService: AdministrationService) {}
+  
+    ngOnInit() {
+      this.addForm = this.formBuilder.group({
+        risquee: ['',Validators.required]
+      });
+
+      this.administrationService.getRisques().subscribe(
+        data => {
+          console.log(data)
+          this.risques = data;
+        },
+        error => console.log(error)  
+      );
+    }
+  
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
+  
+    onSubmit() {
+      console.log(this.addForm.value);
+      if (!this.addForm.invalid){
+        this.data = this.addForm.value;
+        console.log(this.data)
+        this.dialogRef.close(this.data);
+      }
+    }
+
 }
