@@ -73,6 +73,7 @@ import { AdminMedicamentComponent, AjouterMedicamentComponent } from './admin/ad
 import { AdminVaccinComponent, AjouterVaccinComponent } from './admin/admin-vaccin/admin-vaccin.component';
 import { AdminNatureAccidentComponent, AjouterNatureAccidentComponent } from './admin/admin-nature-accident/admin-nature-accident.component';
 import { DmConvocationComponent } from './dm-convocation/dm-convocation.component';
+import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
 
 @NgModule({
   declarations: [
@@ -148,7 +149,8 @@ import { DmConvocationComponent } from './dm-convocation/dm-convocation.componen
     DetailsUploadComponent,
     FormUploadComponent,
     GenererRapportComponent,
-    ListUploadComponent
+    ListUploadComponent,
+    UtilisateursComponent
   ],
   
   imports: [

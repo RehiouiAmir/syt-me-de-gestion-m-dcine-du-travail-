@@ -37,6 +37,7 @@ import { RisquesProfessionnelsComponent } from 'src/app/risques-professionnels/r
 import { DmEmployeComponent } from 'src/app/dm-employe/dm-employe.component';
 import { MainNavComponent } from 'src/app/main-nav/main-nav.component';
 import { AjouterConsultationComponent } from 'src/app/ajouter-consultation/ajouter-consultation.component';
+import { UtilisateursComponent } from 'src/app/utilisateurs/utilisateurs.component';
 
 
 
@@ -54,6 +55,7 @@ const routes: Routes = [
     { path: 'statistiques', component: StatistiquesComponent},
     { path: 'parametre-compte', component: ParametresCompteComponent},
     { path: 'risques-professionnels', component: RisquesProfessionnelsComponent},
+    { path: 'utilisateurs', component: UtilisateursComponent},    
 
     { path: 'dossier-medical', component: DossierMedicalComponent,children:[
       { path: 'employes', component: EmployesComponent },
@@ -88,6 +90,9 @@ const routes: Routes = [
     ]},
     { path: '', redirectTo: 'dossier-medical' ,pathMatch: 'full'},
   ]}, 
+
+  
+
   
   { path: '',
     component: LoginComponent
