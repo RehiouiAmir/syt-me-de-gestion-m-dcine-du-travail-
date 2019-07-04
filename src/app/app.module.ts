@@ -73,7 +73,8 @@ import { AdminMedicamentComponent, AjouterMedicamentComponent } from './admin/ad
 import { AdminVaccinComponent, AjouterVaccinComponent } from './admin/admin-vaccin/admin-vaccin.component';
 import { AdminNatureAccidentComponent, AjouterNatureAccidentComponent } from './admin/admin-nature-accident/admin-nature-accident.component';
 import { DmConvocationComponent } from './dm-convocation/dm-convocation.component';
-import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
+import { UtilisateursComponent, AjouterUtilisateurComponent } from './utilisateurs/utilisateurs.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -150,7 +151,9 @@ import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
     FormUploadComponent,
     GenererRapportComponent,
     ListUploadComponent,
-    UtilisateursComponent
+    UtilisateursComponent,
+    AjouterUtilisateurComponent,
+    RegisterComponent
   ],
   
   imports: [
@@ -176,8 +179,8 @@ import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
                     AjouterAppareilComponent,AdminMaladieComponent,AjouterMaladieComponent,AdminMedicamentComponent,
                     AjouterMedicamentComponent,AdminVaccinComponent,AjouterVaccinComponent,AdminNatureAccidentComponent,
                     AjouterNatureAccidentComponent,AjouterTypeRisqueComponent,RisquesTypeRisqueComponent,AffecterRisqueComponent,RisquesPosteComponent,
-                    AjouterRisqueComponent,
-                    ConvoquerEmployeComponent,InterrogatoiresComponent,AjouterInterrogatoireComponent,GenererRapportComponent],
+                    AjouterRisqueComponent,RegisterComponent,
+                    ConvoquerEmployeComponent,InterrogatoiresComponent,AjouterInterrogatoireComponent,GenererRapportComponent,AjouterUtilisateurComponent],
   providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlFr},
               {provide: LOCALE_ID, useValue: "fr-CA" }, httpInterceptorProviders ],
   bootstrap: [AppComponent]

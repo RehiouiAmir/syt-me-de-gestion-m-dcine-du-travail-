@@ -113,4 +113,18 @@ export class AdministrationService {
       return this.http.post(`${environment.baseUrl}/generatePDF.htm`,value);
     }
 
+    // utilisateurs
+
+    getAllUtilisateurs() {
+      return this.http.get<any>(`${environment.baseUrl}/utilisateurs`);
+    }
+
+    ajouterUtilisateur(utilisateur) {
+      return this.http.post<any[]>(`${environment.baseUrl}/utilisateur`, utilisateur);
+    }
+
+    getRoles(){
+      return this.http.get<any>(`${environment.baseUrl}/roles`);      
+    }
+
 }

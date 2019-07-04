@@ -1,0 +1,38 @@
+<h4 mat-dialog-title class="mat-dialog-title">Ajouter un utilisateur </h4>
+<form [formGroup]="addForm">    
+    <div mat-dialog-content>  
+        <div class="col-md-12">
+            <mat-form-field>
+                <mat-select placeholder="Rôle" formControlName="rolee" required>
+                    <mat-option *ngFor="let rolee of roles" [value]="rolee.id">
+                        {{rolee.name}}
+                    </mat-option>                  
+                </mat-select>
+            </mat-form-field> 
+        </div> 
+        <div class="col-md-12">
+            <mat-form-field>
+                <textarea matInput placeholder="Nom Complet" formControlName="name" ></textarea>
+            </mat-form-field>
+        </div>
+        <div class="col-md-12">
+                <mat-form-field>
+                    <textarea matInput placeholder="Email" formControlName="email" ></textarea>
+                </mat-form-field>
+            </div>
+        <div class="col-md-12">
+            <mat-form-field>
+                <textarea matInput placeholder="Nom d'utilisateur" formControlName="username" ></textarea>
+            </mat-form-field>
+        </div>
+        <div class="col-md-12">
+            <mat-form-field>
+                <textarea matInput placeholder="Mot de passe" formControlName="password" ></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+    <div mat-dialog-actions class="pull-right">
+        <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()" >Annuler</button>
+        <button mat-button mat-raised-button class="btn-ajouter" (click)="onSubmit()" cdkFocusInitial>Ajouter <mat-icon>add</mat-icon></button>
+    </div>
+</form>

@@ -31,7 +31,9 @@ export class AdminSocieteComponent implements OnInit {
    @ViewChild(MatPaginator) paginator: MatPaginator;
    @ViewChild(MatSort) sort: MatSort;
    
-   constructor(private activitesService : ActivitesMedicalesService,private administrationService : AdministrationService,public dialog: MatDialog, private employeService : EmployeService) { }
+   constructor(private activitesService : ActivitesMedicalesService,
+              private administrationService : AdministrationService,
+              public dialog: MatDialog, private employeService : EmployeService) { }
  
    ngOnInit() {
  
@@ -83,24 +85,13 @@ export class AdminSocieteComponent implements OnInit {
   export class AjouterSocieteComponent implements OnInit {
   
   addForm: FormGroup;
-  dateAujourdhuit = new FormControl(new Date()); 
-  natureAccidents : any[] = [];
-  
-  
+  dateAujourdhuit = new FormControl(new Date());   
   
   constructor(public dialogRef: MatDialogRef<AjouterSocieteComponent>,
   @Inject(MAT_DIALOG_DATA) public data: any, 
-  private formBuilder: FormBuilder ,private activitesMedicales : ActivitesMedicalesService) {}
+  private formBuilder: FormBuilder) {}
   
   ngOnInit() {
-
-    this.activitesMedicales.getAllNatureAccidents().subscribe(
-      data => {
-        console.log(data) 
-        this.natureAccidents = data;      
-      },
-      error => console.log(error)  
-    );
   
     this.addForm = this.formBuilder.group({
       designation: ['',Validators.required],

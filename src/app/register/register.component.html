@@ -1,0 +1,72 @@
+  <div *ngIf="isSignedUp; else signupForm" style="text-align : center;">
+    Utilisateur Ajouté
+    <div mat-dialog-actions class="col-md-12">
+        <button mat-button mat-raised-button class="btn-ajouter" style="width: 50%;margin: 0 auto;" (click)="onNoClick()" >OK</button>
+    </div>
+  </div>
+  
+  <ng-template #signupForm style="border:0;">
+    <div class="row" style="margin-left: 0;">
+      <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <div mat-dialog-content>
+            <div class="form-group">
+                <mat-form-field>
+                    <mat-select placeholder="Rôle" name="role" [(ngModel)]="form.role" #name="ngModel" required>
+                        <mat-option *ngFor="let role of roles" [value]="role.id">
+                            {{role.name}}
+                        </mat-option>                  
+                    </mat-select>
+                </mat-form-field> 
+            </div> 
+          <div class="form-group">
+              <mat-form-field>
+              <input matInput placeholder="Nom Complet" type="text" name="name" [(ngModel)]="form.name" #name="ngModel" required />
+              </mat-form-field>
+              <div *ngIf="f.submitted && name.invalid">
+                <div *ngIf="name.errors.required">Nom est obligatoire</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <mat-form-field>
+              <input matInput placeholder="Nom d'utilisateur" type="text" name="username" [(ngModel)]="form.username" #username="ngModel"
+                required />
+              </mat-form-field>
+              <div *ngIf="f.submitted && username.invalid">
+                <div *ngIf="username.errors.required">Nom d'utilisateur est obligatoire</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <mat-form-field>
+              <input matInput placeholder="Email" type="text" name="email" [(ngModel)]="form.email" #email="ngModel" required email />
+              </mat-form-field>
+              <div *ngIf="f.submitted && email.invalid">
+                <div *ngIf="email.errors.required">Email est obligatoire</div>
+                <div *ngIf="email.errors.email">Email doit être une adresse valide</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <mat-form-field>
+              <input matInput placeholder="Mot de passe" type="password" name="password" [(ngModel)]="form.password" #password="ngModel"
+                required minlength="6" />
+              </mat-form-field>
+                <div *ngIf="f.submitted && password.invalid">
+                <div *ngIf="password.errors.required">Mot de passe est obligatoire</div>
+                <div *ngIf="password.errors.minlength">Mot de passe doit avoir plus que 6 caractères</div>
+              </div>
+            </div>
+                <div class="col-md-2"></div>
+                <div mat-dialog-actions class="col-md-5 pull-right">
+                    <button mat-button mat-raised-button class="btn-ajouter" (click)="onSubmit()" cdkFocusInitial>Ajouter<mat-icon>add</mat-icon></button>
+                </div>
+                <div mat-dialog-actions class="col-md-5">
+                    <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()" >Annuler</button>
+                </div>
+            <br><br>
+            <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-warning col-md-12">
+                Ajout échoué!<br/>
+                <!-- {{errorMessage}} -->
+            </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>

@@ -27,6 +27,6 @@ export class AuthService {
   }
 
   signUp(info: SignUpInfo): Observable<string> {
-    return this.http.post<string>(`${environment.baseUrl}/`+this.signupUrl, info, httpOptions);
+    return this.http.post<string>(`${environment.baseUrl}`+this.signupUrl, info, httpOptions);
   }
 }
