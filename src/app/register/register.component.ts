@@ -39,13 +39,13 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     console.log(this.form);
-    this.rolesString = [this.form.role];
+    this.rolesString = ['user'];
     this.signupInfo = new SignUpInfo(
       this.form.name,
       this.form.username,
       this.form.email,
       this.form.password,
-      this.form.rolesString);
+      this.rolesString);
 
     this.authService.signUp(this.signupInfo).subscribe(
       data => {

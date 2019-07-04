@@ -56,16 +56,19 @@ export class UtilisateursComponent implements OnInit {
       width: '30%',
       data: {}
     });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result !== undefined){
-    //     console.log(result)        
-    //     this.administrationService.ajouterUtilisateur(result).subscribe(data => {
-    //       this.dataSource.data.push(data)
-    //       this.dataSource._updateChangeSubscription() 
-    //     },
-    //     error => console.log(error));
-    //   }
-    // });
+     dialogRef.afterClosed().subscribe(result => {
+       if (result !== undefined){
+         console.log(result)        
+         this.administrationService.getAllUtilisateurs().subscribe(
+          data => {
+            this.dataSource = new MatTableDataSource<any>(data);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort; 
+          },
+          error => console.log(error)  
+        );
+       }
+     });
   }
 }
 
