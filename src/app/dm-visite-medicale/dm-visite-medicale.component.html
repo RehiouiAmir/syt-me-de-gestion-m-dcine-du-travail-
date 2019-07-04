@@ -1,15 +1,695 @@
-<div class="contenu-component">  
+<div class="container-fluid">
     <div class="row row-principal">
         <div class="row-1">
             <div class="col-md-6 photo-col">
                 <img class="employe-profile-img img-circle" src="../../assets/img/pic-user-font-white.png" alt="pic-user"/>
                 <span class="title-posteTravail">
+                    {{employeInfosMin.posteTravail}}
                 </span>
                 <span class="title-matricule">
-                    Num.Carte Chifa : 
-                </span>   
+                    Num.Carte Chifa : {{employeInfosMin.numCartChifa}}
+                </span>
             </div>
         </div>
+        <mat-horizontal-stepper  #stepper>
+            <mat-step [stepControl]="firstFormGroup" >
+                <form [formGroup]="firstFormGroup" class="div-step-1">
+                <ng-template matStepLabel>Première étape</ng-template>
+                <!-- contenu d'étape -->
+                <div class="row-1">
+                    <div class="col-md-4">
+                        <mat-form-field>
+                            <mat-select placeholder="Type de visite" required>
+                                <mat-option value="##">Visite d'Embauche</mat-option>
+                                <mat-option value="##">Visite Périodique</mat-option> 
+                                <mat-option value="##">Visite de Reprise</mat-option>                                                    
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="pickerVisite" placeholder="Date de visite" required [value]='dateAujourdhuit.value'>
+                            <mat-datepicker-toggle matSuffix [for]="pickerVisite"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerVisite></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4 name-doctor">
+                        <p class="title-champ">Docteur :<span class="champ">BAHAMED Rachide</span></p>    
+                    </div>                    
+                </div>
+                <div class="row-2">
+                    <div class="col-md-12 stat-info">
+                        <div class="col-md-2">
+                            <mat-form-field>
+                                <input matInput placeholder="Poids" type="number">
+                                <span class="matSuffix" matSuffix>kg</span>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput placeholder="Taille" type="number">
+                                <span class="matSuffix" matSuffix>m</span>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput placeholder="BMI">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput placeholder="TT" type="number">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput placeholder="TH" type="number">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput placeholder="TT/TH">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-form-field>
+                                <mat-select placeholder="Urines">
+                                    <mat-option value="##">A jeun</mat-option>
+                                    <mat-option value="##">######</mat-option>                    
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput placeholder="Ab">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput placeholder="Suc">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput placeholder="Sg">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput placeholder="CC">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput placeholder="PH">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="title-champ">Audition</p>
+                            <mat-form-field>
+                                <input matInput placeholder="D">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput placeholder="G">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-md-6">
+                                <p class="title-champ">Vision sans correction</p>
+                                <div class="col-md-6">
+                                    <p class="title-champ">D</p>
+                                    <mat-form-field>
+                                        <input matInput placeholder="De près">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input matInput placeholder="De loin">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input matInput placeholder="Couleur">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="title-champ">G</p>
+                                    <mat-form-field>
+                                        <input matInput placeholder="De près">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input matInput placeholder="De loin">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input matInput placeholder="Couleur">
+                                    </mat-form-field>
+                                </div>
+                            </div>    
+                            <div class="col-md-6">
+                                <p class="title-champ">Vision avec correction</p>
+                                <div class="col-md-6">
+                                    <p class="title-champ">D</p>
+                                    <mat-form-field>
+                                        <input matInput placeholder="De près">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input matInput placeholder="De loin">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input matInput placeholder="Couleur">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="title-champ">G</p>
+                                    <mat-form-field>
+                                        <input matInput placeholder="De près">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input matInput placeholder="De loin">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input matInput placeholder="Couleur">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>           
+                    </div>                   
+                </div>
+                <div class="row-3">
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <mat-select placeholder="Poste de travail">
+                                    <mat-option *ngFor="let posteTravail of posteTravails" [value]="posteTravail.value">
+                                        {{posteTravail.viewValue}}
+                                    </mat-option>                            
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <input matInput placeholder="Nature de risque">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <textarea matInput placeholder="Synthèse"></textarea>
+                            </mat-form-field>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="pull-right btn-step">
+                    <button mat-button mat-raised-button matStepperNext class="btn-stepper-suivant">
+                        <mat-icon>keyboard_arrow_right</mat-icon>
+                    </button>
+                </div>
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="secondFormGroup">
+                <form [formGroup]="secondFormGroup" class="div-step-2">
+                <ng-template matStepLabel>Deuxième étape</ng-template>
+                <!-- contenu d'étape -->
+                <div class="row-1">
+                    <div class="col-md-3" >
+                        <div class="col-md-12">
+                            <h5>Appareil</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="col-md-12">
+                            <h5>Interrogatoire</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col-md-12">
+                            <h5>Examen Clinique</h5>
+                        </div>
+                    </div>                    
+                </div>
+               <div class="row-2">
+                    <div class="col-md-12">
+                        <div class="col-md-3"><p class="title-champ">Peau et Muqueuses</p></div>
+                        <div class="col-md-5">
+                            <mat-form-field>
+                                <textarea matInput placeholder="Ajouter Examen Clinique"></textarea>
+                            </mat-form-field>    
+                        </div>                        
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-3"><p class="title-champ">Ophtalmo</p></div>
+                        <div class="col-md-5">
+                            <div class="col-md-3 mat-checkbox"><mat-checkbox>Larmoiement</mat-checkbox></div>
+                            <div class="col-md-3 mat-checkbox"><mat-checkbox>Oeil rouge</mat-checkbox></div>
+                            <div class="col-md-3 mat-checkbox"><mat-checkbox>Fatigue</mat-checkbox></div>
+                            <div class="col-md-3 mat-checkbox"><mat-checkbox>Douleur</mat-checkbox></div>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <textarea matInput placeholder="Ajouter Examen Clinique"></textarea>
+                            </mat-form-field>    
+                        </div>                        
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-3"><p class="title-champ">ORL</p></div>
+                        <div class="col-md-5">
+                            <div class="col-md-4 mat-checkbox"><mat-checkbox>Sifflement</mat-checkbox></div>
+                            <div class="col-md-4 mat-checkbox"><mat-checkbox>Eternument</mat-checkbox></div>
+                            <div class="col-md-4 mat-checkbox"><mat-checkbox>Epistaxis</mat-checkbox></div>
+                            <div class="col-md-4 mat-checkbox"><mat-checkbox>Otorrhées</mat-checkbox></div>
+                            <div class="col-md-4 mat-checkbox"><mat-checkbox>Entend mal</mat-checkbox></div>
+                            <div class="col-md-4 mat-checkbox"><mat-checkbox>Angines</mat-checkbox></div>                            
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <textarea matInput placeholder="Ajouter Examen Clinique"></textarea>
+                            </mat-form-field>    
+                        </div>                        
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-3"><p class="title-champ">Locomoteur</p></div>
+                        <div class="col-md-5">
+                            <div class="col-md-12">
+                                <div class="col-md-4"><p class="title-champ">Douleur</p></div> 
+                                <div class="col-md-8">
+                                    <div class="col-md-12">
+                                        <div class="col-md-6 mat-checkbox"><mat-checkbox>Musculaire</mat-checkbox></div>
+                                        <div class="col-md-6 mat-checkbox"><mat-checkbox>Articulaire</mat-checkbox></div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-6 mat-checkbox"><mat-checkbox>Vertébrale</mat-checkbox></div>
+                                        <div class="col-md-6 mat-checkbox"><mat-checkbox>Névralgique</mat-checkbox></div>
+                                    </div>
+                                </div>                                                       
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <mat-form-field>
+                                        <textarea matInput placeholder="Fatigabilité"></textarea>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field>
+                                        <textarea matInput placeholder="Gene des mouvements"></textarea>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <mat-form-field>
+                                    <textarea matInput placeholder="Autres"></textarea>
+                                </mat-form-field>
+                            </div>                                    
+                               
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <textarea matInput placeholder="Ajouter Examen Clinique"></textarea>
+                            </mat-form-field>    
+                        </div>                        
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-3"><p class="title-champ">Respiratoire</p></div>
+                        <div class="col-md-5">
+                            <div class="col-md-5">
+                                <div class="col-md-12 mat-checkbox"><mat-checkbox>Toux</mat-checkbox></div>                                        
+                                <div class="col-md-12 mat-checkbox"><mat-checkbox>Dysp_noctrune</mat-checkbox></div>                                        
+                                <div class="col-md-12 mat-checkbox"><mat-checkbox>Dysp_diurne</mat-checkbox></div>
+                            </div>
+                            <div class="col-md-7">
+                                <mat-form-field>
+                                    <textarea matInput placeholder="Symp_durables"></textarea>
+                                </mat-form-field>    
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <textarea matInput placeholder="Ajouter Examen Clinique"></textarea>
+                            </mat-form-field>    
+                        </div>                        
+                    </div> 
+                    <div class="col-md-12">
+                        <div class="col-md-3"><p class="title-champ">Cardio Vasculaire</p></div>
+                        <div class="col-md-5">
+                            <div class="col-md-6">
+                                <div class="col-md-12 mat-checkbox"><mat-checkbox>Palpitations</mat-checkbox></div>
+                                <div class="col-md-12 mat-checkbox"><mat-checkbox>Oedèmes</mat-checkbox></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-md-12 mat-checkbox"><mat-checkbox>Douleurs à la marche</mat-checkbox></div>
+                                <div class="col-md-12 mat-checkbox"><mat-checkbox>Douleur thoracique</mat-checkbox></div>
+                                <div class="col-md-12 mat-checkbox"><mat-checkbox>Dyspn_effort</mat-checkbox></div>
+                                <div class="col-md-12 mat-checkbox"><mat-checkbox>Dyspn_permanente</mat-checkbox></div>
+                            </div>
+                            <div class="col-md-12">
+                                <mat-form-field>
+                                    <textarea matInput placeholder="Autres"></textarea>
+                                </mat-form-field>    
+                            </div> 
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <textarea matInput placeholder="Ajouter Examen Clinique : Pouls"></textarea>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <textarea matInput placeholder="Ajouter Examen Clinique : TA"></textarea>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <textarea matInput placeholder="Ajouter Examen Clinique : Varices"></textarea>
+                            </mat-form-field> 
+                            <mat-form-field>
+                                <textarea matInput placeholder="Ajouter Examen Clinique : Cyanose"></textarea>
+                            </mat-form-field>   
+                        </div>                        
+                    </div>
+                    <div class="col-md-12">
+                            <div class="col-md-3"><p class="title-champ">Digestif</p></div>
+                            <div class="col-md-5">
+                                <div class="col-md-6">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Appettit">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input matInput placeholder="Transit">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input matInput placeholder="Selles">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input matInput placeholder="Douleurs">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input matInput placeholder="Rectorragies">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <textarea matInput placeholder="Autres"></textarea>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-12 mat-checkbox"><mat-checkbox>Alcool</mat-checkbox></div>
+                                    <div class="col-md-12 mat-checkbox"><mat-checkbox>Vomissement</mat-checkbox></div>
+                                    <div class="col-md-12 mat-checkbox"><mat-checkbox>Irritants</mat-checkbox></div>
+                                    <div class="col-md-12 mat-checkbox"><mat-checkbox>Pyrosis</mat-checkbox></div>
+                                </div>                                       
+                            </div>
+                            <div class="col-md-4">
+                                    <mat-form-field>
+                                        <textarea matInput placeholder="Ajouter Examen Clinique : Denture"></textarea>
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <textarea matInput placeholder="Ajouter Examen Clinique : Hernie"></textarea>
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <textarea matInput placeholder="Ajouter Examen Clinique : Foie"></textarea>
+                                    </mat-form-field>   
+                            </div>
+                        
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-3"><p class="title-champ">Genito Unitaire</p></div>
+                        <div class="col-md-5">
+                            <div class="col-md-4 mat-checkbox"><mat-checkbox>Miction_nocturne</mat-checkbox></div>
+                            <div class="col-md-4 mat-checkbox"><mat-checkbox>Brulure mictionelles</mat-checkbox></div>
+                            <div class="col-md-4 mat-checkbox"><mat-checkbox>Pollakiurie</mat-checkbox></div>
+                            <div class="col-md-4 mat-checkbox"><mat-checkbox>Colique nephretique</mat-checkbox></div>
+                            <div class="col-md-4 mat-checkbox"><mat-checkbox>Hematurie</mat-checkbox></div>
+                            <div class="col-md-4 mat-checkbox"><mat-checkbox>Dysurie</mat-checkbox></div> 
+                            <div class="col-md-12">
+                                <mat-form-field>
+                                    <textarea matInput placeholder="Menstruatinos"></textarea>
+                                </mat-form-field>
+                            </div> 
+                            <div class="col-md-12">
+                                <mat-form-field>
+                                    <textarea matInput placeholder="Pertes"></textarea>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-12">
+                                <mat-form-field>
+                                    <textarea matInput placeholder="Autres"></textarea>
+                                </mat-form-field>
+                            </div>                          
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <textarea matInput placeholder="Ajouter Examen Clinique: Bourses"></textarea>
+                            </mat-form-field>    
+                            <mat-form-field>
+                                <textarea matInput placeholder="Ajouter Examen Clinique: Seins"></textarea>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <textarea matInput placeholder="Ajouter Examen Clinique: TR"></textarea>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <textarea matInput placeholder="Ajouter Examen Clinique: TV "></textarea>
+                            </mat-form-field>
+                        </div>                        
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-3"><p class="title-champ">Neuro Psychisme</p></div>
+                        <div class="col-md-5">
+                            <div class="col-md-12">
+                                <mat-form-field>
+                                    <input matInput placeholder="Sommeil">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-12">
+                                <mat-form-field>
+                                    <input matInput placeholder="Céphalées">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-12">
+                                <mat-form-field>
+                                    <input matInput placeholder="Vertiges">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-12">
+                                <mat-form-field>
+                                    <input matInput placeholder="Perte de connaissance">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-12">
+                                <mat-form-field>
+                                    <textarea matInput placeholder="Ajouter Examen Clinique : Tremblement"></textarea>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <textarea matInput placeholder="Ajouter Examen Clinique : Romberg"></textarea>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <textarea matInput placeholder="Ajouter Examen Clinique : Coordination"></textarea>
+                                </mat-form-field> 
+                                <mat-form-field>
+                                    <textarea matInput placeholder="Ajouter Examen Clinique : Sensibilité"></textarea>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <textarea matInput placeholder="Ajouter Examen Clinique : Motricité"></textarea>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-12"><p class="title-champ">Reflexes</p></div> 
+                            <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <p class="title-champ">D</p>
+                                </div>
+                                <mat-form-field>
+                                    <input matInput placeholder="Rotuliens">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <input matInput placeholder="Rotuliens">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <input matInput placeholder="Oculaires">
+                                </mat-form-field>
+                            </div> 
+                            <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <p class="title-champ">G</p>
+                                </div>
+                                <mat-form-field>
+                                    <input matInput placeholder="Rotuliens">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <input matInput placeholder="Rotuliens">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <input matInput placeholder="Oculaires">
+                                </mat-form-field>
+                            </div>                        
+                        </div>                        
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-3"><p class="title-champ">Hemato et G. G.</p></div>
+                        <div class="col-md-5">
+                            <div class="col-md-6">
+                                <div class="mat-checkbox"><mat-checkbox>Larmoiement</mat-checkbox></div>
+                                <div class="mat-checkbox"><mat-checkbox>Oeil rouge</mat-checkbox></div>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field>
+                                    <input  matInput placeholder="Rate">
+                                </mat-form-field>    
+                                <mat-form-field>                                        
+                                    <input  matInput placeholder="Pétéchies">
+                                </mat-form-field> 
+                                <mat-form-field>                                                                                
+                                    <input  matInput placeholder="Purpura">                                    
+                                </mat-form-field>    
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <textarea matInput placeholder="Ajouter Examen Clinique : Cervicaux"></textarea>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <textarea matInput placeholder="Ajouter Examen Clinique : Sus-claviculaires"></textarea>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <textarea matInput placeholder="Ajouter Examen Clinique : Axillaires"></textarea>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <textarea matInput placeholder="Ajouter Examen Clinique : Inguinaux"></textarea>
+                            </mat-form-field>    
+                        </div>                        
+                    </div> 
+                    <div class="col-md-12">
+                        <div class="col-md-3"><p class="title-champ">Endocrino</p></div>
+                        <div class="col-md-5">
+                            <mat-form-field>
+                                <mat-select placeholder="ENDOCRINO">
+                                    <mat-option value="##">ENDOCRINO 01</mat-option>
+                                    <mat-option value="##">ENDOCRINO 02</mat-option>  
+                                    <mat-option value="##">ENDOCRINO 03</mat-option>                    
+                                    <mat-option value="##">ENDOCRINO 04</mat-option>                    
+                                    <mat-option value="##">ENDOCRINO 05</mat-option>                                                        
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <textarea matInput placeholder="Ajouter Examen Clinique : Thyroide"></textarea>
+                            </mat-form-field>    
+                        </div>                        
+                    </div>
+                </div> 
+                <div class="pull-right btn-step">
+                    <button mat-button mat-raised-button matStepperPrevious class="btn-stepper-precedent">                   
+                        <mat-icon>keyboard_arrow_left</mat-icon>                    
+                    </button>
+                    <button mat-button mat-raised-button matStepperNext class="btn-stepper-suivant">
+                        <mat-icon>keyboard_arrow_right</mat-icon>
+                    </button>
+                </div>
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="thirdFormGroup">
+                <form [formGroup]="thirdFormGroup" class="div-step-3">                            
+                <ng-template matStepLabel>Troisième étape </ng-template>
+                <!-- contenu d'étape -->
+                <div class="row-1 col-md-12">
+                    <h4 class="row-title">Exploration Fonctionnelles</h4>
+                    <div class="col-md-4">
+                        <mat-form-field>
+                            <textarea  class="textArea" matInput placeholder="Fonction respiratoire"></textarea>
+                        </mat-form-field>    
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field>
+                            <textarea  class="textArea" matInput placeholder="Fonction circulatoire"></textarea>
+                        </mat-form-field>    
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field>
+                            <textarea  class="textArea" matInput placeholder="Fonction motrice"></textarea>
+                        </mat-form-field>    
+                    </div>
+                </div>
+                <div class="row-2 col-md-12">
+                    <h4 class="row-title">Examens Complémentaires</h4>
+                    <div class="col-md-12">
+                        <div class="col-md-5">
+                            <mat-form-field>
+                                <input matInput placeholder="Radiologique">
+                            </mat-form-field>    
+                        </div>
+                        <div class="col-md-7">
+                            <mat-form-field>
+                                <textarea matInput placeholder="Ajouter"></textarea>
+                            </mat-form-field>    
+                        </div>
+                    </div>
+                    <div class="col-md-12">                            
+                        <div class="col-md-5">
+                            <mat-form-field>
+                                <input matInput placeholder="Biologiques">
+                            </mat-form-field>    
+                        </div>
+                        <div class="col-md-7">
+                            <mat-form-field>
+                                <textarea matInput placeholder="Ajouter"></textarea>
+                            </mat-form-field>    
+                        </div>
+                    </div>
+                    <div class="col-md-12">                            
+                        <div class="col-md-5">
+                            <mat-form-field>
+                                <input matInput placeholder="Toxicologiques">
+                            </mat-form-field>    
+                        </div>
+                        <div class="col-md-7">
+                            <mat-form-field>
+                                <textarea matInput placeholder="Ajouter"></textarea>
+                            </mat-form-field>    
+                        </div>
+                    </div>
+                </div>
+                <div class="row-3 col-md-12">
+                    <h4 class="row-title">Orientation</h4>                        
+                    <div class="col-md-4">
+                        <mat-form-field>
+                            <mat-select placeholder="Orientation_Spec">
+                                <mat-option value="##">Orientation_Spec 01</mat-option>
+                                <mat-option value="##">Orientation_Spec 02</mat-option>  
+                                <mat-option value="##">Orientation_Spec 03</mat-option>                    
+                                <mat-option value="##">Orientation_Spec 04</mat-option>                    
+                                <mat-option value="##">Orientation_Spec 05</mat-option>                                                        
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-select placeholder="Orientation_Service">
+                                <mat-option value="##">Orientation_Service 01</mat-option>
+                                <mat-option value="##">Orientation_Service 02</mat-option>  
+                                <mat-option value="##">Orientation_Service 03</mat-option>                    
+                                <mat-option value="##">Orientation_Service 04</mat-option>                    
+                                <mat-option value="##">Orientation_Service 05</mat-option>                                                        
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-select placeholder="Orientation pour">
+                                <mat-option value="##">01</mat-option>
+                                <mat-option value="##">02</mat-option>  
+                                <mat-option value="##">03</mat-option>                    
+                                <mat-option value="##">04</mat-option>                    
+                                <mat-option value="##">05</mat-option>                                                        
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-8">
+                        <mat-form-field>
+                            <textarea  class="textArea" matInput placeholder="Réponse"></textarea>
+                        </mat-form-field>    
+                    </div>
+                </div>
+                <div class="row-4 col-md-12">
+                    <h4 class="row-title">Aptitude au travail</h4>                        
+                    <div class="col-md-4">
+                        <mat-form-field>
+                            <mat-select placeholder="Aptitude au Travail">
+                                <mat-option value="##">Apt</mat-option>
+                                <mat-option value="##">Inapte temporaire</mat-option>  
+                                <mat-option value="##">Inapte définitif</mat-option>                    
+                                <mat-option value="##">Apte avec réserves</mat-option>                    
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field>
+                            <textarea  class="textArea" matInput placeholder="Postes Conseillés"></textarea>
+                        </mat-form-field>    
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field>
+                            <textarea  class="textArea" matInput placeholder="Postes Déconseillés"></textarea>
+                        </mat-form-field>    
+                    </div>
+                </div>
+                <div class="pull-right btn-step">
+                <button mat-button mat-raised-button  matStepperPrevious class="btn-stepper-precedent">                    
+                    <mat-icon>keyboard_arrow_left</mat-icon>                    
+                </button>
+                <button mat-button mat-raised-button class="btn-stepper-enregistrer">
+                    Enregistrer
+                    <mat-icon>save_alt</mat-icon>                    
+                </button>                
+                <button mat-button mat-raised-button class="btn-stepper-reset" (click)="stepper.reset()">
+                    Réinitialiser
+                    <mat-icon>autorenew</mat-icon>
+                </button>
+                </div>
+                </form>
+            </mat-step>
+        </mat-horizontal-stepper>
     </div>
 </div>
-          

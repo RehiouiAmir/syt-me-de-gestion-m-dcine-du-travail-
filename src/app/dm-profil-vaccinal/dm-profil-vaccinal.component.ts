@@ -116,13 +116,13 @@ export class DmProfilVaccinalComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined){
-        // console.log(result)
-        // //change in backend
-        // this.employeService.updateExamen(result.id,result).subscribe(data => {
-        //   this.dataSource.data[this.dataSource.data.indexOf(object)] = result
-        //   this.dataSource._updateChangeSubscription()   
-        // },
-        // error => console.log(error)); 
+        console.log(result)
+        //change in backend
+        this.employeService.updateExamen(result.id,result).subscribe(data => {
+          this.dataSource.data[this.dataSource.data.indexOf(object)] = result
+          this.dataSource._updateChangeSubscription()   
+        },
+        error => console.log(error)); 
       }
     });
   }
@@ -168,11 +168,20 @@ export class DmProfilVaccinalComponent implements OnInit {
         },
         error => console.log(error)  
       );
+
+      if(this.data.edit === (true)){
+        this.addForm = this.formBuilder.group({
+          nombreInjection: ['',Validators.required],
+          duree: ['',Validators.required],
+          vaccinn: ['',Validators.required]
+        });
+      }else{
       this.addForm = this.formBuilder.group({
         nombreInjection: ['',Validators.required],
         duree: ['',Validators.required],
         vaccinn: ['',Validators.required]
       });
+      } 
     }
   
     InitialiserVaccin(value){
