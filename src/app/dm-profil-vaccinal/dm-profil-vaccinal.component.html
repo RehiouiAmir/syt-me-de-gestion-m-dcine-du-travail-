@@ -1,7 +1,7 @@
 <div class="contenu-component">  
         <div class="row-0">
             <div class="col-md-6 pull-right row-0-btn">
-                <button mat-button mat-raised-button class="pull-right btn-ajouter" (click)="add()">
+                <button mat-button mat-raised-button class="pull-right btn-ajouter" (click)="add(''+false)">
                     Ajouter calendrier vaccinal
                     <mat-icon>add</mat-icon>                                  
                 </button> 
@@ -49,7 +49,7 @@
                     <!-- duree Column -->
                     <ng-container matColumnDef="duree">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Durée </th>
-                        <td mat-cell *matCellDef="let row">{{row.duree}}</td>
+                        <td mat-cell *matCellDef="let row">{{row.duree}} Jours</td>
                     </ng-container>
 
                     <!-- etat Column -->
@@ -63,18 +63,12 @@
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Médecin </th>
                         <td mat-cell *matCellDef="let row"></td>
                     </ng-container>
-
-                    <!-- Infirmier  Column -->
-                    <ng-container matColumnDef="infirmier">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Infirmier </th>
-                        <td mat-cell *matCellDef="let row"></td>
-                    </ng-container>
                 
                     <!-- Action edit Column -->
                     <ng-container matColumnDef="Action-edit">
                         <th mat-header-cell *matHeaderCellDef ></th>
                         <td mat-cell *matCellDef="let row" class="td-btn-edit">
-                            <button mat-icon-button (click)="addInjection(''+row.id)">
+                            <button mat-icon-button (click)="update(''+true,row)">
                                 <mat-icon>edit</mat-icon>
                             </button>
                         </td>
@@ -94,7 +88,7 @@
                     <ng-container matColumnDef="Action-delete">
                         <th mat-header-cell *matHeaderCellDef ></th>
                         <td mat-cell *matCellDef="let row" class="td-btn-delete">
-                            <button mat-icon-button (click)="openDialogDelete(''+row.idConsultation)">
+                            <button mat-icon-button (click)="delete(row)">
                                 <mat-icon>delete</mat-icon>
                             </button>
                         </td>

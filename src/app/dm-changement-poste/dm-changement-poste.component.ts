@@ -143,9 +143,24 @@ export class DmChangementPosteComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         if (result !== undefined){
           //change in backend
-          this.employeService.updateChangementPoste(this.id_employe,result.id_posteTravail.id,result).subscribe(data => {
-            this.dataSource.data[this.dataSource.data.indexOf(object)] = result
-            this.dataSource._updateChangeSubscription()   
+          this.employeService.updateChangementPoste(result.id,result).subscribe(data => {
+            this.employeService.getEmployeById(this.id_employe).subscribe(
+              data => {
+                this.posteHistorique = data.employe_posteTravails;
+                console.log(this.posteHistorique);
+                this.dataSource = new MatTableDataSource<any>(this.posteHistorique);
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+                this.employeInfos = data;
+                for(var i in this.employeInfos.employe_posteTravails){
+                  if (this.employeInfos.employe_posteTravails[i].actuel === true){
+                    this.posteActuel = this.employeInfos.employe_posteTravails[i];
+                    console.log(this.posteActuel)
+                  }
+                }
+              },
+              error => console.log(error)  
+            );   
           },
           error => console.log(error)); 
         }

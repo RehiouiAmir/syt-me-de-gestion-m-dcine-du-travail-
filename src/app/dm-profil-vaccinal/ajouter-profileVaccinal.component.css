@@ -100,6 +100,35 @@ color: white;
     color: #F33155;
 }
 
+.btn-edit{
+    background-color: #41B3F9;   
+    color: white; 
+}
+
+p.title-champ-1{
+    font-size: 13px;
+    font-weight: bold;
+    color: #54667A;
+    margin-top: 11px;
+}
+p.title-champ-2{
+    font-size: 13px;
+    font-weight: bold;
+    color: #54667A;
+}
+
+p.title-champ{
+    font-size: 13px;
+    font-weight: bold;
+    color: #54667A;
+    margin-left: 10px;
+}
+
+p span.champ{
+    font-weight: normal;
+    margin-left: 10px;
+}
+
 .mat-dialog-actions button.btn-ajouter,
 .mat-dialog-actions button.btn-annuler{
     color: white; 

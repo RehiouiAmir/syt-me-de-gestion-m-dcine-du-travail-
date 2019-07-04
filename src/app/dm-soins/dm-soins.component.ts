@@ -194,7 +194,8 @@ export class AjouterSoinsComponent implements OnInit {
       if(this.data.object.date != null){date = new FormControl(new Date(this.data.object.date));}
       else{date = this.dateAujourdhuit}  
       this.addForm = this.formBuilder.group({
-        idActe: [this.data.object.acte.id,Validators.required],
+        id : [this.data.object.id],
+        acte: [this.data.object.acte,Validators.required],
         observation: [this.data.object.observation], 
         etat:[this.data.object.etat],
         date: [''],      

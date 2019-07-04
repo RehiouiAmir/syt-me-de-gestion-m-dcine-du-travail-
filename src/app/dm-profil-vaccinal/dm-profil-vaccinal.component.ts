@@ -23,7 +23,7 @@ export class DmProfilVaccinalComponent implements OnInit {
   
     /* Table Structure */
     
-    displayedColumns: string[] = ['designation','serum','nombreInjection','duree','etat','medecin','infirmier','Action-details','Action-edit','Action-delete'];
+    displayedColumns: string[] = ['designation','serum','nombreInjection','duree','etat','medecin','Action-details','Action-edit','Action-delete'];
     dataSource : MatTableDataSource<any>;
   
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -81,10 +81,10 @@ export class DmProfilVaccinalComponent implements OnInit {
   
    // Operation Add, Edit, Delet
      
-   add() {
+   add(edit) {
     let dialogRef = this.dialog.open(AjouterProfileVaccinalComponent, {
-      width: '70%',
-      data: {}
+      width: '60%',
+      data: {edit:edit}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined){
@@ -106,6 +106,36 @@ export class DmProfilVaccinalComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe();
    }
+
+   update(edit: any,object) {  
+    let dialogRef = this.dialog.open(AjouterProfileVaccinalComponent, {
+      width: '60%',
+      data: {
+        edit : edit, object : object,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined){
+        // console.log(result)
+        // //change in backend
+        // this.employeService.updateExamen(result.id,result).subscribe(data => {
+        //   this.dataSource.data[this.dataSource.data.indexOf(object)] = result
+        //   this.dataSource._updateChangeSubscription()   
+        // },
+        // error => console.log(error)); 
+      }
+    });
+  }
+  delete(object){
+    //delete from backend
+    this.employeService.deleteCalendrierVaccinal(object.id).subscribe(data => {
+      console.log(data)
+      this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
+      this.dataSource._updateChangeSubscription()  
+
+    },
+    error => console.log(error));
+  }
   
   }
   
@@ -122,6 +152,7 @@ export class DmProfilVaccinalComponent implements OnInit {
     dateAujourdhuit = new FormControl(new Date()); 
   
     vaccins :any [];
+    vaccinSelected : any = null;
   
     constructor(public dialogRef: MatDialogRef<AjouterProfileVaccinalComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any, 
@@ -144,6 +175,15 @@ export class DmProfilVaccinalComponent implements OnInit {
       });
     }
   
+    InitialiserVaccin(value){
+      this.employeService.getVaccinById(value).subscribe(
+        data => {
+            this.vaccinSelected = data;
+            console.log(this.vaccinSelected)             
+          },
+          error => console.log(error)  
+      );
+    }
     // close dialog  ajouter-arret-travail
     onNoClick(): void {
       this.dialogRef.close();
@@ -238,6 +278,17 @@ export class AjouterInjectionVaccinalComponent implements OnInit {
       }
     });
    }
+
+   delete(object){
+    //delete from backend
+    this.employeService.deleteInjection(object.id).subscribe(data => {
+      console.log(data)
+      this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
+      this.dataSource._updateChangeSubscription()  
+
+    },
+    error => console.log(error));
+  }
 
 }
 
