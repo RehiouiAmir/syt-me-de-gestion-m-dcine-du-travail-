@@ -125,7 +125,7 @@ export class EmployeService {
     }
 
     creatActeSoins(id_consultation,id_acte,soin) {
-      return this.http.put(`${environment.baseUrl}/consultations/`+id_consultation+`/actes/`+id_acte, soin);
+      return this.http.post(`${environment.baseUrl}/consultations/`+id_consultation+`/actes/`+id_acte, soin);
     }
 
     creatExamenComplementaire(id_consultation,examenComplementaire) {
@@ -241,6 +241,20 @@ export class EmployeService {
   creatSoinsInfirmier(id_employe,id_acte,soinsInfirmier){
     return this.http.put(`${environment.baseUrl}/employes/`+id_employe+`/actes/`+id_acte, soinsInfirmier);
   }
+
+  deleteSoins(id_soins) {
+    return this.http.delete(`${environment.baseUrl}/soins/`+id_soins);
+  }
+
+  deleteSoinsInfirmier(id_soinsInfirmier) {
+    return this.http.delete(`${environment.baseUrl}/soinsInfirmiers/`+id_soinsInfirmier);
+  }
+
+  updateSoins(id_soins,soins){
+      return this.http.put(`${environment.baseUrl}/soins/`+id_soins, soins);
+  }
+
+
 
   // Service vaccination
 

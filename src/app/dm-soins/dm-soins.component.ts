@@ -72,8 +72,8 @@ export class DmSoinsComponent implements OnInit {
       data => {
         console.log(data)
         this.dataSourceDemande = new MatTableDataSource<any>(data);
-        this.dataSourceDemande.paginator = this.paginator;
-        this.dataSourceDemande.sort = this.sort; 
+        this.dataSourceDemande.paginator = this.paginatorDemande;
+        this.dataSourceDemande.sort = this.sortDemande; 
       },
       error => console.log(error)  
     );
@@ -117,6 +117,48 @@ export class DmSoinsComponent implements OnInit {
 });
  }
 
+ update(edit: any,object) {  
+  let dialogRef = this.dialog.open(AjouterSoinsComponent, {
+    width: '70%',
+    data: {
+      id_employe : this.id_employe,
+      edit : edit, object : object,
+    }
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    if (result !== undefined){
+      console.log(result)
+      //change in backend
+      this.employeService.updateSoins(result.id,result).subscribe(data => {
+        this.dataSource.data[this.dataSource.data.indexOf(object)] = result
+        this.dataSource._updateChangeSubscription()   
+      },
+      error => console.log(error)); 
+    }
+  });
+}
+
+ delete(object) { 
+  //delete from backend
+    this.employeService.deleteSoins(object.id).subscribe(data => {
+      console.log(data)
+      this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
+      this.dataSource._updateChangeSubscription()  
+
+    },
+    error => console.log(error));
+}
+
+delelteInfirmier(object) { 
+  //delete from backend
+    this.employeService.deleteSoinsInfirmier(object.id).subscribe(data => {
+      console.log(data)
+      this.dataSourceDemande.data.splice(this.dataSourceDemande.data.indexOf(object),1)
+      this.dataSourceDemande._updateChangeSubscription()  
+
+    },
+    error => console.log(error));
+}
 }
 
 // AjouterSoins
@@ -147,12 +189,24 @@ export class AjouterSoinsComponent implements OnInit {
       },
       error => console.log(error)  
     );
-    this.addForm = this.formBuilder.group({
-      idActe: ['',Validators.required],
-      observation: [''], 
-      etat:[false],
-      date: [''],      
-    });
+    if(this.data.edit === 'true'){
+      var date : any =  new FormControl();
+      if(this.data.object.date != null){date = new FormControl(new Date(this.data.object.date));}
+      else{date = this.dateAujourdhuit}  
+      this.addForm = this.formBuilder.group({
+        idActe: [this.data.object.acte.id,Validators.required],
+        observation: [this.data.object.observation], 
+        etat:[this.data.object.etat],
+        date: [''],      
+      });
+    }else{
+      this.addForm = this.formBuilder.group({
+        idActe: ['',Validators.required],
+        observation: [''], 
+        etat:[false],
+        date: [''],      
+      });
+    }
   }
 
   // close dialog  ajouter-arret-travail
@@ -170,7 +224,7 @@ export class AjouterSoinsComponent implements OnInit {
 
 }
 
-// AjouterSoins
+// AjouterSoins Infirmier
 
 @Component({
   selector: 'app-ajouter-soins-infirmier',
