@@ -23,9 +23,11 @@
             Paramètres du compte
           </a>
           <a ngbDropdownItem class="list-group-item" routerLink="">
-            <span class="fas fa-sign-out-alt">
-              <button class="" (click)="signOut()">Déconnexion</button>  
-            </span>
+              <!-- <button class="" (click)="signOut()">Déconnexion</button>  -->
+              <a (click)="signOut()" ngbDropdownItem class="list-group-item">
+                <span class="fas fa-sign-out-alt"></span>                                        
+                Déconnexion
+              </a> 
           </a>
         </ul>
         <p class="user_name">Médecin du travail</p>
@@ -128,7 +130,7 @@
               <span class="fas fa-cog"></span>                                                      
               Paramètres du compte 
             </a>
-            <a ngbDropdownItem class="list-group-item" routerLink="">
+            <a  (click)="signOut()"  ngbDropdownItem class="list-group-item" routerLink="">
               <span class="fas fa-sign-out-alt"></span>                                        
               Déconnexion
             </a>

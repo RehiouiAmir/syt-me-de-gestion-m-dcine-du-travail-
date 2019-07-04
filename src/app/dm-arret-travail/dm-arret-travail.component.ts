@@ -190,7 +190,8 @@ export class AjouterArretTravailComponent implements OnInit {
     if (this.data.edit === 'true'){
       var dateDebut = new FormControl(new Date(this.data.object.dateDebut));  
       var dateFin : any =  new FormControl();
-      if(this.data.object.dateFin != null){dateFin = new FormControl(new Date(this.data.object.dateFin));}             
+      if(this.data.object.dateFin != null){dateFin = new FormControl(new Date(this.data.object.dateFin));}      
+      else{dateFin = this.dateAujourdhuit}         
       this.addForm = this.formBuilder.group({
         id: [this.data.object.id],
         motif:  [this.data.object.motif, Validators.required],
