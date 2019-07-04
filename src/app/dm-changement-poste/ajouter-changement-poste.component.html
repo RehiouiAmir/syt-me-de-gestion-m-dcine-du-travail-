@@ -61,7 +61,7 @@
         <div class="col-md-12 row" *ngIf="data.edit === 'false'">
             <h4 class="title-row">Risques professionnels</h4>
             <div class="col-md-6">
-                <p class="title-champ-1">Liste des risques professionnelles liés aux poste occupés :</p>                    
+                <p class="title-champ-1">Risques professionnels liés au poste sélectionné :</p>                    
                 <mat-list role="list">
                     <mat-list-item role="listitem" *ngFor="let risque of risquesPostes">
                         <p class="title-champ">Type :<span class="champ">{{risque.typeRisque.designation}}</span></p>
