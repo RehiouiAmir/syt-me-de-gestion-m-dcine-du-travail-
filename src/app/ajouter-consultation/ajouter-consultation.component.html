@@ -125,7 +125,7 @@
                         </tr>
                     </table>
                     <p class="title-champ">Observation médicale:<span class="champ"> {{consultation.ordonnance.observation}}</span></p>
-                    <button mat-mini-fab class="pull-right btn-pdf"><mat-icon>picture_as_pdf</mat-icon></button>              
+                    <button mat-mini-fab class="pull-right btn-pdf" (click)="genererOrdonnance()"><mat-icon>picture_as_pdf</mat-icon></button>              
                     <button mat-mini-fab class="pull-right btn-delete" (click)="deleteOrdonnance(consultation.ordonnance)"><mat-icon>delete</mat-icon></button>  
                 </ng-container>
               </ng-container>

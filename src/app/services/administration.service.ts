@@ -127,4 +127,12 @@ export class AdministrationService {
       return this.http.get<any>(`${environment.baseUrl}/roles`);      
     }
 
+    getUserByUsername(username: string){
+      return this.http.get<any>(`${environment.baseUrl}/utilisateurs/`+username);            
+    }
+
+    getEmployeByUserId(id: number){
+      return this.http.get<any>(`${environment.baseUrl}/utilisateurs/`+id+'/employe');            
+    }
+
 }
