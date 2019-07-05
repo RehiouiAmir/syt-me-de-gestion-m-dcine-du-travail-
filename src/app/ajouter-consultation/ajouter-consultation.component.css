@@ -134,6 +134,7 @@ font-weight: bold;
 
 .row-btn button.btn-cancel{
   color: white;
+  margin-left: 10px;       
   background-color: #F33155;
 }
 

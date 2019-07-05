@@ -115,8 +115,15 @@ updateExamen(edit: any,object) {
       console.log(result)
       //change in backend
       this.employeService.updateExamen(result.id,result).subscribe(data => {
-        this.dataSource.data[this.dataSource.data.indexOf(object)] = result
-        this.dataSource._updateChangeSubscription()   
+        this.employeService.getAllExamenComplementaires(this.id_employe).subscribe(
+          data => {
+            console.log(data)
+            this.dataSource = new MatTableDataSource<any>(data);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort; 
+          },
+          error => console.log(error)  
+        );
       },
       error => console.log(error)); 
     }
@@ -135,8 +142,15 @@ updateOrientation(edit: any,object) {
       console.log(result)
       //change in backend
       this.employeService.updateOrientation(result.id,result).subscribe(data => {
-        this.dataSourceOrientation.data[this.dataSourceOrientation.data.indexOf(object)] = result
-        this.dataSourceOrientation._updateChangeSubscription()   
+        this.employeService.getAllOrientationMedicales(this.id_employe).subscribe(
+          data => {
+            console.log(data)
+            this.dataSourceOrientation = new MatTableDataSource<any>(data);
+            this.dataSourceOrientation.paginator = this.paginatorOrientation;
+            this.dataSourceOrientation.sort = this.sortOrientation; 
+          },
+          error => console.log(error)  
+        ); 
       },
       error => console.log(error)); 
     }

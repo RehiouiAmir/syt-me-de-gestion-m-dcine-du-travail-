@@ -123,8 +123,16 @@ export class DmArretTravailComponent implements OnInit {
           console.log(result)
           //change in backend
           this.employeService.updateArretTrvail(this.id_employe,result.id,result).subscribe(data => {
-            this.dataSource.data[this.dataSource.data.indexOf(object)] = result
-            this.dataSource._updateChangeSubscription()   
+            this.employeService.getAllArretTravailsByEmployeId(this.id_employe).subscribe(
+              data => {
+                console.log(data)
+                this.arreTrvails = data;
+                this.dataSource = new MatTableDataSource<any>(this.arreTrvails);
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+              },
+              error => console.log(error)  
+            );  
           },
           error => console.log(error)); 
         }

@@ -1,0 +1,297 @@
+<h4 mat-dialog-title class="mat-dialog-title">Modifier la consultation médicale</h4>
+    <div mat-dialog-content>  
+        <mat-horizontal-stepper [linear]="true" #stepper >
+            <mat-step [stepControl]="firstFormGroup">
+                <form [formGroup]="firstFormGroup" (ngSubmit)="onSubmitFirst()">
+                    <ng-template matStepLabel>Détail de la consultation médicale</ng-template>
+                    <div class="row">
+                        <div class="col-md-4">                                        
+                            <mat-form-field>
+                                <mat-select  matInput placeholder="Type de la consultation" formControlName="type" required>
+                                    <mat-option value="De Soins">Consultation de soins</mat-option>  
+                                    <mat-option value="Spontanée">Consultation spontanée</mat-option>                                                  
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">                                        
+                            <mat-form-field>
+                                <input  matInput placeholder="Nature de la consultation" [value]="data.object.natureConsultation.designation" required disabled>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">                                           
+                            <mat-form-field>
+                                <input matInput [matDatepicker]="pickerDateConsultation" placeholder="Date de la Consultation" 
+                                    formControlName="heureArrivee"  required>
+                                <mat-datepicker-toggle matSuffix [for]="pickerDateConsultation"></mat-datepicker-toggle>
+                                <mat-datepicker #pickerDateConsultation></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">                    
+                            <mat-form-field>
+                                <textarea matInput placeholder="Conclusion médicale" formControlName="conclusionMedicale"></textarea>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">                    
+                            <mat-form-field>
+                                <textarea matInput placeholder="Conclusion professionnelle" formControlName="conclusionProfessionnelle"></textarea>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">                    
+                            <mat-form-field>
+                                <textarea matInput placeholder="Observation" formControlName="observation"></textarea>
+                            </mat-form-field>
+                        </div>
+                        <button mat-button mat-raised-button class=" pull-right btn-annuler" (click)="onNoClick()" >Annuler</button>                                                        
+                        <button mat-button mat-raised-button class="pull-right btn-suivant" matStepperNext>Suivant</button>                                                                                                        
+                        <button class="pull-right btn-edit"  mat-raised-button matStepperNext>Modifier</button>  
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Traitement médical</ng-template>
+                    <div class="col-md-6">
+                        <div class="col-md-12 row-section-TM">
+                            <div class="col-md-12 row-title">
+                                <h4>Ordonnance
+                                    <ng-container *ngIf="consultation">
+                                        <ng-container *ngIf="consultation.ordonnance === null">
+                                            <span class="btn-add">
+                                                <button mat-mini-fab (click)="addOrdonnance()">
+                                                    <mat-icon>add</mat-icon>                        
+                                                </button>
+                                            </span> 
+                                        </ng-container>
+                                    </ng-container>
+                                </h4>
+                            </div>
+                            <ng-container *ngIf="consultation">
+                                <ng-container *ngIf="consultation.ordonnance != null">
+                                    <p class="title-champ">Liste des médicaments:</p>                   
+                                    <table mat-table [dataSource]="dataSourceMedicaments"  class="mat-elevation-z2">
+                        
+                                        <!-- Designation  Column -->
+                                        <ng-container matColumnDef="designation">
+                                            <th mat-header-cell *matHeaderCellDef> Designation </th>
+                                            <td mat-cell *matCellDef="let row"> {{row.medicament.designation}} </td>
+                                        </ng-container> 
+                            
+                                        <!-- Quantité  Column -->
+                                        <ng-container matColumnDef="quantite">
+                                            <th mat-header-cell *matHeaderCellDef> Quantité </th>
+                                            <td mat-cell *matCellDef="let row">{{row.quantite}}</td>
+                                        </ng-container>    
+                                        
+                                        <!-- posologie  Column -->
+                                        <ng-container matColumnDef="posologie">
+                                            <th mat-header-cell *matHeaderCellDef> Posologie  </th>
+                                            <td mat-cell *matCellDef="let row"> {{row.posage}}</td>
+                                        </ng-container>
+                                    
+                                        <!-- Action delete Column -->
+                                        <ng-container matColumnDef="Action-delete">
+                                            <th mat-header-cell *matHeaderCellDef ></th>
+                                            <td mat-cell *matCellDef="let row" class="td-btn-delete">
+                                                <button mat-icon-button (click)="deletePrecription(row)">
+                                                    <mat-icon>delete</mat-icon>
+                                                </button>
+                                            </td>
+                                        </ng-container>
+                                    
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumnsMedicaments"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumnsMedicaments;">
+                                        </tr>
+                                    </table>
+                                    <p class="title-champ">Observation médicale:<span class="champ"> {{consultation.ordonnance.observation}}</span></p>
+                                    <button mat-mini-fab class="pull-right btn-pdf"><mat-icon>picture_as_pdf</mat-icon></button>              
+                                    <button mat-mini-fab class="pull-right btn-delete" (click)="deleteOrdonnance(consultation.ordonnance)"><mat-icon>delete</mat-icon></button>  
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-12 row-section-TM">
+                            <div class="col-md-12 row-title">
+                                <h4>Fiche de soins
+                                <span class="btn-add">
+                                    <button mat-mini-fab (click)="addSoins(''+false)">
+                                        <mat-icon>add</mat-icon>                        
+                                    </button>
+                                </span> 
+                                </h4>
+                            </div>
+                            <ng-container *ngIf="consultation">
+                                <ng-container *ngIf="consultation.soins.length != 0">
+                                    <p class="title-champ">Liste d'actes de soins:</p>                   
+                                    <table mat-table [dataSource]="dataSourceSoins"  class="mat-elevation-z2">
+                        
+                                        <!-- Designation  Column -->
+                                        <ng-container matColumnDef="designation">
+                                            <th mat-header-cell *matHeaderCellDef> Designation </th>
+                                            <td mat-cell *matCellDef="let row"> {{row.acte.designation}} </td>
+                                        </ng-container> 
+                                
+                                        <!-- Etat  Column -->
+                                        <ng-container matColumnDef="etatActe">
+                                            <th mat-header-cell *matHeaderCellDef> Etat d'acte </th>
+                                            <td mat-cell *matCellDef="let row"> {{row.etat ? "Effectué" : "Non effectué"}} </td>
+                                        </ng-container> 
+            
+                                        <!-- date  Column -->
+                                        <ng-container matColumnDef="dateActeSoin">
+                                            <th mat-header-cell *matHeaderCellDef> Date d'acte </th>
+                                            <td mat-cell *matCellDef="let row"> {{row.date | date}} </td>
+                                        </ng-container>
+                                        
+                                        <!-- observation  Column -->
+                                        <ng-container matColumnDef="observation">
+                                            <th mat-header-cell *matHeaderCellDef> Observation </th>
+                                            <td mat-cell *matCellDef="let row"> {{row.observation}} </td>
+                                        </ng-container>
+            
+                                        <!-- Action delete Column -->
+                                        <ng-container matColumnDef="Action-delete">
+                                            <th mat-header-cell *matHeaderCellDef ></th>
+                                            <td mat-cell *matCellDef="let row" class="td-btn-delete">
+                                                <button mat-icon-button (click)="deleteSoins(row)">
+                                                    <mat-icon>delete</mat-icon>
+                                                </button>
+                                            </td>
+                                        </ng-container>
+                                    
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumnsSoins"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumnsSoins;">
+                                        </tr>
+                                    </table>
+                                    <button mat-mini-fab class="pull-right btn-pdf"><mat-icon>picture_as_pdf</mat-icon></button>              
+                                </ng-container> 
+                            </ng-container>
+                        </div>
+                    </div>        
+                    <div class="col-md-6">
+                        <div class="col-md-12 row-section-TM">
+                            <div class="col-md-12 row-title">
+                                <h4>Orientations Médicales
+                                    <span class="btn-add">
+                                        <button mat-mini-fab (click)="addOrientation(''+false)">
+                                            <mat-icon>add</mat-icon>                        
+                                        </button>
+                                    </span>
+                                </h4>
+                            </div>
+                            <ng-container *ngIf="consultation">
+                                    <ng-container *ngIf="consultation.orientationMedicales.length != 0">
+                                        <p class="title-champ">Liste des orientations demandés:<span class="champ"></span></p>               
+                                        <table mat-table [dataSource]="dataSourceOrientations"  class="mat-elevation-z2">
+                                
+                                            <!-- Spécialiste  Column -->
+                                            <ng-container matColumnDef="specialiste">
+                                                <th mat-header-cell *matHeaderCellDef> Spécialiste </th>
+                                                <td mat-cell *matCellDef="let row">{{row.specialite}}</td>
+                                            </ng-container>    
+                                            
+                                            <!-- motif  Column -->
+                                            <ng-container matColumnDef="motifOrientation">
+                                                <th mat-header-cell *matHeaderCellDef> Motif  </th>
+                                                <td mat-cell *matCellDef="let row">{{row.motif}} </td>
+                                            </ng-container>
+                
+                                                
+                                            <!-- Action edit Column -->
+                                            <ng-container matColumnDef="Action-edit">
+                                                <th mat-header-cell *matHeaderCellDef ></th>
+                                                <td mat-cell *matCellDef="let row" class="td-btn-edit">
+                                                    <button mat-icon-button (click)="openDialogDetailsConsultation(''+row.idConsultation)">
+                                                        <mat-icon>edit</mat-icon>
+                                                    </button>
+                                                </td>
+                                            </ng-container>
+                                        
+                                            <!-- Action delete Column -->
+                                            <ng-container matColumnDef="Action-delete">
+                                                <th mat-header-cell *matHeaderCellDef ></th>
+                                                <td mat-cell *matCellDef="let row" class="td-btn-delete">
+                                                    <button mat-icon-button (click)="deleteOrientation(row)">
+                                                        <mat-icon>delete</mat-icon>
+                                                    </button>
+                                                </td>
+                                            </ng-container>
+                
+                                            <!-- Action pdf Column -->
+                                            <ng-container matColumnDef="Action-pdf">
+                                                <th mat-header-cell *matHeaderCellDef ></th>
+                                                <td mat-cell *matCellDef="let row" class="td-btn-pdf">
+                                                    <button mat-icon-button (click)="openDialogDetailsConsultation(''+row.idConsultation)">
+                                                        <mat-icon>picture_as_pdf</mat-icon>
+                                                    </button>
+                                                </td>
+                                            </ng-container>
+                                        
+                                            <tr mat-header-row *matHeaderRowDef="displayedColumnsOrientations"></tr>
+                                            <tr mat-row *matRowDef="let row; columns: displayedColumnsOrientations;">
+                                            </tr>
+                                        </table>
+                                    </ng-container>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-12 row-section-TM">
+                            <div class="col-md-12 row-title">
+                                <h4>Examens complémentaires
+                                    <span class="btn-add">
+                                        <button mat-mini-fab (click)="addExamen(''+false)">
+                                            <mat-icon>add</mat-icon>                        
+                                        </button>
+                                    </span>
+                                </h4>
+                            </div>
+                            <ng-container *ngIf="consultation">
+                                <ng-container *ngIf="consultation.examenComplementaires.length != 0">
+                                    <p class="title-champ">Liste des examens demandés:<span class="champ"></span></p>                             
+                                    <table mat-table [dataSource]="dataSourceExamens"  class="mat-elevation-z2">
+                            
+                                        <!-- Désignation  Column -->
+                                        <ng-container matColumnDef="designation">
+                                            <th mat-header-cell *matHeaderCellDef> Désignation </th>
+                                            <td mat-cell *matCellDef="let row">{{row.designation}}</td>
+                                        </ng-container>   
+                                        
+                                        <!-- Descriptio  Column -->
+                                        <ng-container matColumnDef="description">
+                                            <th mat-header-cell *matHeaderCellDef> Description </th>
+                                            <td mat-cell *matCellDef="let row">{{row.description}}</td>
+                                        </ng-container>
+                
+                                        <!-- Resultat  Column -->
+                                        <ng-container matColumnDef="resultat">
+                                            <th mat-header-cell *matHeaderCellDef> Résultat </th>
+                                            <td mat-cell *matCellDef="let row">{{row.resultat}}</td>
+                                        </ng-container>
+                                    
+                                        <!-- Action delete Column -->
+                                        <ng-container matColumnDef="Action-delete">
+                                            <th mat-header-cell *matHeaderCellDef ></th>
+                                            <td mat-cell *matCellDef="let row" class="td-btn-delete">
+                                                <button mat-icon-button (click)="deleteExamen(row)">
+                                                    <mat-icon>delete</mat-icon>
+                                                </button>
+                                            </td>
+                                        </ng-container>
+                                    
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumnsExamens"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumnsExamens;">
+                                        </tr>
+                                    </table>
+                                    <button mat-mini-fab class="pull-right btn-pdf"><mat-icon>picture_as_pdf</mat-icon></button>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </div>        
+                <div class="col-md-12">
+                <button class="pull-right btn-terminer" mat-raised-button (click)="onNoClick()">Terminer <mat-icon>done_all</mat-icon></button>
+                </div>
+            </mat-step>                               
+        </mat-horizontal-stepper>
+    </div>
+    <div mat-dialog-actions class="pull-right">
+    </div>

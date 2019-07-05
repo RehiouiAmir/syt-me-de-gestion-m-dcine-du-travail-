@@ -25,6 +25,9 @@ export class EmployeService {
     return this.http.post(`${environment.baseUrl}/employe`, employe);
   }
 
+  updateEmploye(id_employe,employe){
+    return this.http.put(`${environment.baseUrl}/employes/`+id_employe,employe);    
+  }
   // Service Poste de travail
   
   getAllPosteTravails() {
@@ -122,6 +125,10 @@ export class EmployeService {
 
     creatConsultation(id_employe,consultation) {
       return this.http.post(`${environment.baseUrl}/employes/`+id_employe+`/consultation`, consultation);
+    }
+
+    updateConsultation(id_employe,id_consultation,consultation) {
+      return this.http.put(`${environment.baseUrl}/employes/`+id_employe+`/consultations/`+id_consultation, consultation);
     }
 
     creatActeSoins(id_consultation,id_acte,soin) {
@@ -280,6 +287,10 @@ export class EmployeService {
 
   ajouterInjection(id,calendrier) {
     return this.http.post(`${environment.baseUrl}/calendrierVaccinals/`+id+`/injection`, calendrier);
+  }
+
+  updateCalendrierVaccinal(id_calendrier,calendrier){
+    return this.http.put(`${environment.baseUrl}/calendrierVaccinals/`+id_calendrier, calendrier);
   }
 
   

@@ -86,6 +86,11 @@ color: #2F323E;
 font-weight: bold;
 }
 
+.btn-edit{
+    background-color: #41B3F9;   
+    color: white; 
+}
+
 .btn-add{
 margin-left: 10px;
 }

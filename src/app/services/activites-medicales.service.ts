@@ -50,7 +50,15 @@ export class ActivitesMedicalesService {
     return this.http.post(`${environment.baseUrl}/accident/`+id_nature, antecedentMaladie);
   }
 
-  // Service Maladies 
+  updateAccidentTravail(id_accident,accident){
+    return this.http.put(`${environment.baseUrl}/accidents/`+id_accident, accident);    
+  }
+
+  deleteAccidentTravail(id_accident){
+    return this.http.delete(`${environment.baseUrl}/accidents/`+id_accident);    
+  }
+
+  // Service Maladies
 
   getAllMaladies() {
     return this.http.get<any[]>(`${environment.baseUrl}/maladies`);
