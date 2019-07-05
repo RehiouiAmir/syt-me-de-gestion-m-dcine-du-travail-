@@ -99,10 +99,10 @@ export class EmployesComponent implements OnInit {
 
    // Operation Add, Edit, Delet
    
-    add() {
+    add(edit) {
       let dialogRef = this.dialog.open(AjouterNvEmployeComponent, {
         width: '70%',
-        data: {}
+        data: {edit:edit}
       });
     
       dialogRef.afterClosed().subscribe(result => {
@@ -150,39 +150,75 @@ export class AjouterNvEmployeComponent implements OnInit{
   
      //  Email control validator
 
-     emailFormControl = new FormControl('', [
-      Validators.email,
-    ]);
+    //  emailFormControl = new FormControl('', [
+    //   Validators.email,
+    // ]);
   
-    matcher = new MyErrorStateMatcher();
+    // matcher = new MyErrorStateMatcher();
 
   ngOnInit() {
-    
-    this.addForm = this.formBuilder.group({
-      nom: ['',Validators.required],
-      prenom: ['',Validators.required],
-      code: ['',Validators.required],
-      numeroSecuriteSociale: [''],
-      sexe: ['',Validators.required],
-      dateNaissance: ['',Validators.required],
-      lieuNaissance: ['',Validators.required],
-      situationFamiliale: ['',Validators.required],
-      groupeSanguin: [''],
-      adresse: ['',Validators.required],
-      telephone: [''],
-      formationScolaire: [''],
-      formationProfessionnelle: [''],
-      qualification: [''],
-      serviceNational: ['',Validators.required],
-      travailAntecedent: ['']
-    });
+    if(this.data.edit ==='true'){
+      var sexe : any;
+      var serviceN : any;
+      var date: any;
+      if(this.data.object.sexe === true){sexe = "Homme"}else{sexe = "Femme"};
+      if(this.data.object.serviceNational === true){serviceN = "OUI"}else{serviceN = "NON"};  
+      date = new FormControl(new Date(this.data.object.dateNaissance));  
 
-    this.addForm.addControl('emailFormControl', this.emailFormControl);
+      this.addForm = this.formBuilder.group({
+        id : [this.data.object.id],
+        archive : [this.data.object.archive],
+        nom: [this.data.object.nom,Validators.required],
+        prenom: [this.data.object.prenom,Validators.required],
+        code: [this.data.object.code,Validators.required],
+        numeroSecuriteSociale: [this.data.object.numeroSecuriteSociale],
+        sexe: [sexe,Validators.required],
+        dateNaissance: [date.value,Validators.required],
+        lieuNaissance: [this.data.object.lieuNaissance,Validators.required],
+        situationFamiliale: [this.data.object.situationFamiliale,Validators.required],
+        groupeSanguin: [this.data.object.groupeSanguin],
+        email: [this.data.object.email,Validators.email],
+        adresse: [this.data.object.adresse,Validators.required],
+        telephone: [this.data.object.telephone],
+        formationScolaire: [this.data.object.formationScolaire],
+        formationProfessionnelle: [this.data.object.formationProfessionnelle],
+        qualification: [this.data.object.qualification],
+        serviceNational: [serviceN,Validators.required],
+        travailAntecedent: [this.data.object.travailAntecedent]
+      });
+      // this.addForm.addControl('emailFormControl', this.emailFormControl);
+    }else{
+      this.addForm = this.formBuilder.group({
+        archive : [false],        
+        nom: ['',Validators.required],
+        prenom: ['',Validators.required],
+        code: ['',Validators.required],
+        numeroSecuriteSociale: [''],
+        sexe: ['',Validators.required],
+        dateNaissance: ['',Validators.required],
+        lieuNaissance: ['',Validators.required],
+        situationFamiliale: ['',Validators.required],
+        groupeSanguin: [''],
+        adresse: ['',Validators.required],
+        telephone: [''],
+        email: ['',Validators.email],
+        formationScolaire: [''],
+        formationProfessionnelle: [''],
+        qualification: [''],
+        serviceNational: ['',Validators.required],
+        travailAntecedent: ['']
+      });
+  
+      // this.addForm.addControl('emailFormControl', this.emailFormControl);
+    }
+
   }
   
   
   onSubmit() {
     if (!this.addForm.invalid){
+      if(this.addForm.value.sexe === "Homme"){this.addForm.value.sexe = true}else{this.addForm.value.sexe = false}
+      if(this.addForm.value.serviceNational === "OUI"){this.addForm.value.serviceNational = true}else{this.addForm.value.serviceNational = false}      
         this.data = this.addForm.value;
         console.log(this.data)
         this.dialogRef.close(this.data);

@@ -130,8 +130,15 @@ export class DmSoinsComponent implements OnInit {
       console.log(result)
       //change in backend
       this.employeService.updateSoins(result.id,result).subscribe(data => {
-        this.dataSource.data[this.dataSource.data.indexOf(object)] = result
-        this.dataSource._updateChangeSubscription()   
+        this.employeService.getAllSoinsByEmployeId(this.id_employe).subscribe(
+          data => {
+            console.log(data)
+            this.dataSource = new MatTableDataSource<any>(data);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort; 
+          },
+          error => console.log(error)  
+        );  
       },
       error => console.log(error)); 
     }

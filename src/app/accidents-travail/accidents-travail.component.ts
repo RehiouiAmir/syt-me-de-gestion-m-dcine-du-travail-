@@ -29,7 +29,8 @@ export class AccidentsTravailComponent implements OnInit {
    @ViewChild(MatPaginator) paginator: MatPaginator;
    @ViewChild(MatSort) sort: MatSort;
    
-   constructor(private activitesService : ActivitesMedicalesService,public dialog: MatDialog, private employeService : EmployeService) { }
+   constructor(private activitesService : ActivitesMedicalesService,public dialog: MatDialog, 
+                private employeService : EmployeService, private activiteMedical : ActivitesMedicalesService ) { }
  
    ngOnInit() {
  
@@ -87,10 +88,10 @@ export class AccidentsTravailComponent implements OnInit {
 
    // Operation Add, Edit, Delet
    
- add() {
+ add(edit) {
   let dialogRef = this.dialog.open(DeclarerAccidentTravailComponent, {
     width: '70%',
-    data: {}
+    data: {edit:edit}
   });
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined){
@@ -106,6 +107,24 @@ export class AccidentsTravailComponent implements OnInit {
       }
     });
  }
+ update(edit: any,object) {  
+  let dialogRef = this.dialog.open(DeclarerAccidentTravailComponent, {
+    width: '70%',
+    data: {
+      edit : edit, object : object,
+    }
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    if (result !== undefined){
+      console.log(result)
+      //change in backend
+      // this.activiteMedical.deleteAccidentTravail(result.id,result).subscribe(data => {
+        
+      // },
+      // error => console.log(error)); 
+    }
+  });
+}
 }
 
 @Component({

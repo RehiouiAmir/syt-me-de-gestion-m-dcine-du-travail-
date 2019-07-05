@@ -47,7 +47,7 @@ import { DmInformationsGeneralesComponent } from './dm-informations-generales/dm
 import { DmAntecedentsComponent, AjouterAntecedentComponent } from './dm-antecedents/dm-antecedents.component';
 import { DmProfilVaccinalComponent, AjouterProfileVaccinalComponent, AjouterInjectionVaccinalComponent, AjouterInjectionComponent } from './dm-profil-vaccinal/dm-profil-vaccinal.component';
 import { DmVisiteMedicaleComponent } from './dm-visite-medicale/dm-visite-medicale.component';
-import { DmConsultationMedicaleComponent } from './dm-consultation-medicale/dm-consultation-medicale.component';
+import { DmConsultationMedicaleComponent, ModifierConsultationComponent } from './dm-consultation-medicale/dm-consultation-medicale.component';
 import { DmArretTravailComponent, AjouterArretTravailComponent } from './dm-arret-travail/dm-arret-travail.component';
 import { DmSoinsComponent, AjouterSoinsComponent, AjouterSoinsInfirmierComponent } from './dm-soins/dm-soins.component';
 import { DmExplorationsComponent } from './dm-explorations/dm-explorations.component';
@@ -101,6 +101,7 @@ import { RegisterComponent } from './register/register.component';
     AjouterInjectionComponent,
     DmVisiteMedicaleComponent,
     DmConsultationMedicaleComponent,
+    ModifierConsultationComponent,
     DmArretTravailComponent,
     AjouterArretTravailComponent,    
     DmSoinsComponent,
@@ -153,7 +154,7 @@ import { RegisterComponent } from './register/register.component';
     ListUploadComponent,
     UtilisateursComponent,
     AjouterUtilisateurComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   
   imports: [
@@ -179,7 +180,7 @@ import { RegisterComponent } from './register/register.component';
                     AjouterAppareilComponent,AdminMaladieComponent,AjouterMaladieComponent,AdminMedicamentComponent,
                     AjouterMedicamentComponent,AdminVaccinComponent,AjouterVaccinComponent,AdminNatureAccidentComponent,
                     AjouterNatureAccidentComponent,AjouterTypeRisqueComponent,RisquesTypeRisqueComponent,AffecterRisqueComponent,RisquesPosteComponent,
-                    AjouterRisqueComponent,RegisterComponent,
+                    AjouterRisqueComponent,RegisterComponent,DmConsultationMedicaleComponent,ModifierConsultationComponent,
                     ConvoquerEmployeComponent,InterrogatoiresComponent,AjouterInterrogatoireComponent,GenererRapportComponent,AjouterUtilisateurComponent],
   providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlFr},
               {provide: LOCALE_ID, useValue: "fr-CA" }, httpInterceptorProviders ],

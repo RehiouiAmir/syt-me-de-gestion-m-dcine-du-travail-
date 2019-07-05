@@ -26,7 +26,10 @@
 
 ::ng-deep .mat-form-field-ripple,
 ::ng-deep .mat-selected,
-::ng-deep .mat-calendar-body-selected{
+::ng-deep .mat-calendar-body-selected,
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
+::ng-deep .mat-checkbox:not(.mat-checkbox-disabled).mat-accent .mat-checkbox-ripple .mat-ripple-element{
     background-color: #41B3F9 !important;
 }
 
@@ -34,6 +37,21 @@
 ::ng-deep .mat-slide-toggle .mat-slide-toggle-bar,
 ::ng-deep .mat-slide-toggle .mat-ripple-element{
     background-color: #54667A !important;
+}
+
+::ng-deep .mat-checkbox-frame{
+    border-color: #54667A !important;
+    border-width: 2px !important;;
+}
+
+::ng-deep .mat-checkbox-label{
+    font-size: 15px !important;
+    color: #54667A !important;
+    font-weight: bold !important;
+}
+
+.mat-checkbox{
+    margin-bottom: 20px;
 }
 
 .mat-form-field input,
@@ -46,6 +64,10 @@
     font-weight: bold;
 }
 
+.btn-edit{
+    background-color: #41B3F9;   
+    color: white; 
+}
 
 @media (min-width:767.98px){
     .column-left{

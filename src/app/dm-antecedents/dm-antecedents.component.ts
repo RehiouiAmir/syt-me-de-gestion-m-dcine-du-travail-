@@ -148,6 +148,7 @@ export class DmAntecedentsComponent implements OnInit {
           result.type != 'Maladie générale' && 
           result.type != 'Maladie professionnelle'){
             this.employeService.creatAntecedentAutre(this.id_employe,result).subscribe(data => {
+              console.log(data)              
               this.dataSourceAutres.data.push(data)
               this.dataSourceAutres._updateChangeSubscription() 
             },
@@ -182,20 +183,44 @@ export class DmAntecedentsComponent implements OnInit {
           result.type != 'Maladie générale' && 
           result.type != 'Maladie professionnelle'){
             this.employeService.updateAntecedentAntecedentAutre(this.id_employe,result.id,result).subscribe(data => {
-              this.dataSourceAutres.data[this.dataSourceAutres.data.indexOf(object)] = result
-              this.dataSourceAutres._updateChangeSubscription() 
+              this.employeService.getAllAntecedentsByEmployeId(this.id_employe).subscribe(
+                data => {
+                  console.log(data)
+                  this.antecedents = data;
+                  this.dataSourceAutres = new MatTableDataSource<any>(this.antecedents);
+                  this.dataSourceAutres.paginator = this.paginatorAutres;
+                  this.dataSourceAutres.sort = this.sortAutres;
+                },
+                error => console.log(error)  
+              );
             },
             error => console.log(error)); 
           }else if (result.type === 'Accident de travail' ){
             this.employeService.updateAntecedentAccidentTravail(result.id,result).subscribe(data => {
-              this.dataSource.data[this.dataSource.data.indexOf(object)] = result
-              this.dataSource._updateChangeSubscription() 
+              this.employeService.getAllAntecedentsAccidentsTravailByEmployeId(this.id_employe).subscribe(
+                data => {
+                  console.log(data)
+                  this.accidentsTravail = data;
+                  this.dataSource = new MatTableDataSource<any>(this.accidentsTravail);
+                  this.dataSource.paginator = this.paginator;
+                  this.dataSource.sort = this.sort;
+                },
+                error => console.log(error)  
+              );
             },
             error => console.log(error));             
           }else {
             this.employeService.updateAntecedentMaladiee(result.id,result).subscribe(data => {
-              this.dataSourceMaladies.data[this.dataSourceMaladies.data.indexOf(object)] = result
-              this.dataSourceMaladies._updateChangeSubscription() 
+              this.employeService.getAllAntecedentsMaladiesByEmployeId(this.id_employe).subscribe(
+                data => {
+                  console.log(data)
+                  this.maladies = data;
+                  this.dataSourceMaladies = new MatTableDataSource<any>(this.maladies);
+                  this.dataSourceMaladies.paginator = this.paginatorMaladies;
+                  this.dataSourceMaladies.sort = this.sortMaladies;
+                },
+                error => console.log(error)  
+              );
             },
             error => console.log(error));  
           }

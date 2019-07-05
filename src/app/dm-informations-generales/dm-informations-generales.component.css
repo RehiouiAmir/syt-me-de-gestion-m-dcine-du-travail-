@@ -22,6 +22,11 @@
     border: 2px solid #E0E0E0;
 }
 
+.btn-edit{
+    background-color: #41B3F9;   
+    color: white; 
+}
+
 .column-left,.column-right{
     padding-top: 25px;
     padding-left: 10px;
@@ -37,6 +42,14 @@ p span.champ{
     font-weight: normal;
     margin-left: 10px;
 }
+
+
+p.title-champ-1{
+    font-size: 25px;
+    font-weight: bold;
+    color: #F33155;
+}
+
 
 .col-md-3,.col-md-4,.col-md-6,
 .col-md-8,.col-md-12{
@@ -57,10 +70,18 @@ p span.champ{
     .row-principal .photo-col{
         margin-top: -180px;
     }
+    .row-0-btn{
+        padding-right: 6%; 
+        margin-top:-60px;
+    }
 }
 
 @media (max-width:767.98px){
     .container-fluid{
         padding-top: 80px;
+    }
+    .row-0-btn{
+        padding-right: 6%; 
+        margin-top:0px;
     }
 }

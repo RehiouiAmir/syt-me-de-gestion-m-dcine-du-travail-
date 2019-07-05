@@ -1,42 +1,51 @@
 <div class="container-fluid" *ngIf="employeInfos">
+    <div class="row-0">
+        <div class="col-md-6 pull-right row-0-btn">
+            <button mat-button mat-raised-button class="pull-right btn-edit" (click)="update(''+true,employeInfos)">
+                Modifier Employé
+                <mat-icon>edit</mat-icon>                                  
+            </button> 
+        </div>
+    </div>
     <div class="row row-principal" >
         <div class="col-md-6 column-left">
             <div class="row-1">
                 <div class="col-md-8 photo-col">
                     <img class="employe-profile-img img-circle" src="../../assets/img/pic-user-font-white.png" alt="pic-user"/>
-                </div>
+                </div> 
             </div>
-            <div class="row-2">
-                <div class="col-md-6">
-                    <p class="title-champ">Matricule :<span class="champ">{{employeInfos.code}}</span></p>         
-                </div>
-                <div class="col-md-6">
-                    <p class="title-champ">Num.Cart Chifa :<span class="champ">{{employeInfos.numeroSecuriteSociale}}</span></p>                             
-                </div>
+            <div class="col-md-12" *ngIf="employeInfos.archive === true">
+                <p class="title-champ-1">Archivé</p>                         
             </div>
-            <div class="row-3">
-                <div class="col-md-6">
-                    <p class="title-champ">Date de naissance :<span class="champ">{{employeInfos.dateNaissance | date}}</span></p>         
-                </div>
-                <div class="col-md-6">
-                    <p class="title-champ">Lieux de naisssance :<span class="champ">{{employeInfos.lieuNaissance}}</span></p>         
-                </div>
+            <div class="col-md-6">
+                <p class="title-champ">Matricule :<span class="champ">{{employeInfos.code}}</span></p>         
             </div>
-            <div class="row-5">
-                <div class="col-md-8">
-                    <p class="title-champ">Adresse :<span class="champ">{{employeInfos.adresse}}</span></p>         
-                </div>
-                <div class="col-md-4">
-                        <p class="title-champ">Sexe :<span class="champ">{{employeInfos.sexe ? "Homme" : "Femme"}}</span></p>                             
-                </div>
+            <div class="col-md-6">
+                <p class="title-champ">Num.Cart Chifa :<span class="champ">{{employeInfos.numeroSecuriteSociale}}</span></p>                             
             </div>
-            <div class="row-6">
-                <div class="col-md-6">
-                    <p class="title-champ">Situation Familiale :<span class="champ">{{employeInfos.situationFamiliale}}</span></p>         
-                </div>
-                <div class="col-md-6">
-                    <p class="title-champ">Groupe Sanguin :<span class="champ">{{employeInfos.groupeSanguin}}</span></p>                             
-                </div>
+            <div class="col-md-12">
+                <p class="title-champ">Date de naissance :<span class="champ">{{employeInfos.dateNaissance | date}}</span></p>         
+            </div>
+            <div class="col-md-12">
+                <p class="title-champ">Lieux de naisssance :<span class="champ">{{employeInfos.lieuNaissance}}</span></p>         
+            </div>
+            <div class="col-md-8">
+                <p class="title-champ">Adresse :<span class="champ">{{employeInfos.adresse}}</span></p>         
+            </div>
+            <div class="col-md-4">
+                    <p class="title-champ">Sexe :<span class="champ">{{employeInfos.sexe ? "Homme" : "Femme"}}</span></p>                             
+            </div>
+            <div class="col-md-6">
+                <p class="title-champ">Téléphone :<span class="champ">{{employeInfos.telephone}}</span></p>         
+            </div>
+            <div class="col-md-6">
+                <p class="title-champ">Email :<span class="champ">{{employeInfos.email}}</span></p>                             
+            </div>
+            <div class="col-md-7">
+                <p class="title-champ">Situation Familiale :<span class="champ">{{employeInfos.situationFamiliale}}</span></p>         
+            </div>
+            <div class="col-md-5">
+                <p class="title-champ">Groupe Sanguin :<span class="champ">{{employeInfos.groupeSanguin}}</span></p>                             
             </div>
         </div>
         <div class="col-md-6 column-right">

@@ -1,4 +1,11 @@
-<h4 mat-dialog-title class="mat-dialog-title">Ajouter Nouveau Employe</h4>
+<h4 mat-dialog-title class="mat-dialog-title">
+    <ng-container *ngIf="data.edit === 'false'">
+            Ajouter Nouveau Employe 
+    </ng-container>
+    <ng-container *ngIf="data.edit === 'true'">
+            Modifier les informations de l'employé
+    </ng-container>
+</h4>
 <form [formGroup]="addForm">
     <div mat-dialog-content>
         <div class="row">
@@ -42,8 +49,8 @@
                     <div class="col-md-6">
                         <mat-form-field>
                             <mat-select matInput formControlName="sexe"  placeholder="Sexe" required>
-                                <mat-option value="true">Homme</mat-option>
-                                <mat-option value="false">Femme</mat-option>                                                            
+                                <mat-option value="Homme">Homme</mat-option>
+                                <mat-option value="Femme">Femme</mat-option>                                                            
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -86,10 +93,13 @@
                                 <mat-option value="O-">O-</mat-option>                                                          
                             </mat-select>
                         </mat-form-field>
-                    </div>
+                    </div>                                 
                 </div>
             </div>
             <div  class="col-md-6 column-right">
+                <div class="col-md-12 mat-checkbox" *ngIf="data.edit === 'true'">
+                    <mat-checkbox formControlName="archive">L'employé est archivé</mat-checkbox>
+                </div>  
                 <div class="row-1">
                     <div class="col-md-8">
                         <mat-form-field>
@@ -103,13 +113,18 @@
                             <input matInput formControlName="telephone" placeholder="Téléphone">
                         </mat-form-field>
                     </div>
-                    <div  class="col-md-6">
+                    <!-- <div  class="col-md-6">
                         <mat-form-field class="example-full-width" >
                             <input matInput  placeholder="Email" [formControl]="emailFormControl"
-                                    [errorStateMatcher]="matcher" required>
+                                    [errorStateMatcher]="matcher">
                             <mat-error *ngIf="emailFormControl.hasError('email')">
                                 S'il vous plaît, mettez une adresse email valide
                             </mat-error>
+                        </mat-form-field>
+                    </div> -->
+                    <div  class="col-md-6">
+                        <mat-form-field>
+                            <input matInput formControlName="email" placeholder="Email">
                         </mat-form-field>
                     </div>
                 </div>
@@ -138,8 +153,8 @@
                     <div  class="col-md-6">
                         <mat-form-field>
                             <mat-select matInput formControlName="serviceNational"  placeholder="Service national" required>
-                                <mat-option value="false">OUI</mat-option>
-                                <mat-option value="true">NON</mat-option>                                                            
+                                <mat-option value="OUI">OUI</mat-option>
+                                <mat-option value="NON">NON</mat-option>                                                            
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -155,7 +170,8 @@
         </div>
     </div>
     <div mat-dialog-actions class="pull-right">
-    <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()">Annuler</button>
-    <button mat-button mat-raised-button class="btn-ajouter" (click)="onSubmit()" cdkFocusInitial>Ajouter <mat-icon>add</mat-icon></button>
+        <button  *ngIf="data.edit === 'false'"  mat-button mat-raised-button class="btn-ajouter" (click)="onSubmit()" cdkFocusInitial>Ajouter <mat-icon>add</mat-icon></button>
+        <button   *ngIf="data.edit === 'true'" mat-button mat-raised-button class="btn-edit" (click)="onSubmit()" cdkFocusInitial>Modifier <mat-icon>edit</mat-icon></button>
+        <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()" >Annuler</button> 
     </div>
 </form>

@@ -1,0 +1,292 @@
+::ng-deep .mat-dialog-content .mat-form-field,
+::ng-deep .mat-option-text{
+    font-size: 13px; 
+    width:80%; 
+}
+
+  
+::ng-deep .mat-form-field-label, 
+::ng-deep .mat-form-field input,
+::ng-deep .mat-select-value-text,
+::ng-deep .mat-option,
+::ng-deep .mat-select-arrow,
+::ng-deep .mat-datepicker-toggle .mat-icon-button,
+.caret-input,
+.matSuffix   ,
+.mat-form-field textarea{
+    color: #54667A !important;
+}
+
+::ng-deep .mat-focused .mat-form-field-label,
+::ng-deep .mat-focused .mat-select-arrow,
+::ng-deep .mat-datepicker-toggle .mat-icon-button.cdk-focused,
+::ng-deep .mat-datepicker-toggle .mat-icon-button.cdk-program-focused{
+color: #41B3F9 !important;
+}
+::ng-deep .mat-selected {
+color: white !important;
+}
+
+::ng-deep .mat-form-field-ripple,
+::ng-deep .mat-selected,
+::ng-deep .mat-step-header .mat-step-icon,
+::ng-deep .mat-calendar-body-selected{
+background-color: #41B3F9 !important;
+}
+
+::ng-deep .mat-form-field-underline{
+background-color: #54667A !important;
+}
+
+::ng-deep .mat-horizontal-stepper-header {
+pointer-events: none !important;
+}
+.mat-form-field input,
+.mat-form-field textarea{
+caret-color: #41B3F9;
+}
+
+.textArea{
+    min-height: 80px;
+}
+
+.mat-dialog-title{
+    color: #2F323E;
+    font-weight: bold;
+}
+
+
+.row{
+    border:1px solid #E0E0E0;   
+    width: 94%;
+    padding: 20px 20px 20px 10px;
+    margin-left: 30px;
+    margin-bottom: 15px;
+}
+
+.row-title{
+text-align: center;
+margin-bottom: 10px;
+}
+
+.row-title h4{
+color: #2F323E;
+font-weight: bold;
+}
+
+.btn-add{
+margin-left: 10px;
+}
+
+.btn-add button{
+background: #7ACE4C;
+color: white; 
+}
+
+.btn-remove{
+    color: #F33155;
+}
+
+.btn-edit{
+    background-color: #41B3F9;   
+    color: white; 
+}
+
+button.btn-annuler{
+    color: white; 
+    margin-bottom: 5px;
+    background-color: #F33155;   
+    margin-left: 10px; 
+}
+
+button.btn-suivant{
+    color: white; 
+    margin-bottom: 5px;
+    background-color: #7BCE4C;
+    margin-left: 10px;     
+}
+
+
+.row-section{
+    border: 1px solid #E0E0E0; 
+    padding: 20px 10px 20px 25px; 
+    margin-bottom: 20px;        
+    height: auto;   
+  }
+  
+  .row-section-TM{
+    border: 1px solid #E0E0E0; 
+    padding-left: 10px;
+    padding-right:  10px;
+    padding-bottom: 10px;
+    min-height: 100px; 
+  }
+  
+  .row-title{
+  text-align: center;
+  margin-bottom: 10px;
+  }
+  
+  .row-title h4{
+  color: #2F323E;
+  font-weight: bold;
+  }
+  
+  .btn-add{
+    margin-left: 10px;
+  }
+  
+  .btn-add button{
+    background: #7ACE4C;
+    color: white; 
+  }
+  
+  .col-md-4, .col-md-5, .col-md-6,.col-md-7,
+  .col-md-8, .col-md-10, .col-md-12{
+    margin-top: 10px;
+  }
+  
+  .row-btn button.btn-save{
+    color: white;
+    background-color: #7BCE4C;
+    margin-left: 10px;
+  }
+  
+  .row-btn button.btn-cancel{
+    color: white;
+    margin-left: 10px;       
+    background-color: #F33155;
+  }
+  
+  .btn-delete, .btn-pdf, .btn-edit{
+    color: white;
+    margin-left: 5px;     
+  } 
+  .btn-delete{
+    background-color: #F33155;  
+  }
+  .btn-edit{
+    background-color: #41B3F9;  
+  } 
+  .btn-pdf{
+    background-color: #F0AD4E;
+    
+  }
+  
+  .td-btn-pdf button{
+    color: #F0AD4E;
+  }
+  
+  .btn-terminer{
+    margin-left: 10px;
+    background: #7ACE4C;
+    color: white;
+  }
+  
+  table {
+  width: 100%; 
+  margin-bottom: 20px;
+  }
+  
+  td{
+  font-size: 9px; 
+  color: #54667A !important;
+  }
+  
+  th{
+  font-size: 9px;
+  background-color:#2F323E;
+  color:white;
+  }
+  
+  .td-btn{
+  text-align: center;
+  }
+  
+  table tr.mat-header-row,
+  table tr.mat-row,
+  table tr.mat-footer-row{
+    height: 40px;
+  }
+  
+  p.title-champ{
+    font-size: 13px;
+    font-weight: bold;
+    color: #54667A;
+    margin-top: 23px;
+  }
+  
+  p span.champ{
+    font-weight: normal;
+    margin-left: 10px;
+  }
+  
+  
+ .td-btn-edit button,
+ .td-btn-details button,
+ .td-btn-delete button{
+    width: 20px; 
+    height:20px;
+    margin-top: -15px;
+  }
+  
+ .td-btn-edit button{
+    color:#41B3F9;
+  }
+  
+ .td-btn-delete button{
+    color:#F33155;
+  }
+  
+  @media (min-width:767.98px){
+  .row-principal{
+      padding-top: 80px;
+  }
+  
+ .photo-col{
+      margin-top: -130px;
+  }
+ .row-4{
+      margin-bottom: 200px;
+  }
+
+  .search-bar{
+      margin-top: -50px;
+      width: 40% !important;
+  }
+  }
+  
+  @media (max-width:767.98px){
+  
+  .row-principal{
+      margin-top: 60px; 
+  }
+  
+ .photo-col{
+      margin-top: 20px;
+  }
+  
+ .photo-col .title-matricule{
+      top:40px;
+  }
+  
+  td ,
+  th{
+      font-size: 8px;
+      min-width: 100px;
+  }
+  .table-overflow{
+      overflow: auto; 
+      width: 100%;       
+  }
+  table {
+      margin-top: 0;
+  }
+  .mat-elevation-z2{
+      margin-top: 70px;
+  }
+  
+  .search-bar{
+      width: 80% !important;
+  }
+  }

@@ -118,9 +118,16 @@ export class DmProfilVaccinalComponent implements OnInit {
       if (result !== undefined){
         console.log(result)
         //change in backend
-        this.employeService.updateExamen(result.id,result).subscribe(data => {
-          this.dataSource.data[this.dataSource.data.indexOf(object)] = result
-          this.dataSource._updateChangeSubscription()   
+        this.employeService.updateCalendrierVaccinal(result.id,result).subscribe(data => {
+          this.employeService.getAllVaccinByEmployeId(this.id_employe).subscribe(
+            data => {
+              console.log(data)
+              this.dataSource = new MatTableDataSource<any>(data);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort; 
+            },
+            error => console.log(error)  
+          );  
         },
         error => console.log(error)); 
       }
@@ -169,11 +176,12 @@ export class DmProfilVaccinalComponent implements OnInit {
         error => console.log(error)  
       );
 
-      if(this.data.edit === (true)){
+      if(this.data.edit === "true"){
         this.addForm = this.formBuilder.group({
-          nombreInjection: ['',Validators.required],
-          duree: ['',Validators.required],
-          vaccinn: ['',Validators.required]
+          id : [this.data.object.id],
+          createdBy: [this.data.object.createdtBy],                  
+          nombreInjection: [this.data.object.nombreInjection,Validators.required],
+          duree: [this.data.object.duree,Validators.required],
         });
       }else{
       this.addForm = this.formBuilder.group({

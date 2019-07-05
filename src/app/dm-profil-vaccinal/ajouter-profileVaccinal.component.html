@@ -10,13 +10,13 @@
     <div mat-dialog-content>  
         <div class="row">    
             <div class="col-md-12">
-                <div class="col-md-4">
+                <div class="col-md-4" *ngIf="data.edit === 'false'">
                     <mat-form-field>
                         <mat-select placeholder="Vaccin" formControlName="vaccinn" required (selectionChange)="InitialiserVaccin($event.value)">
                             <mat-option *ngFor="let vaccinn of vaccins" [value]="vaccinn.id">{{vaccinn.designation}}</mat-option>                                                                            
-                        </mat-select>
+                     </mat-select>
                     </mat-form-field>
-                </div>    
+                </div> 
                 <div class="col-md-6">
                     <mat-list role="list">
                         <mat-list-item role="listitem" *ngIf="vaccinSelected != null">
@@ -25,7 +25,18 @@
                         </mat-list-item>
                     </mat-list>
                 </div>
-            </div>                              
+            </div> 
+            <ng-container *ngIf="data.edit === 'true'">
+                <div class="col-md-8">
+                    <p class="title-champ" >Vaccin :<span class="champ">{{data.object.vaccin.designation}}</span></p>                                                 
+                </div>
+                <div class="col-md-8">
+                    <p class="title-champ">Nombre d'injections nécessaires :<span *ngIf="data.object.vaccin.nombreInjection != null" class="champ">{{data.object.vaccin.nombreInjection}}</span></p>
+                </div>
+                <div class="col-md-8">
+                    <p class="title-champ">Sérum :<span *ngIf="data.object.vaccin.serum != null" class="champ">{{data.object.vaccin.serum}}</span></p>                                                                
+                </div>
+            </ng-container>                             
             <div class="col-md-12">
                 <div class="col-md-6">
                     <mat-form-field>
@@ -42,7 +53,8 @@
         </div>   
     </div>
     <div mat-dialog-actions class="pull-right">
-        <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()" >Annuler</button>
         <button  *ngIf="data.edit === 'false'"  mat-button mat-raised-button class="btn-ajouter" (click)="onSubmit()" cdkFocusInitial>Ajouter <mat-icon>add</mat-icon></button>
-        <button   *ngIf="data.edit === 'true'" mat-button mat-raised-button class="btn-edit" (click)="onSubmit()" cdkFocusInitial>Modifier <mat-icon>edit</mat-icon></button>    </div>
+        <button   *ngIf="data.edit === 'true'" mat-button mat-raised-button class="btn-edit" (click)="onSubmit()" cdkFocusInitial>Modifier <mat-icon>edit</mat-icon></button>   
+        <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()" >Annuler</button>        
+    </div>
 </form>

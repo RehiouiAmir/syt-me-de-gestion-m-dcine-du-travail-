@@ -94,7 +94,8 @@
         
     </div>
     <div mat-dialog-actions class="pull-right">
-        <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()" >Annuler</button>
         <button  *ngIf="data.edit === 'false'"  mat-button mat-raised-button class="btn-ajouter" (click)="onSubmit()" cdkFocusInitial>Ajouter <mat-icon>add</mat-icon></button>
-        <button   *ngIf="data.edit === 'true'" mat-button mat-raised-button class="btn-edit" (click)="onSubmit()" cdkFocusInitial>Modifier <mat-icon>edit</mat-icon></button>    </div>
+        <button   *ngIf="data.edit === 'true'" mat-button mat-raised-button class="btn-edit" (click)="onSubmit()" cdkFocusInitial>Modifier <mat-icon>edit</mat-icon></button>
+        <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()" >Annuler</button>        
+    </div>
 </form>
