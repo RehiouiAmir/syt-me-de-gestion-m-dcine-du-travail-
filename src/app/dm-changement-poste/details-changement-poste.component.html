@@ -1,0 +1,33 @@
+<h4 mat-dialog-title class="mat-dialog-title">Changement de poste</h4>
+    <div mat-dialog-content class="row">
+        <div class="col-md-6">
+            <p class="title-champ">Poste Travail occupé : <span class="champ">{{data.object.posteTravail.designation}}</span></p>                                                 
+        </div>
+        <div class="col-md-6">
+            <p class="title-champ">Etat de poste : <span class="champ">{{data.object.actuel? "Actuel" : "Antécédent"}}</span></p>                                                 
+        </div>
+        <div class="col-md-4">
+            <p class="title-champ">Département : <span class="champ">{{data.object.posteTravail.departement.designation}}</span></p>                                                 
+        </div>
+        <div class="col-md-4">
+            <p class="title-champ">Site : <span class="champ">{{data.object.posteTravail.departement.siteAffectation.designation}}</span></p>                                                 
+        </div>
+        <div class="col-md-4">
+            <p class="title-champ">Société : <span class="champ">{{data.object.posteTravail.departement.siteAffectation.societe.designation}}</span></p>                                                 
+        </div>
+        <div class="col-md-6">
+            <p class="title-champ">Date d'occupation : <span class="champ">{{data.object.dateDebut | date}}</span></p>                                                 
+        </div>
+        <div class="col-md-6">
+            <p class="title-champ">Date libération : <span class="champ">{{data.object.dateFin | date}}</span></p>                                                 
+        </div>
+        <div class="col-md-12">
+            <p class="title-champ">Motif de changement de poste : <span class="champ">{{data.object.motif}}</span></p>                                                 
+        </div>
+        <div class="pull-right col-md-6">
+            <p class="title-champ">Medecin : <span class="champ">{{data.object.createdBy.name}}</span></p>                                                 
+        </div>
+    </div>
+<div mat-dialog-actions class="pull-right">
+    <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()" cdkFocusInitial>Fermmer</button>
+</div>

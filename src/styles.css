@@ -30,3 +30,19 @@ background-color: darkgrey;
 outline: 1px solid slategrey;
 }
 
+snack-bar-container.success {
+background-color: #7BCE4C;
+color : #fff;
+z-index: 99999;
+}
+
+snack-bar-container.warn {
+background-color: #f99157;
+color : #fff;
+z-index: 99999;
+}
+snack-bar-container.danger {
+background-color: #F33155;
+color : #fff;
+z-index: 99999;
+}

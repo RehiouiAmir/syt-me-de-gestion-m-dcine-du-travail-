@@ -72,7 +72,7 @@
   <div class="row row-principal">
       <h4 class="row-title">Liste des soins médicaux ou d'urgence</h4>     
       <mat-tab-group>
-        <mat-tab label="Soins"> 
+        <mat-tab label="Soins Consultations"> 
             <mat-form-field class="search-bar">
                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Rechercher">
                 <mat-icon matSuffix>search</mat-icon>            
@@ -121,28 +121,19 @@
                                     {{posteTravails.posteTravail.designation}}
                                 </ng-container>
                             </ng-container>  
-                        </td>                    </ng-container>
+                        </td>                    
+                    </ng-container>
 
                     <!-- Médecin Column -->
                     <ng-container matColumnDef="medecin">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Médecin </th>
-                        <td mat-cell *matCellDef="let row"> Dr. {{row.createdBy.name}} </td>
+                        <td mat-cell *matCellDef="let row"> Dr.  </td>
                     </ng-container>
 
                     <!-- Infirmier  Column -->
                     <ng-container matColumnDef="infirmier">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Infirmier </th>
                         <td mat-cell *matCellDef="let row"></td>
-                    </ng-container>
-                
-                    <!-- Action details Column -->
-                    <ng-container matColumnDef="Action-details">
-                        <th mat-header-cell *matHeaderCellDef ></th>
-                        <td mat-cell *matCellDef="let row" class="td-btn-details">
-                            <button mat-icon-button (click)="openDialogDetails(''+row.idConsultation)">
-                                <mat-icon>description</mat-icon>
-                            </button>
-                        </td>
                     </ng-container>
                 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -153,7 +144,7 @@
                 <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
             </div>
         </mat-tab>
-        <mat-tab label="Demandes de soins"> 
+        <mat-tab label="Soins Généraux"> 
                 <mat-form-field class="search-bar">
                     <input matInput (keyup)="applyFilterDemande($event.target.value)" placeholder="Rechercher">
                     <mat-icon matSuffix>search</mat-icon>            
@@ -192,37 +183,17 @@
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Observation  </th>
                         <td mat-cell *matCellDef="let row">{{row.observation}}</td>
                     </ng-container>
-    <!-- Poste Travail  Column -->
-    <ng-container matColumnDef="posteTravail">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Poste de travail  </th>
-        <td mat-cell *matCellDef="let row"></td>
-    </ng-container>
-                        <!-- Médecin Column -->
-                        <ng-container matColumnDef="medecin">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Médecin </th>
-                            <td mat-cell *matCellDef="let row">  </td>
+                        <!-- Poste Travail  Column -->
+                        <ng-container matColumnDef="posteTravail">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Poste de travail  </th>
+                            <td mat-cell *matCellDef="let row"></td>
                         </ng-container>
-                    
-                        <!-- Action details Column -->
-                        <ng-container matColumnDef="Action-details">
-                            <th mat-header-cell *matHeaderCellDef ></th>
-                            <td mat-cell *matCellDef="let row" class="td-btn-details">
-                                <button mat-icon-button (click)="openDialogDetails(''+row.idConsultation)">
-                                    <mat-icon>description</mat-icon>
-                                </button>
-                            </td>
+                        <!-- Infirmier Column -->
+                        <ng-container matColumnDef="medecin">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Infirmier </th>
+                            <td mat-cell *matCellDef="let row"> {{row.createdBy.name}} </td>
                         </ng-container>
 
-                        <!-- Action add Column -->
-                        <ng-container matColumnDef="Action-add">
-                            <th mat-header-cell *matHeaderCellDef ></th>
-                            <td mat-cell *matCellDef="let row" class="td-btn-add">
-                                <button mat-icon-button (click)="openDialogAdd(''+row.idConsultation)">
-                                    <mat-icon>add</mat-icon>
-                                </button>
-                            </td>
-                        </ng-container>
-                    
                         <tr mat-header-row *matHeaderRowDef="displayedColumnsDemande"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumnsDemande;">
                         </tr>

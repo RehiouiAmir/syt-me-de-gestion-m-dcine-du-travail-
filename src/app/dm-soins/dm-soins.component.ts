@@ -23,7 +23,7 @@ export class DmSoinsComponent implements OnInit {
 
   /* Table Structure */
   
-  displayedColumns: string[] = ['acte','dateSoins','etat','observation','medecin','infirmier','Action-details','Action-edit','Action-delete'];
+  displayedColumns: string[] = ['acte','dateSoins','etat','observation','medecin','infirmier','Action-edit','Action-delete'];
   dataSource : MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

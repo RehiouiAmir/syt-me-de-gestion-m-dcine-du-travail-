@@ -67,7 +67,7 @@
                 <ng-container matColumnDef="Action-details">
                     <th mat-header-cell *matHeaderCellDef ></th>
                     <td mat-cell *matCellDef="let row" class="td-btn-details">
-                        <button mat-icon-button (click)="openDialogDetails(''+row.idConsultation)">
+                        <button mat-icon-button (click)="details(row)">
                             <mat-icon>description</mat-icon>
                         </button>
                     </td>

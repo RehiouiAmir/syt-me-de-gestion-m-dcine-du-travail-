@@ -1,0 +1,8 @@
+<h5 mat-dialog-title class="champ">{{ title }}</h5>
+<div mat-dialog-content>  
+    <p class="champ-1">{{ message }}</p>        
+</div>        
+<div mat-dialog-actions class="pull-right">        
+    <button type="button" mat-raised-button (click)="dialogRef.close(true)" class="pull-right btn-oui">OUI</button>
+    <button type="button" mat-raised-button (click)="dialogRef.close()" class="pull-right btn-annuler">Annuler</button>
+</div>

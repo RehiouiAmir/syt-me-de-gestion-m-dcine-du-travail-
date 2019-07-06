@@ -1,0 +1,39 @@
+<h4 mat-dialog-title class="mat-dialog-title">Arrêt de travail</h4>
+<div mat-dialog-content class="row">
+    <div class="col-md-12">
+        <p class="title-champ">Durrée d'arrêt de travail :
+            <span class="champ">De {{data.object.dateDebut | date}} à {{data.object.dateFin | date}}</span></p>                                                 
+    </div>
+    <div class="col-md-12"> 
+        <p class="title-champ">Motif d'arrêt de travail :<span class="champ">{{data.object.motif}}</span></p>                                                                     
+    </div>   
+    <div class="col-md-12" *ngIf="data.object.accident != null"> 
+        <div class="col-md-6">                     
+            <p class="title-champ">Nature d'accident : <span class="champ">{{data.object.accident.natureAccident.designation}}</span></p> 
+        </div> 
+        <div class="col-md-6">                     
+            <p class="title-champ">Date d'accident : <span class="champ">{{data.object.accident.date | date}}</span></p> 
+        </div>   
+        <div class="col-md-6">                     
+            <p class="title-champ">Lieu d'ccident : <span class="champ">{{data.object.accident.lieu}}</span></p> 
+        </div> 
+        <div class="col-md-6">                     
+            <p class="title-champ">Circonstance : <span class="champ">{{data.object.accident.circonstance}}</span></p> 
+        </div>                                                                  
+    </div>
+    <div class="col-md-6" *ngIf="data.object.maladie != null">
+        <p class="title-champ">Type : <span class="champ">{{data.object.maladie.type}}</span></p>                                                                                     
+    </div>
+    <div class="col-md-6" *ngIf="data.object.maladie != null">
+        <p class="title-champ">Maladie : <span class="champ">{{data.object.maladie.designation}}</span></p>                                                                                     
+    </div>
+    <div class="col-md-12"> 
+        <p class="title-champ">Observation : <span class="champ">{{data.object.observation}}</span></p>                                                                     
+    </div>    
+    <div class="pull-right col-md-6"> 
+        <p class="title-champ">Médecin : <span class="champ">{{data.object.createdBy.name}}</span></p>                                                                     
+    </div>       
+</div>
+<div mat-dialog-actions class="pull-right">
+    <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()" cdkFocusInitial>Fermmer</button>
+</div>

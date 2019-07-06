@@ -8,6 +8,7 @@ import { AjouterNvEmployeComponent } from 'src/app/employes/employes.component';
 import { FormControl } from '@angular/forms';
 import { FormGroupDirective } from '@angular/forms';
 import { NgForm } from '@angular/forms';
+import { PopupService } from 'src/app/services/popup.service';
 
 @Component({
   selector: 'app-dm-informations-generales',
@@ -20,7 +21,7 @@ export class DmInformationsGeneralesComponent implements OnInit {
     employeInfos : any = '';
     posteActuel : any; 
 
-    constructor(private route: ActivatedRoute, private employeService: EmployeService, public dialog: MatDialog) {
+    constructor(private route: ActivatedRoute, private employeService: EmployeService, public dialog: MatDialog,private popupService: PopupService) {
       this.id_employe = Number(this.route.snapshot.paramMap.get('id'));
     }
     
@@ -56,8 +57,9 @@ export class DmInformationsGeneralesComponent implements OnInit {
           //change in backend
           this.employeService.updateEmploye(result.id,result).subscribe(data => {
               this.employeInfos = data;
+              this.popupService.success("L'employé a été modifié avec succès");                            
           },
-          error => console.log(error)); 
+          error => this.popupService.danger("L'employé n'a pas été modifié"));
         }
       });
     } 

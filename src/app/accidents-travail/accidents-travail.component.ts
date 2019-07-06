@@ -118,13 +118,39 @@ export class AccidentsTravailComponent implements OnInit {
     if (result !== undefined){
       console.log(result)
       //change in backend
-      // this.activiteMedical.deleteAccidentTravail(result.id,result).subscribe(data => {
-        
-      // },
-      // error => console.log(error)); 
+      this.activiteMedical.updateAccidentTravail(result.id,result).subscribe(data => {
+        this.activitesService.getAllAccidentTravails().subscribe(
+          data => {
+            console.log(data)
+            this.dataSource = new MatTableDataSource<any>(data);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort; 
+          },
+          error => console.log(error)  
+        ); 
+      },
+      error => console.log(error)); 
     }
   });
 }
+
+delete(object) { 
+  //delete from backend
+    this.activitesService.deleteAccidentTravail(object.id).subscribe(data => {
+      console.log(data)
+      this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
+      this.dataSource._updateChangeSubscription()  
+    },
+    error => console.log(error));
+}
+
+details(object){
+  let dialogRef = this.dialog.open(DetailsAccidentTravailComponent, {
+  width: '50%',
+  data: {object : object}
+});
+}
+
 }
 
 @Component({
@@ -154,13 +180,25 @@ export class AccidentsTravailComponent implements OnInit {
       error => console.log(error)  
     );
   
-    this.addForm = this.formBuilder.group({
-      nature: ['', Validators.required],
-      date: [this.dateAujourdhuit.value,Validators.required],
-      lieu: ['',Validators.required],
-      compteRendu: [''],
-      circonstance: ['',Validators.required],
-    });
+    if(this.data.edit === 'true'){
+      var date = new FormControl(new Date(this.data.object.date));        
+      this.addForm = this.formBuilder.group({
+        id: [this.data.object.id],
+        nature: [this.data.object.natureAccident],
+        date: [date.value,Validators.required],
+        lieu: [this.data.object.lieu,Validators.required],
+        compteRendu: [this.data.object.compteRendu],
+        circonstance: [this.data.object.circonstance,Validators.required],
+      });
+    }else{
+      this.addForm = this.formBuilder.group({
+        nature: [''],
+        date: [this.dateAujourdhuit.value,Validators.required],
+        lieu: ['',Validators.required],
+        compteRendu: [''],
+        circonstance: ['',Validators.required],
+      });
+    }
   }
   
   // close dialog  ajouter-arret-travail
@@ -178,3 +216,21 @@ export class AccidentsTravailComponent implements OnInit {
   
   }
   
+  // details 
+@Component({
+  selector: 'app-details-accident-travail',
+  templateUrl: './details-accident-travail.component.html',
+  styleUrls: ['./details-accident-travail.component.css']
+})
+export class DetailsAccidentTravailComponent implements OnInit {
+ 
+  constructor(public dialogRef: MatDialogRef<DetailsAccidentTravailComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {}
+
+  ngOnInit() { }
+
+  // close dialog  ajouter-arret-travail
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+}

@@ -27,7 +27,7 @@ export class DmExplorationsComponent implements OnInit {
 
      /* Réorientation Table Structure */
   
-     displayedColumnsOrientation: string[] = ['specialiste','motif','reponse','dateReponse','medecin','Action-details','Action-edit','Action-delete'];
+     displayedColumnsOrientation: string[] = ['specialiste','motif','reponse','dateReponse','medecin','Action-edit','Action-delete'];
      dataSourceOrientation : MatTableDataSource<any>;
    
      @ViewChild('MatPaginatorOrientation') paginatorOrientation: MatPaginator;

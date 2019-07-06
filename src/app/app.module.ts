@@ -17,7 +17,7 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule,
          MatPaginatorIntl,MatDialogModule,MatDatepickerModule,
          MatNativeDateModule,MatAutocompleteModule,
          MatChipsModule,MatSlideToggleModule,MatStepperModule,
-         MatCheckboxModule,MatTabsModule,MatSliderModule} from '@angular/material';
+         MatCheckboxModule,MatTabsModule,MatSliderModule, MatSnackBarModule} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { Routes,RouterModule } from '@angular/router';
@@ -39,7 +39,7 @@ import { AdministrationComponent } from './administration/administration.compone
 import { VisitesMedicalesComponent } from './visites-medicales/visites-medicales.component';
 import { ConsultationsMedicalesComponent } from './consultations-medicales/consultations-medicales.component';
 import { VaccinationsComponent } from './vaccinations/vaccinations.component';
-import { AccidentsTravailComponent, DeclarerAccidentTravailComponent } from './accidents-travail/accidents-travail.component';
+import { AccidentsTravailComponent, DeclarerAccidentTravailComponent, DetailsAccidentTravailComponent } from './accidents-travail/accidents-travail.component';
 import { ArretsTravailComponent } from './arrets-travail/arrets-travail.component';
 import { SoinsComponent } from './soins/soins.component';
 import { EmployesComponent, AjouterNvEmployeComponent } from './employes/employes.component';
@@ -48,10 +48,10 @@ import { DmAntecedentsComponent, AjouterAntecedentComponent } from './dm-anteced
 import { DmProfilVaccinalComponent, AjouterProfileVaccinalComponent, AjouterInjectionVaccinalComponent, AjouterInjectionComponent } from './dm-profil-vaccinal/dm-profil-vaccinal.component';
 import { DmVisiteMedicaleComponent } from './dm-visite-medicale/dm-visite-medicale.component';
 import { DmConsultationMedicaleComponent, ModifierConsultationComponent } from './dm-consultation-medicale/dm-consultation-medicale.component';
-import { DmArretTravailComponent, AjouterArretTravailComponent } from './dm-arret-travail/dm-arret-travail.component';
+import { DmArretTravailComponent, AjouterArretTravailComponent, DetailsArretTravailComponent } from './dm-arret-travail/dm-arret-travail.component';
 import { DmSoinsComponent, AjouterSoinsComponent, AjouterSoinsInfirmierComponent } from './dm-soins/dm-soins.component';
 import { DmExplorationsComponent } from './dm-explorations/dm-explorations.component';
-import { DmChangementPosteComponent, AjouterChangementPosteComponent } from './dm-changement-poste/dm-changement-poste.component';
+import { DmChangementPosteComponent, AjouterChangementPosteComponent, DetailsChangementPosteComponent } from './dm-changement-poste/dm-changement-poste.component';
 import { RisquesProfessionnelsComponent, AjouterTypeRisqueComponent, RisquesTypeRisqueComponent, AjouterRisqueComponent, RisquesPosteComponent, AffecterRisqueComponent } from './risques-professionnels/risques-professionnels.component';
 import { ParametresCompteComponent } from './parametres-compte/parametres-compte.component';
 import { DmEmployeComponent } from './dm-employe/dm-employe.component';
@@ -75,6 +75,7 @@ import { AdminNatureAccidentComponent, AjouterNatureAccidentComponent } from './
 import { DmConvocationComponent } from './dm-convocation/dm-convocation.component';
 import { UtilisateursComponent, AjouterUtilisateurComponent } from './utilisateurs/utilisateurs.component';
 import { RegisterComponent } from './register/register.component';
+import { DialogsModule } from 'src/app/dialogs/dialogs.module';
 
 @NgModule({
   declarations: [
@@ -103,7 +104,8 @@ import { RegisterComponent } from './register/register.component';
     DmConsultationMedicaleComponent,
     ModifierConsultationComponent,
     DmArretTravailComponent,
-    AjouterArretTravailComponent,    
+    AjouterArretTravailComponent,   
+    DetailsArretTravailComponent, 
     DmSoinsComponent,
     AjouterSoinsComponent,
     AjouterSoinsInfirmierComponent,
@@ -155,20 +157,23 @@ import { RegisterComponent } from './register/register.component';
     UtilisateursComponent,
     AjouterUtilisateurComponent,
     RegisterComponent,
+    DetailsChangementPosteComponent,
+    DetailsAccidentTravailComponent
   ],
   
   imports: [
-    BrowserModule,AppRoutingModule,LayoutModule,MatToolbarModule,MatSidenavModule,MatIconModule,
+    BrowserModule,AppRoutingModule,LayoutModule,MatToolbarModule,MatSidenavModule,MatIconModule,DialogsModule,
     MatListModule,MatTreeModule,BrowserAnimationsModule,NgbModule,MatBadgeModule,ScrollDispatchModule,
     MatProgressBarModule,MatGridListModule,FormsModule,ReactiveFormsModule,MatFormFieldModule,MatInputModule,
     MatSelectModule,MatButtonModule,MatButtonToggleModule,MatTableModule,MatPaginatorModule,MatSortModule,
     MatDialogModule,MatDatepickerModule,MatNativeDateModule,MatAutocompleteModule, MatChipsModule,
-    MatSlideToggleModule,MatStepperModule,MatCheckboxModule,MatTabsModule,MatSliderModule,HttpClientModule
+    MatSlideToggleModule,MatStepperModule,MatCheckboxModule,MatTabsModule,MatSliderModule,HttpClientModule,
+    MatSnackBarModule
   ],
  
   entryComponents: [EmployesComponent, AjouterNvEmployeComponent,
                     DmChangementPosteComponent,AjouterChangementPosteComponent,
-                    DmArretTravailComponent,AjouterArretTravailComponent,
+                    DmArretTravailComponent,AjouterArretTravailComponent,DetailsArretTravailComponent, 
                     AccidentsTravailComponent,DeclarerAccidentTravailComponent,
                     DmAntecedentsComponent,AjouterAntecedentComponent,AjouterSoinsInfirmierComponent,
                     DmSoinsComponent, AjouterSoinsComponent, DmProfilVaccinalComponent,
@@ -181,9 +186,9 @@ import { RegisterComponent } from './register/register.component';
                     AjouterMedicamentComponent,AdminVaccinComponent,AjouterVaccinComponent,AdminNatureAccidentComponent,
                     AjouterNatureAccidentComponent,AjouterTypeRisqueComponent,RisquesTypeRisqueComponent,AffecterRisqueComponent,RisquesPosteComponent,
                     AjouterRisqueComponent,RegisterComponent,DmConsultationMedicaleComponent,ModifierConsultationComponent,
-                    ConvoquerEmployeComponent,InterrogatoiresComponent,AjouterInterrogatoireComponent,GenererRapportComponent,AjouterUtilisateurComponent],
+                    ConvoquerEmployeComponent,InterrogatoiresComponent,AjouterInterrogatoireComponent,DetailsAccidentTravailComponent,DetailsChangementPosteComponent,GenererRapportComponent,AjouterUtilisateurComponent],
   providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlFr},
-              {provide: LOCALE_ID, useValue: "fr-CA" }, httpInterceptorProviders ],
+              {provide: LOCALE_ID, useValue: "fr-CA" }, httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { 
