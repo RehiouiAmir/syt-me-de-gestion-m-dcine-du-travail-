@@ -9,6 +9,8 @@ import { Inject } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { FormArray } from '@angular/forms';
 import { FormControl } from '@angular/forms';
+import { PopupService } from 'src/app/services/popup.service';
+import { DialogsService } from 'src/app/dialogs/dialogs.service';
 
 @Component({
   selector: 'app-dm-changement-poste',
@@ -39,7 +41,8 @@ export class DmChangementPosteComponent implements OnInit {
      @ViewChild('MatPaginatorReorientation') paginatorReorientation: MatPaginator;
      @ViewChild('MatSortReorientation') sortReorientation: MatSort;
     
-    constructor(private route: ActivatedRoute, private employeService: EmployeService, public dialog: MatDialog) { 
+    constructor(private route: ActivatedRoute, private employeService: EmployeService, public dialog: MatDialog,
+                private popupService: PopupService,private dialogsService: DialogsService) { 
       this.id_employe = Number(this.route.snapshot.paramMap.get('id'));
     }
   
@@ -110,6 +113,7 @@ export class DmChangementPosteComponent implements OnInit {
             console.log(result)
             //change in backend
             this.employeService.creatChangementPoste(this.id_employe,result.id_posteTravail,result).subscribe(data => {
+              this.popupService.success("Le changement de poste a été ajouté avec succès");
               this.employeService.getEmployeById(this.id_employe).subscribe(
                 data => {
                   this.posteHistorique = data.employe_posteTravails;
@@ -128,7 +132,7 @@ export class DmChangementPosteComponent implements OnInit {
                 error => console.log(error)  
               );        
             },
-            error => console.log(error));
+            error => this.popupService.danger("Le changement de poste n'a pas été ajouté"));
           }
       });
      }
@@ -144,6 +148,7 @@ export class DmChangementPosteComponent implements OnInit {
         if (result !== undefined){
           //change in backend
           this.employeService.updateChangementPoste(result.id,result).subscribe(data => {
+            this.popupService.success("Le changement de poste a été modifié avec succès");
             this.employeService.getEmployeById(this.id_employe).subscribe(
               data => {
                 this.posteHistorique = data.employe_posteTravails;
@@ -162,14 +167,18 @@ export class DmChangementPosteComponent implements OnInit {
               error => console.log(error)  
             );   
           },
-          error => console.log(error)); 
+          error => this.popupService.danger("Le changement de poste n'a pas été modifié")); 
         }
       });
     }
-    delete(object) { 
+    delete(object) {
+      this.dialogsService
+      .confirm('Confirmation', 'Voulez-vous vraiment supprimer ce changement de poste?')
+      .subscribe(result => {
+        if (result === true){
       //delete from backend
         this.employeService.deleteChangementPoste(this.id_employe,object.posteTravail.id).subscribe(data => {
-          console.log(data)
+          this.popupService.success("Le changement de poste a été supprimé avec succès");
           this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
           this.dataSource._updateChangeSubscription()  
           console.log(object)
@@ -177,7 +186,9 @@ export class DmChangementPosteComponent implements OnInit {
             this.posteActuel='';
           }
         },
-        error => console.log(error));
+        error => this.popupService.danger("Le changement de poste n'a pas été supprimé"));
+          }
+        });
       }
       details(object){
         let dialogRef = this.dialog.open(DetailsChangementPosteComponent, {

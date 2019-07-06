@@ -14,6 +14,8 @@ import { AjouterExamenComplementaireComponent } from 'src/app/ajouter-examen-com
 import { AjouterSoinsComponent } from 'src/app/dm-soins/dm-soins.component';
 import { Validators } from '@angular/forms';
 import { AjouterOrdonnanceComponent } from 'src/app/ajouter-ordonnance/ajouter-ordonnance.component';
+import { PopupService } from 'src/app/services/popup.service';
+import { DialogsService } from 'src/app/dialogs/dialogs.service';
 
 
 @Component({
@@ -36,7 +38,8 @@ export class DmConsultationMedicaleComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   
-  constructor(private route: ActivatedRoute, private employeService: EmployeService, public dialog: MatDialog) { 
+  constructor(private route: ActivatedRoute, private employeService: EmployeService, public dialog: MatDialog,
+    private popupService: PopupService,private dialogsService: DialogsService) { 
     this.id_employe = Number(this.route.snapshot.paramMap.get('id'));
   }
 
@@ -69,14 +72,20 @@ export class DmConsultationMedicaleComponent implements OnInit {
   }
 
   delete(object){
-    //delete from backend
-    this.employeService.deleteConsultation(object.id).subscribe(data => {
-      console.log(data)
-      this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
-      this.dataSource._updateChangeSubscription()  
-
-    },
-    error => console.log(error));
+    this.dialogsService
+    .confirm('Confirmation', 'Voulez-vous vraiment supprimer cette consultation médicale?')
+    .subscribe(result => {
+      if (result === true){
+        //delete from backend
+        this.employeService.deleteConsultation(object.id).subscribe(data => {
+          console.log(data)
+          this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
+          this.dataSource._updateChangeSubscription()  
+          this.popupService.success("La consultation médicale a été supprimé avec succès");
+        },
+        error => this.popupService.danger("La consultation médicale n'a pas été supprimé"));
+      }
+    });
   }
   // search table
   applyFilter(filterValue: string) {
@@ -142,7 +151,8 @@ export class ModifierConsultationComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<ModifierConsultationComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,private route: ActivatedRoute,
               private _formBuilder: FormBuilder,
-              public dialog: MatDialog,private employeService: EmployeService) {
+              public dialog: MatDialog,private employeService: EmployeService,
+              private popupService: PopupService,private dialogsService: DialogsService) {
                 this.id_employe = Number(this.route.snapshot.paramMap.get('id'));                
               }
 
@@ -178,10 +188,11 @@ export class ModifierConsultationComponent implements OnInit {
   onSubmitFirst(){
     if (!this.firstFormGroup.invalid){ 
       this.employeService.updateConsultation(this.data.object.employe.id,this.data.object.id,this.firstFormGroup.value).subscribe(result =>{
+        this.popupService.success("La consultation médicale a été modifié avec succès");                    
         console.log(result)      
        this.consultation =result;
       },
-      error => console.log(error));
+      error => this.popupService.danger("La consultation médicale n'a pas été modifié")); 
     }
     
   }
