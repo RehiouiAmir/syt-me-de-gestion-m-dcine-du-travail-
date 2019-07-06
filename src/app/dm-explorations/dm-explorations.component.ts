@@ -5,6 +5,7 @@ import { EmployeService } from 'src/app/services/employe.service';
 import { ActivatedRoute } from '@angular/router';
 import { AjouterExamenComplementaireComponent } from 'src/app/ajouter-examen-complementaire/ajouter-examen-complementaire.component';
 import { AjouterOrientationMedicaleComponent } from 'src/app/ajouter-orientation-medicale/ajouter-orientation-medicale.component';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-dm-explorations',
@@ -16,10 +17,11 @@ export class DmExplorationsComponent implements OnInit {
   private id_employe: number;
   employeInfos : any = null;
   posteActuel : any = null;
+  fileUploUrl : string;   
   
     /* Table Structure */
   
-    displayedColumns: string[] = ['designation','description','resultat','dateResultat','medecin','Action-details','Action-edit','Action-delete'];
+    displayedColumns: string[] = ['designation','description','resultat','dateResultat','medecin','Action-rapport','Action-edit','Action-delete'];
     dataSource : MatTableDataSource<any>;
   
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -27,7 +29,7 @@ export class DmExplorationsComponent implements OnInit {
 
      /* Réorientation Table Structure */
   
-     displayedColumnsOrientation: string[] = ['specialiste','motif','reponse','dateReponse','medecin','Action-details','Action-edit','Action-delete'];
+     displayedColumnsOrientation: string[] = ['specialiste','motif','reponse','dateReponse','medecin','Action-edit','Action-delete'];
      dataSourceOrientation : MatTableDataSource<any>;
    
      @ViewChild('MatPaginatorOrientation') paginatorOrientation: MatPaginator;
@@ -38,6 +40,7 @@ export class DmExplorationsComponent implements OnInit {
     }
   
     ngOnInit() {
+      this.fileUploUrl = environment.fileUrl;  
   
       this.employeService.getEmployeById(this.id_employe).subscribe(
         data => {
@@ -75,6 +78,11 @@ export class DmExplorationsComponent implements OnInit {
 
     }
   
+    showFileExamen(object) {
+      window.open(this.fileUploUrl+object.file.fileName);
+    }
+  
+
     // search table
     applyFilter(filterValue: string) {
       this.dataSource.filter = filterValue.trim().toLowerCase();

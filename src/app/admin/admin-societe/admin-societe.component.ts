@@ -75,7 +75,14 @@ export class AdminSocieteComponent implements OnInit {
       }
     });
  }
+
+ clickMethod(name) {
+  if(confirm("Are you sure to delete "+name.designation)) {
+    console.log("Implement delete functionality here");
+  }
 }
+}
+
 
 @Component({
   selector: 'app-ajouter-societe',
@@ -110,4 +117,5 @@ export class AdminSocieteComponent implements OnInit {
     this.dialogRef.close(this.data);
     }
   }
+
 }

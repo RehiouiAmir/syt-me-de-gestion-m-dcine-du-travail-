@@ -75,6 +75,7 @@ import { AdminNatureAccidentComponent, AjouterNatureAccidentComponent } from './
 import { DmConvocationComponent } from './dm-convocation/dm-convocation.component';
 import { UtilisateursComponent, AjouterUtilisateurComponent } from './utilisateurs/utilisateurs.component';
 import { RegisterComponent } from './register/register.component';
+import { AdminActeComponent, AjouterActeComponent } from './admin/admin-acte/admin-acte.component';
 
 @NgModule({
   declarations: [
@@ -155,6 +156,8 @@ import { RegisterComponent } from './register/register.component';
     UtilisateursComponent,
     AjouterUtilisateurComponent,
     RegisterComponent,
+    AdminActeComponent,
+    AjouterActeComponent,
   ],
   
   imports: [
@@ -181,7 +184,7 @@ import { RegisterComponent } from './register/register.component';
                     AjouterMedicamentComponent,AdminVaccinComponent,AjouterVaccinComponent,AdminNatureAccidentComponent,
                     AjouterNatureAccidentComponent,AjouterTypeRisqueComponent,RisquesTypeRisqueComponent,AffecterRisqueComponent,RisquesPosteComponent,
                     AjouterRisqueComponent,RegisterComponent,DmConsultationMedicaleComponent,ModifierConsultationComponent,
-                    ConvoquerEmployeComponent,InterrogatoiresComponent,AjouterInterrogatoireComponent,GenererRapportComponent,AjouterUtilisateurComponent],
+                    ConvoquerEmployeComponent,InterrogatoiresComponent,AjouterInterrogatoireComponent,GenererRapportComponent,AjouterUtilisateurComponent,AjouterActeComponent],
   providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlFr},
               {provide: LOCALE_ID, useValue: "fr-CA" }, httpInterceptorProviders ],
   bootstrap: [AppComponent]

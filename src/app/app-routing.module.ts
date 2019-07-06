@@ -1,3 +1,4 @@
+import { AdminActeComponent } from './admin/admin-acte/admin-acte.component';
 import { DmConvocationComponent } from './dm-convocation/dm-convocation.component';
 import { AdminNatureAccidentComponent } from './admin/admin-nature-accident/admin-nature-accident.component';
 import { AdminVaccinComponent } from './admin/admin-vaccin/admin-vaccin.component';
@@ -86,6 +87,7 @@ const routes: Routes = [
       { path: 'admin-maladie', component: AdminMaladieComponent },
       { path: 'admin-medicament', component: AdminMedicamentComponent },
       { path: 'admin-vaccin', component: AdminVaccinComponent },
+      { path: 'admin-acte', component: AdminActeComponent },
       { path: 'admin-natureAccident', component: AdminNatureAccidentComponent }
     ]},
     { path: '', redirectTo: 'dossier-medical' ,pathMatch: 'full'},

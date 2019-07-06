@@ -38,8 +38,8 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form);
-    this.rolesString = ['user'];
+    console.log(this.form.rolee.name);
+    this.rolesString = [this.form.rolee.name];
     this.signupInfo = new SignUpInfo(
       this.form.name,
       this.form.username,

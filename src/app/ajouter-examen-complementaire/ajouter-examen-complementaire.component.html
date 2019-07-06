@@ -51,12 +51,24 @@
                         <textarea matInput placeholder="Résultat" formControlName="resultat" ></textarea>
                     </mat-form-field>
                 </div>
-                <div class="col-md-2">
-                    <button class="btn-resultat" mat-mini-fab (click)="addResultat()">
+           
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                    <div *ngIf="currentFileUpload" class="progress">
+                        <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+                          aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+                          {{progress.percentage}}%</div>
+                      </div>
+                      
+                      <label class="btn btn-default">
+                        <input type="file" (change)="selectFile($event)">
+                      </label>
+                    <button class="btn-resultat" mat-mini-fab [disabled]="!selectedFiles" (click)="upload()" style="margin-left:10px;">
                         <mat-icon>add_photo_alternate</mat-icon>                        
                     </button>
                 </div>
-           
             </div>
         </div>
     </div>

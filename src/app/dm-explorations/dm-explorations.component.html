@@ -63,12 +63,12 @@
                                 </td>
                             </ng-container>
                         
-                            <!-- Action details Column -->
-                            <ng-container matColumnDef="Action-details">
+                            <!-- Action-rapport Column -->
+                            <ng-container matColumnDef="Action-rapport">
                                 <th mat-header-cell *matHeaderCellDef ></th>
                                 <td mat-cell *matCellDef="let row" class="td-btn-details">
-                                    <button mat-icon-button (click)="updateExamen(''+true,row)">
-                                        <mat-icon>description</mat-icon>
+                                    <button mat-icon-button (click)="showFileExamen(row)">
+                                        <mat-icon>picture_as_pdf</mat-icon>
                                     </button>
                                 </td>
                             </ng-container>
@@ -138,16 +138,6 @@
                             <td mat-cell *matCellDef="let row" class="td-btn-edit">
                                 <button mat-icon-button (click)="updateOrientation(''+true,row)">
                                     <mat-icon>edit</mat-icon>
-                                </button>
-                            </td>
-                        </ng-container>
-                    
-                        <!-- Action details Column -->
-                        <ng-container matColumnDef="Action-details">
-                            <th mat-header-cell *matHeaderCellDef ></th>
-                            <td mat-cell *matCellDef="let row" class="td-btn-details">
-                                <button mat-icon-button (click)="openDialogDetails(''+row.idConsultation)">
-                                    <mat-icon>description</mat-icon>
                                 </button>
                             </td>
                         </ng-container>
