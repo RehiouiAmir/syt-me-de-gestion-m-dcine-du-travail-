@@ -75,6 +75,7 @@ import { AdminNatureAccidentComponent, AjouterNatureAccidentComponent } from './
 import { DmConvocationComponent } from './dm-convocation/dm-convocation.component';
 import { UtilisateursComponent, AjouterUtilisateurComponent } from './utilisateurs/utilisateurs.component';
 import { RegisterComponent } from './register/register.component';
+import { AdminActeComponent, AjouterActeComponent } from './admin/admin-acte/admin-acte.component';
 import { DialogsModule } from 'src/app/dialogs/dialogs.module';
 
 @NgModule({
@@ -157,6 +158,8 @@ import { DialogsModule } from 'src/app/dialogs/dialogs.module';
     UtilisateursComponent,
     AjouterUtilisateurComponent,
     RegisterComponent,
+    AdminActeComponent,
+    AjouterActeComponent,
     DetailsChangementPosteComponent,
     DetailsAccidentTravailComponent
   ],
@@ -186,7 +189,7 @@ import { DialogsModule } from 'src/app/dialogs/dialogs.module';
                     AjouterMedicamentComponent,AdminVaccinComponent,AjouterVaccinComponent,AdminNatureAccidentComponent,
                     AjouterNatureAccidentComponent,AjouterTypeRisqueComponent,RisquesTypeRisqueComponent,AffecterRisqueComponent,RisquesPosteComponent,
                     AjouterRisqueComponent,RegisterComponent,DmConsultationMedicaleComponent,ModifierConsultationComponent,
-                    ConvoquerEmployeComponent,InterrogatoiresComponent,AjouterInterrogatoireComponent,DetailsAccidentTravailComponent,DetailsChangementPosteComponent,GenererRapportComponent,AjouterUtilisateurComponent],
+                    ConvoquerEmployeComponent,InterrogatoiresComponent,AjouterInterrogatoireComponent,DetailsAccidentTravailComponent,DetailsChangementPosteComponent,GenererRapportComponent,AjouterUtilisateurComponent,AjouterActeComponent],
   providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlFr},
               {provide: LOCALE_ID, useValue: "fr-CA" }, httpInterceptorProviders],
   bootstrap: [AppComponent]

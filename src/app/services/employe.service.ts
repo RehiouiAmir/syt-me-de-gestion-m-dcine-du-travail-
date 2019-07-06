@@ -323,4 +323,6 @@ export class EmployeService {
   deleteConvocation(id_convocation) {
     return this.http.delete(`${environment.baseUrl}/convocations/`+id_convocation);
   }
+
+  //Acte de soins
 }

@@ -1,3 +1,6 @@
+import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { UploadFileService } from './../upload/upload-file.service';
 import { AdministrationService } from './../services/administration.service';
 import { TokenStorageService } from './../auth/token-storage.service';
 import { Component, OnInit } from '@angular/core';
@@ -30,7 +33,8 @@ export class AjouterConsultationComponent implements OnInit {
   userId: number;
   employeInfos : any;
   medecinInfo : any;
-  posteActuel : any; 
+  posteActuel : any;
+  fileUploUrl : string; 
   
    /* Table Structure | Médicaments */
    displayedColumnsMedicaments: string[] = ['designation','quantite','posologie','Action-delete'];
@@ -41,16 +45,17 @@ export class AjouterConsultationComponent implements OnInit {
    dataSourceSoins : MatTableDataSource<any>;
 
    /* Table Structure | Orientation médicale */
-   displayedColumnsOrientations: string[] = ['specialiste','motifOrientation','Action-edit','Action-delete','Action-pdf'];
+   displayedColumnsOrientations: string[] = ['specialiste','motifOrientation','Action-edit','Action-delete','Action-rapport'];
    dataSourceOrientations : MatTableDataSource<any>;
 
     /* Table Structure | Orientation médicale */
-    displayedColumnsExamens: string[] = ['designation','description','resultat','Action-delete'];
+    displayedColumnsExamens: string[] = ['designation','description','resultat','Action-delete','Action-result'];
     dataSourceExamens : MatTableDataSource<any>;
 
   constructor(private route: ActivatedRoute,private _formBuilder: FormBuilder,
               public dialog: MatDialog,private employeService: EmployeService,
               private administrationService : AdministrationService,
+              private uploadService: UploadFileService,
               private tokenStorage: TokenStorageService) {
                 this.id_employe = Number(this.route.snapshot.paramMap.get('id'));                
               }
@@ -121,7 +126,7 @@ addExamen(edit) {
             console.log(data);
           this.consultation.examenComplementaires= data
           this.dataSourceExamens.data.push(data)
-          this.dataSourceExamens._updateChangeSubscription() 
+          this.dataSourceExamens._updateChangeSubscription()
         },
         error => console.log(error));
       }
@@ -231,8 +236,9 @@ genererOrdonnance() {
   var doc = new jsPDF('p','pt', 'a5');
 
   doc.addImage(this.imgD, 'JPEG',40,30,50,50);
-
+console.log(this.posteActuel);
   var entreprise = "SONATRACH";
+
   var departement = this.posteActuel.posteTravail.departement.designation;
   var site = this.posteActuel.posteTravail.departement.siteAffectation.designation;
   var medecin = this.user.name;
@@ -264,9 +270,9 @@ genererOrdonnance() {
   doc.setFontType("bold");
   doc.text(50, 195, "Date : ");
   doc.setFontType("normal");
-  const todayy = new Date();
-  const d = todayy.getDay() + "/" + todayy.getMonth() + "/" + todayy.getFullYear();
-  doc.text(120, 195, d);
+  const d = new Date();
+  const dd = d.getDay() + "/" + d.getMonth() + "/" + d.getFullYear();
+  doc.text(120, 195, dd+"");
 
   doc.setFontType("bold");
   doc.text(220, 195, "Age :");
@@ -290,14 +296,217 @@ genererOrdonnance() {
   var splitTitle = doc.splitTextToSize("Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum", 310);
   doc.setFontType("normal");
   doc.text(60, 470, splitTitle);
-  doc.save('test.pdf');
+  doc.save('ordonnance.pdf');
 }
+genererFicheSoins() {
+  
+    var doc = new jsPDF('p','pt', 'a5');
+  
+    doc.addImage(this.imgD, 'JPEG',40,30,50,50);
+  
+    var entreprise = "SONATRACH";
+    var departement = this.posteActuel.posteTravail.departement.designation;
+    var site = this.posteActuel.posteTravail.departement.siteAffectation.designation;
+    var medecin = this.user.name;
+    var title = "Fiche d'actes de soins";
+    var nomEmploye = this.employeInfos.nom + " " + this.employeInfos.prenom;
+    var age = this.ageFromBirthdate(this.employeInfos.dateNaissance);
+    doc.setFontSize(8);
+    doc.setTextColor(0, 0, 0);
+    doc.text(40,92,entreprise);
+    doc.setFontSize(10);
+    doc.text(140, 45, "DEPARTEMENT");
+    doc.text(220, 45, ":");
+    doc.text(230, 45, departement);
+    doc.text(140, 60, "SITE");
+    doc.text(220, 60, ":");
+    doc.text(230, 60, site);
+    doc.text(140, 75, "MEDECIN");
+    doc.text(220, 75, ":");
+    doc.text(230, 75, medecin);
+    doc.setFontSize(18);
+    doc.setFontType("bold");
+    doc.text(115, 130, title);
+    doc.setFontSize(11);
+    
+    doc.text(50, 175, "Nom et prénom :");
+    doc.setFontType("normal");
+    doc.text(140, 175, nomEmploye);
+  
+    doc.setFontType("bold");
+    doc.text(50, 195, "Date : ");
+    doc.setFontType("normal");
+    const d = new Date();
+    const dd = d.getDay() + "/" + d.getMonth() + "/" + d.getFullYear();
+    doc.text(120, 195, dd+"");
+  
+    doc.setFontType("bold");
+    doc.text(220, 195, "Age :");
+    doc.setFontType("normal");
+    doc.text(260, 195, age+"");
+  
+    var l = this.dataSourceSoins.data;
+    var _i = 0;
+    var splitTitle;
+    for (let i in l) {
+      doc.setFontType("bold");
+      doc.text(60, 230 + (_i*80), l[i].acte.designation);
+      splitTitle = doc.splitTextToSize(l[i].observation, 310);
+      doc.setFontType("normal");
+      doc.text(60, 250 + (_i*80), splitTitle);
+      _i += 1;
+    }
+  
+    // let list = ["Médicament", "2 fois par jours", "Avant de manger"];  
+    // for (var _i = 0; _i < 8; _i++) {
+    //   doc.text(80, 220 + (_i*25), list[0]+",   "+ list[1]+",   "+ list[2]);
+    // }
+  
+  
+    doc.save('soins.pdf');
+  }
+
+  
+genererFicheExamen() {
+  
+    var doc = new jsPDF('p','pt', 'a5');
+  
+    doc.addImage(this.imgD, 'JPEG',40,30,50,50);
+  
+    var entreprise = "SONATRACH";
+    var departement = this.posteActuel.posteTravail.departement.designation;
+    var site = this.posteActuel.posteTravail.departement.siteAffectation.designation;
+    var medecin = this.user.name;
+    var title = "Examen Complémentaire";
+    var nomEmploye = this.employeInfos.nom + " " + this.employeInfos.prenom;
+    var age = this.ageFromBirthdate(this.employeInfos.dateNaissance);
+    doc.setFontSize(8);
+    doc.setTextColor(0, 0, 0);
+    doc.text(40,92,entreprise);
+    doc.setFontSize(10);
+    doc.text(140, 45, "DEPARTEMENT");
+    doc.text(220, 45, ":");
+    doc.text(230, 45, departement);
+    doc.text(140, 60, "SITE");
+    doc.text(220, 60, ":");
+    doc.text(230, 60, site);
+    doc.text(140, 75, "MEDECIN");
+    doc.text(220, 75, ":");
+    doc.text(230, 75, medecin);
+    doc.setFontSize(18);
+    doc.setFontType("bold");
+    doc.text(110, 130, title);
+    doc.setFontSize(11);
+    
+    doc.text(50, 175, "Nom et prénom :");
+    doc.setFontType("normal");
+    doc.text(140, 175, nomEmploye);
+  
+    doc.setFontType("bold");
+    doc.text(50, 195, "Date : ");
+    doc.setFontType("normal");
+    const d = new Date();
+    const dd = d.getDay() + "/" + d.getMonth() + "/" + d.getFullYear();
+    doc.text(120, 195, dd+"");
+  
+    doc.setFontType("bold");
+    doc.text(220, 195, "Age :");
+    doc.setFontType("normal");
+    doc.text(260, 195, age+"");
+  
+    var l = this.dataSourceExamens.data;
+    var _i = 0;
+    var splitTitle;
+    for (let i in l) {
+      doc.setFontType("bold");
+      doc.text(60, 230 + (_i*80), l[i].designation);
+      splitTitle = doc.splitTextToSize(l[i].description, 310);
+      doc.setFontType("normal");
+      doc.text(60, 250 + (_i*80), splitTitle);
+      _i += 1;
+    }
+  
+    doc.save('examen Complementaire.pdf');
+  }
+
+genererOrientation(objet) {
+  
+    var doc = new jsPDF('p','pt', 'a5');
+  
+    doc.addImage(this.imgD, 'JPEG',40,30,50,50);
+  
+    var entreprise = "SONATRACH";
+    var departement = this.posteActuel.posteTravail.departement.designation;
+    var site = this.posteActuel.posteTravail.departement.siteAffectation.designation;
+    var medecin = this.user.name;
+    var title = "Orientation Médicale";
+    var nomEmploye = this.employeInfos.nom + " " + this.employeInfos.prenom;
+    var age = this.ageFromBirthdate(this.employeInfos.dateNaissance);
+    doc.setFontSize(8);
+    doc.setTextColor(0, 0, 0);
+    doc.text(40,92,entreprise);
+    doc.setFontSize(10);
+    doc.text(140, 45, "DEPARTEMENT");
+    doc.text(220, 45, ":");
+    doc.text(230, 45, departement);
+    doc.text(140, 60, "SITE");
+    doc.text(220, 60, ":");
+    doc.text(230, 60, site);
+    doc.text(140, 75, "MEDECIN");
+    doc.text(220, 75, ":");
+    doc.text(230, 75, medecin);
+    doc.setFontSize(18);
+    doc.setFontType("bold");
+    doc.text(115, 130, title);
+    doc.setFontSize(11);
+    
+    doc.text(50, 175, "Nom et prénom :");
+    doc.setFontType("normal");
+    doc.text(140, 175, nomEmploye);
+  
+    doc.setFontType("bold");
+    doc.text(50, 195, "Date : ");
+    doc.setFontType("normal");
+    const d = new Date();
+    const dd = d.getDay() + "/" + d.getMonth() + "/" + d.getFullYear();
+    doc.text(120, 195, dd+"");
+  
+    doc.setFontType("bold");
+    doc.text(220, 195, "Age :");
+    doc.setFontType("normal");
+    doc.text(260, 195, age+"");
+  
+    var l = this.dataSourceOrientations.data;
+    var _i = 0;
+    var splitTitle;
+    // for (let i in l) {
+      doc.setFontType("bold");
+      doc.text(60, 230 + (0*80), objet.specialite);
+      splitTitle = doc.splitTextToSize(objet.motif, 310);
+      doc.setFontType("normal");
+      doc.text(60, 250 + (0*80), splitTitle);
+      // _i += 1;
+    // }
+
+    // let list = ["Médicament", "2 fois par jours", "Avant de manger"];  
+    // for (var _i = 0; _i < 8; _i++) {
+    //   doc.text(80, 220 + (_i*25), list[0]+",   "+ list[1]+",   "+ list[2]);
+    // }
+  
+  
+    doc.save('orientation.pdf');
+  }
+  
+  showFileExamen(object) {
+    window.open(this.fileUploUrl+object.file.fileName);
+  }
 
 
-private imgD: string;
+  private imgD: string;
 
 ngOnInit() {
-
+      this.fileUploUrl = environment.fileUrl;
+      
       if (this.tokenStorage.getToken()) {
         this.administrationService.getUserByUsername(this.tokenStorage.getUsername()).subscribe(
           data => {

@@ -17,6 +17,10 @@ export class AdministrationService {
       return this.http.post<any[]>(`${environment.baseUrl}/societe`, societe);
     }
 
+    ajouterActe(acte) {
+      return this.http.post<any[]>(`${environment.baseUrl}/acte`, acte);
+    }
+
     ajouterAppareil(appareil) {
       return this.http.post<any[]>(`${environment.baseUrl}/appareil`, appareil);
     }
