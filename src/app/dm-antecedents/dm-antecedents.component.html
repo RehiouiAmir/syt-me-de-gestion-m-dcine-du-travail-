@@ -58,6 +58,12 @@
                             <td mat-cell *matCellDef="let row">{{row.consequence}}</td>
                         </ng-container>
 
+                        <!-- Observation Column -->
+                        <ng-container matColumnDef="observation">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Observation </th>
+                            <td mat-cell *matCellDef="let row"> {{row.observation}}  </td>
+                        </ng-container>
+
                         <!-- Médecin Column -->
                         <ng-container matColumnDef="medecin">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Médecin </th>
@@ -74,15 +80,7 @@
                             </td>
                         </ng-container>
                     
-                        <!-- Action details Column -->
-                        <ng-container matColumnDef="Action-details">
-                            <th mat-header-cell *matHeaderCellDef ></th>
-                            <td mat-cell *matCellDef="let row" class="td-btn-details">
-                                <button mat-icon-button>
-                                    <mat-icon>description</mat-icon>
-                                </button>
-                            </td>
-                        </ng-container>
+        
                         
                         <!-- Action delete Column -->
                         <ng-container matColumnDef="Action-delete">
@@ -136,6 +134,12 @@
                             <td mat-cell *matCellDef="let row">{{row.dateFin | date}}</td>
                         </ng-container>
 
+                        <!-- Observation Column -->
+                        <ng-container matColumnDef="observation">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Observation </th>
+                            <td mat-cell *matCellDef="let row"> {{row.observation}}  </td>
+                        </ng-container>
+
                         <!-- Médecin Column -->
                         <ng-container matColumnDef="medecin">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Médecin </th>
@@ -152,15 +156,7 @@
                             </td>
                         </ng-container>
                     
-                        <!-- Action details Column -->
-                        <ng-container matColumnDef="Action-details">
-                            <th mat-header-cell *matHeaderCellDef ></th>
-                            <td mat-cell *matCellDef="let row" class="td-btn-details">
-                                <button mat-icon-button (click)="openDialogDetails(''+row.idConsultation)">
-                                    <mat-icon>description</mat-icon>
-                                </button>
-                            </td>
-                        </ng-container>
+        
                         
                         <!-- Action delete Column -->
                         <ng-container matColumnDef="Action-delete">
@@ -214,6 +210,12 @@
                             <td mat-cell *matCellDef="let row">{{row.dateFin | date}}</td>
                         </ng-container>
 
+                        <!-- Observation Column -->
+                        <ng-container matColumnDef="observation">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Observation </th>
+                            <td mat-cell *matCellDef="let row"> {{row.observation}}  </td>
+                        </ng-container>
+
                         <!-- Médecin Column -->
                         <ng-container matColumnDef="medecin">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Médecin </th>
@@ -230,15 +232,7 @@
                             </td>
                         </ng-container>
                     
-                        <!-- Action details Column -->
-                        <ng-container matColumnDef="Action-details">
-                            <th mat-header-cell *matHeaderCellDef ></th>
-                            <td mat-cell *matCellDef="let row" class="td-btn-details">
-                                <button mat-icon-button>
-                                    <mat-icon>description</mat-icon>
-                                </button>
-                            </td>
-                        </ng-container>
+        
                         
                         <!-- Action delete Column -->
                         <ng-container matColumnDef="Action-delete">

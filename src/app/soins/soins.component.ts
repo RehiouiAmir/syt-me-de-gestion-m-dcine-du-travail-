@@ -19,7 +19,7 @@ export class SoinsComponent implements OnInit {
   sites : any[];
    /* Table Structure */
   
-   displayedColumns: string[] = ['matricule','numCarteChifa','posteTravail','acte','observation','dateSoins','medecin','infirmier','Action-details'];
+   displayedColumns: string[] = ['matricule','numCarteChifa','posteTravail','acte','observation','dateSoins','medecin','infirmier'];
    dataSource : MatTableDataSource<any>;
  
    @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -28,7 +28,7 @@ export class SoinsComponent implements OnInit {
 
   /* Demande Table Structure */
   
-   displayedColumnsDemande: string[] = ['matricule','numCarteChifa','posteTravail','acte','observation','dateDemande','medecin','Action-details','Action-add'];
+   displayedColumnsDemande: string[] = ['matricule','numCarteChifa','posteTravail','acte','observation','dateDemande','medecin'];
    dataSourceDemande : MatTableDataSource<any>;
  
    @ViewChild('MatPaginatorDemande') paginatorDemande: MatPaginator;

@@ -1,0 +1,65 @@
+.mat-dialog-title,
+.col-left .title-left h4,
+.col-right .title-right h4{
+    color: #2F323E;
+    font-weight: bold;
+}
+
+.mat-dialog-actions button.btn-rapport,
+.mat-dialog-actions button.btn-annuler{
+    color: white; 
+    margin-bottom: 5px;
+}
+
+.mat-dialog-actions button.btn-rapport{
+    background-color: #F0AD4E;
+}
+
+.mat-dialog-actions button.btn-annuler{
+    background-color: #F33155;
+}
+
+.col-left, .col-right{
+    padding: 10px 10px 10px 10px; 
+}
+
+.col-left .title-left,
+.col-right .title-right{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.col-right .evacuation-disabled{
+    background-color: #E0E0E0;
+}
+
+
+@media (min-width:767.98px){
+    .col-left{
+        border-right: 1px solid #E0E0E0;    
+    }
+}
+
+p.title-champ{
+    font-size: 13px;
+    font-weight: bold;
+    color: #54667A;
+}
+
+
+p span.champ{
+    font-weight: normal;
+    margin-left: 10px;
+}
+
+
+h4 span.champ{
+    font-weight: bold;
+    color: #54667A;
+    margin-left: 10px; 
+}
+
+.col-md-3,.col-md-4,.col-md-6,
+.col-md-8,.col-md-12{
+    margin-bottom: 20px;
+}

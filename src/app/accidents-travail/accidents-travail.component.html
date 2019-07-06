@@ -99,7 +99,7 @@
               <!-- Date accident  Column -->
               <ng-container matColumnDef="dateAccident">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-                  <td mat-cell *matCellDef="let row">{{row.date}}</td>
+                  <td mat-cell *matCellDef="let row">{{row.date| date}}</td>
               </ng-container>    
 
               <!-- Lieu accident  Column -->
@@ -134,7 +134,7 @@
                 <ng-container matColumnDef="Action-details">
                     <th mat-header-cell *matHeaderCellDef ></th>
                     <td mat-cell *matCellDef="let row" class="td-btn-details">
-                        <button mat-icon-button >
+                        <button mat-icon-button (click)="details(row)">
                             <mat-icon>description</mat-icon>
                         </button>
                     </td>
@@ -144,7 +144,7 @@
                 <ng-container matColumnDef="Action-delete">
                     <th mat-header-cell *matHeaderCellDef ></th>
                     <td mat-cell *matCellDef="let row" class="td-btn-delete">
-                        <button mat-icon-button (click)="delete()">
+                        <button mat-icon-button (click)="delete(row)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>

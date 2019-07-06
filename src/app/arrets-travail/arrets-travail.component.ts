@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { ViewChild } from '@angular/core';
 import { ActivitesMedicalesService } from 'src/app/services/activites-medicales.service';
 import { EmployeService } from 'src/app/services/employe.service';
+import { DetailsArretTravailComponent } from 'src/app/dm-arret-travail/dm-arret-travail.component';
 
 @Component({
   selector: 'app-arrets-travail',
@@ -24,7 +25,7 @@ export class ArretsTravailComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   
-  constructor(private activitesService : ActivitesMedicalesService, private employeService : EmployeService) { }
+  constructor(private activitesService : ActivitesMedicalesService, private employeService : EmployeService, public dialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -79,6 +80,14 @@ export class ArretsTravailComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  
+  details(object){
+    let dialogRef = this.dialog.open(DetailsArretTravailComponent, {
+    width: '50%',
+    data: {object : object}
+  });
+}
 
 
 }

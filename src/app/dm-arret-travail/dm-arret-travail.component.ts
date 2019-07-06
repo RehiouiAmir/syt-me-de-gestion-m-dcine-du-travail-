@@ -8,6 +8,8 @@ import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
+import { PopupService } from 'src/app/services/popup.service';
+import { DialogsService } from 'src/app/dialogs/dialogs.service';
 
 @Component({
   selector: 'app-dm-arret-travail',
@@ -29,7 +31,8 @@ export class DmArretTravailComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
     
-    constructor(private route: ActivatedRoute, private employeService: EmployeService, public dialog: MatDialog) { 
+    constructor(private route: ActivatedRoute, private employeService: EmployeService, public dialog: MatDialog,
+                private popupService: PopupService,private dialogsService: DialogsService) { 
       this.id_employe = Number(this.route.snapshot.paramMap.get('id'));
     }
   
@@ -85,26 +88,30 @@ export class DmArretTravailComponent implements OnInit {
           console.log(result)
           //change in backend
           if(result.motif != 'Accident de travail' &&
-            result.motif != 'Maladie congénitale' && 
-            result.motif != 'Maladie générale' && 
+            result.motif != 'Maladie non professionnelle'&& 
             result.motif != 'Maladie professionnelle'){
               this.employeService.creatArretTrvail(this.id_employe,result).subscribe(data => {
                 this.dataSource.data.push(data)
                 this.dataSource._updateChangeSubscription() 
+                this.popupService.success("L'arrêt de travail a été ajouté avec succès");
               },
-              error => console.log(error)); 
+              error => this.popupService.danger("L'arrêt de travail n'a pas été ajouté")); 
             }else if (result.motif === 'Accident de travail' ){
               this.employeService.creatArretTravailAccidentTravail(this.id_employe,result.accidentTravail.accident.id,result).subscribe(data => {
                 this.dataSource.data.push(data)
-                this.dataSource._updateChangeSubscription() 
+                this.dataSource._updateChangeSubscription()
+                this.popupService.success("L'arrêt de travail a été ajouté avec succès"); 
               },
-              error => console.log(error));             
+              error => this.popupService.danger("L'arrêt de travail n'a pas été ajouté"));             
             }else {
-              this.employeService.creatArretTravailMaladie(this.id_employe,result.maladies.id,result).subscribe(data => {
+              console.log()
+              this.employeService.creatArretTravailMaladie(this.id_employe,result.maladies.maladie.id,result).subscribe(data => {
+                console.log(data)                
                 this.dataSource.data.push(data)
-                this.dataSource._updateChangeSubscription() 
+                this.dataSource._updateChangeSubscription()
+                this.popupService.success("L'arrêt de travail a été ajouté avec succès");
               },
-              error => console.log(error));  
+              error => this.popupService.danger("L'arrêt de travail n'a pas été ajouté"));  
             }
         }
       });
@@ -123,6 +130,7 @@ export class DmArretTravailComponent implements OnInit {
           console.log(result)
           //change in backend
           this.employeService.updateArretTrvail(this.id_employe,result.id,result).subscribe(data => {
+            this.popupService.success("L'arrêt de travail a été modifié avec succès");            
             this.employeService.getAllArretTravailsByEmployeId(this.id_employe).subscribe(
               data => {
                 console.log(data)
@@ -134,19 +142,32 @@ export class DmArretTravailComponent implements OnInit {
               error => console.log(error)  
             );  
           },
-          error => console.log(error)); 
+          error => this.popupService.danger("L'arrêt de travail n'a pas été modifié")); 
         }
       });
     }
     delete(object) { 
-    //delete from backend
-      this.employeService.deleteArretTrvail(this.id_employe,object.id).subscribe(data => {
-        console.log(data)
-        this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
-        this.dataSource._updateChangeSubscription()  
-  
-      },
-      error => console.log(error));
+      this.dialogsService
+      .confirm('Confirmation', 'Voulez-vous vraiment supprimer cet arrêt de travail?')
+      .subscribe(result => {
+        if (result === true){
+        //delete from backend
+            this.employeService.deleteArretTrvail(this.id_employe,object.id).subscribe(data => {
+              console.log(data)
+              this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
+              this.dataSource._updateChangeSubscription()  
+              this.popupService.success("L'arrêt de travail a été supprimé avec succès");
+            },
+            error => this.popupService.danger("L'arrêt de travail n'a pas été supprimé"));
+          }
+        });
+    }
+
+    details(object){
+        let dialogRef = this.dialog.open(DetailsArretTravailComponent, {
+        width: '50%',
+        data: {object : object}
+      });
     }
 }
 
@@ -184,6 +205,7 @@ export class AjouterArretTravailComponent implements OnInit {
 
     this.employeService.getAllAntecedentsMaladiesByEmployeId(this.data.id_employe).subscribe(
       data => {
+        console.log(data)
         for(let i of data){
           if(i.maladie.type ==='Professionnelle') {
             this.maladiesProfessionnelles.push(i);
@@ -232,6 +254,25 @@ export class AjouterArretTravailComponent implements OnInit {
       console.log(this.data)
       this.dialogRef.close(this.data);
       }
+  }
+
+}
+
+// details 
+@Component({
+  selector: 'app-details-arret-travail',
+  templateUrl: './details-arret-travail.component.html',
+  styleUrls: ['./details-arret-travail.component.css']
+})
+export class DetailsArretTravailComponent implements OnInit {
+ 
+  constructor(public dialogRef: MatDialogRef<AjouterArretTravailComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {}
+
+  ngOnInit() { }
+
+  // close dialog  ajouter-arret-travail
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

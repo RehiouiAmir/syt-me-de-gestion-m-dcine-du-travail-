@@ -11,6 +11,7 @@ import { Inject } from '@angular/core';
 import { EmployeService } from '../services/employe.service';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
+import { PopupService } from 'src/app/services/popup.service';
 
 
 
@@ -38,7 +39,7 @@ export class EmployesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private employeService: EmployeService, public dialog: MatDialog) {
+  constructor(private employeService: EmployeService, public dialog: MatDialog,private popupService: PopupService) {
    }
 
   ngOnInit() {
@@ -112,8 +113,9 @@ export class EmployesComponent implements OnInit {
             this.employeService.createEmploye(result).subscribe(data => {
               this.dataSource.data.push(data)
               this.dataSource._updateChangeSubscription() 
+              this.popupService.success("L'employé a été ajouté avec succès");              
             },
-            error => console.log(error));
+            error => this.popupService.danger("L'employé n'a pas été ajouté"));
           }
       });
      }

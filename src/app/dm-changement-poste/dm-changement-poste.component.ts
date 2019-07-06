@@ -25,7 +25,7 @@ export class DmChangementPosteComponent implements OnInit {
   
     /* Table Structure */
   
-    displayedColumns: string[] = ['posteOccupe','etatPoste','dateOccupation','dateliberation','motif','medecin','Action-details','Action-edit','Action-delete'];
+    displayedColumns: string[] = ['posteOccupe','etatPoste','dateOccupation','dateliberation','motif','medecin',"Action-details",'Action-edit','Action-delete'];
     dataSource : MatTableDataSource<any>;
   
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -179,6 +179,12 @@ export class DmChangementPosteComponent implements OnInit {
         },
         error => console.log(error));
       }
+      details(object){
+        let dialogRef = this.dialog.open(DetailsChangementPosteComponent, {
+        width: '50%',
+        data: {object : object}
+      });
+    }
 }
 
 // Dialog [Modal Ajouter Un Changement de Poste]
@@ -302,5 +308,24 @@ if (!this.addGlobalForm.invalid){
 onNoClick(): void {
 this.dialogRef.close();
 }
+
+}
+
+// details 
+@Component({
+  selector: 'app-details-changement-poste',
+  templateUrl: './details-changement-poste.component.html',
+  styleUrls: ['./details-changement-poste.component.css']
+})
+export class DetailsChangementPosteComponent implements OnInit {
+ 
+  constructor(public dialogRef: MatDialogRef<DetailsChangementPosteComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {}
+
+  ngOnInit() { }
+
+  // close dialog  ajouter-arret-travail
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
 }

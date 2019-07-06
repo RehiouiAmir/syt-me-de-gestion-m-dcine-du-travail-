@@ -1,0 +1,22 @@
+<h4 mat-dialog-title class="mat-dialog-title">Accident de travail</h4>
+<div mat-dialog-content class="row">
+    <div class="col-md-6">
+        <p class="title-champ">Nature d'accident :<span class="champ"> {{data.object.natureAccident.designation}}</span></p>                                                 
+    </div>
+    <div class="col-md-6">
+        <p class="title-champ">Date d'accident :<span class="champ"> {{data.object.date | date}}</span></p>                                                 
+    </div>
+    <div class="col-md-12">
+        <p class="title-champ">Circonstance :<span class="champ"> {{data.object.circonstance}}</span></p>                                                 
+    </div>
+    <div class="col-md-12">
+        <p class="title-champ">Compte rendu :<span class="champ"> {{data.object.compteRendu}}</span></p>                                                 
+    </div>
+     
+    <div class="pull-right col-md-6"> 
+        <p class="title-champ">Médecin : <span class="champ">{{data.object.createdBy.name}}</span></p>                                                                     
+    </div>       
+</div>
+<div mat-dialog-actions class="pull-right">
+    <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()" cdkFocusInitial>Fermmer</button>
+</div>

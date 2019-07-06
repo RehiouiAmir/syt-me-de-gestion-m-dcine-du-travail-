@@ -103,6 +103,16 @@ color: white;
     background-color: #41B3F9;   
     color: white; 
 }
+p.title-champ{
+font-size: 13px;
+font-weight: bold;
+color: #54667A;
+}
+
+.champ{
+font-weight: normal;
+margin-left: 10px;
+}
 
 .mat-dialog-actions button.btn-ajouter,
 .mat-dialog-actions button.btn-annuler{

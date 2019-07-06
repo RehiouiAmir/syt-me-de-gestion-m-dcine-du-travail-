@@ -36,6 +36,14 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
+                <ng-container *ngIf=" data.edit === 'true' && data.object.accident != null">
+                    <div class="col-md-12" *ngIf="addForm.value.type === 'Accident de travail'"> 
+                        <p class="title-champ">Nature d'accident : <span class="champ">{{data.object.accident.natureAccident.designation}}</span></p> 
+                        <p class="title-champ">Date d'accident : <span class="champ">{{data.object.accident.date | date}}</span></p> 
+                        <p class="title-champ">Lieu d'ccident : <span class="champ">{{data.object.accident.lieu}}</span></p> 
+                        <p class="title-champ">Circonstance : <span class="champ">{{data.object.accident.circonstance}}</span></p> 
+                    </div>
+                </ng-container>
                 <div class="col-md-6">                        
                     <mat-form-field>
                         <input matInput [matDatepicker]="pickerDebut" placeholder="Date debut" formControlName="dateDebut" required>
@@ -48,16 +56,6 @@
                         <input matInput [matDatepicker]="pickerFin" placeholder="Date fin" formControlName="dateFin">
                         <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
                         <mat-datepicker #pickerFin></mat-datepicker>
-                    </mat-form-field>
-                </div>
-                <div class="col-md-10"  *ngIf=" data.edit === 'true' && data.object.accident != null">
-                    <mat-form-field *ngIf="addForm.value.type === 'Accident de travail'">
-                        <textarea class="textArea"  matInput placeholder="Accident de travail" disabled >
-                            Nature : {{data.object.accident.natureAccident.designation}}
-                            Date :{{data.object.accident.date | date}}
-                            Lieu : {{data.object.accident.lieu}}
-                            Circonstance : {{data.object.accident.circonstance}}
-                        </textarea>
                     </mat-form-field>
                 </div>
             </div>
@@ -109,7 +107,7 @@
                 </div>
                 <div class="col-md-2" *ngIf=" data.edit === 'false'">
                     <button *ngIf="addForm.value.type === 'Accident de travail'" 
-                        mat-mini-fab class="btn-ajouter" (click)="add()">
+                        mat-mini-fab class="btn-ajouter" (click)="add(''+false)">
                         <mat-icon>add</mat-icon>
                     </button>
                 </div>      

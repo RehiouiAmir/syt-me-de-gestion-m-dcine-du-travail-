@@ -12,6 +12,8 @@ import { ViewChild } from '@angular/core';
 
 import { EmployeService } from '../services/employe.service';
 import { ActivitesMedicalesService } from 'src/app/services/activites-medicales.service';
+import { PopupService } from 'src/app/services/popup.service';
+import { DialogsService } from 'src/app/dialogs/dialogs.service';
 
 @Component({
   selector: 'app-dm-antecedents',
@@ -28,7 +30,7 @@ export class DmAntecedentsComponent implements OnInit {
   maladies: any[];
    /* Accidents de travail Table Structure */
   
-   displayedColumns: string[] = ['natureAccident','lieu','dateDebut','dateFin','consequence','medecin','Action-details','Action-edit','Action-delete'];
+   displayedColumns: string[] = ['natureAccident','lieu','dateDebut','dateFin','consequence','observation','medecin','Action-edit','Action-delete'];
    dataSource : MatTableDataSource<any>;
  
    @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -36,7 +38,7 @@ export class DmAntecedentsComponent implements OnInit {
 
     /* Maladies Table Structure */
  
-    displayedColumnsMaladies: string[] = ['type','designation','dateDebut','dateFin','medecin','Action-details','Action-edit','Action-delete'];
+    displayedColumnsMaladies: string[] = ['type','designation','dateDebut','dateFin','observation','medecin','Action-edit','Action-delete'];
     dataSourceMaladies : MatTableDataSource<any>;
   
     @ViewChild('MatPaginatorMaladies') paginatorMaladies: MatPaginator;
@@ -44,13 +46,14 @@ export class DmAntecedentsComponent implements OnInit {
 
     /* Autres antédédetns Table Structure */
  
-    displayedColumnsAutres: string[] = ['type','designation','dateDebut','dateFin','medecin','Action-details','Action-edit','Action-delete'];
+    displayedColumnsAutres: string[] = ['type','designation','dateDebut','dateFin','observation','medecin','Action-edit','Action-delete'];
     dataSourceAutres : MatTableDataSource<any>;
   
     @ViewChild('MatPaginatorAutres') paginatorAutres: MatPaginator;
     @ViewChild('MatSortAutres') sortAutres: MatSort;
   
-  constructor(private employeService: EmployeService, private route: ActivatedRoute, public dialog: MatDialog) {
+  constructor(private employeService: EmployeService, private route: ActivatedRoute, public dialog: MatDialog,
+              private popupService: PopupService,private dialogsService: DialogsService) {
     this.id_employe = Number(this.route.snapshot.paramMap.get('id'));
    }
 
@@ -150,21 +153,24 @@ export class DmAntecedentsComponent implements OnInit {
             this.employeService.creatAntecedentAutre(this.id_employe,result).subscribe(data => {
               console.log(data)              
               this.dataSourceAutres.data.push(data)
-              this.dataSourceAutres._updateChangeSubscription() 
+              this.dataSourceAutres._updateChangeSubscription()
+              this.popupService.success("L'antécédent a été ajouté avec succès");                            
             },
-            error => console.log(error)); 
+            error => this.popupService.danger("L'antécédent n'a pas été ajouté")); 
           }else if (result.type === 'Accident de travail' ){
             this.employeService.creatAntecedentAccidentTravail(this.id_employe,result.accident.id,result).subscribe(data => {
               this.dataSource.data.push(data)
               this.dataSource._updateChangeSubscription() 
+              this.popupService.success("L'antécédent accident a été ajouté avec succès");
             },
-            error => console.log(error));             
+            error => this.popupService.danger("L'antécédent accident n'a pas été ajouté --- il faut selectionner un accident"));             
           }else {
             this.employeService.creatAntecedentMaladie(this.id_employe,result.maladie.id,result).subscribe(data => {
               this.dataSourceMaladies.data.push(data)
               this.dataSourceMaladies._updateChangeSubscription() 
+              this.popupService.success("L'antécédent maladie a été ajouté avec succès");
             },
-            error => console.log(error));  
+            error => this.popupService.danger("L'antécédent maladie n'a pas été ajouté --- il faut selectionner une maladie"));  
           }
       }
     });
@@ -183,6 +189,7 @@ export class DmAntecedentsComponent implements OnInit {
           result.type != 'Maladie générale' && 
           result.type != 'Maladie professionnelle'){
             this.employeService.updateAntecedentAntecedentAutre(this.id_employe,result.id,result).subscribe(data => {
+              this.popupService.success("L'antécédent a été modifié avec succès");              
               this.employeService.getAllAntecedentsByEmployeId(this.id_employe).subscribe(
                 data => {
                   console.log(data)
@@ -194,9 +201,10 @@ export class DmAntecedentsComponent implements OnInit {
                 error => console.log(error)  
               );
             },
-            error => console.log(error)); 
+            error => this.popupService.danger("L'antécédent n'a pas été modifié")); 
           }else if (result.type === 'Accident de travail' ){
             this.employeService.updateAntecedentAccidentTravail(result.id,result).subscribe(data => {
+              this.popupService.success("L'antécédent accident a été modifié avec succès");
               this.employeService.getAllAntecedentsAccidentsTravailByEmployeId(this.id_employe).subscribe(
                 data => {
                   console.log(data)
@@ -208,28 +216,32 @@ export class DmAntecedentsComponent implements OnInit {
                 error => console.log(error)  
               );
             },
-            error => console.log(error));             
+            error => this.popupService.danger("L'antécédent accident n'a pas été modifié"));             
           }else {
             this.employeService.updateAntecedentMaladiee(result.id,result).subscribe(data => {
+              this.popupService.success("L'antécédent maladie a été modifié avec succès");
               this.employeService.getAllAntecedentsMaladiesByEmployeId(this.id_employe).subscribe(
                 data => {
                   console.log(data)
                   this.maladies = data;
                   this.dataSourceMaladies = new MatTableDataSource<any>(this.maladies);
                   this.dataSourceMaladies.paginator = this.paginatorMaladies;
-                  this.dataSourceMaladies.sort = this.sortMaladies;
+                  this.dataSourceMaladies.sort = this.sortMaladies
                 },
                 error => console.log(error)  
               );
             },
-            error => console.log(error));  
+            error => this.popupService.danger("L'antécédent maladie n'a pas été modifié"));  
           }
       }
     }); 
   }
-
   delete(object) {  
-        if(object.type != 'Accident de travail' &&
+    this.dialogsService
+    .confirm('Confirmation', 'Voulez-vous vraiment supprimer cet antécédant?')
+    .subscribe(result => {
+        if (result === true){
+          if(object.type != 'Accident de travail' &&
           object.type != 'Maladie congénitale' && 
           object.type != 'Maladie générale' && 
           object.type != 'Maladie professionnelle'){
@@ -237,21 +249,27 @@ export class DmAntecedentsComponent implements OnInit {
             this.employeService.deleteAntecedentAntecedentAutre(this.id_employe,object.id).subscribe(data => {
               this.dataSourceAutres.data.splice(this.dataSourceAutres.data.indexOf(object),1)
               this.dataSourceAutres._updateChangeSubscription() 
+              this.popupService.success("L'antécédent a été supprimé avec succès");
             },
-            error => console.log(error)); 
+            error => this.popupService.danger("L'antécédent n'a pas été supprimé")); 
           }else if (object.type === 'Accident de travail' ){
             this.employeService.deleteAntecedentAccidentTravail(object.id).subscribe(data => {
               this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
-              this.dataSource._updateChangeSubscription()  
+              this.dataSource._updateChangeSubscription() 
+              this.popupService.success("L'antécédent accident a été supprimé avec succès"); 
             },
-            error => console.log(error));             
+            error => this.popupService.danger("L'antécédent n'a pas été supprimé"));             
           }else {
             this.employeService.deleteAntecedentMaladiee(object.id).subscribe(data => {
               this.dataSourceMaladies.data.splice(this.dataSourceMaladies.data.indexOf(object),1)
-              this.dataSourceMaladies._updateChangeSubscription() 
+              this.dataSourceMaladies._updateChangeSubscription()
+              this.popupService.success("L'antécédent maladie a été supprimé avec succès");              
             },
-            error => console.log(error));  
+            error => this.popupService.danger("L'antécédent maladie n'a pas été supprimé"));  
           }
+        }
+    });
+        
       }
   }
 
@@ -279,7 +297,7 @@ export class AjouterAntecedentComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<AjouterAntecedentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private formBuilder: FormBuilder,public dialog: MatDialog,
-    private activitesMedicales : ActivitesMedicalesService) {}
+    private activitesMedicales : ActivitesMedicalesService,private popupService: PopupService) {}
 
   ngOnInit() {
 
@@ -297,7 +315,7 @@ export class AjouterAntecedentComponent implements OnInit {
         for(let i of data){
           if(i.type ==='Professionnelle') {
             this.maladiesProfessionnelles.push(i);
-          }else if(i.type ==='Congénétale'){
+          }else if(i.type ==='Congénitale'){
             this.maladiesCongenitale.push(i)
           }else{
             this.maladiesGenerale.push(i)
@@ -352,10 +370,10 @@ export class AjouterAntecedentComponent implements OnInit {
   }
    // Operation Add, Edit, Delet
    
-   add() {
+   add(edit) {
     let dialogRef = this.dialog.open(DeclarerAccidentTravailComponent, {
       width: '50%',
-      data: {}
+      data: {edit: edit}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined){
@@ -365,8 +383,9 @@ export class AjouterAntecedentComponent implements OnInit {
         console.log(result)        
         this.activitesMedicales.creatAccidentTravail(id_nature,result).subscribe(data => {
           this.accidentTravails.push(data)
+          this.popupService.success("L'accident de travail a été ajouté avec succès");
         },
-        error => console.log(error));
+        error => this.popupService.danger("L'accident de travail n'a pas été ajouté"));
       }
     });
    }

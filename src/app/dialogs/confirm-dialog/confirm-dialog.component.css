@@ -1,0 +1,20 @@
+
+.champ{
+    color: #2F323E;
+    font-weight: bold;
+}
+.champ-1{
+color: #2F323E;
+font-weight: normal;  
+font-size: 13px;
+}
+button.btn-oui{
+    background-color: #7ACE4C;
+    color: white; 
+}
+
+button.btn-annuler{
+    background-color: #F33155;
+    color: white;  
+    margin-left: 5px;    
+}
