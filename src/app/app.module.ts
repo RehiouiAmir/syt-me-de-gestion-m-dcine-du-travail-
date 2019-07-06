@@ -189,7 +189,7 @@ import { DialogsModule } from 'src/app/dialogs/dialogs.module';
                     AjouterMedicamentComponent,AdminVaccinComponent,AjouterVaccinComponent,AdminNatureAccidentComponent,
                     AjouterNatureAccidentComponent,AjouterTypeRisqueComponent,RisquesTypeRisqueComponent,AffecterRisqueComponent,RisquesPosteComponent,
                     AjouterRisqueComponent,RegisterComponent,DmConsultationMedicaleComponent,ModifierConsultationComponent,
-                    ConvoquerEmployeComponent,InterrogatoiresComponent,AjouterInterrogatoireComponent,DetailsAccidentTravailComponent,DetailsChangementPosteComponent,AjouterActeComponent,GenererRapportComponent,AjouterUtilisateurComponent],
+                    ConvoquerEmployeComponent,InterrogatoiresComponent,AjouterInterrogatoireComponent,DetailsAccidentTravailComponent,DetailsChangementPosteComponent,GenererRapportComponent,AjouterUtilisateurComponent,AjouterActeComponent],
   providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlFr},
               {provide: LOCALE_ID, useValue: "fr-CA" }, httpInterceptorProviders],
   bootstrap: [AppComponent]
