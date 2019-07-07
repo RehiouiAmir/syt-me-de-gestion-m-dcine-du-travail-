@@ -9,7 +9,7 @@ import { EmployeService } from 'src/app/services/employe.service';
 import { PopupService } from 'src/app/services/popup.service';
 import { ViewChild } from '@angular/core';
 import { DialogsService } from 'src/app/dialogs/dialogs.service';
-
+import { environment } from '../../environments/environment';
 
 
 @Component({
@@ -22,6 +22,15 @@ export class DmVisiteMedicaleComponent implements OnInit {
   employeInfos : any = null;
   posteActuel : any = null;  
   private visites: any[];
+
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
+  imageSource : string;  
+  
+  id: string;
+  
+  dateAujourdhuit = new FormControl(new Date());
   
   /* Table Structure */
 

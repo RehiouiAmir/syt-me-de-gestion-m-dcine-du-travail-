@@ -9,6 +9,7 @@ import { environment } from '../../environments/environment';
 import { PopupService } from 'src/app/services/popup.service';
 import { DialogsService } from 'src/app/dialogs/dialogs.service';
 
+
 @Component({
   selector: 'app-dm-explorations',
   templateUrl: './dm-explorations.component.html',
@@ -20,6 +21,7 @@ export class DmExplorationsComponent implements OnInit {
   employeInfos : any = null;
   posteActuel : any = null;
   fileUploUrl : string;   
+  imageSource : string;  
   
     /* Table Structure */
   
@@ -49,6 +51,11 @@ export class DmExplorationsComponent implements OnInit {
         data => {
           console.log(data)
           this.employeInfos = data;
+          if(data.file== null){
+            this.imageSource = "../../assets/img/pic-user.png";
+          } else {
+            this.imageSource = environment.fileUrl+data.file.fileName;            
+          }
           for(var i in this.employeInfos.employe_posteTravails){
             if (this.employeInfos.employe_posteTravails[i].actuel === true){
               this.posteActuel = this.employeInfos.employe_posteTravails[i];

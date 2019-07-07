@@ -9,6 +9,7 @@ import { Inject } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { DeclarerAccidentTravailComponent } from 'src/app/accidents-travail/accidents-travail.component';
 import { ViewChild } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 import { EmployeService } from '../services/employe.service';
 import { ActivitesMedicalesService } from 'src/app/services/activites-medicales.service';
@@ -28,6 +29,8 @@ export class DmAntecedentsComponent implements OnInit {
   antecedents : any[];
   accidentsTravail: any[];
   maladies: any[];
+  imageSource : string;  
+  
    /* Accidents de travail Table Structure */
   
    displayedColumns: string[] = ['natureAccident','lieu','dateDebut','dateFin','consequence','observation','medecin','Action-edit','Action-delete'];
@@ -64,6 +67,11 @@ export class DmAntecedentsComponent implements OnInit {
       data => {
         console.log(data)
         this.employeInfos = data;
+        if(data.file== null){
+          this.imageSource = "../../assets/img/pic-user.png";
+        } else {
+          this.imageSource = environment.fileUrl+data.file.fileName;            
+        }
         for(var i in this.employeInfos.employe_posteTravails){
           if (this.employeInfos.employe_posteTravails[i].actuel === true){
             this.posteActuel = this.employeInfos.employe_posteTravails[i];

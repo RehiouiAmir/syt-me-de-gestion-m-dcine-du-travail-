@@ -11,6 +11,8 @@ import { EmployeService } from 'src/app/services/employe.service';
 import { ActivatedRoute } from '@angular/router';
 import { PopupService } from 'src/app/services/popup.service';
 import { DialogsService } from 'src/app/dialogs/dialogs.service';
+import { environment } from '../../environments/environment';
+
 
 @Component({
   selector: 'app-dm-soins',
@@ -22,7 +24,8 @@ export class DmSoinsComponent implements OnInit {
   id_employe : number;
   employeInfos : any = null;
   posteActuel : any = null;  
-
+  imageSource : string;  
+  
   /* Table Structure */
   
   displayedColumns: string[] = ['acte','dateSoins','etat','observation','medecin','infirmier','Action-edit','Action-delete'];
@@ -52,6 +55,11 @@ export class DmSoinsComponent implements OnInit {
       data => {
         console.log(data)
         this.employeInfos = data;
+        if(data.file== null){
+          this.imageSource = "../../assets/img/pic-user.png";
+        } else {
+          this.imageSource = environment.fileUrl+data.file.fileName;            
+        }
         for(var i in this.employeInfos.employe_posteTravails){
           if (this.employeInfos.employe_posteTravails[i].actuel === true){
             this.posteActuel = this.employeInfos.employe_posteTravails[i];

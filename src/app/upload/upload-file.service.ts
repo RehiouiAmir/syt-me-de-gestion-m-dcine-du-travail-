@@ -35,6 +35,19 @@ export class UploadFileService {
     return this.http.request(req);
   }
 
+  pushEmployeImageToStorage(file: File): Observable<HttpEvent<{}>> {
+    const formdata: FormData = new FormData();
+
+    formdata.append('file', file);
+
+    const req = new HttpRequest('POST', 'http://localhost:8080/post/employe', formdata, {
+      reportProgress: true,
+      responseType: 'text'
+    });
+
+    return this.http.request(req);
+  }
+
   getFiles(): Observable<any> {
     return this.http.get('http://localhost:8080/getallfiles');
   }

@@ -10,6 +10,8 @@ import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { PopupService } from 'src/app/services/popup.service';
 import { DialogsService } from 'src/app/dialogs/dialogs.service';
+import { environment } from '../../environments/environment';
+
 
 @Component({
   selector: 'app-dm-arret-travail',
@@ -22,6 +24,7 @@ export class DmArretTravailComponent implements OnInit {
   employeInfos : any = null;
   posteActuel : any = null;  
   private arreTrvails: any[];
+  imageSource : string;  
   
     /* Table Structure */
   
@@ -42,6 +45,11 @@ export class DmArretTravailComponent implements OnInit {
         data => {
           console.log(data)
           this.employeInfos = data;
+          if(data.file== null){
+            this.imageSource = "../../assets/img/pic-user.png";
+          } else {
+            this.imageSource = environment.fileUrl+data.file.fileName;            
+          }
           for(var i in this.employeInfos.employe_posteTravails){
             if (this.employeInfos.employe_posteTravails[i].actuel === true){
               this.posteActuel = this.employeInfos.employe_posteTravails[i];

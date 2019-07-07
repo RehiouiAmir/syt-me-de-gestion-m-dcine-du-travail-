@@ -4,6 +4,10 @@
             <button mat-button mat-raised-button class="pull-right btn-edit" (click)="update(''+true,employeInfos)">
                 Modifier Employé
                 <mat-icon>edit</mat-icon>                                  
+            </button>
+            <button mat-button mat-raised-button class="pull-right btn-edit" (click)="addUser()" style="margin-right:15px;background-color:#F0AD4E;">
+                Compte
+                <mat-icon>account_circle</mat-icon>                                  
             </button> 
         </div>
     </div>
@@ -11,7 +15,7 @@
         <div class="col-md-6 column-left">
             <div class="row-1">
                 <div class="col-md-8 photo-col">
-                    <img class="employe-profile-img img-circle" src="../../assets/img/pic-user-font-white.png" alt="pic-user"/>
+                    <img class="employe-profile-img img-circle" src="{{imageSource}}" alt="pic-user"/>
                 </div> 
             </div>
             <div class="col-md-12" *ngIf="employeInfos.archive === true">

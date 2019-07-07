@@ -32,6 +32,7 @@ export class DmConsultationMedicaleComponent implements OnInit {
   employeInfos : any = null;
   posteActuel : any = null;  
   private consultations: any[];
+  imageSource : string;  
   
   /* Table Structure */
 
@@ -52,6 +53,11 @@ export class DmConsultationMedicaleComponent implements OnInit {
       data => {
         console.log(data)
         this.employeInfos = data;
+        if(data.file== null){
+          this.imageSource = "../../assets/img/pic-user.png";
+        } else {
+          this.imageSource = environment.fileUrl+data.file.fileName;            
+        }
         for(var i in this.employeInfos.employe_posteTravails){
           if (this.employeInfos.employe_posteTravails[i].actuel === true){
             this.posteActuel = this.employeInfos.employe_posteTravails[i];
