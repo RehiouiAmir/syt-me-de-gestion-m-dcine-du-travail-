@@ -94,10 +94,10 @@ export class DmChangementPosteComponent implements OnInit {
     }
 
     applyFilterReorientation(filterValue: string) {
-      this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.dataSourceReorientation.filter = filterValue.trim().toLowerCase();
   
-      if (this.dataSource.paginator) {
-        this.dataSource.paginator.firstPage();
+      if (this.dataSourceReorientation.paginator) {
+        this.dataSourceReorientation.paginator.firstPage();
       }
     }
 
@@ -132,7 +132,7 @@ export class DmChangementPosteComponent implements OnInit {
                 error => console.log(error)  
               );        
             },
-            error => this.popupService.danger("Le changement de poste n'a pas été ajouté"));
+            error => this.popupService.danger("Le changement de poste n'a pas été ajouté --- Vérifier la date d'occupation de poste"));
           }
       });
      }
@@ -167,7 +167,7 @@ export class DmChangementPosteComponent implements OnInit {
               error => console.log(error)  
             );   
           },
-          error => this.popupService.danger("Le changement de poste n'a pas été modifié")); 
+          error => this.popupService.danger("Le changement de poste n'a pas été modifié --- Vérifier la date d'occupation de poste")); 
         }
       });
     }

@@ -77,6 +77,8 @@ import { UtilisateursComponent, AjouterUtilisateurComponent } from './utilisateu
 import { RegisterComponent } from './register/register.component';
 import { AdminActeComponent, AjouterActeComponent } from './admin/admin-acte/admin-acte.component';
 import { DialogsModule } from 'src/app/dialogs/dialogs.module';
+import { AjouterVisiteMedicaleComponent } from './ajouter-visite-medicale/ajouter-visite-medicale.component';
+import { AjouterReorientationProfessionnelleComponent } from './ajouter-reorientation-professionnelle/ajouter-reorientation-professionnelle.component';
 
 @NgModule({
   declarations: [
@@ -161,7 +163,9 @@ import { DialogsModule } from 'src/app/dialogs/dialogs.module';
     AdminActeComponent,
     AjouterActeComponent,
     DetailsChangementPosteComponent,
-    DetailsAccidentTravailComponent
+    DetailsAccidentTravailComponent,
+    AjouterVisiteMedicaleComponent,
+    AjouterReorientationProfessionnelleComponent
   ],
   
   imports: [
@@ -189,7 +193,7 @@ import { DialogsModule } from 'src/app/dialogs/dialogs.module';
                     AjouterMedicamentComponent,AdminVaccinComponent,AjouterVaccinComponent,AdminNatureAccidentComponent,
                     AjouterNatureAccidentComponent,AjouterTypeRisqueComponent,RisquesTypeRisqueComponent,AffecterRisqueComponent,RisquesPosteComponent,
                     AjouterRisqueComponent,RegisterComponent,DmConsultationMedicaleComponent,ModifierConsultationComponent,
-                    ConvoquerEmployeComponent,InterrogatoiresComponent,AjouterInterrogatoireComponent,DetailsAccidentTravailComponent,DetailsChangementPosteComponent,GenererRapportComponent,AjouterUtilisateurComponent,AjouterActeComponent],
+                    ConvoquerEmployeComponent,AjouterReorientationProfessionnelleComponent,InterrogatoiresComponent,AjouterInterrogatoireComponent,DetailsAccidentTravailComponent,DetailsChangementPosteComponent,GenererRapportComponent,AjouterUtilisateurComponent,AjouterActeComponent],
   providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlFr},
               {provide: LOCALE_ID, useValue: "fr-CA" }, httpInterceptorProviders],
   bootstrap: [AppComponent]

@@ -9,6 +9,8 @@ import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { EmployeService } from 'src/app/services/employe.service';
 import { ActivatedRoute } from '@angular/router';
+import { PopupService } from 'src/app/services/popup.service';
+import { DialogsService } from 'src/app/dialogs/dialogs.service';
 
 @Component({
   selector: 'app-dm-soins',
@@ -38,7 +40,9 @@ export class DmSoinsComponent implements OnInit {
   @ViewChild('MatPaginatorDemande') paginatorDemande: MatPaginator;
   @ViewChild('MatSortDemande') sortDemande: MatSort;
   
-  constructor(private route: ActivatedRoute,private activitesService : ActivitesMedicalesService,private employeService : EmployeService, public dialog: MatDialog) { 
+  constructor(private route: ActivatedRoute,private activitesService : ActivitesMedicalesService,
+    private employeService : EmployeService, public dialog: MatDialog,
+    private popupService: PopupService,private dialogsService: DialogsService) { 
     this.id_employe = Number(this.route.snapshot.paramMap.get('id'));
   }
 
@@ -90,10 +94,10 @@ export class DmSoinsComponent implements OnInit {
 
   // search table
   applyFilterDemande(filterValue: string) {
-   this.dataSource.filter = filterValue.trim().toLowerCase();
+   this.dataSourceDemande.filter = filterValue.trim().toLowerCase();
 
-   if (this.dataSource.paginator) {
-     this.dataSource.paginator.firstPage();
+   if (this.dataSourceDemande.paginator) {
+     this.dataSourceDemande.paginator.firstPage();
    }
  }
 
@@ -111,8 +115,9 @@ export class DmSoinsComponent implements OnInit {
       this.employeService.creatSoinsInfirmier(this.id_employe,result.idActe,result).subscribe(data => {
         this.dataSourceDemande.data.push(data)
         this.dataSourceDemande._updateChangeSubscription() 
+        this.popupService.success("Le soin a été ajouté avec succès"); 
       },
-      error => console.log(error));
+      error => this.popupService.danger("Le soin n'a pas été ajouté")); 
     }
 });
  }
@@ -130,6 +135,7 @@ export class DmSoinsComponent implements OnInit {
       console.log(result)
       //change in backend
       this.employeService.updateSoins(result.id,result).subscribe(data => {
+        this.popupService.success("Le soin a été modifié avec succès");                                
         this.employeService.getAllSoinsByEmployeId(this.id_employe).subscribe(
           data => {
             console.log(data)
@@ -140,31 +146,43 @@ export class DmSoinsComponent implements OnInit {
           error => console.log(error)  
         );  
       },
-      error => console.log(error)); 
+      error => this.popupService.danger("Le soin n'a pas été modifié")); 
     }
   });
 }
 
  delete(object) { 
+  this.dialogsService
+  .confirm('Confirmation', 'Voulez-vous vraiment supprimer ce soin?')
+  .subscribe(result => {
+    if (result === true){
   //delete from backend
     this.employeService.deleteSoins(object.id).subscribe(data => {
       console.log(data)
       this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
       this.dataSource._updateChangeSubscription()  
-
+      this.popupService.success("Le soin a été supprimé avec succès");
     },
-    error => console.log(error));
+    error => this.popupService.danger("Le soin n'a pas été supprimé"));
+  }
+});
 }
 
 delelteInfirmier(object) { 
-  //delete from backend
+  this.dialogsService
+  .confirm('Confirmation', 'Voulez-vous vraiment supprimer ce soin?')
+  .subscribe(result => {
+    if (result === true){
     this.employeService.deleteSoinsInfirmier(object.id).subscribe(data => {
       console.log(data)
       this.dataSourceDemande.data.splice(this.dataSourceDemande.data.indexOf(object),1)
       this.dataSourceDemande._updateChangeSubscription()  
 
+      this.popupService.success("Le soin a été supprimé avec succès");
     },
-    error => console.log(error));
+    error => this.popupService.danger("Le soin n'a pas été supprimé"));
+  }
+});
 }
 }
 

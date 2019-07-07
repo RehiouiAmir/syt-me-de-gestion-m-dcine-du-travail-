@@ -9,6 +9,8 @@ import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { EmployeService } from 'src/app/services/employe.service';
 import { ActivatedRoute } from '@angular/router';
+import { PopupService } from 'src/app/services/popup.service';
+import { DialogsService } from 'src/app/dialogs/dialogs.service';
 
 @Component({
   selector: 'app-dm-profil-vaccinal',
@@ -30,7 +32,8 @@ export class DmProfilVaccinalComponent implements OnInit {
     @ViewChild(MatSort) sort: MatSort;
     
     constructor(private route: ActivatedRoute,private activitesService : ActivitesMedicalesService,
-      private employeService : EmployeService, public dialog: MatDialog) { 
+      private employeService : EmployeService, public dialog: MatDialog,
+      private popupService: PopupService,private dialogsService: DialogsService) { 
       this.id_employe = Number(this.route.snapshot.paramMap.get('id'));
     }
   
@@ -93,8 +96,9 @@ export class DmProfilVaccinalComponent implements OnInit {
         this.employeService.ajouterCalendrierVaccinal(this.id_employe, result.vaccinn,result).subscribe(data => {
           this.dataSource.data.push(data)
           this.dataSource._updateChangeSubscription() 
+          this.popupService.success("Le calendrier vaccinal a été ajouté avec succès"); 
         },
-        error => console.log(error));
+        error => this.popupService.danger("Le calendrier vaccinal n'a pas été ajouté"));  
       }
     });
    }
@@ -109,7 +113,7 @@ export class DmProfilVaccinalComponent implements OnInit {
 
    update(edit: any,object) {  
     let dialogRef = this.dialog.open(AjouterProfileVaccinalComponent, {
-      width: '60%',
+      width: '50%',
       data: {
         edit : edit, object : object,
       }
@@ -119,6 +123,7 @@ export class DmProfilVaccinalComponent implements OnInit {
         console.log(result)
         //change in backend
         this.employeService.updateCalendrierVaccinal(result.id,result).subscribe(data => {
+          this.popupService.success("Le calendrier vaccinal a été modifié avec succès");                      
           this.employeService.getAllVaccinByEmployeId(this.id_employe).subscribe(
             data => {
               console.log(data)
@@ -129,19 +134,25 @@ export class DmProfilVaccinalComponent implements OnInit {
             error => console.log(error)  
           );  
         },
-        error => console.log(error)); 
+        error => this.popupService.danger("Le calendrier vaccinal n'a pas été modifié")); 
       }
     });
   }
   delete(object){
+    this.dialogsService
+    .confirm('Confirmation', 'Voulez-vous vraiment supprimer ce calendrier vaccinal?')
+    .subscribe(result => {
+      if (result === true){
     //delete from backend
     this.employeService.deleteCalendrierVaccinal(object.id).subscribe(data => {
       console.log(data)
       this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
       this.dataSource._updateChangeSubscription()  
-
+      this.popupService.success("Le calendrier vaccinal a été supprimé avec succès");
     },
-    error => console.log(error));
+    error => this.popupService.danger("Le calendrier vaccinal n'a pas été supprimé"));
+  }
+});
   }
   
   }
@@ -242,7 +253,8 @@ export class AjouterInjectionVaccinalComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<AjouterInjectionVaccinalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private formBuilder: FormBuilder,private employeService: EmployeService,public dialog: MatDialog,
-    private activitesMedicalesService: ActivitesMedicalesService) {this.calendrierVaccinal = data.calendrierVaccinal    }
+    private activitesMedicalesService: ActivitesMedicalesService,
+    private popupService: PopupService,private dialogsService: DialogsService) {this.calendrierVaccinal = data.calendrierVaccinal    }
 
   ngOnInit() {
     console.log(this.calendrierVaccinal);
@@ -290,21 +302,28 @@ export class AjouterInjectionVaccinalComponent implements OnInit {
         this.employeService.ajouterInjection(this.calendrierVaccinal,result).subscribe(data => {
           this.dataSource.data.push(data)
           this.dataSource._updateChangeSubscription() 
+          this.popupService.success("L'injection vaccinale a été ajouté avec succès"); 
         },
-        error => console.log(error));
+        error => this.popupService.danger("L'injection vaccinale n'a pas été ajouté")); 
       }
     });
    }
 
    delete(object){
+    this.dialogsService
+    .confirm('Confirmation', 'Voulez-vous vraiment supprimer cette injection vaccinale?')
+    .subscribe(result => {
+      if (result === true){
     //delete from backend
     this.employeService.deleteInjection(object.id).subscribe(data => {
       console.log(data)
       this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
       this.dataSource._updateChangeSubscription()  
-
+      this.popupService.success("L'injection vaccinal a été supprimé avec succès");
     },
-    error => console.log(error));
+    error => this.popupService.danger("L'injection vaccinal n'a pas été supprimé"));
+  }
+});
   }
 
 }

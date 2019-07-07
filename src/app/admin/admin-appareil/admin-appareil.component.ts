@@ -137,7 +137,7 @@ export class InterrogatoiresComponent implements OnInit {
 
     /* Table Structure */
     
-    displayedColumns: string[] = ['designation','type','medecin','Action-edit','Action-delete'];
+    displayedColumns: string[] = ['designation','medecin','Action-edit','Action-delete'];
     dataSource : MatTableDataSource<any>;
   
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -224,7 +224,6 @@ export class InterrogatoiresComponent implements OnInit {
     ngOnInit() {
       this.addForm = this.formBuilder.group({
         designation: ['',Validators.required],
-        type: ['',Validators.required]
       });
     }
   

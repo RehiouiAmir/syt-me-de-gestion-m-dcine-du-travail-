@@ -86,4 +86,14 @@ export class ActivitesMedicalesService {
   }
 
 
+  //risque 
+
+  deleteTypeRisque(type_id){
+    return this.http.delete(`${environment.baseUrl}/typeRisques/`+type_id);    
+  }
+
+  updateTypeRisque(type_id,type){
+    return this.http.put(`${environment.baseUrl}/typeRisques/`+type_id,type);    
+  }
+
 }

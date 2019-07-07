@@ -1,15 +1,6 @@
-::ng-deep .mat-progress-bar-fill::after {
-    background-color: #F33155;
-}
-
-::ng-deep .mat-progress-bar-buffer {
-    background: #FABAC6;
-}
-
 ::ng-deep .mat-form-field,
 ::ng-deep .mat-option-text{
     font-size: 13px; 
-    width:100%; 
 }
 
 ::ng-deep .mat-form-field-label, 
@@ -17,64 +8,24 @@
 ::ng-deep .mat-select-value-text,
 ::ng-deep .mat-option,
 ::ng-deep .mat-select-arrow,
-::ng-deep .mat-datepicker-toggle .mat-icon-button,
-::ng-deep .mat-step-header .mat-step-label,
-.caret-input,
-.matSuffix{
+.caret-input  {
     color: #54667A !important;
 }
 
-::ng-deep .mat-focused .mat-form-field-label,
-::ng-deep .mat-focused .mat-select-arrow,
-::ng-deep .mat-datepicker-toggle .mat-icon-button.cdk-focused,
-::ng-deep .mat-datepicker-toggle .mat-icon-button.cdk-program-focused{
+::ng-deep .mat-focused .mat-form-field-label{
     color: #41B3F9 !important;    
 }
-
 ::ng-deep .mat-selected {
     color: white !important;
 }
 
 ::ng-deep .mat-form-field-ripple,
-::ng-deep .mat-selected,
-::ng-deep .mat-calendar-body-selected,
-::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar,
-::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb,
-::ng-deep .mat-slide-toggle.mat-checked .mat-ripple-element,
-::ng-deep .mat-step-header .mat-step-icon,
-::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
-::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
-::ng-deep .mat-checkbox:not(.mat-checkbox-disabled).mat-accent .mat-checkbox-ripple .mat-ripple-element{
+::ng-deep .mat-selected{
     background-color: #41B3F9 !important;
 }
 
-::ng-deep .mat-form-field-underline,
-::ng-deep .mat-slide-toggle .mat-slide-toggle-bar,
-::ng-deep .mat-slide-toggle .mat-ripple-element{
+::ng-deep .mat-form-field-underline{
     background-color: #54667A !important;
-}
-
-::ng-deep .mat-chip{
-    font-size: 11px !important;
-    background-color: #41B3F9 !important;
-    color: white !important;
-}
-
-::ng-deep .mat-slide-toggle{
-    font-size: 13px !important;
-    color: #54667A !important;
-    margin-top: 12px;
-}
-
-::ng-deep .mat-checkbox-frame{
-    border-color: #54667A !important;
-    border-width: 1px !important;;
-}
-
-::ng-deep .mat-checkbox-label{
-    font-size: 11px !important;
-    color: #54667A !important;
-    font-weight: normal !important;
 }
 
 .mat-form-field input,
@@ -82,238 +33,148 @@
     caret-color: #41B3F9;
 }
 
-.container-fluid{
-    background: #F6F6F6;
-    padding-bottom:75px; 
+.contenu-component{
+height: auto;
+padding-top: 0.01px;    
+padding-bottom:75px;
+background: #F6F6F6;
 }
 
 .row-principal{
-    width: 90%;
-    height: auto;
-    margin-left: 5%;
-    background-color: white;
-    border: 1px solid #E0E0E0;  
-    padding: 10px 10px 10px 10px;  
+width: 90%;
+min-height: 400px;
+margin-left: 5%;
+margin-top: 100px;    
+background-color: white;
+border: 1px solid #E0E0E0; 
+padding: 50px 30px 20px 30px;              
 }
 
 .row-principal .photo-col{
-    padding-left: 10%;
-   }
-   
+padding-left: 10%;
+}
+
 .row-principal .photo-col img.employe-profile-img{
-    width: 100px;
-    height: 100px;
-    border: 2px solid #E0E0E0;
+width: 100px;
+height: 100px;
+border: 2px solid #E0E0E0;
 }
 
 .row-principal .photo-col .title-posteTravail,
 .row-principal .photo-col .title-matricule{
-    position:absolute;
-    margin-left:20px; 
-    font-size:13px;     
-    color: #54667A ; 
+position:absolute;
+margin-left:20px; 
+font-size:13px;     
+color: #54667A ; 
 }
 
 .row-principal .photo-col .title-posteTravail{
-    top:-5px;
-    font-weight: bold;
+top:-5px;
+font-weight: bold;
 }
 .row-principal .photo-col .title-matricule{
-    top:20px;
+top:20px;
 }
 
-.row-0-btn{
-    padding-right: 6%; 
-    margin-top:-50px;
-}
 
-.row-0-btn button.btn-rapport,
-.row-0-btn button.btn-suivant,
-.row-0-btn button.btn-precedent{
+.row-principal table {
+    width: 100%; 
+    margin-top: 5px;
+  }
+.row-principal td{
+    font-size: 11px; 
+    color: #54667A !important;
+  }
+
+.row-principal th{
     font-size: 11px;
-    color: white;
+    background-color:#2F323E;
+    color:white;
 }
 
-.row-0-btn button.btn-rapport{
-    background-color: #F0AD4E;
-    margin-left: 30px;
-}
-
-.row-0-btn button.btn-suivant,
-.row-0-btn button.btn-precedent{
-    background-color: #41B3F9; 
-    width: 110px; 
-    margin-left: 5px;  
-}
-
-.btn-step{
-    margin-top: 20px;
-}
-
-/* Step 1 */
-
-.div-step-1 .row-1{
-    margin-top: 50px;
-}
-
-.div-step-1 .row-2{
+.row-principal .td-btn-edit,
+.row-principal .td-btn-delete,
+.row-principal .td-btn-details{
     text-align: center;
-}
-
-.div-step-1 .row-2 .col-md-12,
-.div-step-1 .row-3 .col-md-12{
-    border: 1px solid #E0E0E0; 
-    padding-top: 20px;
+    width: 50px;
 }
 
 
-.btn-stepper-suivant,.btn-stepper-precedent,
-.btn-stepper-enregistrer,.btn-stepper-reset{
-    margin-right: 5px;
-    color: white;
+.row-principal .td-btn-edit button{
+    color:#41B3F9;    
 }
 
-.btn-stepper-suivant,.btn-stepper-precedent{
-    background: #41B3F9;
+.row-principal .td-btn-delete button{
+    color:#F33155;
+}
+.row-principal .td-btn-details button{
+    color:#F0AD4E;
+    
 }
 
-.btn-stepper-enregistrer{
-    background: #7ACE4C;    
-}
 
-.btn-stepper-reset{
-    background: #F0AD4E;
-}
-
-.name-doctor{
-    text-align: center;
-    padding-top: 20px;
-}
-
-p.title-champ{
-    font-size: 13px;
-    font-weight: bold;
-    color: #54667A;
-}
-
-p span.champ{
-    font-weight: normal;
-    margin-left: 10px;
-}
-
-.col-md-2,.col-md-3,.col-md-4,.col-md-6,
-.col-md-8,.col-md-12{
-    margin-bottom: 5px;
-}
-
-/* Step 2 */
-
-.div-step-2 .row-1{
-    margin-top: 50px;
-}
-
-.div-step-2 .row-1 .col-md-3,
-.div-step-2 .row-1 .col-md-5,
-.div-step-2 .row-1 .col-md-4 {
-    margin-bottom: -2px;    
-    padding-right: 1px;
-    padding-left: 1px;
-}
-
-.div-step-2 .row-1 .col-md-3 .col-md-12,
-.div-step-2 .row-1 .col-md-5 .col-md-12,
-.div-step-2 .row-1 .col-md-4 .col-md-12{
-    padding-top: 2px;
-    padding-bottom: 2px;
-    text-align: center;
-    background-color: #2F323E;
-}
-.div-step-2 .row-1 .col-md-3 .col-md-12 h5,
-.div-step-2 .row-1 .col-md-5 .col-md-12 h5,
-.div-step-2 .row-1 .col-md-4 .col-md-12 h5{
-    color: white;
-    font-weight: bold;
-}
-
-.div-step-2 .row-2>.col-md-12{
-    border: 1px solid #E0E0E0; 
-    padding-top: 20px;
-}
-
-.div-step-2 p{
-    margin-top: 18px;
-}
-.div-step-2 .mat-checkbox{
-    padding-top:  18px;
-}
-
-/* Step 3 */
-
-.div-step-3 .row-1 {
-    margin-top: 50px;    
-}
-
-.div-step-3 .row-title{
-    color: #2F323E;
-    font-weight: bold;
-}
-
-.div-step-3 .col-md-12{
-    border: 1px solid #E0E0E0; 
-    padding-top: 20px;
-}
-
-.textArea{
-    min-height: 80px;
+.btn-ajouter{
+    background-color: #7ACE4C;
+    color: white; 
 }
 
 @media (min-width:767.98px){
-    .container-fluid{
-        padding-top: 150px;
-    }
-    .row-principal{
-        padding-top: 80px;
-    }
-    
-    .row-principal .photo-col{
-        margin-top: -130px;
-    }
-
-    .div-step-1{
-        margin-top: -20px;
-    }
-
-    
-    .div-step-1 .row-2 .stat-info .col-md-2{
-        border-right: 1px solid #E0E0E0; 
-    }
-
-    .div-step-2 .row-2 .col-md-12>.col-md-5{
-        border-left: 1px solid #E0E0E0; 
-        border-right: 1px solid #E0E0E0;     
-    }
-
-    .div-step-3 .col-md-7{
-        border-left: 1px solid #E0E0E0;     
-    }
+.row-principal{
+    padding-top: 80px;
 }
 
+.row-principal .photo-col{
+    margin-top: -130px;
+}
+.row-principal .row-4{
+    margin-bottom: 200px;
+}
+.row-0-btn{
+    padding-right: 6%; 
+    margin-top:45px;
+}
+.search-bar{
+    margin-top: -50px;
+    width: 40% !important;
+}
+}
+    
 @media (max-width:767.98px){
-    .container-fluid{
-        padding-top: 80px;
-    }
 
-    .row-principal .photo-col{
-        margin-top: 20px;
-    }
-
-    .row-principal .photo-col .title-matricule{
-        top:40px;
-    }
-
-    .div-step-1 .row-2 .stat-info .col-md-2{
-        border-bottom: 1px solid #E0E0E0; 
-    }
+.row-principal{
+    margin-top: 60px; 
 }
 
+.row-principal .photo-col{
+    margin-top: 20px;
+}
 
+.row-principal .photo-col .title-matricule{
+    top:40px;
+}
+.row-0-btn{
+    padding-right: 6%; 
+    margin-top:15px;
+}
+
+td ,
+th{
+    font-size: 8px;
+    min-width: 100px;
+}
+.table-overflow{
+    overflow: auto; 
+    width: 100%;       
+}
+table {
+    margin-top: 0;
+}
+.mat-elevation-z8{
+    margin-top: 70px;
+}
+
+.search-bar{
+    width: 80% !important;
+}
+
+}

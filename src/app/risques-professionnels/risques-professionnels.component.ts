@@ -9,6 +9,8 @@ import { FormControl } from '@angular/forms';
 import { Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { PopupService } from 'src/app/services/popup.service';
+import { DialogsService } from 'src/app/dialogs/dialogs.service';
 
 @Component({
   selector: 'app-risques-professionnels',
@@ -20,7 +22,7 @@ export class RisquesProfessionnelsComponent implements OnInit {
   
   /* Table Structure */
   
-  displayedColumns: string[] = ['designation','medecin','Action-edit','Action-delete'];
+  displayedColumns: string[] = ['designation','medecin','Action-list','Action-edit','Action-delete'];
   displayedColumnsRisque: string[] = ['designation','medecin','Action-edit','Action-delete'];  
   displayedColumnsPoste: string[] = ['designation','societe','site','departement','medecin','Action-Affecter-Risque'];
   dataSource : MatTableDataSource<any>;
@@ -42,7 +44,8 @@ export class RisquesProfessionnelsComponent implements OnInit {
 
   constructor(private administrationService : AdministrationService,
     private activitesMedicalesService : ActivitesMedicalesService,
-    private employeService: EmployeService, public dialog: MatDialog) { }
+    private employeService: EmployeService, public dialog: MatDialog,
+    private popupService: PopupService,private dialogsService: DialogsService) { }
 
   ngOnInit() {
     this.administrationService.getTypeRisques().subscribe(
@@ -76,6 +79,30 @@ export class RisquesProfessionnelsComponent implements OnInit {
      );
   }
 
+  // search table
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+ 
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+  // search table
+  applyFilterRisque(filterValue: string) {
+    this.dataSourceRisque.filter = filterValue.trim().toLowerCase();
+ 
+    if (this.dataSourceRisque.paginator) {
+      this.dataSourceRisque.paginator.firstPage();
+    }
+  }
+  // search table
+  applyFilterPosteTravail(filterValue: string) {
+    this.dataSourcePosteTravail.filter = filterValue.trim().toLowerCase();
+ 
+    if (this.dataSourcePosteTravail.paginator) {
+      this.dataSourcePosteTravail.paginator.firstPage();
+    }
+  }
   add() {
     let dialogRef = this.dialog.open(AjouterTypeRisqueComponent, {
       width: '30%',
@@ -87,8 +114,9 @@ export class RisquesProfessionnelsComponent implements OnInit {
           this.administrationService.ajouterTypeRisque(result).subscribe(data => {
             this.dataSource.data.push(data)
             this.dataSource._updateChangeSubscription() 
+            this.popupService.success("Le type de risque a été ajouté avec succès");
           },
-          error => console.log(error));
+          error => this.popupService.danger("Le type de risque n'a pas été ajouté")); 
         }
       });
    }
@@ -112,8 +140,9 @@ export class RisquesProfessionnelsComponent implements OnInit {
          this.administrationService.ajouterRisque(result.typee,result).subscribe(data => {
            this.dataSourceRisque.data.push(data)
            this.dataSourceRisque._updateChangeSubscription() 
-         },
-         error => console.log(error));
+           this.popupService.success("Le risque a été ajouté avec succès");
+          },
+          error => this.popupService.danger("Le risque n'a pas été ajouté"));
        }
     });
    }
@@ -125,6 +154,23 @@ export class RisquesProfessionnelsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe();
    }
+
+   deleteType(object){this.dialogsService
+    .confirm('Confirmation', 'Voulez-vous vraiment supprimer ce risque professionnel?')
+    .subscribe(result => {
+      if (result === true){
+      //delete from backend
+          this.activitesMedicalesService.deleteTypeRisque(object.id).subscribe(data => {
+            console.log(data)
+            this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
+            this.dataSource._updateChangeSubscription()  
+            this.popupService.success("Le risque a été supprimé avec succès");
+          },
+          error => this.popupService.warn("Vous ne pouvez pas supprimer un risque déja utilisé!"));
+        }
+      });
+   }
+
 }
 
 
@@ -214,15 +260,6 @@ export class RisquesTypeRisqueComponent implements OnInit {
         this.dataSource.paginator.firstPage();
       }
     }
-  
-    // search table
-    applyFilterDemande(filterValue: string) {
-     this.dataSource.filter = filterValue.trim().toLowerCase();
-  
-     if (this.dataSource.paginator) {
-       this.dataSource.paginator.firstPage();
-     }
-   }
 
   // close dialog
   onNoClick(): void {
@@ -328,7 +365,7 @@ export class RisquesPosteComponent implements OnInit {
 
     /* Table Structure */
     
-    displayedColumns: string[] = ['designation','Action-delete'];
+    displayedColumns: string[] = ['designation','typeRisque','Action-delete'];
     dataSource : MatTableDataSource<any>;
   
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -338,7 +375,8 @@ export class RisquesPosteComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private formBuilder: FormBuilder,private employeService: EmployeService,public dialog: MatDialog,
     private activitesMedicalesService: ActivitesMedicalesService,
-    private administrationService : AdministrationService) {this.postee = data.postee    }
+    private administrationService : AdministrationService,
+    private popupService: PopupService,private dialogsService: DialogsService) {this.postee = data.postee    }
 
   ngOnInit() {
     console.log(this.postee);
@@ -361,14 +399,6 @@ export class RisquesPosteComponent implements OnInit {
       }
     }
   
-    // search table
-    applyFilterDemande(filterValue: string) {
-     this.dataSource.filter = filterValue.trim().toLowerCase();
-  
-     if (this.dataSource.paginator) {
-       this.dataSource.paginator.firstPage();
-     }
-   }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -385,8 +415,9 @@ export class RisquesPosteComponent implements OnInit {
          this.administrationService.affecterRisque(this.postee.id,result.risquee.id,result).subscribe(data => {
            this.dataSource.data.push(result.risquee)
            this.dataSource._updateChangeSubscription() 
-         },
-         error => console.log(error));
+           this.popupService.success("Le risque a été affecté au poste de travail avec succès");
+          },
+          error => this.popupService.danger("Le type de risque n'a pas été affecté au poste"));
       }
     });
    }

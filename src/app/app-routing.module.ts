@@ -39,6 +39,7 @@ import { DmEmployeComponent } from 'src/app/dm-employe/dm-employe.component';
 import { MainNavComponent } from 'src/app/main-nav/main-nav.component';
 import { AjouterConsultationComponent } from 'src/app/ajouter-consultation/ajouter-consultation.component';
 import { UtilisateursComponent } from 'src/app/utilisateurs/utilisateurs.component';
+import { AjouterVisiteMedicaleComponent } from 'src/app/ajouter-visite-medicale/ajouter-visite-medicale.component';
 
 
 
@@ -65,6 +66,7 @@ const routes: Routes = [
         { path: 'dm-informations-generales/:id', component: DmInformationsGeneralesComponent },
         { path: 'dm-antecedents/:id', component: DmAntecedentsComponent},
         { path: 'dm-visite-medicale/:id', component: DmVisiteMedicaleComponent},
+        {path: 'dm-visite-medicale/:id/ajouter-visite/:id' , component: AjouterVisiteMedicaleComponent},        
         { path: 'dm-consultation-medicale/:id', component: DmConsultationMedicaleComponent},
         {path: 'dm-consultation-medicale/:id/ajouter-consultation/:id' , component: AjouterConsultationComponent},
         { path: 'dm-soins/:id', component: DmSoinsComponent},

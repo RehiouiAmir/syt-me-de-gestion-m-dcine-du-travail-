@@ -3,23 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { DateAdapter } from '@angular/material';
+import { DateAdapter, MatDialog, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { FormControl } from '@angular/forms';
+import { EmployeService } from 'src/app/services/employe.service';
+import { PopupService } from 'src/app/services/popup.service';
+import { ViewChild } from '@angular/core';
+import { DialogsService } from 'src/app/dialogs/dialogs.service';
 
-/* Structure Employe Informations Minimal - DIV-Filter */
 
-export interface EmployeInfosMin {
-  id: number;
-  numCartChifa: number;
-  posteTravail: string;
-}
-
-/* Structure Select Values */
-
-export interface SelectValue {
-  value: string;
-  viewValue: string;
-} 
 
 @Component({
   selector: 'app-dm-visite-medicale',
@@ -27,58 +18,77 @@ export interface SelectValue {
   styleUrls: ['./dm-visite-medicale.component.css']
 })
 export class DmVisiteMedicaleComponent implements OnInit {
+  private id_employe: number;
+  employeInfos : any = null;
+  posteActuel : any = null;  
+  private visites: any[];
+  
+  /* Table Structure */
 
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-  thirdFormGroup: FormGroup;
+  displayedColumns: string[] = ['type','date','etat','medecin','Action-details','Action-edit','Action-delete'];
+  dataSource : MatTableDataSource<any>;
 
-  id: string;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   
-  dateAujourdhuit = new FormControl(new Date());
-  
-    /* [Exemple] two employes with id=1 & id=2 */
-    employesInfosMin : EmployeInfosMin[] = [
-      { id:1,numCartChifa: 121827123087,posteTravail: 'CHEF SCE FORMATION'},
-      { id:2,numCartChifa: 123456123087,posteTravail: 'ADMINISTRATEUR SYSTEMES CONSOLIDATION'}
-    ];
-  
-    constructor(private route: ActivatedRoute,
-                private _formBuilder: FormBuilder,
-                private dateAdapter: DateAdapter<Date>) 
+  constructor(private route: ActivatedRoute, private employeService: EmployeService, public dialog: MatDialog,
+    private popupService: PopupService,private dialogsService: DialogsService) { 
+    this.id_employe = Number(this.route.snapshot.paramMap.get('id'));
+  }
 
-    { this.dateAdapter.setLocale('fr'); 
-      this.id = this.route.snapshot.paramMap.get('id');}
-  
-    ngOnInit() {
-      this.firstFormGroup = this._formBuilder.group({
-        firstCtrl: ['', Validators.required]
-      });
-      this.secondFormGroup = this._formBuilder.group({
-        secondCtrl: ['', Validators.required]
-      });
-      this.thirdFormGroup = this._formBuilder.group({
-        thirdCtrl: ['', Validators.required]
-      });
+  ngOnInit() {
+    
+    this.employeService.getEmployeById(this.id_employe).subscribe(
+      data => {
+        console.log(data)
+        this.employeInfos = data;
+        for(var i in this.employeInfos.employe_posteTravails){
+          if (this.employeInfos.employe_posteTravails[i].actuel === true){
+            this.posteActuel = this.employeInfos.employe_posteTravails[i];
+            console.log(this.posteActuel)
+          }
+        }
+      },
+      error => console.log(error)  
+    );
+    
+    this.employeService.getAllVisiteMedicalesByEmployeId(this.id_employe).subscribe(
+      data => {
+        console.log(data)
+        this.visites = data;
+        this.dataSource = new MatTableDataSource<any>(this.visites);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      error => console.log(error)  
+    );
+  }
+
+  delete(object){
+    this.dialogsService
+    .confirm('Confirmation', 'Voulez-vous vraiment supprimer cette consultation médicale?')
+    .subscribe(result => {
+      if (result === true){
+        //delete from backend
+        this.employeService.deleteConsultation(object.id).subscribe(data => {
+          console.log(data)
+          this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
+          this.dataSource._updateChangeSubscription()  
+          this.popupService.success("La consultation médicale a été supprimé avec succès");
+        },
+        error => this.popupService.danger("La consultation médicale n'a pas été supprimé"));
+      }
+    });
+  }
+  // search table
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
+  }
   
-    getEmployeInfosMinById() : EmployeInfosMin{
-      this.id = this.route.snapshot.paramMap.get('id');
-      for(var i in this.employesInfosMin){
-        if(this.employesInfosMin[i].id === Number(this.id) )
-        return this.employesInfosMin[i];
-      }  
-    }
+
   
-    employeInfosMin : EmployeInfosMin = this.getEmployeInfosMinById();
-
-
-      /* Select Values */
-
-  posteTravails: SelectValue[] = [
-    {value: 'chef-sce-formation', viewValue: 'CHEF SCE FORMATION'},
-    {value: 'administrateur-systeles-consolidation', viewValue: 'ADMINISTRATEUR SYSTEMES CONSOLIDATION'},
-    {value: 'charge-gestion-social', viewValue: 'CHARGE GESTION SOCIAL'},
-    {value: 'chef-base', viewValue: 'CHARGE GESTION SOCIAL'}    
-  ];
-
 }

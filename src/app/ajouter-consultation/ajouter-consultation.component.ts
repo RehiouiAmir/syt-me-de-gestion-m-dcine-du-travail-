@@ -16,6 +16,7 @@ import { AjouterOrdonnanceComponent } from 'src/app/ajouter-ordonnance/ajouter-o
 import { EmployeService } from 'src/app/services/employe.service';
 import { ActivatedRoute } from '@angular/router';
 import * as jsPDF from 'jspdf';
+import { PopupService } from 'src/app/services/popup.service';
 
 @Component({
   selector: 'app-ajouter-consultation',
@@ -56,7 +57,7 @@ export class AjouterConsultationComponent implements OnInit {
               public dialog: MatDialog,private employeService: EmployeService,
               private administrationService : AdministrationService,
               private uploadService: UploadFileService,
-              private tokenStorage: TokenStorageService) {
+              private tokenStorage: TokenStorageService,private popupService: PopupService,) {
                 this.id_employe = Number(this.route.snapshot.paramMap.get('id'));                
               }
 
@@ -65,7 +66,8 @@ export class AjouterConsultationComponent implements OnInit {
   onSubmitFirst(){
     if (!this.firstFormGroup.invalid){ 
       this.employeService.creatConsultation(this.id_employe,this.firstFormGroup.value).subscribe(result =>{
-        console.log(result)      
+        console.log(result)  
+        this.popupService.success("La consultation médicale a été ajouté avec succès");                                      
        this.consultation =result;
        this.employeService.getConsultationByConsultationId(this.consultation.id).subscribe(
         data => {
@@ -76,7 +78,7 @@ export class AjouterConsultationComponent implements OnInit {
         },
        error => console.log(error));
       },
-      error => console.log(error));
+      error => this.popupService.danger("La consultation médicale n'a pas été ajouté")); 
     }
     
   }
@@ -92,12 +94,12 @@ addSoins(edit) {
           console.log(result)
           //change in backend
             this.employeService.creatActeSoins(this.consultation.id,result.idActe,result).subscribe(data => {
-              console.log(data);
+            this.popupService.success("L'acte de soin a été ajouté avec succès");                               
             this.consultation.soins= data
             this.dataSourceSoins.data.push(data)
             this.dataSourceSoins._updateChangeSubscription() 
           },
-          error => console.log(error));
+          error => this.popupService.danger("L'acte de soin n'a pas été ajouté")); 
         }
     });
 }
@@ -108,10 +110,10 @@ deleteSoins(object) {
       console.log(data)
       this.dataSourceSoins.data.splice(this.dataSourceSoins.data.indexOf(object),1)
       this.dataSourceSoins._updateChangeSubscription()  
-
+      this.popupService.success("L'acte de soin a été supprimé avec succès");
     },
-    error => console.log(error));
-}
+    error => this.popupService.danger("L'acte de soin n'a pas été supprimé"));
+  }
 
 addExamen(edit) {
   let dialogRef = this.dialog.open(AjouterExamenComplementaireComponent, {
@@ -123,12 +125,12 @@ addExamen(edit) {
         console.log(result)
         //change in backend
           this.employeService.creatExamenComplementaire(this.consultation.id,result).subscribe(data => {
-            console.log(data);
+          this.popupService.success("L'examen complémentaire a été ajouté avec succès");                               
           this.consultation.examenComplementaires= data
           this.dataSourceExamens.data.push(data)
           this.dataSourceExamens._updateChangeSubscription()
         },
-        error => console.log(error));
+        error => this.popupService.danger("L'examen complémentaire n'a pas été ajouté")); 
       }
   });
 }
@@ -139,9 +141,9 @@ deleteExamen(object) {
       console.log(data)
       this.dataSourceExamens.data.splice(this.dataSourceExamens.data.indexOf(object),1)
       this.dataSourceExamens._updateChangeSubscription()  
-
+      this.popupService.success("L'examen complémentaire a été supprimé avec succès");
     },
-    error => console.log(error));
+    error => this.popupService.danger("L'examen complémentaire n'a pas été supprimé"));
 }
 
  addOrientation(edit) {
@@ -154,12 +156,12 @@ deleteExamen(object) {
         console.log(result)
         //change in backend
           this.employeService.creatOrientationMedicale(this.consultation.id,result).subscribe(data => {
-            console.log(data);
+          this.popupService.success("L'orientation médicale a été ajouté avec succès");                               
           this.consultation.orientationMedicales= data
           this.dataSourceOrientations.data.push(data)
           this.dataSourceOrientations._updateChangeSubscription() 
         },
-        error => console.log(error));
+        error => this.popupService.danger("L'orientation médicale n'a pas été ajouté")); 
       }
   });
  }
@@ -170,9 +172,9 @@ deleteExamen(object) {
     console.log(data)
     this.dataSourceOrientations.data.splice(this.dataSourceOrientations.data.indexOf(object),1)
     this.dataSourceOrientations._updateChangeSubscription()  
-
+    this.popupService.success("L'orientation médicale a été supprimé avec succès");
   },
-  error => console.log(error));
+  error => this.popupService.danger("L'orientation médicale n'a pas été supprimé"));
  }
  addOrdonnance() {
   let dialogRef = this.dialog.open(AjouterOrdonnanceComponent, {
@@ -183,6 +185,7 @@ deleteExamen(object) {
       if (result !== undefined){
         //change in backend
           this.employeService.creatOrdonnance(this.consultation.id,result).subscribe(data => {
+            this.popupService.success("l'ordonnance a été ajouté avec succès");                                           
             this.consultation.ordonnance= data
             console.log(this.consultation)
             for (var i in result.prescription){
@@ -195,7 +198,7 @@ deleteExamen(object) {
                 error => console.log(error));
             }
         },
-        error => console.log(error));
+        error => this.popupService.danger("l'ordonnance n'a pas été ajouté")); 
       }
   });
 }
@@ -207,8 +210,9 @@ deleteOrdonnance(object){
     this.dataSourceOrientations.data.splice(this.dataSourceOrientations.data.indexOf(object),1)
     this.dataSourceOrientations._updateChangeSubscription()  
     this.consultation.ordonnance = null;
+    this.popupService.success("l'ordonnance a été supprimé avec succès");
   },
-  error => console.log(error)); 
+  error => this.popupService.danger("l'ordonnance n'a pas été supprimé"));
 }
 deletePrecription(object){
   //delete from backend
@@ -216,8 +220,9 @@ deletePrecription(object){
     console.log(data)
     this.dataSourceMedicaments.data.splice(this.dataSourceMedicaments.data.indexOf(object),1)
     this.dataSourceMedicaments._updateChangeSubscription()  
+    this.popupService.success("le médicament a été supprimé avec succès");
   },
-  error => console.log(error)); 
+  error => this.popupService.danger("le médicament n'a pas été supprimé")); 
 }
 
 public ageFromBirthdate(birthdate: any): number {

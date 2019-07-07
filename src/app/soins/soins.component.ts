@@ -54,8 +54,8 @@ export class SoinsComponent implements OnInit {
         console.log(data)
         this.dataTable1 = data;
         this.dataSourceDemande = new MatTableDataSource<any>(this.dataTable1);
-        this.dataSourceDemande.paginator = this.paginator;
-        this.dataSourceDemande.sort = this.sort; 
+        this.dataSourceDemande.paginator = this.paginatorDemande;
+        this.dataSourceDemande.sort = this.sortDemande; 
       },
       error => console.log(error)  
     );
@@ -104,10 +104,10 @@ export class SoinsComponent implements OnInit {
 
    // search table
    applyFilterDemande(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSourceDemande.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+    if (this.dataSourceDemande.paginator) {
+      this.dataSourceDemande.paginator.firstPage();
     }
   }
 

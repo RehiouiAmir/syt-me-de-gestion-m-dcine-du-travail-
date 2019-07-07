@@ -143,6 +143,8 @@ export class EmployeService {
       return this.http.post(`${environment.baseUrl}/consultations/`+id_consultation+`/orientationMedicale`, orientationMedicale);
     }
 
+    
+
     creatOrdonnance(id_consultation,ordonnance) {
       return this.http.post(`${environment.baseUrl}/consultations/`+id_consultation+`/ordonnance`, ordonnance);
     }
@@ -307,6 +309,39 @@ export class EmployeService {
   getAllVisiteProgrammees() {
     return this.http.get<any>(`${environment.baseUrl}/visiteProgrammees`);
   }
+
+  getAllVisiteMedicalesByEmployeId(id_employe) {
+    return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/visiteMedicales`);
+  }
+
+  creatVisite(id_employe,visite){
+    return this.http.post(`${environment.baseUrl}/employes/`+id_employe+`/visiteMedicale`, visite);    
+  }
+
+  getVisiteByVisiteId(id_visite) {
+    return this.http.get<any>(`${environment.baseUrl}/visiteMedicales/`+id_visite);
+  }
+
+  updateVisite(id_visite,visite){
+    return this.http.put(`${environment.baseUrl}/visiteMedicales/`+id_visite,visite);    
+  }
+  creatExamenBiometrique(id_visite,examenBiometrique){
+    return this.http.post(`${environment.baseUrl}/visiteMedicales/`+id_visite+`/examenBiometrique`, examenBiometrique);        
+  }
+
+  creatExplorationFoctionnelle(id_visite,explorationFonctionnelle){
+    return this.http.post(`${environment.baseUrl}/visiteMedicales/`+id_visite+`/explorationFonctionnelle`, explorationFonctionnelle);        
+  }
+  creatExamenComplementaireVisite(id_visite,examenComplementaire) {
+    return this.http.post(`${environment.baseUrl}/visiteMedicales/`+id_visite+`/examenComplementaire`, examenComplementaire);
+  }
+
+  creatOrientationMedicaleVisite(id_visite,orientationMedicale) {
+    return this.http.post(`${environment.baseUrl}/visiteMedicales/`+id_visite+`/orientationMedicale`, orientationMedicale);
+  }
+
+
+  //calendrier médicale
   
   deleteCalendrierVaccinal(id_calendrierVaccinals) {
     return this.http.delete(`${environment.baseUrl}/calendrierVaccinals/`+id_calendrierVaccinals);

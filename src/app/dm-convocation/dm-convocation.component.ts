@@ -10,6 +10,8 @@ import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { EmployeService } from 'src/app/services/employe.service';
 import { ActivatedRoute } from '@angular/router';
+import { PopupService } from 'src/app/services/popup.service';
+import { DialogsService } from 'src/app/dialogs/dialogs.service';
 
 @Component({
   selector: 'app-dm-convocation',
@@ -31,7 +33,8 @@ export class DmConvocationComponent implements OnInit {
    @ViewChild(MatSort) sort: MatSort;
    
    constructor(private route: ActivatedRoute,private activitesService : ActivitesMedicalesService,
-     private employeService : EmployeService, private administrationService : AdministrationService, public dialog: MatDialog) { 
+     private employeService : EmployeService, private administrationService : AdministrationService, public dialog: MatDialog,
+     private popupService: PopupService,private dialogsService: DialogsService) { 
      this.id_employe = Number(this.route.snapshot.paramMap.get('id'));
    }
 
@@ -70,21 +73,28 @@ export class DmConvocationComponent implements OnInit {
         this.administrationService.convoquerEmploye(this.id_employe,result).subscribe(data => {
           this.dataSource.data.push(data)
           this.dataSource._updateChangeSubscription() 
+          this.popupService.success("la convocation a été envoyé avec succès");                                                     
         },
-        error => console.log(error));
-       }
+        error => this.popupService.danger("La convocation n'a pas été envoyé"));
+      }
     });
    }
 
    delete(object) { 
+    this.dialogsService
+    .confirm('Confirmation', 'Voulez-vous vraiment supprimer cette La convocation médicale?')
+    .subscribe(result => {
+      if (result === true){
     //delete from backend
       this.employeService.deleteConvocation(object.id).subscribe(data => {
         console.log(data)
         this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
         this.dataSource._updateChangeSubscription()  
-  
+        this.popupService.success("La convocation médicale a été supprimé avec succès");
       },
-      error => console.log(error));
+      error => this.popupService.danger("La convocation médicale n'a pas été supprimé"));
     }
+  });
 
+}
 }

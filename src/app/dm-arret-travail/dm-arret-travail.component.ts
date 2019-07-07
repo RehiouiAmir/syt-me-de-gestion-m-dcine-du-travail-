@@ -97,14 +97,16 @@ export class DmArretTravailComponent implements OnInit {
               },
               error => this.popupService.danger("L'arrêt de travail n'a pas été ajouté")); 
             }else if (result.motif === 'Accident de travail' ){
+              if(result.accidentTravail === ""){this.popupService.danger("L'arrêt de travail n'a pas été ajouté --- Sélectionner un accident");}else{
               this.employeService.creatArretTravailAccidentTravail(this.id_employe,result.accidentTravail.accident.id,result).subscribe(data => {
                 this.dataSource.data.push(data)
                 this.dataSource._updateChangeSubscription()
                 this.popupService.success("L'arrêt de travail a été ajouté avec succès"); 
               },
-              error => this.popupService.danger("L'arrêt de travail n'a pas été ajouté"));             
+              error => this.popupService.danger("L'arrêt de travail n'a pas été ajouté")); }            
             }else {
               console.log()
+              if(result.maladies === ""){this.popupService.danger("L'arrêt de travail n'a pas été ajouté --- Sélectionner une maladie")}else{
               this.employeService.creatArretTravailMaladie(this.id_employe,result.maladies.maladie.id,result).subscribe(data => {
                 console.log(data)                
                 this.dataSource.data.push(data)
@@ -112,7 +114,7 @@ export class DmArretTravailComponent implements OnInit {
                 this.popupService.success("L'arrêt de travail a été ajouté avec succès");
               },
               error => this.popupService.danger("L'arrêt de travail n'a pas été ajouté"));  
-            }
+            }}
         }
       });
      }

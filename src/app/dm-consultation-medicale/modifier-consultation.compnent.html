@@ -41,9 +41,7 @@
                                 <textarea matInput placeholder="Observation" formControlName="observation"></textarea>
                             </mat-form-field>
                         </div>
-                        <button mat-button mat-raised-button class=" pull-right btn-annuler" (click)="onNoClick()" >Annuler</button>                                                        
-                        <button mat-button mat-raised-button class="pull-right btn-suivant" matStepperNext>Suivant</button>                                                                                                        
-                        <button class="pull-right btn-edit"  mat-raised-button matStepperNext>Modifier</button>  
+                        <button class="pull-right btn-edit"  mat-raised-button matStepperNext (click)="onSubmitFirst()">Suivant</button>  
                     </div>
                 </form>
             </mat-step>
@@ -298,10 +296,11 @@
                         </div>
                     </div>        
                 <div class="col-md-12">
-                <button class="pull-right btn-terminer" mat-raised-button (click)="onNoClick()">Terminer <mat-icon>done_all</mat-icon></button>
+                <button class="pull-right btn-terminer" mat-raised-button (click)="onTermine()">Terminer <mat-icon>done_all</mat-icon></button>
                 </div>
             </mat-step>                               
         </mat-horizontal-stepper>
     </div>
     <div mat-dialog-actions class="pull-right">
+        <button mat-button mat-raised-button class=" pull-right btn-annuler" (click)="onNoClick()" >Fermer</button>                                                                    
     </div>

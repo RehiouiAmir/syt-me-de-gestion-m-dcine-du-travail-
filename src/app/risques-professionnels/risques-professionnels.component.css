@@ -162,6 +162,10 @@
     color: #2F323E; 
 }
 
+.td-btn-list button{
+    color:#EFAD4D;
+}
+
 .row-principal .td-btn-details button{
     background-color:#41B3F9; 
     width: 35px; 

@@ -8,6 +8,8 @@ import { FormControl } from '@angular/forms';
 import { Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { PopupService } from 'src/app/services/popup.service';
+import { DialogsService } from 'src/app/dialogs/dialogs.service';
 
 @Component({
   selector: 'app-accidents-travail',
@@ -30,7 +32,8 @@ export class AccidentsTravailComponent implements OnInit {
    @ViewChild(MatSort) sort: MatSort;
    
    constructor(private activitesService : ActivitesMedicalesService,public dialog: MatDialog, 
-                private employeService : EmployeService, private activiteMedical : ActivitesMedicalesService ) { }
+                private employeService : EmployeService, private activiteMedical : ActivitesMedicalesService,
+                private popupService: PopupService,private dialogsService: DialogsService ) { }
  
    ngOnInit() {
  
@@ -100,10 +103,11 @@ export class AccidentsTravailComponent implements OnInit {
         result.nature= null;
         console.log(result)        
         this.activitesService.creatAccidentTravail(id_nature,result).subscribe(data => {
+          this.popupService.success("L'accident de travail a été ajouté avec succès");          
           this.dataSource.data.push(data)
           this.dataSource._updateChangeSubscription() 
         },
-        error => console.log(error));
+        error => this.popupService.danger("L'accident de travail n'a pas été ajouté"));
       }
     });
  }
@@ -119,6 +123,7 @@ export class AccidentsTravailComponent implements OnInit {
       console.log(result)
       //change in backend
       this.activiteMedical.updateAccidentTravail(result.id,result).subscribe(data => {
+        this.popupService.success("L'accident de travail a été modifié avec succès");                  
         this.activitesService.getAllAccidentTravails().subscribe(
           data => {
             console.log(data)
@@ -129,19 +134,26 @@ export class AccidentsTravailComponent implements OnInit {
           error => console.log(error)  
         ); 
       },
-      error => console.log(error)); 
+      error => this.popupService.danger("L'accident de travail n'a pas été modifié"));
     }
   });
 }
 
 delete(object) { 
+  this.dialogsService
+  .confirm('Confirmation', 'Voulez-vous vraiment supprimer cet accident de travail?')
+  .subscribe(result => {
+    if (result === true){
   //delete from backend
     this.activitesService.deleteAccidentTravail(object.id).subscribe(data => {
       console.log(data)
+      this.popupService.success("L'accident de travail a été supprimé avec succès");      
       this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
       this.dataSource._updateChangeSubscription()  
-    },
-    error => console.log(error));
+    }, 
+      error => this.popupService.warn("Vous ne pouvez pas supprimer un accident déja utilisé"));
+    }
+  });
 }
 
 details(object){
