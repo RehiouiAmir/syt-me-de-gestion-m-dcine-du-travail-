@@ -33,7 +33,7 @@
         <p class="user_name">{{posteActuel?.posteTravail?.designation}}</p>
       </div>
       <mat-nav-list>
-          <a mat-list-item routerLinkActive="active"  routerLink="dossier-medical">
+          <a *ngIf="roleUser === 'ROLE_ADMIN'"  mat-list-item routerLinkActive="active"  routerLink="dossier-medical">
             <span class="fas fa-folder-plus"> </span>
             Dossier Médical
           </a>

@@ -168,11 +168,16 @@ export class AjouterNvEmployeComponent implements OnInit{
     // matcher = new MyErrorStateMatcher();
 
   ngOnInit() {
-    if(this.data.object.file== null){
-      this.imageSource = "../../assets/img/pic-user.png";
+    if(this.data.edit ==='true'){
+      if(this.data.object.file== null){
+        this.imageSource = "../../assets/img/pic-user.png";
+      } else {
+        this.imageSource = environment.fileUrl+this.data.object.file.fileName;            
+      }
     } else {
-      this.imageSource = environment.fileUrl+this.data.object.file.fileName;            
+      this.imageSource = "../../assets/img/pic-user.png";      
     }
+
     if(this.data.edit ==='true'){
       var sexe : any;
       var serviceN : any;

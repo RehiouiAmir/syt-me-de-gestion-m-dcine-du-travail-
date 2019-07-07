@@ -66,7 +66,8 @@ export class MainNavComponent implements OnInit {
   medecinInfo : any;
   posteActuel : any;
   employeInfos : any;
-  imageSource : string;    
+  imageSource : string;  
+  roleUser : string ='';  
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -111,7 +112,8 @@ export class MainNavComponent implements OnInit {
       this.administrationService.getUserByUsername(this.tokenStorage.getUsername()).subscribe(
         data => {
           this.user = data;
-          console.log(this.user);
+          this.roleUser = data.roles[0].name;
+          console.log(this.user.roles[0]);
           this.administrationService.getEmployeByUserId(data.id).subscribe(
             data => {
               this.medecinInfo = data;
