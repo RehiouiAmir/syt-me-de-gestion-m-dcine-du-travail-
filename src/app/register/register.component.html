@@ -17,10 +17,10 @@
                         </mat-option>                  
                     </mat-select>
                 </mat-form-field> 
-            </div> 
+            </div>
           <div class="form-group">
               <mat-form-field>
-              <input matInput placeholder="Nom Complet" type="text" name="name" [(ngModel)]="form.name" #name="ngModel" required />
+              <input matInput placeholder="Nom Complet" type="text" name="name" [(ngModel)]="form.name" #name="ngModel" [value]="fullname" required />
               </mat-form-field>
               <div *ngIf="f.submitted && name.invalid">
                 <div *ngIf="name.errors.required">Nom est obligatoire</div>
@@ -53,20 +53,20 @@
                 <div *ngIf="password.errors.required">Mot de passe est obligatoire</div>
                 <div *ngIf="password.errors.minlength">Mot de passe doit avoir plus que 6 caractères</div>
               </div>
-            </div>
-                <div class="col-md-2"></div>
-                <div mat-dialog-actions class="col-md-5 pull-right">
-                    <button mat-button mat-raised-button class="btn-ajouter" (click)="onSubmit()" cdkFocusInitial>Ajouter<mat-icon>add</mat-icon></button>
-                </div>
-                <div mat-dialog-actions class="col-md-5">
-                    <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()" >Annuler</button>
-                </div>
-            <br><br>
-            <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-warning col-md-12">
-                Ajout échoué!<br/>
-                <!-- {{errorMessage}} -->
+              <div mat-dialog-actions class="col-md-10 pull-right">
+                  <button *ngIf="source != 'main'" mat-button mat-raised-button class="btn-ajouter" (click)="onSubmit()" cdkFocusInitial>Ajouter<mat-icon>add</mat-icon></button>
+                  <button *ngIf="source === 'main'" mat-button mat-raised-button class="btn-edit" (click)="updateAccount()" cdkFocusInitial>Modifier<mat-icon>edit</mat-icon></button>          
+              </div>
             </div>
         </div>
       </form>
+      <div class="col-md-3"></div>
+      <div mat-dialog-actions class="col-md-5 pull-right" style="margin-top:-45px;">
+          <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()" >Annuler</button>
+      </div>
+      <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-warning col-md-12">
+          Ajout échoué!<br/>
+          <!-- {{errorMessage}} -->
+      </div>
     </div>
   </ng-template>

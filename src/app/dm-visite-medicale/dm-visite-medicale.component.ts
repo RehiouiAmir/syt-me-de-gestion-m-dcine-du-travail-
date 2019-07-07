@@ -5,6 +5,8 @@ import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { DateAdapter } from '@angular/material';
 import { FormControl } from '@angular/forms';
+import { environment } from '../../environments/environment';
+
 
 /* Structure Employe Informations Minimal - DIV-Filter */
 
@@ -31,7 +33,8 @@ export class DmVisiteMedicaleComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
-
+  imageSource : string;  
+  
   id: string;
   
   dateAujourdhuit = new FormControl(new Date());

@@ -11,14 +11,14 @@
       <div ngbDropdown class="user-info" placement="bottom-right">
         <img class="logo-img" src="../../assets/img/SST_Logo.png" alt="pic-user"/>
         <br><br>    
-        <img class="profile-img img-circle" src="../../assets/img/pic-user.png" alt="pic-user"/>
-        <p>Dr. Bahamed Rachid 
+        <img class="profile-img img-circle" src="{{imageSource}}" alt="pic-user"/>
+        <p>{{user?.name}}
           <button class="btn-downMenu" mat-icon-button ngbDropdownToggle>
             <mat-icon>arrow_drop_down</mat-icon>
           </button>
         </p>                           
         <ul ngbDropdownMenu class="list-group">
-          <a ngbDropdownItem class="list-group-item" routerLink="parametre-compte">
+          <a ngbDropdownItem class="list-group-item" (click)="showAccountDetails()">
             <span class="fas fa-cog"></span>                                                      
             Paramètres du compte
           </a>
@@ -30,7 +30,7 @@
               </a> 
           </a>
         </ul>
-        <p class="user_name">Médecin du travail</p>
+        <p class="user_name">{{posteActuel?.posteTravail?.designation}}</p>
       </div>
       <mat-nav-list>
           <a mat-list-item routerLinkActive="active"  routerLink="dossier-medical">
@@ -135,9 +135,8 @@
 
       <span class="navBar-spacer"></span>
 
-        <img class="profile-img-navBar img-circle" src="../../assets/img/pic-user-navBar.png" alt="pic-user"/>
-        <p class="user-info-navBar-p">Docteur.</p> 
-        <p class="user-info-navBar-p">Bahamed</p>  
+        <img class="profile-img-navBar img-circle" src="{{imageSource}}" alt="pic-user"/>
+        <p class="user-info-navBar-p">{{user?.name}}</p> 
       <div class="user-info-navBar" ngbDropdown placement="bottom-right">
         <button mat-icon-button ngbDropdownToggle>
           <mat-icon>
@@ -145,7 +144,7 @@
           </mat-icon>
         </button>                                    
         <ul ngbDropdownMenu class="list-group">
-            <a ngbDropdownItem class="list-group-item" routerLink="parametre-compte">
+            <a ngbDropdownItem class="list-group-item" (click)="showAccountDetails()">
               <span class="fas fa-cog"></span>                                                      
               Paramètres du compte 
             </a>

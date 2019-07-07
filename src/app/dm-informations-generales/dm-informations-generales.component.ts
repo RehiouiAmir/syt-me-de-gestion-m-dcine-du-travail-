@@ -1,3 +1,6 @@
+import { environment } from '../../environments/environment';
+import { RegisterComponent } from './../register/register.component';
+import { AdministrationService } from './../services/administration.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -20,8 +23,11 @@ export class DmInformationsGeneralesComponent implements OnInit {
     id_employe : number;
     employeInfos : any = '';
     posteActuel : any; 
+    user : any;
+    imageSource : string;  
 
-    constructor(private route: ActivatedRoute, private employeService: EmployeService, public dialog: MatDialog,private popupService: PopupService) {
+    constructor(private route: ActivatedRoute, private employeService: EmployeService,
+                private administrationService : AdministrationService,public dialog: MatDialog,private popupService: PopupService) {
       this.id_employe = Number(this.route.snapshot.paramMap.get('id'));
     }
     
@@ -31,6 +37,11 @@ export class DmInformationsGeneralesComponent implements OnInit {
         data => {
           console.log(data)
           this.employeInfos = data;
+          if(data.file== null){
+            this.imageSource = "../../assets/img/pic-user.png";
+          } else {
+            this.imageSource = environment.fileUrl+data.file.fileName;            
+          }
           for(var i in this.employeInfos.employe_posteTravails){
             if (this.employeInfos.employe_posteTravails[i].actuel === true){
               this.posteActuel = this.employeInfos.employe_posteTravails[i];
@@ -64,6 +75,17 @@ export class DmInformationsGeneralesComponent implements OnInit {
       });
     } 
     
+    addUser() {
+      let dialogRef = this.dialog.open(RegisterComponent, {
+        width: '30%',
+        data: {employe : this.employeInfos}
+      });
+       dialogRef.afterClosed().subscribe(result => {
+         if (result !== undefined){
+           console.log(result);
+         }
+       });
+    }
 }
   
     

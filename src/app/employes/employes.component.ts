@@ -1,3 +1,5 @@
+import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { UploadFileService } from './../upload/upload-file.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialogRef, ErrorStateMatcher, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { Observable } from 'rxjs';
@@ -6,6 +8,7 @@ import { Validators } from '@angular/forms';
 import { FormGroupDirective } from '@angular/forms';
 import { NgForm } from '@angular/forms';
 import { Inject } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 // Services imporation 
 import { EmployeService } from '../services/employe.service';
@@ -29,7 +32,7 @@ export class EmployesComponent implements OnInit {
   departements : any[];
   societes : any[];
   sites : any[];
-
+  
   /* Table Structure */
 
   displayedColumns: string[] = ['matricule', 'numCarteChifa','dateNaissance', 'sexe','posteTravail','departement',
@@ -108,7 +111,7 @@ export class EmployesComponent implements OnInit {
     
       dialogRef.afterClosed().subscribe(result => {
           if (result !== undefined){
-            console.log(result)
+            console.log(result);
             //change in backend
             this.employeService.createEmploye(result).subscribe(data => {
               this.dataSource.data.push(data)
@@ -145,10 +148,16 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class AjouterNvEmployeComponent implements OnInit{
 
   addForm: FormGroup;
-  
+  selectedFiles: FileList;
+  currentFileUpload: File;
+  progress: { percentage: number } = { percentage: 0 };
+  documentId: number;
+  imageSource : string;    
+
   constructor(public dialogRef: MatDialogRef<AjouterNvEmployeComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any, 
-              private formBuilder: FormBuilder,private employeService: EmployeService) {}
+              private uploadService: UploadFileService,
+              private formBuilder: FormBuilder,private employeService: EmployeService) { }
   
      //  Email control validator
 
@@ -159,6 +168,11 @@ export class AjouterNvEmployeComponent implements OnInit{
     // matcher = new MyErrorStateMatcher();
 
   ngOnInit() {
+    if(this.data.object.file== null){
+      this.imageSource = "../../assets/img/pic-user.png";
+    } else {
+      this.imageSource = environment.fileUrl+this.data.object.file.fileName;            
+    }
     if(this.data.edit ==='true'){
       var sexe : any;
       var serviceN : any;
@@ -208,7 +222,8 @@ export class AjouterNvEmployeComponent implements OnInit{
         formationProfessionnelle: [''],
         qualification: [''],
         serviceNational: ['',Validators.required],
-        travailAntecedent: ['']
+        travailAntecedent: [''],
+        documentId: ['']
       });
   
       // this.addForm.addControl('emailFormControl', this.emailFormControl);
@@ -219,6 +234,8 @@ export class AjouterNvEmployeComponent implements OnInit{
   
   onSubmit() {
     if (!this.addForm.invalid){
+      this.addForm.value.documentId = this.documentId;
+      console.log(this.addForm);
       if(this.addForm.value.sexe === "Homme"){this.addForm.value.sexe = true}else{this.addForm.value.sexe = false}
       if(this.addForm.value.serviceNational === "OUI"){this.addForm.value.serviceNational = true}else{this.addForm.value.serviceNational = false}      
         this.data = this.addForm.value;
@@ -232,5 +249,35 @@ export class AjouterNvEmployeComponent implements OnInit{
     this.dialogRef.close();
   }
 
+  selectFile(event) {
+    this.selectedFiles = event.target.files;
+    this.progress.percentage = 0;
+    
+        this.currentFileUpload = this.selectedFiles.item(0);
+        this.uploadService.pushEmployeImageToStorage(this.currentFileUpload).subscribe(event => {
+          if (event.type === HttpEventType.UploadProgress) {
+            this.progress.percentage = Math.round(100 * event.loaded / event.total);
+          } else if (event instanceof HttpResponse) {
+            this.documentId = +event.body;
+          }
+        });
+    
+        this.selectedFiles = undefined;
+  }
+
+  upload() {
+    this.progress.percentage = 0;
+
+    this.currentFileUpload = this.selectedFiles.item(0);
+    this.uploadService.pushEmployeImageToStorage(this.currentFileUpload).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this.progress.percentage = Math.round(100 * event.loaded / event.total);
+      } else if (event instanceof HttpResponse) {
+        this.documentId = +event.body;
+      }
+    });
+
+    this.selectedFiles = undefined;
+  }
   
 }

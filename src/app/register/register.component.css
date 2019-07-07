@@ -120,3 +120,9 @@ color: white;
 .mat-dialog-actions button.btn-annuler{
     background-color: #F33155;
 } 
+
+.btn-edit{
+    margin-bottom : 5px;
+    background-color: #41B3F9;   
+    color: white; 
+}

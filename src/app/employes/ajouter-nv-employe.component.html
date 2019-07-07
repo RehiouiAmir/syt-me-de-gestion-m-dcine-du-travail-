@@ -12,15 +12,28 @@
             <div  class="col-md-6 column-left">
                 <div class="row-1">
                     <div class="col-md-12 photo-col">
-                        <img class="employe-profile-img img-circle" src="../../assets/img/pic-user.png" alt="pic-user"/>
+                        <img class="employe-profile-img img-circle" src="{{imageSource}}" alt="pic-user"/>
                         <span>  
                             <label class="add-photo" >
                                 <mat-icon>add_a_photo</mat-icon>
-                                <input type="file" size="60" >
+                                <input type="file" (change)="selectFile($event)">
                             </label>
                         </span>
                     </div>
                 </div>
+                <!-- <div class="col-md-12">
+                        <div class="col-md-6"></div>
+                        <div class="col-md-6">
+                            <div *ngIf="currentFileUpload" class="progress">
+                                <div style="display:none;" class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+                                  aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+                                  {{progress.percentage}}%</div>
+                            </div>
+                            <button class="btn-resultat" mat-mini-fab [disabled]="!selectedFiles" (click)="upload()" style="margin-left:10px;">
+                                <mat-icon>add_photo_alternate</mat-icon>                        
+                            </button>
+                        </div>
+                    </div> -->
                 <div class="row-2">
                     <div  class="col-md-6">
                         <mat-form-field>

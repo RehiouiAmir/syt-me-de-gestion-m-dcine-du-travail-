@@ -139,4 +139,8 @@ export class AdministrationService {
       return this.http.get<any>(`${environment.baseUrl}/utilisateurs/`+id+'/employe');            
     }
 
+    getUserByEmployeId(id: number){
+      return this.http.get<any>(`${environment.baseUrl}/employes/`+id+'/user');      
+    }
+
 }
