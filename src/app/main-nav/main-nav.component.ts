@@ -25,7 +25,6 @@ const TREE_DATA:menuNode[] = [
     children: [
       {name: 'Visites Médicales',icon: 'fa-notes-medical',link: 'visites-medicales'},
       {name: 'Consultations Médicales',icon: 'fa-stethoscope',link: 'consultations-medicales'},
-      {name: 'Vaccinations',icon: 'fa-syringe',link: 'vaccinations'},
       {name: 'Arrêts de Travail',icon: 'fa-procedures',link: 'arrets-travail'},
       {name: 'Soins Médicaux',icon: 'fa-band-aid',link: 'soins'},
     ]

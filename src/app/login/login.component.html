@@ -39,15 +39,17 @@
 
 
 <div class="limiter">
-		<div class="container-login100" style="background-image: url('../../assets/img/bg-01.jpg');">
+		<div class="container-login100" style="background-color: #2F323E;">
 			<div class="wrap-login100 p-t-30 p-b-50">
-				<span class="login100-form-title p-b-41">
-					CONNEXION AU COMPTE
-				</span>
-				<form class="login100-form validate-form p-b-33 p-t-5" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-
+				<form class="login100-form validate-form p-b-33 p-t-5" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate style="height: 500px; text-align:center;">
+          <img class="logo-img" src="../../assets/img/SST_Logo.png" alt="pic-user" style="height: 100px; 
+                                                                                          width: 300px;margin-top:30px;
+                                                                                          margin-bottom: 20px;"/>            
+          <span class="login100-form-title p-b-41" style="color:#2F323E;font-size:17px; font-weight: bold;">
+              CONNEXION AU COMPTE
+            </span>
 					<div class="wrap-input100 validate-input" data-validate = "Enter username">
-            <mat-icon style="margin-top : 12px; margin-left : 15px;">lock</mat-icon>
+            <mat-icon style="margin-top : 12px; margin-left : 15px;">person</mat-icon>
 						<input class="input100" type="text"  name="username" [(ngModel)]="form.username" #username="ngModel"
             required placeholder="Nom d'utilisateur">
             <div *ngIf="f.submitted && username.invalid">
@@ -66,7 +68,7 @@
 					</div>
 
 					<div class="container-login100-form-btn m-t-32">
-						<button class="login100-form-btn">
+						<button class="login100-form-btn" style="background-color: #F0812D">
 							Se connecter
             </button>
             <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger">

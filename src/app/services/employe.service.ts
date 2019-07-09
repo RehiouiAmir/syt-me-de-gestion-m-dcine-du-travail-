@@ -237,6 +237,9 @@ export class EmployeService {
     return this.http.get<any>(`${environment.baseUrl}/employes/`+id_employe+`/reorientationProfessionnelles`);
   }
 
+  creatReorientation(id_visite: number,reorientation) {
+    return this.http.post(`${environment.baseUrl}/visiteMedicales/`+id_visite+`/reorientationProfessionnelle`,reorientation);
+  }
   // Service Soins 
 
   getAllSoinsByEmployeId(id_employe: number) {
@@ -318,12 +321,21 @@ export class EmployeService {
     return this.http.post(`${environment.baseUrl}/employes/`+id_employe+`/visiteMedicale`, visite);    
   }
 
+  creatReponse(id_visite,id_interrogatoire,reponse){
+    return this.http.post(`${environment.baseUrl}/visiteMedicales/`+id_visite+`/interrogatoires/`+id_interrogatoire, reponse);    
+  }
+
+
   getVisiteByVisiteId(id_visite) {
     return this.http.get<any>(`${environment.baseUrl}/visiteMedicales/`+id_visite);
   }
 
   updateVisite(id_visite,visite){
     return this.http.put(`${environment.baseUrl}/visiteMedicales/`+id_visite,visite);    
+  }
+
+  deleteVisite(id_visite){
+    return this.http.delete(`${environment.baseUrl}/visiteMedicales/`+id_visite);    
   }
   creatExamenBiometrique(id_visite,examenBiometrique){
     return this.http.post(`${environment.baseUrl}/visiteMedicales/`+id_visite+`/examenBiometrique`, examenBiometrique);        

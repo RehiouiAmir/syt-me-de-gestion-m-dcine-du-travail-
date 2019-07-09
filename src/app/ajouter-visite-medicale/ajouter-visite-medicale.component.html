@@ -212,28 +212,6 @@
             </form>
         </mat-step>
         <mat-step>
-            <ng-template matStepLabel>Interrogatoire</ng-template>
-            <!-- contenu d'étape -->
-            <div class="col-md-12 row-title">
-                <h4> Réponse d'interegatoire
-                    <span class="btn-add">
-                        <button mat-mini-fab (click)="addReponse(''+false)">
-                            <mat-icon>add</mat-icon>                        
-                        </button>
-                    </span>
-                </h4>
-            </div>
-                                    
-            <div class="pull-right btn-step">
-                <button mat-button mat-raised-button matStepperPrevious class="btn-stepper-precedent">                   
-                    <mat-icon>keyboard_arrow_left</mat-icon>                    
-                </button>
-                <button mat-button mat-raised-button matStepperNext class="btn-stepper-suivant">
-                    <mat-icon>keyboard_arrow_right</mat-icon>
-                </button>
-            </div>
-        </mat-step>
-        <mat-step>
             <ng-template matStepLabel>Traitement</ng-template>
             <!-- contenu d'étape -->
                 <div class="row col-md-12">
@@ -401,13 +379,21 @@
                         </mat-form-field>
                     </div>
                     <ng-container *ngIf="fourthFormGroup.value.resultat === 'Inapte temporairement' || fourthFormGroup.value.resultat === 'Inapte définitif'">
-                        <div class="col-md-12 row-title">
+                        <div class="col-md-12 row-title-1">
                             <h4>Réorientation professionnelle
-                                <span class="btn-add">
+                                <span *ngIf="visite.reorientationProfessionnelle === null" class="btn-add">
                                     <button mat-mini-fab (click)="addReorientation(''+false,posteActuel)">
                                         <mat-icon>add</mat-icon>                        
                                     </button>
                                 </span>
+                                <ng-container *ngIf="visite.reorientationProfessionnelle != null">
+                                    <div class="col-md-12">
+                                        <p class="title-champ">Listes des postes conseillés : <span class="champ">{{visite.reorientationProfessionnelle.posteConseilles}}</span></p>                                                 
+                                    </div>
+                                    <div class="col-md-12">
+                                        <p class="title-champ">Listes des postes déconseillés : <span class="champ">{{visite.reorientationProfessionnelle.posteDeconseilles}}</span></p>                                                 
+                                    </div>
+                                </ng-container>
                             </h4>
                         </div>
                     </ng-container>

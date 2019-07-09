@@ -9,6 +9,8 @@ import { FormControl } from '@angular/forms';
 import { Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { PopupService } from 'src/app/services/popup.service';
+import { DialogsService } from 'src/app/dialogs/dialogs.service';
 
 @Component({
   selector: 'app-admin-acte',
@@ -27,7 +29,7 @@ export class AdminActeComponent implements OnInit {
 
   constructor(private activitesService : ActivitesMedicalesService,
     private administrationService : AdministrationService,
-    public dialog: MatDialog, private employeService : EmployeService) { }
+    public dialog: MatDialog, private employeService : EmployeService,private popupService: PopupService,private dialogsService: DialogsService) { }
 
   ngOnInit() {
 
@@ -64,10 +66,28 @@ export class AdminActeComponent implements OnInit {
         this.administrationService.ajouterActe(result).subscribe(data => {
           this.dataSource.data.push(data)
           this.dataSource._updateChangeSubscription() 
+          this.popupService.success("L'acte a été ajouté avec succès");
         },
-        error => console.log(error));
+        error => this.popupService.danger("L'acte n'a pas été ajouté")); 
       }
       });
+    }
+
+    delete(object) { 
+      this.dialogsService
+      .confirm('Confirmation', 'Voulez-vous vraiment supprimer cet acte de soin?')
+      .subscribe(result => {
+        if (result === true){
+        //delete from backend
+            this.administrationService.deleteActe(object.id).subscribe(data => {
+              console.log(data)
+              this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
+              this.dataSource._updateChangeSubscription()  
+              this.popupService.success("L'acte a été supprimé avec succès");
+            },
+            error => this.popupService.danger("L'acte n'a pas été supprimé"));
+          }
+        });
     }
 }
 

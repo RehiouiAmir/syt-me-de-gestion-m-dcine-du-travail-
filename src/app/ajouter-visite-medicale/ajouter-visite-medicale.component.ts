@@ -13,6 +13,7 @@ import { AdministrationService } from 'src/app/services/administration.service';
 import { AjouterExamenComplementaireComponent } from 'src/app/ajouter-examen-complementaire/ajouter-examen-complementaire.component';
 import { AjouterOrientationMedicaleComponent } from 'src/app/ajouter-orientation-medicale/ajouter-orientation-medicale.component';
 import { AjouterReorientationProfessionnelleComponent } from 'src/app/ajouter-reorientation-professionnelle/ajouter-reorientation-professionnelle.component';
+import { AjouterReponseComponent } from 'src/app/ajouter-reponse/ajouter-reponse.component';
 
 @Component({
   selector: 'app-ajouter-visite-medicale',
@@ -43,6 +44,10 @@ export class AjouterVisiteMedicaleComponent implements OnInit {
     /* Table Structure | Orientation médicale */
     displayedColumnsExamens: string[] = ['designation','description','resultat','Action-delete','Action-result'];
     dataSourceExamens : MatTableDataSource<any>;
+
+     /* Table Structure | Orientation médicale */
+     displayedColumnsReponse: string[] = ['appareil','interrogation','reponse','Action-delete'];
+     dataSourceReponse : MatTableDataSource<any>;
 
     constructor(private route: ActivatedRoute,
                 private _formBuilder: FormBuilder,
@@ -211,19 +216,51 @@ export class AjouterVisiteMedicaleComponent implements OnInit {
               posteActuel : posteActuel}
       });
       dialogRef.afterClosed().subscribe(result => {
-      });
+        if (result !== undefined){
+          console.log(result)
+          //change in backend
+            this.employeService.creatReorientation(this.visite.id,result).subscribe(data => {
+            this.popupService.success("La réorientation professionnelle a été ajouté avec succès");                               
+            this.visite.reorientationProfessionnelle= data
+          },
+          error => this.popupService.danger("La réorientation professionnelle n'a pas été ajouté")); 
+        }
+    });
     }
+
+    addReponse(edit) {
+     let dialogRef = this.dialog.open(AjouterReponseComponent, {
+       width: '50%',
+       data: {edit :edit}
+     });
+     dialogRef.afterClosed().subscribe(result => {
+       if (result !== undefined){
+         console.log(result)
+         //change in backend
+           this.employeService.creatReponse(this.visite.id,result.interrogatoire.id,result).subscribe(data => {
+           this.popupService.success("La réponse a été ajouté avec succès");                               
+           this.visite.reorientationProfessionnelle= data
+         },
+         error => this.popupService.danger("La réponse n'a pas été ajouté")); 
+       }
+   });
+  }
      onSubmitFinale(){
       if (!this.fourthFormGroup.invalid){ 
+        console.log(this.secondFormGroup.value)
         this.employeService.creatExamenBiometrique(this.visite.id,this.secondFormGroup.value).subscribe(result =>{
           this.visite.examenBiometriques =result;
         },
-          error => this.popupService.danger("L'examen Biométrique !!!"));
+          error => console.log(error))
         this.employeService.creatExplorationFoctionnelle(this.visite.id,this.thirdFormGroup.value).subscribe(result =>{
           this.visite.explorationFonctionnelle =result;
         },
-          error => this.popupService.danger("L'exploration !!!"));
+        error => console.log(error))
+                
         console.log(this.visite)
+        this.visite.resultat = this.fourthFormGroup.value.resultat,
+        this.visite.conclusionProfessionnelle = this.fourthFormGroup.value.conclusionProfessionnelle,
+        this.visite.etat = this.fourthFormGroup.value.etat,        
         this.employeService.updateVisite(this.visite.id,this.visite).subscribe(result =>{
           console.log(result)    
         this.popupService.success("La visite médicale a été conclu avec succès -- Etat : Accomplie");                                        

@@ -9,6 +9,8 @@ import { FormControl } from '@angular/forms';
 import { Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { PopupService } from 'src/app/services/popup.service';
+import { DialogsService } from 'src/app/dialogs/dialogs.service';
 
 @Component({
   selector: 'app-admin-medicament',
@@ -31,7 +33,10 @@ export class AdminMedicamentComponent implements OnInit {
    @ViewChild(MatPaginator) paginator: MatPaginator;
    @ViewChild(MatSort) sort: MatSort;
    
-   constructor(private activitesService : ActivitesMedicalesService,private administrationService : AdministrationService,public dialog: MatDialog, private employeService : EmployeService) { }
+   constructor(private activitesService : ActivitesMedicalesService,
+    private administrationService : AdministrationService,
+    public dialog: MatDialog, private employeService : EmployeService,private popupService: PopupService,private dialogsService: DialogsService) { }
+
  
    ngOnInit() {
  
@@ -69,11 +74,28 @@ export class AdminMedicamentComponent implements OnInit {
         this.administrationService.ajouterMedicament(result).subscribe(data => {
           this.dataSource.data.push(data)
           this.dataSource._updateChangeSubscription() 
+          this.popupService.success("Le médicament a été ajouté avec succès");
         },
-        error => console.log(error));
+        error => this.popupService.danger("Le médicament n'a pas été ajouté")); 
       }
     });
  }
+  delete(object) { 
+    this.dialogsService
+    .confirm('Confirmation', 'Voulez-vous vraiment supprimer ce médicament?')
+    .subscribe(result => {
+      if (result === true){
+      //delete from backend
+          this.administrationService.deleteMedicament(object.id).subscribe(data => {
+            console.log(data)
+            this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
+            this.dataSource._updateChangeSubscription()  
+            this.popupService.success("Le médicament a été supprimé avec succès");
+          },
+          error => this.popupService.danger("Le médicament n'a pas été supprimé"));
+        }
+      });
+  }
 }
 
 @Component({

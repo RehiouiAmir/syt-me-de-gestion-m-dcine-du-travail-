@@ -9,6 +9,7 @@ import { FormControl } from '@angular/forms';
 import { Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { PopupService } from 'src/app/services/popup.service';
 
 @Component({
   selector: 'app-admin-societe',
@@ -33,7 +34,7 @@ export class AdminSocieteComponent implements OnInit {
    
    constructor(private activitesService : ActivitesMedicalesService,
               private administrationService : AdministrationService,
-              public dialog: MatDialog, private employeService : EmployeService) { }
+              public dialog: MatDialog, private employeService : EmployeService,private popupService: PopupService) { }
  
    ngOnInit() {
  
@@ -70,8 +71,9 @@ export class AdminSocieteComponent implements OnInit {
         this.administrationService.ajouterSociete(result).subscribe(data => {
           this.dataSource.data.push(data)
           this.dataSource._updateChangeSubscription() 
+          this.popupService.success("La société a été ajouté avec succès");
         },
-        error => console.log(error));
+        error => this.popupService.danger("La société n'a pas été ajouté"));
       }
     });
  }

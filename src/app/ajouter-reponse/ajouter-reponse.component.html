@@ -1,0 +1,43 @@
+<h4 mat-dialog-title class="mat-dialog-title">
+    <ng-container *ngIf="data.edit === 'false'">
+            Ajouter réponse 
+    </ng-container>
+    <ng-container *ngIf="data.edit === 'true'">
+            Modifier la reorientation professionnelle
+    </ng-container>
+  </h4>
+  <form [formGroup]="addGlobalForm">    
+    <div mat-dialog-content>  
+      <div class="col-md-12 row">                                      
+        <div class="col-md-12">
+            <mat-form-field>
+                <mat-select placeholder="Appareil" formControlName="apareil" required (selectionChange)="InitialiserInterrogatoire($event.value)">
+                    <mat-option *ngFor="let appareil of appareils" [value]="appareil">
+                        {{appareil.designation}}
+                    </mat-option>                  
+                </mat-select>
+            </mat-form-field> 
+        </div> 
+        <div class="col-md-12">
+            <mat-form-field>
+                <mat-select placeholder="Interrogatoires" formControlName="interrogatoire" required>
+                    <mat-option *ngFor="let interrogatoire of interrogatoires" [value]="interrogatoires">
+                        {{interrogatoire.designation}}
+                    </mat-option>                  
+                </mat-select>
+            </mat-form-field> 
+        </div> 
+        <div class="col-md-12">
+            <mat-form-field>
+                <textarea matInput placeholder="Désignation" formControlName="designation" ></textarea>
+            </mat-form-field>
+        </div>
+      </div>      
+    </div>
+    <div mat-dialog-actions class="pull-right">
+        <button  *ngIf="data.edit === 'false'"  mat-button mat-raised-button class="btn-ajouter" (click)="onSubmit()" cdkFocusInitial>Ajouter <mat-icon>add</mat-icon></button>
+        <button   *ngIf="data.edit === 'true'" mat-button mat-raised-button class="btn-edit" (click)="onSubmit()" cdkFocusInitial>Enregistrer <mat-icon>save</mat-icon></button>
+        <button mat-button mat-raised-button class="btn-annuler" (click)="onNoClick()" >Annuler</button>        
+    </div>
+  </form>
+  

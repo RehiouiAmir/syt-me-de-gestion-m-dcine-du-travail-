@@ -75,17 +75,17 @@ export class DmVisiteMedicaleComponent implements OnInit {
 
   delete(object){
     this.dialogsService
-    .confirm('Confirmation', 'Voulez-vous vraiment supprimer cette consultation médicale?')
+    .confirm('Confirmation', 'Voulez-vous vraiment supprimer cette visite médicale?')
     .subscribe(result => {
       if (result === true){
         //delete from backend
-        this.employeService.deleteConsultation(object.id).subscribe(data => {
+        this.employeService.deleteVisite(object.id).subscribe(data => {
           console.log(data)
           this.dataSource.data.splice(this.dataSource.data.indexOf(object),1)
           this.dataSource._updateChangeSubscription()  
-          this.popupService.success("La consultation médicale a été supprimé avec succès");
+          this.popupService.success("La visite médicale a été supprimé avec succès");
         },
-        error => this.popupService.danger("La consultation médicale n'a pas été supprimé"));
+        error => this.popupService.danger("La visite médicale n'a pas été supprimé"));
       }
     });
   }

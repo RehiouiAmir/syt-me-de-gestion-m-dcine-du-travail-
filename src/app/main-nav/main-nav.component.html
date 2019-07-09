@@ -33,11 +33,11 @@
         <p class="user_name">{{posteActuel?.posteTravail?.designation}}</p>
       </div>
       <mat-nav-list>
-          <a *ngIf="roleUser === 'ROLE_ADMIN'"  mat-list-item routerLinkActive="active"  routerLink="dossier-medical">
+          <a *ngIf="roleUser != 'CHS' && roleUser != 'AGI'"   mat-list-item routerLinkActive="active"  routerLink="dossier-medical">
             <span class="fas fa-folder-plus"> </span>
             Dossier Médical
           </a>
-          <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+          <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" *ngIf="roleUser != 'CHS' && roleUser != 'AGI'">
             <!-- This is the tree node template for leaf nodes -->
             <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
               <!-- use a disabled button to provide padding for tree leaf -->
@@ -62,7 +62,7 @@
             </mat-tree-node>
           </mat-tree>
           <mat-divider></mat-divider>
-          <a mat-list-item routerLinkActive="active" routerLink="accidents-travail">
+          <a mat-list-item routerLinkActive="active" routerLink="accidents-travail" *ngIf="roleUser != 'CHS' && roleUser != 'INF'">
             <span class="fas fa-user-injured"></span>                            
             Accidents de Travail 
           </a>
@@ -72,17 +72,20 @@
             Rendez-vous 
           </a>
           <mat-divider></mat-divider>  
-          <a mat-list-item routerLinkActive="active" routerLink="risques-professionnels">
+          <a mat-list-item routerLinkActive="active" routerLink="risques-professionnels" *ngIf="roleUser === 'CHS' ||
+                                                                                                roleUser === 'ROLE_ADMIN' ||
+                                                                                                roleUser === 'MET' ">
             <span class="fas fa-radiation-alt"></span>                            
             Risques Professionnels 
           </a>
           <mat-divider></mat-divider>        
-          <a mat-list-item routerLinkActive="active" routerLink="statistiques">
+          <a mat-list-item routerLinkActive="active" routerLink="statistiques" *ngIf="roleUser === 'ROLE_ADMIN' ||
+                                                                                      roleUser === 'MET' ">
             <span class="fas fa-chart-pie"></span>                                        
             Statistiques 
           </a>  
           <mat-divider></mat-divider>            
-          <mat-tree [dataSource]="dataSourceAdmin" [treeControl]="treeControlAdmin">
+          <mat-tree [dataSource]="dataSourceAdmin" [treeControl]="treeControlAdmin" *ngIf="roleUser === 'ROLE_ADMIN'">
             <!-- This is the tree node template for leaf nodes -->
             <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
               <!-- use a disabled button to provide padding for tree leaf -->
@@ -119,7 +122,7 @@
             *ngIf="isHandset$ | async">
             <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
           </button>
-          <div ngbDropdown>
+          <!-- <div ngbDropdown>
             <button mat-icon-button ngbDropdownToggle>
               <mat-icon matBadge="13" matBadgeSize="small">
                 notifications
@@ -130,7 +133,7 @@
               <a ngbDropdownItem class="list-group-item" href="#">notification 2</a>
               <a ngbDropdownItem class="list-group-item" href="#">notification 3</a>          
             </ul>
-          </div>
+          </div> -->
           
 
       <span class="navBar-spacer"></span>

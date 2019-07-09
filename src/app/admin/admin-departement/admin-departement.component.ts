@@ -9,6 +9,7 @@ import { FormControl } from '@angular/forms';
 import { Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { PopupService } from 'src/app/services/popup.service';
 
 @Component({
   selector: 'app-admin-departement',
@@ -33,7 +34,7 @@ export class AdminDepartementComponent implements OnInit {
    
    constructor(private activitesService : ActivitesMedicalesService,
               public dialog: MatDialog, private employeService : EmployeService,
-              private administrationService : AdministrationService) { }
+              private administrationService : AdministrationService,private popupService: PopupService) { }
  
    ngOnInit() {
  
@@ -73,8 +74,9 @@ export class AdminDepartementComponent implements OnInit {
         this.administrationService.ajouterDepartement(id,result).subscribe(data => {
           this.dataSource.data.push(data)
           this.dataSource._updateChangeSubscription() 
+          this.popupService.success("Le département a été ajouté avec succès");
         },
-        error => console.log(error));
+        error => this.popupService.danger("Le département n'a pas été ajouté")); 
       }
     });
  }

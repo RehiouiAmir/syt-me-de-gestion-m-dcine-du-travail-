@@ -9,6 +9,7 @@ import { FormControl } from '@angular/forms';
 import { Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { PopupService } from 'src/app/services/popup.service';
 
 @Component({
   selector: 'app-admin-nature-accident',
@@ -31,7 +32,7 @@ export class AdminNatureAccidentComponent implements OnInit {
    @ViewChild(MatPaginator) paginator: MatPaginator;
    @ViewChild(MatSort) sort: MatSort;
    
-   constructor(private activitesService : ActivitesMedicalesService,private administrationService : AdministrationService,public dialog: MatDialog, private employeService : EmployeService) { }
+   constructor(private activitesService : ActivitesMedicalesService,private popupService: PopupService, private administrationService : AdministrationService,public dialog: MatDialog, private employeService : EmployeService) { }
  
    ngOnInit() {
  
@@ -69,8 +70,9 @@ export class AdminNatureAccidentComponent implements OnInit {
         this.administrationService.ajouterNatureAccident(result).subscribe(data => {
           this.dataSource.data.push(data)
           this.dataSource._updateChangeSubscription() 
+          this.popupService.success("La nature d'accident a été ajouté avec succès");
         },
-        error => console.log(error));
+        error => this.popupService.danger("La nature d'accident n'a pas été ajouté")); 
       }
     });
  }

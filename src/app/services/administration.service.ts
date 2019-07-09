@@ -21,6 +21,14 @@ export class AdministrationService {
       return this.http.post<any[]>(`${environment.baseUrl}/acte`, acte);
     }
 
+    deleteActe(id_acte){
+      return this.http.delete<any[]>(`${environment.baseUrl}/actes/`+id_acte);      
+    }
+
+    deleteMedicament(id_acte){
+      return this.http.delete<any[]>(`${environment.baseUrl}/medicaments/`+id_acte);      
+    }
+
     ajouterAppareil(appareil) {
       return this.http.post<any[]>(`${environment.baseUrl}/appareil`, appareil);
     }
